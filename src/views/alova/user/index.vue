@@ -27,11 +27,11 @@ const { loading, data, refresh, reload, page, pageSize, pageCount, send, remove 
   (pageNum, size) =>
     fetchGetUserList({
       ...searchParams,
-      current: pageNum,
-      size
+      currentPage: pageNum,
+      pageSize: size
     }),
   {
-    data: ({ records }) => records,
+    data: ({ list }) => list,
     total: ({ total }) => total,
 
     // trigger reload when states in `searchParams` changed

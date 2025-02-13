@@ -14,7 +14,7 @@ type TableAlovaApiFn<T = any, R = Api.Common.CommonSearchParams> = (
 
 // this hook is used to manage table columns
 // if you choose alova, you can move this hook to the `src/hooks` to handle all list page in your project
-export default function useCheckedColumns<A extends TableAlovaApiFn, T = Awaited<ReturnType<A>>['records'][number]>(
+export default function useCheckedColumns<A extends TableAlovaApiFn, T = Awaited<ReturnType<A>>['list'][number]>(
   getColumns: () => DataTableColumn<T>[]
 ) {
   const SELECTION_KEY = '__selection__';

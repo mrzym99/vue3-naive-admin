@@ -623,6 +623,35 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'system-manage',
+    path: '/system-manage',
+    component: 'layout.base',
+    meta: {
+      title: 'system-manage',
+      i18nKey: 'route.system-manage'
+    },
+    children: [
+      {
+        name: 'system-manage_role',
+        path: '/system-manage/role',
+        component: 'view.system-manage_role',
+        meta: {
+          title: 'system-manage_role',
+          i18nKey: 'route.system-manage_role'
+        }
+      },
+      {
+        name: 'system-manage_user',
+        path: '/system-manage/user',
+        component: 'view.system-manage_user',
+        meta: {
+          title: 'system-manage_user',
+          i18nKey: 'route.system-manage_user'
+        }
+      }
+    ]
+  },
+  {
     name: 'user-center',
     path: '/user-center',
     component: 'layout.base$view.user-center',

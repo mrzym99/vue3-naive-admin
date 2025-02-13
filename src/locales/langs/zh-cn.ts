@@ -226,7 +226,10 @@ const local: App.I18n.Schema = {
     plugin_gantt_vtable: 'VTableGantt',
     plugin_typeit: '打字机',
     plugin_tables: '表格',
-    plugin_tables_vtable: 'VTable'
+    plugin_tables_vtable: 'VTable',
+    'system-manage': '系统管理',
+    'system-manage_role': '角色管理',
+    'system-manage_user': '用户管理'
   },
   page: {
     login: {
