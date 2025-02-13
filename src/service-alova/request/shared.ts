@@ -22,8 +22,8 @@ export async function handleRefreshToken() {
 
   try {
     const data = await refreshTokenMethod;
-    localStg.set('token', data.token);
-    localStg.set('refreshToken', data.refreshToken);
+    localStg.set('token', data.access_token);
+    // localStg.set('refreshToken', data.refreshToken);
   } catch (error) {
     resetStore();
     throw error;

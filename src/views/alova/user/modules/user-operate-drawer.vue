@@ -49,7 +49,7 @@ const {
   updateForm
 } = useForm(formData => (props.operateType === 'add' ? addUser(formData) : updateUser(formData)), {
   initialForm: {
-    userName: '',
+    username: '',
     userGender: null,
     nickName: '',
     userPhone: '',
@@ -60,10 +60,10 @@ const {
   resetAfterSubmiting: true
 });
 
-type RuleKey = Extract<keyof UserModel, 'userName' | 'status'>;
+type RuleKey = Extract<keyof UserModel, 'username' | 'status'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
-  userName: defaultRequiredRule,
+  username: defaultRequiredRule,
   status: defaultRequiredRule
 };
 
@@ -124,8 +124,8 @@ watch(visible, () => {
   <NDrawer v-model:show="visible" display-directive="show" :width="360">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <NForm ref="formRef" :model="form" :rules="rules">
-        <NFormItem :label="$t('page.manage.user.userName')" path="userName">
-          <NInput v-model:value="form.userName" :placeholder="$t('page.manage.user.form.userName')" />
+        <NFormItem :label="$t('page.manage.user.username')" path="username">
+          <NInput v-model:value="form.username" :placeholder="$t('page.manage.user.form.username')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.user.userGender')" path="userGender">
           <NRadioGroup v-model:value="form.userGender">
