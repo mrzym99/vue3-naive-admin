@@ -59,7 +59,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     routes.forEach(route => {
       constantRoutesMap.set(route.name, route);
     });
-
     constantRoutes.value = Array.from(constantRoutesMap.values());
   }
 
@@ -160,6 +159,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       const { data, error } = await fetchGetConstantRoutes();
 
       if (!error) {
+        // 添加了从后台获取的路由
         addConstantRoutes(data);
       } else {
         // if fetch constant routes failed, use static constant routes

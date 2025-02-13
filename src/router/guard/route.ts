@@ -79,6 +79,7 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   const isNotFoundRoute = to.name === notFoundRoute;
 
   // if the constant route is not initialized, then initialize the constant route
+  // 先初始化静态路由
   if (!routeStore.isInitConstantRoute) {
     await routeStore.initConstantRoute();
 
