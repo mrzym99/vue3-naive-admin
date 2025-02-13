@@ -232,7 +232,7 @@ const local: App.I18n.Schema = {
     login: {
       common: {
         loginOrRegister: 'Login / Register',
-        userNamePlaceholder: 'Please enter user name',
+        usernamePlaceholder: 'Please enter user name',
         phonePlaceholder: 'Please enter phone number',
         codePlaceholder: 'Please enter verification code',
         passwordPlaceholder: 'Please enter password',
@@ -242,7 +242,7 @@ const local: App.I18n.Schema = {
         back: 'Back',
         validateSuccess: 'Verification passed',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {userName} !'
+        welcomeBack: 'Welcome back, {username} !'
       },
       pwdLogin: {
         title: 'Password Login',
@@ -291,7 +291,7 @@ const local: App.I18n.Schema = {
     home: {
       branchDesc:
         'For the convenience of everyone in developing and updating the merge, we have streamlined the code of the main branch, only retaining the homepage menu, and the rest of the content has been moved to the example branch for maintenance. The preview address displays the content of the example branch.',
-      greeting: 'Good morning, {userName}, today is another day full of vitality!',
+      greeting: 'Good morning, {username}, today is another day full of vitality!',
       weatherDesc: 'Today is cloudy to clear, 20℃ - 25℃!',
       projectCount: 'Project Count',
       todo: 'Todo',
@@ -396,7 +396,7 @@ const local: App.I18n.Schema = {
       },
       user: {
         title: 'User List',
-        userName: 'User Name',
+        username: 'User Name',
         userGender: 'Gender',
         nickName: 'Nick Name',
         userPhone: 'Phone Number',
@@ -404,7 +404,7 @@ const local: App.I18n.Schema = {
         userStatus: 'User Status',
         userRole: 'User Role',
         form: {
-          userName: 'Please enter user name',
+          username: 'Please enter user name',
           userGender: 'Please select gender',
           nickName: 'Please enter nick name',
           userPhone: 'Please enter phone number',
@@ -491,7 +491,7 @@ const local: App.I18n.Schema = {
   },
   form: {
     required: 'Cannot be empty',
-    userName: {
+    username: {
       required: 'Please enter user name',
       invalid: 'User name format is incorrect'
     },

@@ -7,12 +7,13 @@ export function useAuth() {
     if (!authStore.isLogin) {
       return false;
     }
+    console.log(codes);
 
-    if (typeof codes === 'string') {
-      return authStore.userInfo.buttons.includes(codes);
-    }
+    // if (typeof codes === 'string') {
+    //   return authStore.userInfo.buttons.includes(codes);
+    // }
 
-    return codes.some(code => authStore.userInfo.buttons.includes(code));
+    return true; // codes.some(code => authStore.userInfo.buttons.includes(code));
   }
 
   return {

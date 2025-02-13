@@ -4,6 +4,12 @@ export default defineConfig(
   { vue: true, unocss: true },
   {
     rules: {
+      'max-params': [
+        'warn',
+        {
+          max: 5
+        }
+      ],
       'vue/multi-word-component-names': [
         'warn',
         {

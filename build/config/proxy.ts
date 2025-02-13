@@ -20,6 +20,8 @@ export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
     Object.assign(proxy, createProxyItem(item));
   });
 
+  // console.log('proxy', proxy);
+
   return proxy;
 }
 

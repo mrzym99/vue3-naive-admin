@@ -15,13 +15,15 @@ const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
 
 interface FormModel {
-  userName: string;
+  username: string;
   password: string;
+  code: string;
 }
 
 const model: FormModel = reactive({
-  userName: 'Soybean',
-  password: '123456'
+  username: 'xiaozhang',
+  password: '123456',
+  code: '123'
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
@@ -29,55 +31,56 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   const { formRules } = useFormRules();
 
   return {
-    userName: formRules.userName,
-    password: formRules.pwd
+    username: formRules.username,
+    password: formRules.pwd,
+    code: formRules.code
   };
 });
 
 async function handleSubmit() {
   await validate();
-  await authStore.login(model.userName, model.password);
+  await authStore.login(model.username, model.password, model.code);
 }
 
-type AccountKey = 'super' | 'admin' | 'user';
+// type AccountKey = 'super' | 'admin' | 'user';
 
-interface Account {
-  key: AccountKey;
-  label: string;
-  userName: string;
-  password: string;
-}
+// interface Account {
+//   key: AccountKey;
+//   label: string;
+//   username: string;
+//   password: string;
+// }
 
-const accounts = computed<Account[]>(() => [
-  {
-    key: 'super',
-    label: $t('page.login.pwdLogin.superAdmin'),
-    userName: 'Super',
-    password: '123456'
-  },
-  {
-    key: 'admin',
-    label: $t('page.login.pwdLogin.admin'),
-    userName: 'Admin',
-    password: '123456'
-  },
-  {
-    key: 'user',
-    label: $t('page.login.pwdLogin.user'),
-    userName: 'User',
-    password: '123456'
-  }
-]);
+// const accounts = computed<Account[]>(() => [
+//   {
+//     key: 'super',
+//     label: $t('page.login.pwdLogin.superAdmin'),
+//     username: 'Super',
+//     password: '123456'
+//   },
+//   {
+//     key: 'admin',
+//     label: $t('page.login.pwdLogin.admin'),
+//     username: 'Admin',
+//     password: '123456'
+//   },
+//   {
+//     key: 'user',
+//     label: $t('page.login.pwdLogin.user'),
+//     username: 'User',
+//     password: '123456'
+//   }
+// ]);
 
-async function handleAccountLogin(account: Account) {
-  await authStore.login(account.userName, account.password);
-}
+// async function handleAccountLogin(account: Account) {
+//   await authStore.login(account.username, account.password);
+// }
 </script>
 
 <template>
   <NForm ref="formRef" :model="model" :rules="rules" size="large" :show-label="false" @keyup.enter="handleSubmit">
-    <NFormItem path="userName">
-      <NInput v-model:value="model.userName" :placeholder="$t('page.login.common.userNamePlaceholder')" />
+    <NFormItem path="username">
+      <NInput v-model:value="model.username" :placeholder="$t('page.login.common.usernamePlaceholder')" />
     </NFormItem>
     <NFormItem path="password">
       <NInput
@@ -106,11 +109,13 @@ async function handleAccountLogin(account: Account) {
         </NButton>
       </div>
       <NDivider class="text-14px text-#666 !m-0">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</NDivider>
-      <div class="flex-center gap-12px">
+      <!--
+ <div class="flex-center gap-12px">
         <NButton v-for="item in accounts" :key="item.key" type="primary" @click="handleAccountLogin(item)">
           {{ item.label }}
         </NButton>
-      </div>
+      </div> 
+-->
     </NSpace>
   </NForm>
 </template>
