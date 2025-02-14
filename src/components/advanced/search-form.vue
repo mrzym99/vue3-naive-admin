@@ -37,6 +37,17 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
   );
 });
 
+const isCllapse = ref(false);
+const collapse = () => {
+  isCllapse.value = !isCllapse.value;
+};
+
+const finalFields = computed(() => {
+  if (isCllapse.value) {
+    return props.fields.filter(item => item.key !== 'username');
+  }
+  return props.fields;
+});
 async function reset() {
   await restoreValidation();
   emit('reset');
@@ -53,7 +64,7 @@ async function search() {
     <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
       <NGrid responsive="screen" item-responsive>
         <NFormItemGi
-          v-for="field in props.fields"
+          v-for="field in finalFields"
           :key="field.key"
           span="24 s:12 m:6"
           :label="$t(field.label)"
@@ -73,8 +84,8 @@ async function search() {
             clearable
           />
         </NFormItemGi>
-        <NFormItemGi span="24 m:12" class="pr-24px">
-          <NSpace class="w-full" justify="end">
+        <NFormItemGi span="24 s:12 m:6" class="pr-24px">
+          <NSpace class="w-full" justify="end" :wrap="false">
             <NButton @click="reset">
               <template #icon>
                 <icon-ic-round-refresh class="text-icon" />
@@ -86,6 +97,12 @@ async function search() {
                 <icon-ic-round-search class="text-icon" />
               </template>
               {{ $t('common.search') }}
+            </NButton>
+            <NButton class="!p-0" type="primary" :bordered="false" ghost @click="collapse">
+              <template #icon>
+                <icon-ic-outline-keyboard-arrow-up v-if="!isCllapse" class="text-icon" />
+                <icon-ic-outline-keyboard-arrow-down v-else class="text-icon" />
+              </template>
             </NButton>
           </NSpace>
         </NFormItemGi>

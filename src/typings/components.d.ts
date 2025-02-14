@@ -31,6 +31,8 @@ declare module 'vue' {
     IconGridiconsFullscreenExit: typeof import('~icons/gridicons/fullscreen-exit')['default']
     'IconIc:roundPlus': typeof import('~icons/ic/round-plus')['default']
     'IconIconParkOutline:equalRatio': typeof import('~icons/icon-park-outline/equal-ratio')['default']
+    IconIcOutlineKeyboardArrowDown: typeof import('~icons/ic/outline-keyboard-arrow-down')['default']
+    IconIcOutlineKeyboardArrowUp: typeof import('~icons/ic/outline-keyboard-arrow-up')['default']
     IconIcRoundDelete: typeof import('~icons/ic/round-delete')['default']
     IconIcRoundPlus: typeof import('~icons/ic/round-plus')['default']
     IconIcRoundRefresh: typeof import('~icons/ic/round-refresh')['default']

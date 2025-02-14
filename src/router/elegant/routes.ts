@@ -141,7 +141,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.function_super-page',
           icon: 'ic:round-supervisor-account',
           order: 5,
-          roles: ['R_SUPER']
         }
       },
       {
@@ -212,8 +211,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'manage',
       i18nKey: 'route.manage',
       icon: 'carbon:cloud-service-management',
-      order: 9,
-      
+      order: 9
     },
     children: [
       {
@@ -225,7 +223,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_menu',
           icon: 'material-symbols:route',
           order: 3,
-          
           keepAlive: true
         }
       },
@@ -238,7 +235,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_role',
           icon: 'carbon:user-role',
           order: 2,
-          roles: ['R_SUPER']
         }
       },
       {
@@ -249,7 +245,7 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'manage_user',
           i18nKey: 'route.manage_user',
           icon: 'ic:round-manage-accounts',
-          order: 1,
+          order: 1
         }
       },
       {

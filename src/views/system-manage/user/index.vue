@@ -26,25 +26,43 @@ const userSearchForm: Form.SearchForm = [
     options: []
   },
   {
-    key: 'username',
-    label: '用户名',
+    key: 'nickName',
+    label: '昵称',
     type: 'input',
-    placeholder: '请输入用户名',
+    placeholder: '请输入昵称',
     options: []
   },
   {
-    key: 'username',
-    label: '用户名',
-    type: 'input',
-    placeholder: '请输入用户名',
-    options: []
+    key: 'gender',
+    label: '性别',
+    type: 'select',
+    placeholder: '请选择性别',
+    options: [
+      {
+        value: '0',
+        label: '女'
+      },
+      {
+        value: '1',
+        label: '男'
+      }
+    ]
   },
   {
-    key: 'username',
-    label: '用户名',
+    key: 'roleId',
+    label: '角色',
     type: 'input',
-    placeholder: '请输入用户名',
-    options: []
+    placeholder: '请选择角色',
+    options: [
+      {
+        value: '1',
+        label: '管理员'
+      },
+      {
+        value: '2',
+        label: '普通用户'
+      }
+    ]
   }
 ];
 
