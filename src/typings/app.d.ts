@@ -577,17 +577,17 @@ declare namespace App {
             username: string;
             userGender: string;
             nickName: string;
-            userPhone: string;
-            userEmail: string;
-            userStatus: string;
+            phone: string;
+            email: string;
+            status: string;
             userRole: string;
             form: {
               username: string;
-              userGender: string;
+              gender: string;
               nickName: string;
-              userPhone: string;
-              userEmail: string;
-              userStatus: string;
+              phone: string;
+              email: string;
+              status: string;
               userRole: string;
             };
             addUser: string;

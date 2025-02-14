@@ -4,7 +4,7 @@ import { utils, writeFile } from 'xlsx';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
-import { enableStatusRecord, userGenderRecord } from '@/constants/business';
+import { enableStatusRecord, genderRecord } from '@/constants/business';
 import { $t } from '@/locales';
 
 const appStore = useAppStore();
@@ -19,10 +19,10 @@ const { columns, data, loading } = useTable({
     // the value can not be undefined, otherwise the property in Form will not be reactive
     status: null,
     username: null,
-    userGender: null,
+    gender: null,
     nickName: null,
-    userPhone: null,
-    userEmail: null
+    phone: null,
+    email: null
   },
   columns: () => [
     {
@@ -43,23 +43,23 @@ const { columns, data, loading } = useTable({
       minWidth: 100
     },
     {
-      key: 'userGender',
-      title: $t('page.manage.user.userGender'),
+      key: 'gender',
+      title: $t('page.manage.user.gender'),
       align: 'center',
       width: 100,
       render: row => {
-        if (row.userGender === null) {
+        if (row.gender === null) {
           return null;
         }
 
-        const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
+        const tagMap: Record<Api.SystemManage.gender, NaiveUI.ThemeColor> = {
           1: 'primary',
           2: 'error'
         };
 
-        const label = $t(userGenderRecord[row.userGender]);
+        const label = $t(genderRecord[row.gender]);
 
-        return <NTag type={tagMap[row.userGender]}>{label}</NTag>;
+        return <NTag type={tagMap[row.gender]}>{label}</NTag>;
       }
     },
     {
@@ -69,20 +69,20 @@ const { columns, data, loading } = useTable({
       minWidth: 100
     },
     {
-      key: 'userPhone',
-      title: $t('page.manage.user.userPhone'),
+      key: 'phone',
+      title: $t('page.manage.user.phone'),
       align: 'center',
       width: 120
     },
     {
-      key: 'userEmail',
-      title: $t('page.manage.user.userEmail'),
+      key: 'email',
+      title: $t('page.manage.user.email'),
       align: 'center',
       minWidth: 200
     },
     {
       key: 'status',
-      title: $t('page.manage.user.userStatus'),
+      title: $t('page.manage.user.status'),
       align: 'center',
       width: 100,
       render: row => {
@@ -147,8 +147,8 @@ function getTableValue(
     return (item.status && $t(enableStatusRecord[item.status])) || null;
   }
 
-  if (key === 'userGender') {
-    return (item.userGender && $t(userGenderRecord[item.userGender])) || null;
+  if (key === 'gender') {
+    return (item.gender && $t(genderRecord[item.gender])) || null;
   }
 
   return item[key];

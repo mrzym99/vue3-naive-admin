@@ -32,8 +32,8 @@ const {
     username: null,
     userGender: null,
     nickName: null,
-    userPhone: null,
-    userEmail: null
+    phone: null,
+    email: null
   },
   columns: () => [
     {
@@ -55,7 +55,7 @@ const {
     },
     {
       key: 'userGender',
-      title: $t('page.manage.user.userGender'),
+      title: $t('page.manage.user.gender'),
       align: 'center',
       width: 100,
       render: row => {
@@ -80,20 +80,20 @@ const {
       minWidth: 100
     },
     {
-      key: 'userPhone',
-      title: $t('page.manage.user.userPhone'),
+      key: 'phone',
+      title: $t('page.manage.user.phone'),
       align: 'center',
       width: 120
     },
     {
-      key: 'userEmail',
-      title: $t('page.manage.user.userEmail'),
+      key: 'email',
+      title: $t('page.manage.user.email'),
       align: 'center',
       minWidth: 200
     },
     {
       key: 'status',
-      title: $t('page.manage.user.userStatus'),
+      title: $t('page.manage.user.status'),
       align: 'center',
       width: 100,
       render: row => {

@@ -51,51 +51,6 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'alova',
-    path: '/alova',
-    component: 'layout.base',
-    meta: {
-      title: 'alova',
-      i18nKey: 'route.alova',
-      icon: 'carbon:http',
-      order: 7
-    },
-    children: [
-      {
-        name: 'alova_request',
-        path: '/alova/request',
-        component: 'view.alova_request',
-        meta: {
-          title: 'alova_request',
-          i18nKey: 'route.alova_request',
-          order: 1
-        }
-      },
-      {
-        name: 'alova_scenes',
-        path: '/alova/scenes',
-        component: 'view.alova_scenes',
-        meta: {
-          title: 'alova_scenes',
-          i18nKey: 'route.alova_scenes',
-          icon: 'cbi:scene-dynamic',
-          order: 3
-        }
-      },
-      {
-        name: 'alova_user',
-        path: '/alova/user',
-        component: 'view.alova_user',
-        meta: {
-          title: 'alova_user',
-          i18nKey: 'route.alova_user',
-          icon: 'carbon:user-multiple',
-          order: 2
-        }
-      }
-    ]
-  },
-  {
     name: 'function',
     path: '/function',
     component: 'layout.base',
@@ -258,7 +213,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       i18nKey: 'route.manage',
       icon: 'carbon:cloud-service-management',
       order: 9,
-      roles: ['R_ADMIN']
+      
     },
     children: [
       {
@@ -270,7 +225,7 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_menu',
           icon: 'material-symbols:route',
           order: 3,
-          roles: ['R_ADMIN'],
+          
           keepAlive: true
         }
       },
@@ -295,7 +250,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_user',
           icon: 'ic:round-manage-accounts',
           order: 1,
-          roles: ['R_ADMIN']
         }
       },
       {
@@ -307,7 +261,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'manage_user-detail',
           i18nKey: 'route.manage_user-detail',
           hideInMenu: true,
-          roles: ['R_ADMIN'],
           activeMenu: 'manage_user'
         }
       }

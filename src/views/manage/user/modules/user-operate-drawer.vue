@@ -41,7 +41,7 @@ const title = computed(() => {
 
 type Model = Pick<
   Api.SystemManage.User,
-  'username' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles' | 'status'
+  'username' | 'userGender' | 'nickName' | 'phone' | 'email' | 'userRoles' | 'status'
 >;
 
 const model = ref(createDefaultModel());
@@ -51,8 +51,8 @@ function createDefaultModel(): Model {
     username: '',
     userGender: null,
     nickName: '',
-    userPhone: '',
-    userEmail: '',
+    phone: '',
+    email: '',
     userRoles: [],
     status: null
   };
@@ -125,7 +125,7 @@ watch(visible, () => {
         <NFormItem :label="$t('page.manage.user.username')" path="username">
           <NInput v-model:value="model.username" :placeholder="$t('page.manage.user.form.username')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.user.userGender')" path="userGender">
+        <NFormItem :label="$t('page.manage.user.gender')" path="userGender">
           <NRadioGroup v-model:value="model.userGender">
             <NRadio v-for="item in userGenderOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
           </NRadioGroup>
@@ -133,13 +133,13 @@ watch(visible, () => {
         <NFormItem :label="$t('page.manage.user.nickName')" path="nickName">
           <NInput v-model:value="model.nickName" :placeholder="$t('page.manage.user.form.nickName')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.user.userPhone')" path="userPhone">
-          <NInput v-model:value="model.userPhone" :placeholder="$t('page.manage.user.form.userPhone')" />
+        <NFormItem :label="$t('page.manage.user.phone')" path="phone">
+          <NInput v-model:value="model.phone" :placeholder="$t('page.manage.user.form.phone')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.user.userEmail')" path="email">
-          <NInput v-model:value="model.userEmail" :placeholder="$t('page.manage.user.form.userEmail')" />
+        <NFormItem :label="$t('page.manage.user.email')" path="email">
+          <NInput v-model:value="model.email" :placeholder="$t('page.manage.user.form.email')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.user.userStatus')" path="status">
+        <NFormItem :label="$t('page.manage.user.status')" path="status">
           <NRadioGroup v-model:value="model.status">
             <NRadio v-for="item in enableStatusOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
           </NRadioGroup>
