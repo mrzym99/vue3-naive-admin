@@ -4,7 +4,7 @@ import { utils, writeFile } from 'xlsx';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
-import { enableStatusRecord, genderRecord } from '@/constants/business';
+import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
 
 const appStore = useAppStore();
@@ -44,7 +44,7 @@ const { columns, data, loading } = useTable({
     },
     {
       key: 'gender',
-      title: $t('page.manage.user.gender'),
+      title: $t('page.manage.user.userGender'),
       align: 'center',
       width: 100,
       render: row => {
@@ -52,12 +52,12 @@ const { columns, data, loading } = useTable({
           return null;
         }
 
-        const tagMap: Record<Api.SystemManage.gender, NaiveUI.ThemeColor> = {
+        const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
           1: 'primary',
-          2: 'error'
+          0: 'error'
         };
 
-        const label = $t(genderRecord[row.gender]);
+        const label = $t(userGenderRecord[row.gender]);
 
         return <NTag type={tagMap[row.gender]}>{label}</NTag>;
       }
@@ -92,7 +92,7 @@ const { columns, data, loading } = useTable({
 
         const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
           1: 'success',
-          2: 'warning'
+          0: 'warning'
         };
 
         const label = $t(enableStatusRecord[row.status]);
@@ -139,17 +139,17 @@ function getTableValue(
     return null;
   }
 
-  if (key === 'userRoles') {
-    return item.userRoles.map(role => role).join(',');
-  }
+  // if (key === 'userRoles') {
+  //   return item.userRoles.map(role => role).join(',');
+  // }
 
-  if (key === 'status') {
-    return (item.status && $t(enableStatusRecord[item.status])) || null;
-  }
+  // if (key === 'status') {
+  //   return (item.status && $t(enableStatusRecord[item.status])) || null;
+  // }
 
-  if (key === 'gender') {
-    return (item.gender && $t(genderRecord[item.gender])) || null;
-  }
+  // if (key === 'gender') {
+  //   return (item.gender && $t(genderRecord[item.gender])) || null;
+  // }
 
   return item[key];
 }

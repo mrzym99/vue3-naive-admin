@@ -30,7 +30,7 @@ const {
     // the value can not be undefined, otherwise the property in Form will not be reactive
     status: null,
     username: null,
-    userGender: null,
+    gender: null,
     nickName: null,
     phone: null,
     email: null
@@ -54,23 +54,23 @@ const {
       minWidth: 100
     },
     {
-      key: 'userGender',
-      title: $t('page.manage.user.gender'),
+      key: 'gender',
+      title: $t('page.manage.user.userGender'),
       align: 'center',
       width: 100,
       render: row => {
-        if (row.userGender === null) {
+        if (row.gender === null) {
           return null;
         }
 
         const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
           1: 'primary',
-          2: 'error'
+          0: 'error'
         };
 
-        const label = $t(userGenderRecord[row.userGender]);
+        const label = $t(userGenderRecord[row.gender]);
 
-        return <NTag type={tagMap[row.userGender]}>{label}</NTag>;
+        return <NTag type={tagMap[row.gender]}>{label}</NTag>;
       }
     },
     {
@@ -103,7 +103,7 @@ const {
 
         const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
           1: 'success',
-          2: 'warning'
+          0: 'warning'
         };
 
         const label = $t(enableStatusRecord[row.status]);
@@ -156,14 +156,14 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-function handleDelete(id: number) {
+function handleDelete(id: string) {
   // request
   console.log(id);
 
   onDeleted();
 }
 
-function edit(id: number) {
+function edit(id: string) {
   handleEdit(id);
 }
 </script>

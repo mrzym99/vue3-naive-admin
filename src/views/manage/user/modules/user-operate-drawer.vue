@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
-import { fetchGetAllRoles } from '@/service/api';
+// import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
 import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 
@@ -39,10 +39,7 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<
-  Api.SystemManage.User,
-  'username' | 'userGender' | 'nickName' | 'phone' | 'email' | 'userRoles' | 'status'
->;
+type Model = any;
 
 const model = ref(createDefaultModel());
 
@@ -69,24 +66,21 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
 const roleOptions = ref<CommonType.Option<string>[]>([]);
 
 async function getRoleOptions() {
-  const { error, data } = await fetchGetAllRoles();
-
-  if (!error) {
-    const options = data.map(item => ({
-      label: item.roleName,
-      value: item.roleCode
-    }));
-
-    // the mock data does not have the roleCode, so fill it
-    // if the real request, remove the following code
-    const userRoleOptions = model.value.userRoles.map(item => ({
-      label: item,
-      value: item
-    }));
-    // end
-
-    roleOptions.value = [...userRoleOptions, ...options];
-  }
+  // const { error, data } = await fetchGetAllRoles();
+  // if (!error) {
+  //   const options = data.map(item => ({
+  //     label: item.roleName,
+  //     value: item.roleCode
+  //   }));
+  //   // the mock data does not have the roleCode, so fill it
+  //   // if the real request, remove the following code
+  //   const userRoleOptions = model.value.userRoles.map(item => ({
+  //     label: item,
+  //     value: item
+  //   }));
+  //   // end
+  //   roleOptions.value = [...userRoleOptions, ...options];
+  // }
 }
 
 function handleInitModel() {

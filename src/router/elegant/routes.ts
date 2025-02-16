@@ -140,7 +140,7 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'function_super-page',
           i18nKey: 'route.function_super-page',
           icon: 'ic:round-supervisor-account',
-          order: 5,
+          order: 5
         }
       },
       {
@@ -234,7 +234,7 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'manage_role',
           i18nKey: 'route.manage_role',
           icon: 'carbon:user-role',
-          order: 2,
+          order: 2
         }
       },
       {

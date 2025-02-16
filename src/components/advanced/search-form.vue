@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue';
 import { $t } from '@/locales';
 import { useNaiveForm } from '@/hooks/common/form';
-import { translateOptions } from '@/utils/common';
 
 defineOptions({
   name: 'SearchForm'
@@ -14,7 +13,7 @@ interface Props {
 
 interface Emits {
   (e: 'reset'): void;
-  (e: 'search', value: any): void;
+  (e: 'search'): void;
 }
 
 const props = defineProps<Props>();
@@ -23,7 +22,7 @@ const emit = defineEmits<Emits>();
 
 const { formRef, validate, restoreValidation } = useNaiveForm();
 
-const model = ref<Record<string, any>>({});
+const model = defineModel<Record<string, any>>('model', { default: () => ({}), type: Object });
 
 const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
   return props.fields.reduce(
@@ -42,7 +41,7 @@ const collapse = () => {
   isCllapse.value = !isCllapse.value;
 };
 
-const finalFields = computed(() => {
+const finalFields = computed<Form.SearchForm>(() => {
   if (isCllapse.value) {
     return props.fields.filter(item => item.key !== 'username');
   }
@@ -55,7 +54,7 @@ async function reset() {
 
 async function search() {
   await validate();
-  emit('search', model.value);
+  emit('search');
 }
 </script>
 
@@ -67,20 +66,17 @@ async function search() {
           v-for="field in finalFields"
           :key="field.key"
           span="24 s:12 m:6"
-          :label="$t(field.label)"
+          :label="field.label"
           :path="field.key"
           class="pr-24px"
         >
-          <NInput
-            v-if="field.type === 'input'"
-            v-model:value="model[field.key]"
-            :placeholder="field.placeholder || $t(`page.manage.user.form.${field.key}`)"
-          />
+          <NInput v-if="field.type === 'input'" v-model:value="model[field.key]" :placeholder="field.placeholder" />
+          <!-- translateOptions( -->
           <NSelect
             v-else-if="field.type === 'select'"
             v-model:value="model[field.key]"
-            :placeholder="field.placeholder || $t(`page.manage.user.form.${field.key}`)"
-            :options="translateOptions(field.options || [])"
+            :placeholder="field.placeholder"
+            :options="field.options || []"
             clearable
           />
         </NFormItemGi>

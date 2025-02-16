@@ -1,6 +1,6 @@
 /** The global namespace for the app */
 declare namespace Form {
-  type FormComponentType = 'input' | 'select' | 'dateRange';
+  type FormComponentType = 'input' | 'select' | 'dateRange' | 'radio';
 
   interface SearchField {
     key: string;
@@ -12,4 +12,18 @@ declare namespace Form {
   }
 
   type SearchForm = SearchField[];
+
+  interface FormField {
+    key: string;
+    label: string;
+    type: FormComponentType;
+    placeholder?: string;
+    options?: CommonType.Option<string>[];
+    required?: boolean;
+    rules?: App.Global.FormRule[];
+    hide?: boolean;
+    disabled?: boolean;
+  }
+
+  type ConfigForm = FormField[];
 }

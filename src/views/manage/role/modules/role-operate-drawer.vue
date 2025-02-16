@@ -43,7 +43,7 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleDesc' | 'status'>;
+type Model = any; // Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleDesc' | 'status'>;
 
 const model = ref(createDefaultModel());
 
@@ -64,7 +64,7 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
   status: defaultRequiredRule
 };
 
-const roleId = computed(() => props.rowData?.id || -1);
+// const roleId = computed(() => props.rowData?.id || -1);
 
 const isEdit = computed(() => props.operateType === 'edit');
 
@@ -117,9 +117,9 @@ watch(visible, () => {
       </NForm>
       <NSpace v-if="isEdit">
         <NButton @click="openMenuAuthModal">{{ $t('page.manage.role.menuAuth') }}</NButton>
-        <MenuAuthModal v-model:visible="menuAuthVisible" :role-id="roleId" />
+        <MenuAuthModal v-model:visible="menuAuthVisible" :role-id="1111" />
         <NButton @click="openButtonAuthModal">{{ $t('page.manage.role.buttonAuth') }}</NButton>
-        <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="roleId" />
+        <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="1111" />
       </NSpace>
       <template #footer>
         <NSpace :size="16">

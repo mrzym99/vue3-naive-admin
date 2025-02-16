@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue';
 import { $t } from '@/locales';
-import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
+// import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
 
 defineOptions({
   name: 'MenuAuthModal'
@@ -41,11 +41,10 @@ async function updateHome(val: string) {
 const pages = shallowRef<string[]>([]);
 
 async function getPages() {
-  const { error, data } = await fetchGetAllPages();
-
-  if (!error) {
-    pages.value = data;
-  }
+  // const { error, data } = await fetchGetAllPages();
+  // if (!error) {
+  //   pages.value = data;
+  // }
 }
 
 const pageSelectOptions = computed(() => {
@@ -60,11 +59,10 @@ const pageSelectOptions = computed(() => {
 const tree = shallowRef<Api.SystemManage.MenuTree[]>([]);
 
 async function getTree() {
-  const { error, data } = await fetchGetMenuTree();
-
-  if (!error) {
-    tree.value = data;
-  }
+  // const { error, data } = await fetchGetMenuTree();
+  // if (!error) {
+  //   tree.value = data;
+  // }
 }
 
 const checks = shallowRef<number[]>([]);

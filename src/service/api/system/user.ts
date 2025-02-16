@@ -1,4 +1,4 @@
-import { request } from '../request';
+import { request } from '../../request';
 
 /** get role list */
 export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
@@ -35,6 +35,14 @@ export function fetchGetMenuList() {
   return request<Api.SystemManage.MenuList>({
     url: '/systemManage/getMenuList/v2',
     method: 'get'
+  });
+}
+
+export function updateUser(data: Api.SystemManage.Profile) {
+  return request<App.Service.Response>({
+    url: '/system/user/update',
+    method: 'post',
+    data
   });
 }
 

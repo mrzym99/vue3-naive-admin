@@ -23,6 +23,10 @@ export function fetchGetUserInfo() {
   return request<Api.Auth.UserInfo>({ url: '/account/profile' });
 }
 
+export function fetchUpdateUserProfile(data: Api.SystemManage.Profile) {
+  return request({ method: 'post', url: '/auth/profile', data });
+}
+
 /**
  * Refresh token
  *

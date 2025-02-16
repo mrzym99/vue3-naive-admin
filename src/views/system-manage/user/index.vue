@@ -1,21 +1,13 @@
 <script setup lang="tsx">
 import { NAvatar, NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
-import { useTable } from '@/hooks/common/table';
+import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
+import UserOperateDrawer from './modules/user-operate-drawer.vue';
 
 const appStore = useAppStore();
-
-const edit = (id: string) => {
-  console.log(id);
-};
-
-const handleDelete = (id: string) => {
-  // request
-  console.log(id);
-};
 
 const userSearchForm: Form.SearchForm = [
   {
@@ -51,7 +43,7 @@ const userSearchForm: Form.SearchForm = [
   {
     key: 'roleId',
     label: '角色',
-    type: 'input',
+    type: 'select',
     placeholder: '请选择角色',
     options: [
       {
@@ -66,7 +58,7 @@ const userSearchForm: Form.SearchForm = [
   }
 ];
 
-const { columns, data, loading } = useTable({
+const { columns, data, loading, getDataByPage, getData, searchParams, resetSearchParams } = useTable({
   apiFn: fetchGetUserList,
   showTotal: true,
   apiParams: {
@@ -222,16 +214,35 @@ const { columns, data, loading } = useTable({
   ]
 });
 
-const handleSearch = (val: any) => {
-  console.log(val);
+const {
+  drawerVisible,
+  operateType,
+  editingData,
+  openDrawer,
+  closeDrawer
+  // closeDrawer
+} = useTableOperate(data, getData);
+
+const edit = (id: string) => {
+  openDrawer();
+  console.log(id);
 };
-const handleReset = () => {};
+
+const handleDelete = (id: string) => {
+  // request
+  console.log(id);
+};
 </script>
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
-      <SearchForm :fields="userSearchForm" @search="handleSearch" @reset="handleReset" />
+      <SearchForm
+        v-model:model="searchParams"
+        :fields="userSearchForm"
+        @search="getDataByPage"
+        @reset="resetSearchParams"
+      />
       <NDataTable
         :columns="columns"
         :data="data"
@@ -244,6 +255,12 @@ const handleReset = () => {};
         :pagination="false"
         :virtual-scroll="true"
         class="sm:h-full"
+      />
+      <UserOperateDrawer
+        v-model:visible="drawerVisible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
       />
     </NCard>
   </div>
