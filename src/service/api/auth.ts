@@ -18,10 +18,6 @@ export function fetchLogin(username: string, password: string, code: string) {
   });
 }
 
-export function fetchUpdateUserProfile(data: Api.SystemManage.Profile) {
-  return request({ method: 'put', url: '/auth/profile', data });
-}
-
 /**
  * Refresh token
  *

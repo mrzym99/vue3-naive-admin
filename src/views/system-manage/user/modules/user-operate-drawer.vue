@@ -169,7 +169,7 @@ function handleInitModel() {
 }
 
 async function updateUserProfile() {
-  const { error, data } = await fetchUpdateUserProfile(model.value as any);
+  const { error, data } = await fetchUpdateUserProfile(props.rowData!.id, model.value as any);
   if (!error) {
     console.log(data);
     window.$message?.success($t('common.updateSuccess'));

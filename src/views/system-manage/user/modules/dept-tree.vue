@@ -1,37 +1,101 @@
 <script setup lang="ts">
 import type { TreeOption } from 'naive-ui';
-
-interface DeptTreeProps {
-  rowData: TreeOption[];
-  defaultExpandedKeys?: Array<string | number>;
-}
-defineProps<DeptTreeProps>();
+import { onMounted, ref } from 'vue';
+import { fetchGetDeptTree } from '@/service/api';
+import IcOutlineMoreVert from '~icons/ic/outline-more-vert';
 
 interface Emits {
-  (e: 'select'): void;
+  (e: 'select', deptId: string): void;
 }
 
 const emit = defineEmits<Emits>();
 
+const deptTreeData = ref<TreeOption[]>([]);
+const defaultExpandedKeys = ref<string[]>([]);
+const deptName = ref('');
+const loading = ref(false);
+const defaultExpandAll = ref(false);
+const dropDownOptions = [
+  {
+    label: '展开所有',
+    key: 'expandAll'
+  },
+  {
+    label: '折叠所有',
+    key: 'collapseAll'
+  }
+];
+
 const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
     onClick() {
-      console.log(option);
+      emit('select', option.id as string);
     }
   };
 };
 
-emit('select');
+const getTreeData = async () => {
+  loading.value = true;
+  const { data, error } = await fetchGetDeptTree(deptName.value);
+  loading.value = false;
+  if (!error) {
+    deptTreeData.value = data;
+    defaultExpandedKeys.value = data.map(item => item.id);
+  } else {
+    window.$message?.error(error.message);
+  }
+};
+
+const handleSelect = (key: string) => {
+  if (key === 'expandAll') {
+    defaultExpandAll.value = true;
+  } else if (key === 'collapseAll') {
+    defaultExpandedKeys.value = [];
+    defaultExpandAll.value = false;
+  }
+};
+
+onMounted(() => {
+  getTreeData();
+});
 </script>
 
 <template>
-  <NTree
-    block-line
-    :data="rowData"
-    :default-expanded-keys="defaultExpandedKeys"
-    expand-on-click
-    :node-props="nodeProps"
-  />
+  <div class="h-full w-full overflow-hidden">
+    <div class="flex items-center">
+      <span class="mr-1 whitespace-nowrap text-[1rem] font-bold">部门</span>
+      <NInputGroup class="flex-1 items-center">
+        <NInput
+          v-model:value="deptName"
+          size="small"
+          placeholder="请输入部门名称"
+          :disabled="loading"
+          clearable
+          @keyup.enter="getTreeData"
+        />
+
+        <NButton type="primary" size="small" ghost @click="getTreeData">
+          <template #icon>
+            <icon-ic-round-search class="text-icon" />
+          </template>
+        </NButton>
+      </NInputGroup>
+      <NDropdown :options="dropDownOptions" placement="bottom" trigger="click" @select="handleSelect">
+        <NIcon class="mb-1" size="16"><IcOutlineMoreVert /></NIcon>
+      </NDropdown>
+    </div>
+
+    <NTree
+      class="mt-8 h-full w-full overflow-auto"
+      block-line
+      :data="deptTreeData"
+      label-field="name"
+      key-field="id"
+      :default-expanded-keys="defaultExpandedKeys"
+      :default-expand-all="defaultExpandAll"
+      :node-props="nodeProps"
+    />
+  </div>
 </template>
 
 <style scoped></style>

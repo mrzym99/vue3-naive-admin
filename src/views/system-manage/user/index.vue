@@ -1,7 +1,5 @@
 <script setup lang="tsx">
-import type { TreeOption } from 'naive-ui';
 import { NAvatar, NButton, NPopconfirm, NTag } from 'naive-ui';
-import { ref } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
@@ -75,7 +73,9 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       gender: null,
       nickName: null,
       phone: null,
-      email: null
+      email: null,
+      deptId: null,
+      roleId: null
     },
     columns: () => [
       {
@@ -238,35 +238,11 @@ function handleDelete(id: string) {
   onDeleted();
 }
 
-// dept 相关
-const deptTree = ref<TreeOption[]>([
-  {
-    key: '1',
-    label: '国内',
-    children: [
-      {
-        key: '2',
-        label: '四川'
-      }
-    ]
-  },
-  {
-    key: '6',
-    label: '国外',
-    children: [
-      {
-        key: '7',
-        label: '美国',
-        children: [
-          {
-            key: '8',
-            label: '纽约'
-          }
-        ]
-      }
-    ]
-  }
-]);
+function selectDept(deptId: string) {
+  if (searchParams.deptId && searchParams.deptId === deptId) return;
+  searchParams.deptId = deptId;
+  getDataByPage();
+}
 </script>
 
 <template>
@@ -274,7 +250,7 @@ const deptTree = ref<TreeOption[]>([
     <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <NGrid x-gap="12" class="h-full">
         <NGi span="6">
-          <DeptTree :row-data="deptTree" :default-expanded-keys="deptTree.map(d => d.key as string)" />
+          <DeptTree @select="selectDept" />
         </NGi>
         <NGi span="18" class="flex-col-stretch">
           <SearchForm

@@ -90,6 +90,7 @@ async function search() {
         :label="field.label"
         :path="field.key"
       >
+        <!-- <component :is="componentId"></component> -->
         <NInput v-if="field.type === 'input'" v-model:value="model[field.key]" :placeholder="field.placeholder" />
         <!-- translateOptions( -->
         <NSelect
@@ -116,7 +117,7 @@ async function search() {
           </NButton>
           <div class="grid h-full place-items-center">
             <icon-ic-outline-keyboard-arrow-down
-              class="text-icon transition-500 !text-2xl"
+              class="cursor-pointer text-icon transition-500 !text-2xl"
               :class="[isCllapse ? '' : 'rotate-x-180']"
               @click="collapse"
             />

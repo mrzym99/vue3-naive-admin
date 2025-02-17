@@ -9,39 +9,10 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
   });
 }
 
-/** get role list */
-export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
-  return request<Api.SystemManage.RoleList>({
-    url: '/systemManage/getRoleList',
-    method: 'get',
-    params
-  });
-}
-
-/**
- * get all roles
- *
- * these roles are all enabled
- */
-export function fetchGetAllRoles() {
-  return request<Api.SystemManage.AllRole[]>({
-    url: '/systemManage/getAllRoles',
-    method: 'get'
-  });
-}
-
-/** get menu list */
-export function fetchGetMenuList() {
-  return request<Api.SystemManage.MenuList>({
-    url: '/systemManage/getMenuList/v2',
-    method: 'get'
-  });
-}
-
-export function updateUser(data: Api.SystemManage.Profile) {
+export function fetchUpdateUserProfile(id: string, data: Api.SystemManage.Profile) {
   return request<App.Service.Response>({
-    url: '/system/user/update',
-    method: 'post',
+    url: `/system/user/updateProfile/${id}`,
+    method: 'put',
     data
   });
 }
