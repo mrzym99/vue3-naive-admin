@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchUpdateUserProfile } from '@/service/api';
@@ -89,7 +89,7 @@ const userConfigForm: Form.ConfigForm = [
   {
     key: 'avatar',
     label: '头像',
-    type: 'input',
+    type: 'upload',
     placeholder: '请上传头像',
     required: true
   },
@@ -165,11 +165,13 @@ function handleInitModel() {
   if (props.operateType === 'edit' && props.rowData) {
     Object.assign(model.value, props.rowData);
   }
+  console.log(props.rowData);
 }
 
 async function updateUserProfile() {
-  const res = await fetchUpdateUserProfile(model.value as any);
-  if (res.code === 200) {
+  const { error, data } = await fetchUpdateUserProfile(model.value as any);
+  if (!error) {
+    console.log(data);
     window.$message?.success($t('common.updateSuccess'));
   }
 }
@@ -189,14 +191,16 @@ async function handleSubmit() {
 watch(visible, () => {
   if (visible.value) {
     handleInitModel();
-    restoreValidation();
+    nextTick(() => {
+      restoreValidation();
+    });
     getRoleOptions();
   }
 });
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" :width="360">
+  <NDrawer v-model:show="visible" display-directive="show" width="40%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <ConfigForm ref="formRef" v-model:model="model" :fields="userConfigForm" />
       <template #footer>

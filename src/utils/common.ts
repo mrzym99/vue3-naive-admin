@@ -56,3 +56,7 @@ export function toggleHtmlClass(className: string) {
     remove
   };
 }
+
+export function generatePrefix(prefix: string, perm: string) {
+  return prefix ? `${prefix.replace(/\{:}+/, ':')}:${perm}` : perm;
+}

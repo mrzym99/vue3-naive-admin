@@ -52,11 +52,13 @@ function createCommonRequest<ResponseData = any>(
     async response => {
       const responseType: ResponseType = (response.config?.responseType as ResponseType) || 'json';
 
+      // 只能是类型不是json(不是 json 其实就只能转类型自定义判断了) 或者是 能通过 isBackendSuccess 校验code的才能返回数据 不然就会有错误提示
       if (responseType !== 'json' || opts.isBackendSuccess(response)) {
         return Promise.resolve(response);
       }
 
       const fail = await opts.onBackendFail(response, instance);
+
       if (fail) {
         return fail;
       }

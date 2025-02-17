@@ -7,7 +7,7 @@ import type {
 } from 'vue-router';
 import type { RouteKey, RoutePath } from '@elegant-router/types';
 import { getRouteName } from '@/router/elegant/transform';
-import { useAuthStore } from '@/store/modules/auth';
+// import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
 import { localStg } from '@/utils/storage';
 
@@ -25,7 +25,7 @@ export function createRouteGuard(router: Router) {
       return;
     }
 
-    const authStore = useAuthStore();
+    // const authStore = useAuthStore();
 
     const rootRoute: RouteKey = 'root';
     const loginRoute: RouteKey = 'login';
@@ -33,10 +33,10 @@ export function createRouteGuard(router: Router) {
 
     const isLogin = Boolean(localStg.get('token'));
     const needLogin = !to.meta.constant;
-    const routeRoles = to.meta.roles || [];
+    // const routeRoles = to.meta.roles || [];
 
-    const hasRole = authStore.userInfo.roles.some(role => routeRoles.includes(role));
-    const hasAuth = authStore.isStaticSuper || !routeRoles.length || hasRole;
+    // const hasRole = authStore.userInfo.roles.some(role => routeRoles.includes(role));
+    const hasAuth = true; // authStore.isStaticSuper || !routeRoles.length || hasRole;
 
     // if it is login route when logged in, then switch to the root page
     if (to.name === loginRoute && isLogin) {

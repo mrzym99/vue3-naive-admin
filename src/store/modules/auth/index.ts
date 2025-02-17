@@ -24,7 +24,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     id: '',
     username: '',
     nickName: '',
-    roles: []
+    roles: [],
+    permissions: []
   });
 
   /** is super role in static route */
@@ -64,7 +65,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     startLoading();
 
     const { data: loginToken, error } = await fetchLogin(username, password, code);
-
     if (!error) {
       const pass = await loginByToken(loginToken);
 

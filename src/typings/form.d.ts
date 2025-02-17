@@ -1,6 +1,6 @@
 /** The global namespace for the app */
 declare namespace Form {
-  type FormComponentType = 'input' | 'select' | 'dateRange' | 'radio';
+  type FormComponentType = 'input' | 'select' | 'dateRange' | 'radio' | 'upload';
 
   interface SearchField {
     key: string;

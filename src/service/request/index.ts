@@ -28,6 +28,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
       return String(response.data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
     },
+    // 这里会对后台定义的 成功 code 进行一次判断，并且对错误的 code 进行处理 数据层我们只需判断 error 即可
     async onBackendFail(response, instance) {
       const authStore = useAuthStore();
       const responseCode = String(response.data.code);
@@ -91,12 +92,9 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       return null;
     },
     transformBackendResponse(response) {
-      return {
-        data: response.data.data,
-        code: response.data.code,
-        message: response.data.message
-      };
+      return response.data.data;
     },
+    // 这里也是使用在了 intercepter 里， 用于错误code处理
     onError(error) {
       // when the request is fail, you can show error message
 

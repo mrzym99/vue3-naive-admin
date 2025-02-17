@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { $t } from '@/locales';
 import { useNaiveForm } from '@/hooks/common/form';
 
@@ -21,6 +22,7 @@ const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
 const { formRef, validate, restoreValidation } = useNaiveForm();
+const activeBreakpoint = useBreakpoints(breakpointsTailwind).active();
 
 const model = defineModel<Record<string, any>>('model', { default: () => ({}), type: Object });
 
@@ -41,12 +43,32 @@ const collapse = () => {
   isCllapse.value = !isCllapse.value;
 };
 
+const span = (breakpoints: string) => {
+  switch (breakpoints) {
+    case 'sm':
+      return 24;
+    case 'md':
+      return 12;
+    case 'lg':
+      return 8;
+    default:
+      return 6;
+  }
+};
+
 const finalFields = computed<Form.SearchForm>(() => {
   if (isCllapse.value) {
-    return props.fields.filter(item => item.key !== 'username');
+    return props.fields.slice(0, 24 / span(activeBreakpoint.value) - 1);
   }
   return props.fields;
 });
+
+const collapseSpan = (breakpoints: string) => {
+  const currentSpan = span(breakpoints);
+  const rowNumber = 24 / currentSpan;
+  const finalSpan = 24 - (finalFields.value.length % rowNumber) * currentSpan;
+  return finalSpan;
+};
 async function reset() {
   await restoreValidation();
   emit('reset');
@@ -59,52 +81,50 @@ async function search() {
 </script>
 
 <template>
-  <NCard :bordered="false" size="small" class="card-wrapper">
-    <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
-      <NGrid responsive="screen" item-responsive>
-        <NFormItemGi
-          v-for="field in finalFields"
-          :key="field.key"
-          span="24 s:12 m:6"
-          :label="field.label"
-          :path="field.key"
-          class="pr-24px"
-        >
-          <NInput v-if="field.type === 'input'" v-model:value="model[field.key]" :placeholder="field.placeholder" />
-          <!-- translateOptions( -->
-          <NSelect
-            v-else-if="field.type === 'select'"
-            v-model:value="model[field.key]"
-            :placeholder="field.placeholder"
-            :options="field.options || []"
-            clearable
-          />
-        </NFormItemGi>
-        <NFormItemGi span="24 s:12 m:6" class="pr-24px">
-          <NSpace class="w-full" justify="end" :wrap="false">
-            <NButton @click="reset">
-              <template #icon>
-                <icon-ic-round-refresh class="text-icon" />
-              </template>
-              {{ $t('common.reset') }}
-            </NButton>
-            <NButton type="primary" ghost @click="search">
-              <template #icon>
-                <icon-ic-round-search class="text-icon" />
-              </template>
-              {{ $t('common.search') }}
-            </NButton>
-            <NButton class="!p-0" type="primary" :bordered="false" ghost @click="collapse">
-              <template #icon>
-                <icon-ic-outline-keyboard-arrow-up v-if="!isCllapse" class="text-icon" />
-                <icon-ic-outline-keyboard-arrow-down v-else class="text-icon" />
-              </template>
-            </NButton>
-          </NSpace>
-        </NFormItemGi>
-      </NGrid>
-    </NForm>
-  </NCard>
+  <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
+    <NGrid responsive="screen" item-responsive :x-gap="16">
+      <NFormItemGi
+        v-for="field in finalFields"
+        :key="field.key"
+        :span="span(activeBreakpoint)"
+        :label="field.label"
+        :path="field.key"
+      >
+        <NInput v-if="field.type === 'input'" v-model:value="model[field.key]" :placeholder="field.placeholder" />
+        <!-- translateOptions( -->
+        <NSelect
+          v-else-if="field.type === 'select'"
+          v-model:value="model[field.key]"
+          :placeholder="field.placeholder"
+          :options="field.options || []"
+          clearable
+        />
+      </NFormItemGi>
+      <NFormItemGi :span="collapseSpan(activeBreakpoint)">
+        <NSpace class="w-full" justify="end" :wrap="false">
+          <NButton @click="reset">
+            <template #icon>
+              <icon-ic-round-refresh class="text-icon" />
+            </template>
+            {{ $t('common.reset') }}
+          </NButton>
+          <NButton type="primary" ghost @click="search">
+            <template #icon>
+              <icon-ic-round-search class="text-icon" />
+            </template>
+            {{ $t('common.search') }}
+          </NButton>
+          <div class="grid h-full place-items-center">
+            <icon-ic-outline-keyboard-arrow-down
+              class="text-icon transition-500 !text-2xl"
+              :class="[isCllapse ? '' : 'rotate-x-180']"
+              @click="collapse"
+            />
+          </div>
+        </NSpace>
+      </NFormItemGi>
+    </NGrid>
+  </NForm>
 </template>
 
 <style scoped></style>

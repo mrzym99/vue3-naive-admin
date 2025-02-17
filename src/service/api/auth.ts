@@ -18,13 +18,8 @@ export function fetchLogin(username: string, password: string, code: string) {
   });
 }
 
-/** Get user info */
-export function fetchGetUserInfo() {
-  return request<Api.Auth.UserInfo>({ url: '/account/profile' });
-}
-
 export function fetchUpdateUserProfile(data: Api.SystemManage.Profile) {
-  return request({ method: 'post', url: '/auth/profile', data });
+  return request({ method: 'put', url: '/auth/profile', data });
 }
 
 /**

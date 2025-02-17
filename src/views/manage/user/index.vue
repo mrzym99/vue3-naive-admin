@@ -177,6 +177,7 @@ function edit(id: string) {
           v-model:columns="columnChecks"
           :disabled-delete="checkedRowKeys.length === 0"
           :loading="loading"
+          prefix="system:user"
           @add="handleAdd"
           @delete="handleBatchDelete"
           @refresh="getData"

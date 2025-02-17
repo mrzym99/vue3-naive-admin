@@ -1,5 +1,14 @@
 import { request } from '../../request';
 
+/** get user list */
+export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
+  return request<Api.SystemManage.UserList>({
+    url: '/system/user/list',
+    method: 'get',
+    params
+  });
+}
+
 /** get role list */
 export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
   return request<Api.SystemManage.RoleList>({
@@ -18,15 +27,6 @@ export function fetchGetAllRoles() {
   return request<Api.SystemManage.AllRole[]>({
     url: '/systemManage/getAllRoles',
     method: 'get'
-  });
-}
-
-/** get user list */
-export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
-  return request<Api.SystemManage.UserList>({
-    url: '/system/user/list',
-    method: 'get',
-    params
   });
 }
 

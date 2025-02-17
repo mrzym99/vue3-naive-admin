@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useAuth } from '@/hooks/business/auth';
 import { $t } from '@/locales';
+import { generatePrefix } from '@/utils/common';
 
 defineOptions({
   name: 'TableHeaderOperation'
@@ -9,6 +11,7 @@ interface Props {
   itemAlign?: NaiveUI.Align;
   disabledDelete?: boolean;
   loading?: boolean;
+  prefix: string;
 }
 
 defineProps<Props>();
@@ -25,6 +28,8 @@ const columns = defineModel<NaiveUI.TableColumnCheck[]>('columns', {
   default: () => []
 });
 
+const { hasAuth } = useAuth();
+
 function add() {
   emit('add');
 }
@@ -39,16 +44,17 @@ function refresh() {
 </script>
 
 <template>
-  <NSpace :align="itemAlign" wrap justify="end" class="lt-sm:w-200px">
+  <NSpace :align="itemAlign" wrap justify="end" class="pb-8px lt-sm:w-200px">
     <slot name="prefix"></slot>
     <slot name="default">
-      <NButton size="small" ghost type="primary" @click="add">
+      <!-- 把 prefix 和 :create 拼接起来 就可以和后端的权限对应 -->
+      <NButton v-if="hasAuth(generatePrefix(prefix, 'create'))" size="small" ghost type="primary" @click="add">
         <template #icon>
           <icon-ic-round-plus class="text-icon" />
         </template>
         {{ $t('common.add') }}
       </NButton>
-      <NPopconfirm @positive-click="batchDelete">
+      <NPopconfirm v-if="hasAuth(generatePrefix(prefix, 'delete'))" @positive-click="batchDelete">
         <template #trigger>
           <NButton size="small" ghost type="error" :disabled="disabledDelete">
             <template #icon>
