@@ -3,6 +3,7 @@ import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchUpdateUserProfile } from '@/service/api';
+import type { ConfigFormType } from '@/components/advanced/config-form/type';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -41,26 +42,29 @@ type Model = Partial<Api.SystemManage.User>;
 
 const model = ref(createDefaultModel());
 
-const userConfigForm: Form.ConfigForm = [
+const userConfigForm: ConfigFormType = [
   {
     key: 'username',
     label: '用户名',
-    type: 'input',
-    placeholder: '请输入用户名',
-    disabled: true
+    type: 'Input',
+    disabled: true,
+    props: {
+      placeholder: '请输入用户名'
+    }
   },
   {
     key: 'nickName',
     label: '昵称',
-    type: 'input',
-    placeholder: '请输入昵称',
-    required: true
+    type: 'Input',
+    required: true,
+    props: {
+      placeholder: '请输入昵称'
+    }
   },
   {
     key: 'gender',
     label: '性别',
-    type: 'radio',
-    placeholder: '请选择性别',
+    type: 'Radio',
     required: true,
     options: [
       {
@@ -71,52 +75,90 @@ const userConfigForm: Form.ConfigForm = [
         label: '女',
         value: '0'
       }
-    ]
+    ],
+    props: {
+      placeholder: '请选择性别'
+    }
   },
   {
     key: 'phone',
     label: '手机号',
-    type: 'input',
-    placeholder: '请输入手机号'
+    type: 'Input',
+    props: {
+      placeholder: '请输入手机号'
+    }
   },
   {
     key: 'email',
     label: '邮箱',
-    type: 'input',
-    placeholder: '请输入邮箱',
-    required: true
+    type: 'Input',
+    required: true,
+    props: {
+      placeholder: '请输入邮箱'
+    }
   },
   {
     key: 'avatar',
     label: '头像',
-    type: 'upload',
-    placeholder: '请上传头像',
-    required: true
+    type: 'Upload',
+    required: true,
+    props: {
+      placeholder: '请上传头像'
+    }
   },
   {
     key: 'signature',
     label: '个性签名',
-    type: 'input',
-    placeholder: '请输入个性签名'
+    type: 'Input',
+    props: {
+      placeholder: '请输入个性签名'
+    }
   },
   {
     key: 'address',
     label: '地址',
-    type: 'input',
-    placeholder: '请输入地址',
-    disabled: true
+    type: 'Input',
+    props: {
+      placeholder: '请输入地址'
+    }
+  },
+  {
+    key: 'status',
+    label: '状态',
+    type: 'Select',
+    required: true,
+    disabled: true,
+    props: {
+      placeholder: '请选择状态',
+      options: [
+        {
+          label: '正常',
+          value: '1'
+        },
+        {
+          label: '禁用'
+        }
+      ]
+    }
   },
   {
     key: 'birthDate',
     label: '出生日期',
-    type: 'input',
-    placeholder: '请选择出生日期'
+    type: 'DatePicker',
+    props: {
+      type: 'date',
+      placeholder: '请选择出生日期'
+    }
   },
   {
     key: 'introduction',
     label: '简介',
-    type: 'input',
-    placeholder: '请输入简介'
+    type: 'Input',
+    span: 24,
+    props: {
+      type: 'textarea',
+      placeholder: '请输入简介'
+    }
   }
 ];
 
@@ -163,9 +205,13 @@ function handleInitModel() {
   model.value = createDefaultModel();
 
   if (props.operateType === 'edit' && props.rowData) {
-    Object.assign(model.value, props.rowData);
+    const { birthDate, gender } = props.rowData;
+    const timeStamp = new Date(birthDate).getTime();
+    Object.assign(model.value, props.rowData, {
+      birthDate: timeStamp,
+      gender: String(gender)
+    });
   }
-  console.log(props.rowData);
 }
 
 async function updateUserProfile() {

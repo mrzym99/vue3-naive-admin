@@ -23,6 +23,7 @@ declare namespace Form {
     rules?: App.Global.FormRule[];
     hide?: boolean;
     disabled?: boolean;
+    props: Record<string, any>;
   }
 
   type ConfigForm = FormField[];

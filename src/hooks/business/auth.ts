@@ -8,6 +8,10 @@ export function useAuth() {
       return false;
     }
 
+    if (authStore.userInfo.roles.includes('admin')) {
+      return true;
+    }
+
     if (typeof codes === 'string') {
       return authStore.userInfo.permissions.includes(codes);
     }

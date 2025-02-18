@@ -16,18 +16,25 @@ export function fetchGetDeptList(params?: Api.SystemManage.DeptSearchParams & Ap
   });
 }
 
-export function fetchUpdateDept(data?: Api.SystemManage.Dept) {
-  return request<App.Service.Response>({
-    url: '/system/dept',
-    method: 'put',
-    data
-  });
-}
-
 export function fetchCreateDept(data?: Api.SystemManage.Dept) {
   return request<App.Service.Response>({
     url: '/system/dept',
     method: 'post',
     data
+  });
+}
+
+export function fetchUpdateDept(data?: Api.SystemManage.Dept) {
+  return request<App.Service.Response>({
+    url: `/system/dept/${data?.id}`,
+    method: 'put',
+    data
+  });
+}
+
+export function fetchDeleteDept(id?: string) {
+  return request<App.Service.Response>({
+    url: `/system/dept/${id}`,
+    method: 'delete'
   });
 }

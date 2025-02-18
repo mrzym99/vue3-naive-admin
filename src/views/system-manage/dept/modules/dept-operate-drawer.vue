@@ -3,6 +3,7 @@ import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateDept, fetchUpdateDept } from '@/service/api';
+import type { ConfigFormType } from '@/components/advanced/config-form/type';
 
 defineOptions({
   name: 'DeptOperateDrawer'
@@ -41,26 +42,47 @@ type Model = Partial<Api.SystemManage.Dept>;
 
 const model = ref(createDefaultModel());
 
-const deptConfigForm: Form.ConfigForm = [
+const deptConfigForm: ConfigFormType = [
   {
     key: 'name',
     label: '部门名称',
-    type: 'input',
-    placeholder: '请输入部门名称'
+    type: 'Input',
+    props: {
+      placeholder: '请输入部门名称'
+    }
   },
   {
     key: 'order',
     label: '排序',
-    type: 'input',
-    placeholder: '请输入排序'
+    type: 'InputNumber',
+    props: {
+      placeholder: '请输入排序'
+    }
   },
   {
     key: 'parentId',
     label: '父级部门',
-    type: 'select',
-    placeholder: '请选择父级部门',
-    required: false,
-    options: []
+    type: 'TreeSelect',
+    span: 24,
+    // tree select 比较特殊 options 可以通过 props 传入
+    props: {
+      placeholder: '请选择父级部门',
+      options: [
+        {
+          label: 'Rubber Soul',
+          key: 'The Beatles',
+          value: 'The Beatles',
+          children: [
+            {
+              label: "Everybody's Got Something to Hide Except Me and My Monkey",
+              key: "Everybody's Got Something to Hide Except Me and My Monkey",
+              value: "Everybody's Got Something to Hide Except Me and My Monkey"
+            }
+          ]
+        }
+      ]
+    },
+    required: false
   }
 ];
 

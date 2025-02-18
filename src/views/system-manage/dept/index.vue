@@ -2,7 +2,7 @@
 import { NButton, NPopconfirm } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchGetDeptList } from '@/service/api';
+import { fetchDeleteDept, fetchGetDeptList } from '@/service/api';
 import { $t } from '@/locales';
 import DeptOperateDrawer from './modules/dept-operate-drawer.vue';
 
@@ -101,10 +101,11 @@ function edit(id: string) {
   handleEdit(id);
 }
 
-function handleDelete(id: string) {
-  console.log(id);
-  // request
-  onDeleted();
+async function handleDelete(id: string) {
+  const { error } = await fetchDeleteDept(id);
+  if (!error) {
+    onDeleted();
+  }
 }
 </script>
 
