@@ -88,7 +88,8 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'index',
         title: $t('common.index'),
         align: 'center',
-        width: 64
+        width: 64,
+        tree: true
       },
       {
         key: 'username',
@@ -248,46 +249,48 @@ function selectDept(deptId: string) {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
-      <NGrid x-gap="12" class="h-full">
-        <NGi span="6">
+      <NSplit class="h-full" direction="horizontal" :default-size="0.2" :max="0.9" :min="0.1">
+        <template #1>
           <DeptTree @select="selectDept" />
-        </NGi>
-        <NGi span="18" class="flex-col-stretch">
-          <SearchForm
-            v-model:model="searchParams"
-            :fields="userSearchForm"
-            @search="getDataByPage"
-            @reset="resetSearchParams"
-          />
-          <TableHeaderOperation
-            v-model:columns="columnChecks"
-            prefix="system:user"
-            :disabled-delete="checkedRowKeys.length === 0"
-            :loading="loading"
-            @add="handleAdd"
-            @delete="handleBatchDelete"
-            @refresh="getData"
-          />
-          <NDataTable
-            :columns="columns"
-            :data="data"
-            size="small"
-            :flex-height="!appStore.isMobile"
-            :loading="loading"
-            :pagination="pagination"
-            remote
-            :row-key="row => row.id"
-            class="sm:h-full"
-          />
-        </NGi>
-      </NGrid>
-      <UserOperateDrawer
-        v-model:visible="drawerVisible"
-        :operate-type="operateType"
-        :row-data="editingData"
-        @submitted="getDataByPage"
-      />
+        </template>
+        <template #2>
+          <div class="h-full flex-col-stretch">
+            <SearchForm
+              v-model:model="searchParams"
+              :fields="userSearchForm"
+              @search="getDataByPage"
+              @reset="resetSearchParams"
+            />
+            <TableHeaderOperation
+              v-model:columns="columnChecks"
+              prefix="system:user"
+              :disabled-delete="checkedRowKeys.length === 0"
+              :loading="loading"
+              @add="handleAdd"
+              @delete="handleBatchDelete"
+              @refresh="getData"
+            />
+            <NDataTable
+              :columns="columns"
+              :data="data"
+              size="small"
+              :flex-height="!appStore.isMobile"
+              :loading="loading"
+              :pagination="pagination"
+              remote
+              :row-key="row => row.id"
+              class="sm:h-full"
+            />
+          </div>
+        </template>
+      </NSplit>
     </NCard>
+    <UserOperateDrawer
+      v-model:visible="drawerVisible"
+      :operate-type="operateType"
+      :row-data="editingData"
+      @submitted="getDataByPage"
+    />
   </div>
 </template>
 

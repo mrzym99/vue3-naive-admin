@@ -21,6 +21,8 @@ const local: App.I18n.Schema = {
     confirm: 'Confirm',
     delete: 'Delete',
     deleteSuccess: 'Delete Success',
+    expand: 'Expand',
+    fold: 'Fold',
     confirmDelete: 'Are you sure you want to delete?',
     edit: 'Edit',
     warning: 'Warning',
@@ -229,7 +231,8 @@ const local: App.I18n.Schema = {
     plugin_tables_vtable: 'VTable',
     'system-manage': 'SystemManage',
     'system-manage_role': 'RoleMange',
-    'system-manage_user': 'UserMange'
+    'system-manage_user': 'UserMange',
+    'system-manage_dept': 'DeptManage'
   },
   page: {
     login: {
@@ -379,6 +382,15 @@ const local: App.I18n.Schema = {
           enable: 'Enable',
           disable: 'Disable'
         }
+      },
+      dept: {
+        title: 'Dept',
+        deptName: 'Dept Name',
+        form: {
+          deptName: 'Dept Name'
+        },
+        addDept: 'Add Role',
+        editDept: 'Edit Role'
       },
       role: {
         title: 'Role List',

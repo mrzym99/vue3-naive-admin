@@ -98,7 +98,21 @@ declare namespace Api {
       id: string;
       /** dept name */
       name: string;
+      /** 排序 */
+      order?: number | null;
+      /** 是否默认 */
+      default?: boolean;
+      children?: Dept[];
     }>;
+
+    type DeptSearchParams = {
+      /** dept name */
+      name?: string | null;
+    };
+
+    type DeptTree = Dept[];
+
+    type DeptList = Common.PaginatingQueryRecord<Dept>;
 
     /** role */
     type Role = Common.CommonRecord<{

@@ -50,5 +50,7 @@ declare namespace NaiveUI {
      * @default false
      */
     showTotal?: boolean;
+
+    isTreeTable?: boolean;
   };
 }

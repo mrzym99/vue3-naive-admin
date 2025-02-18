@@ -36,7 +36,7 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
 
 const getTreeData = async () => {
   loading.value = true;
-  const { data, error } = await fetchGetDeptTree(deptName.value);
+  const { data, error } = await fetchGetDeptTree({ name: deptName.value });
   loading.value = false;
   if (!error) {
     deptTreeData.value = data;

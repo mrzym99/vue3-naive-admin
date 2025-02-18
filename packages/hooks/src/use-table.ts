@@ -12,6 +12,7 @@ export type TableColumnCheck = {
   key: string;
   title: string;
   checked: boolean;
+  tree?: boolean;
 };
 
 export type TableDataWithIndex<T> = T & { index: number };
@@ -76,6 +77,28 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   const columns = computed(() => getColumns(allColumns.value, columnChecks.value));
 
+  const expandedRowKeys = ref<string[]>([]);
+
+  function flatTreeData(treeData: any[]) {
+    return treeData.reduce((prev, cur) => {
+      return prev.concat(cur, cur.children && cur.children.length ? flatTreeData(cur.children) : []);
+    }, []);
+  }
+
+  function setExpand() {
+    const treeData = flatTreeData(data.value);
+    expandedRowKeys.value = [];
+    for (const item of treeData) {
+      if (item.children && item.children.length) {
+        expandedRowKeys.value.push(item.id);
+      }
+    }
+  }
+
+  function setFold() {
+    expandedRowKeys.value = [];
+  }
+
   function reloadColumns() {
     allColumns.value = config.columns();
 
@@ -91,6 +114,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   async function getData() {
     startLoading();
+    setFold();
 
     const formattedParams = formatSearchParams(searchParams);
 
@@ -147,6 +171,9 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     getData,
     searchParams,
     updateSearchParams,
-    resetSearchParams
+    resetSearchParams,
+    setExpand,
+    setFold,
+    expandedRowKeys
   };
 }

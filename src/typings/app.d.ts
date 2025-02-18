@@ -309,6 +309,8 @@ declare namespace App {
         confirm: string;
         delete: string;
         deleteSuccess: string;
+        expand: string;
+        fold: string;
         confirmDelete: string;
         edit: string;
         warning: string;
@@ -554,6 +556,15 @@ declare namespace App {
               enable: string;
               disable: string;
             };
+          };
+          dept: {
+            title: string;
+            deptName: string;
+            form: {
+              deptName: string;
+            };
+            addDept: string;
+            editDept: string;
           };
           role: {
             title: string;

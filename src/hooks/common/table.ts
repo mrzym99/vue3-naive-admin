@@ -16,7 +16,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
 
   const isMobile = computed(() => appStore.isMobile);
 
-  const { apiFn, apiParams, immediate, showTotal } = config;
+  const { apiFn, apiParams, immediate, showTotal, isTreeTable } = config;
 
   const SELECTION_KEY = '__selection__';
 
@@ -32,7 +32,10 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     getData,
     searchParams,
     updateSearchParams,
-    resetSearchParams
+    resetSearchParams,
+    setExpand,
+    setFold,
+    expandedRowKeys
   } = useHookTable<A, GetTableData<A>, TableColumn<NaiveUI.TableDataWithIndex<GetTableData<A>>>>({
     apiFn,
     apiParams,
@@ -40,7 +43,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     transformer: res => {
       const { list = [], currentPage = 1, pageSize = 10, total = 0 } = res.data || {};
 
-      const listWithIndex = list.map((item, index) => {
+      const listWithIndex = list.map((item: any, index: number) => {
         return {
           ...item,
           index: (currentPage - 1) * pageSize + index + 1
@@ -206,7 +209,11 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     getDataByPage,
     searchParams,
     updateSearchParams,
-    resetSearchParams
+    resetSearchParams,
+    setFold,
+    setExpand,
+    expandedRowKeys,
+    isTreeTable
   };
 }
 

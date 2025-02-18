@@ -23,6 +23,8 @@ const local: App.I18n.Schema = {
     deleteSuccess: '删除成功',
     confirmDelete: '确认删除吗？',
     edit: '编辑',
+    expand: '展开',
+    fold: '折叠',
     warning: '警告',
     error: '错误',
     index: '序号',
@@ -229,7 +231,8 @@ const local: App.I18n.Schema = {
     plugin_tables_vtable: 'VTable',
     'system-manage': '系统管理',
     'system-manage_role': '角色管理',
-    'system-manage_user': '用户管理'
+    'system-manage_user': '用户管理',
+    'system-manage_dept': '部门管理'
   },
   page: {
     login: {
@@ -379,6 +382,15 @@ const local: App.I18n.Schema = {
           enable: '启用',
           disable: '禁用'
         }
+      },
+      dept: {
+        title: '部门',
+        deptName: '部门名称',
+        form: {
+          deptName: '部门名称'
+        },
+        addDept: '新增部门',
+        editDept: '编辑部门'
       },
       role: {
         title: '角色列表',
