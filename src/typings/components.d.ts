@@ -131,7 +131,6 @@ declare module 'vue' {
     NTree: typeof import('naive-ui')['NTree']
     NUpload: typeof import('naive-ui')['NUpload']
     NWatermark: typeof import('naive-ui')['NWatermark']
-    Options: typeof import('./../components/advanced/config-form')['default']
     PictureUpload: typeof import('./../components/common/picture-upload.vue')['default']
     PinToggler: typeof import('./../components/common/pin-toggler.vue')['default']
     ReloadButton: typeof import('./../components/common/reload-button.vue')['default']

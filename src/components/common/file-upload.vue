@@ -2,6 +2,7 @@
 import { nextTick, ref, useAttrs, watch } from 'vue';
 import { NButton, NModal, NText, NUpload, useMessage } from 'naive-ui';
 import { to } from 'await-to-js';
+// 更多组件详情 https://advanced-cropper.github.io/vue-advanced-cropper/components/cropper.html#props
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import type { UploadCustomRequestOptions, UploadFileInfo } from 'naive-ui';
@@ -30,9 +31,6 @@ const props = withDefaults(defineProps<Props>(), {
   requestFunc: upload as any
 });
 
-const cropWidth = ref<number>(320);
-const cropHeight = ref<number>(320);
-
 const attrs: any = useAttrs();
 const message = useMessage();
 
@@ -41,12 +39,8 @@ function getProps() {
 }
 
 function getCropperProps() {
-  const cropperProps: any = {
-    // canScale: true,
-    // autoCrop: true
-  };
-  if (!props.cropper || typeof props.cropper === 'boolean') return cropperProps;
-  return Object.assign(cropperProps, props.cropper);
+  if (!props.cropper || typeof props.cropper === 'boolean') return {};
+  return props.cropper;
 }
 
 const emit = defineEmits<{
@@ -126,33 +120,23 @@ const currentBlob = ref<Blob | null>(null);
 function handleCropperInit(file: UploadFileInfo) {
   currentCropperFile.value = file;
   cropperUrl.value = URL.createObjectURL(file.file as File);
-  const img = new Image();
-  img.src = cropperUrl.value;
-  img.onload = () => {
-    cropWidth.value = img.width;
-    cropHeight.value = img.height;
-    showCropper.value = true;
-  };
-  img.onerror = () => {
-    showCropper.value = false;
-    message.error('图片加载失败');
-  };
+  showCropper.value = true;
 }
 
-function handlePreview() {
-  cropperRef.value?.getCropBlob((data: Blob) => {
-    currentBlob.value = data;
-  });
+function handleChange({ image }: { image: Blob }) {
+  currentBlob.value = image;
 }
 
 async function handleConfirmCropper() {
   if (!uploadApi) {
     throw new Error('requestFunc is required');
   }
+
   if (!currentCropperFile.value || !currentBlob.value) return false;
   const file = new File([currentBlob.value], currentCropperFile.value.name, {
     type: currentCropperFile.value.type as string
   });
+
   if (!verifySize(file)) return false;
   cropperLoading.value = true;
   const [err, res] = await to<any>(uploadApi(file));
@@ -266,16 +250,16 @@ function handleFileListChange() {
       :on-negative-click="handleCloseCropper"
     >
       <div class="grid h-[calc(100vh-120px)] w-full place-content-center">
-        <div class="h-400px w-400px">
-          <Cropper
-            ref="cropperRef"
-            :src="cropperUrl"
-            v-bind="getCropperProps()"
-            :auto-crop-width="cropWidth"
-            :auto-crop-height="cropHeight"
-            @real-time="handlePreview"
-          ></Cropper>
-        </div>
+        <Cropper
+          ref="cropperRef"
+          class="h-300px w-300px md:h-500px md:w-500px"
+          :src="cropperUrl"
+          :stencil-props="{
+            aspectRatio: 1
+          }"
+          v-bind="getCropperProps()"
+          @change="handleChange"
+        ></Cropper>
       </div>
     </NModal>
   </div>

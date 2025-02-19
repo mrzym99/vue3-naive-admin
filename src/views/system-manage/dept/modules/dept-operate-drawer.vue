@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchCreateDept, fetchUpdateDept } from '@/service/api';
-import type { ConfigFormType } from '@/components/advanced/config-form/config-form-type';
+import { fetchCreateDept, fetchGetDeptTree, fetchUpdateDept } from '@/service/api';
+import type { ConfigFormType, Option } from '@/components/advanced/config-form/config-form-type';
 
 defineOptions({
   name: 'DeptOperateDrawer'
@@ -42,7 +42,7 @@ type Model = Partial<Api.SystemManage.Dept>;
 
 const model = ref(createDefaultModel());
 
-const deptConfigForm: ConfigFormType = [
+const deptConfigForm = reactive<ConfigFormType>([
   {
     key: 'name',
     label: '部门名称',
@@ -67,24 +67,11 @@ const deptConfigForm: ConfigFormType = [
     // tree select 比较特殊 options 可以通过 props 传入
     props: {
       placeholder: '请选择父级部门',
-      options: [
-        {
-          label: 'Rubber Soul',
-          key: 'The Beatles',
-          value: 'The Beatles',
-          children: [
-            {
-              label: "Everybody's Got Something to Hide Except Me and My Monkey",
-              key: "Everybody's Got Something to Hide Except Me and My Monkey",
-              value: "Everybody's Got Something to Hide Except Me and My Monkey"
-            }
-          ]
-        }
-      ]
+      options: []
     },
     required: false
   }
-];
+]);
 
 function createDefaultModel(): Model {
   return {
@@ -123,9 +110,30 @@ async function handleSubmit() {
   emit('submitted');
 }
 
+function mapTree(tree: Api.SystemManage.DeptTree): Option[] {
+  return tree.map(item => {
+    const { children } = item;
+    return {
+      label: item.name,
+      value: item.id,
+      key: item.id,
+      isLeaf: !children || children.length === 0,
+      children: children ? mapTree(children) : []
+    };
+  });
+}
+
+async function getDeptTree() {
+  const { data, error } = await fetchGetDeptTree();
+  if (!error) {
+    deptConfigForm[2]!.props!.options = mapTree(data);
+  }
+}
+
 watch(visible, () => {
   if (visible.value) {
     handleInitModel();
+    getDeptTree();
     nextTick(() => {
       restoreValidation();
     });

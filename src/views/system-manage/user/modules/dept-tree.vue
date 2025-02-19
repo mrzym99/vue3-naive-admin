@@ -40,7 +40,13 @@ const getTreeData = async () => {
   loading.value = false;
   if (!error) {
     deptTreeData.value = data;
-    defaultExpandedKeys.value = data.map(item => item.id);
+    const list: string[] = [];
+    data.forEach(item => {
+      if (item.children && item.children.length) {
+        list.push(item.id);
+      }
+    });
+    defaultExpandedKeys.value = list;
   } else {
     window.$message?.error(error.message);
   }

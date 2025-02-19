@@ -2,7 +2,12 @@ import { request } from '../request';
 
 /** Get user info */
 export function upload(file: File) {
-  const data = new FormData();
-  data.append('file', file);
-  return request<any>({ url: '/upload', method: 'post', data });
+  const formData = new FormData();
+  formData.append('file', file);
+  return request<any>({
+    url: '/tools/upload',
+    method: 'post',
+    data: formData,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
 }

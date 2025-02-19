@@ -95,7 +95,6 @@ declare namespace Api {
     type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'currentPage' | 'pageSize'>;
 
     type Dept = Common.CommonRecord<{
-      id: string;
       /** dept name */
       name: string;
       /** 排序 */

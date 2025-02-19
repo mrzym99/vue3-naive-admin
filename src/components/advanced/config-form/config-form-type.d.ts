@@ -16,4 +16,11 @@ export interface ConfigForm {
 
 export type ConfigFormType = Array<ConfigForm>;
 
-export type Option<K = string> = { value: K; label: string; disabled?: boolean; key?: string; children?: Option<K>[] };
+export type Option<K = string> = {
+  value: K;
+  label: string;
+  disabled?: boolean;
+  key?: string;
+  isLeaf?: boolean;
+  children?: Option<K>[];
+};
