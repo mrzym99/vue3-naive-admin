@@ -12,10 +12,10 @@ import {
   NSelect,
   NSwitch,
   NTimePicker,
-  NTreeSelect,
-  NUpload
+  NTreeSelect
 } from 'naive-ui';
 import type { Component, VNodeProps } from 'vue';
+import PictureUpload from '@/components/common/file-upload.vue';
 
 const componentMap = {
   Input: NInput,
@@ -29,7 +29,7 @@ const componentMap = {
   Rate: NRate,
   DatePicker: NDatePicker,
   TimePicker: NTimePicker,
-  Upload: NUpload,
+  Upload: PictureUpload,
   Divider: NDivider
 };
 

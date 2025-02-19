@@ -1,6 +1,8 @@
 export * from './auth';
 export * from './route';
 export * from './account';
+export * from './upload';
 
 export * from './system/user';
 export * from './system/dept';
+export * from './system/role';

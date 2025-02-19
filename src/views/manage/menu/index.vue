@@ -1,9 +1,9 @@
-<script setup lang="tsx">
+<!-- <script setup lang="tsx">
 import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
-import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
+import { fetchGetAllPages } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
@@ -263,4 +263,4 @@ init();
   </div>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->

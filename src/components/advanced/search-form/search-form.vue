@@ -3,13 +3,14 @@ import { computed, ref } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { $t } from '@/locales';
 import { useNaiveForm } from '@/hooks/common/form';
+import type { ConfigFormType } from '../config-form/config-form-type';
 
 defineOptions({
   name: 'SearchForm'
 });
 
 interface Props {
-  fields: Form.SearchForm;
+  fields: ConfigFormType;
 }
 
 interface Emits {
@@ -29,8 +30,15 @@ const model = defineModel<Record<string, any>>('model', { default: () => ({}), t
 const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
   return props.fields.reduce(
     (acc, field) => {
+      if (field.required) {
+        acc[field.key] = [
+          {
+            required: true
+          }
+        ];
+      }
       if (field.rules) {
-        acc[field.key] = field.rules;
+        Object.assign(acc[field.key], field.rules);
       }
       return acc;
     },
@@ -56,7 +64,7 @@ const span = (breakpoints: string) => {
   }
 };
 
-const finalFields = computed<Form.SearchForm>(() => {
+const finalFields = computed<ConfigFormType>(() => {
   if (isCllapse.value) {
     return props.fields.slice(0, 24 / span(activeBreakpoint.value) - 1);
   }
@@ -68,6 +76,10 @@ const collapseSpan = (breakpoints: string) => {
   const rowNumber = 24 / currentSpan;
   const finalSpan = 24 - (finalFields.value.length % rowNumber) * currentSpan;
   return finalSpan;
+};
+
+const showCollapse = (breakpoints: string) => {
+  return props.fields.length >= 24 / span(breakpoints);
 };
 async function reset() {
   await restoreValidation();
@@ -90,16 +102,7 @@ async function search() {
         :label="field.label"
         :path="field.key"
       >
-        <!-- <component :is="componentId"></component> -->
-        <NInput v-if="field.type === 'input'" v-model:value="model[field.key]" :placeholder="field.placeholder" />
-        <!-- translateOptions( -->
-        <NSelect
-          v-else-if="field.type === 'select'"
-          v-model:value="model[field.key]"
-          :placeholder="field.placeholder"
-          :options="field.options || []"
-          clearable
-        />
+        <ConfigFormItem v-model:value="model[field.key]" :field="field" />
       </NFormItemGi>
       <NFormItemGi :span="collapseSpan(activeBreakpoint)">
         <NSpace class="w-full" justify="end" :wrap="false">
@@ -115,7 +118,7 @@ async function search() {
             </template>
             {{ $t('common.search') }}
           </NButton>
-          <div class="grid h-full place-items-center">
+          <div v-if="showCollapse(activeBreakpoint)" class="grid h-full place-items-center">
             <icon-ic-outline-keyboard-arrow-down
               class="cursor-pointer text-icon transition-500 !text-2xl"
               :class="[isCllapse ? '' : 'rotate-x-180']"

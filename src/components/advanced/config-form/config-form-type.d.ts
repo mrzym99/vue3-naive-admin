@@ -1,5 +1,5 @@
 import type { FormItemRule } from 'naive-ui';
-import type { ComponentType } from './componentMap';
+import type { ComponentType } from './component-map';
 
 export interface ConfigForm {
   key: string;

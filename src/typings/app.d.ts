@@ -300,6 +300,10 @@ declare namespace App {
         addSuccess: string;
         backToHome: string;
         batchDelete: string;
+        batchDisable: string;
+        enable: string;
+        disable: string;
+        status: string;
         cancel: string;
         close: string;
         check: string;

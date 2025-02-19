@@ -38,11 +38,11 @@ declare namespace Api {
       /** record creator */
       createBy: string;
       /** record create time */
-      createTime: string;
+      createdAt: string;
       /** record updater */
       updateBy: string;
       /** record update time */
-      updateTime: string;
+      updatedAt: string;
       /** record status */
       status: EnableStatus | null;
     } & T;
@@ -116,12 +116,15 @@ declare namespace Api {
 
     /** role */
     type Role = Common.CommonRecord<{
+      id: string;
       /** role name */
       name: string;
       /** role code */
       value: string;
       /** role description */
       description: string;
+      /** role default */
+      default: boolean;
     }>;
 
     /** role search params */
@@ -165,13 +168,20 @@ declare namespace Api {
       /** email */
       email: string;
       /** avatar */
-      avatar: string;
+      avatar: Array<FileInfo> | string;
       /** signature */
       signature: string;
       address: string;
-      birthDate: string;
+      birthDate: number | null;
       introduction: string;
     }>;
+
+    type FileInfo = {
+      name: string;
+      url: string;
+      id?: string;
+      status?: string;
+    };
 
     /** user search params */
     type UserSearchParams = CommonType.RecordNullable<

@@ -4,17 +4,19 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteDept, fetchGetDeptList } from '@/service/api';
 import { $t } from '@/locales';
+import type { SearchFormType } from '@/components/advanced/search-form';
 import DeptOperateDrawer from './modules/dept-operate-drawer.vue';
 
 const appStore = useAppStore();
 
-const deptSearchForm: Form.SearchForm = [
+const deptSearchForm: SearchFormType = [
   {
     key: 'name',
     label: '部门名称',
-    type: 'input',
-    placeholder: '请输入部门名称',
-    options: []
+    type: 'Input',
+    props: {
+      placeholder: '请输入部门名称'
+    }
   }
 ];
 
@@ -122,6 +124,7 @@ async function handleDelete(id: string) {
         <TableHeaderOperation
           v-model:columns="columnChecks"
           prefix="system:dept"
+          :hide-delete="true"
           :disabled-delete="checkedRowKeys.length === 0"
           :loading="loading"
           :tree-table="isTreeTable"
@@ -133,6 +136,7 @@ async function handleDelete(id: string) {
         />
         <NDataTable
           v-model:expanded-row-keys="expandedRowKeys"
+          v-model:checked-row-keys="checkedRowKeys"
           :columns="columns"
           :data="data"
           size="small"

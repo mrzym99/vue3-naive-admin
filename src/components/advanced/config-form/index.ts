@@ -1,1 +1,2 @@
-export { default as ConfigForm } from './index.vue';
+export { default as ConfigForm } from './config-form.vue';
+export * from './config-form-type';

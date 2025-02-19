@@ -5,57 +5,67 @@ import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
+import type { SearchFormType } from '@/components/advanced/search-form';
+import { useAuth } from '@/hooks/business/auth';
+import { generatePrefix } from '@/utils/common';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import DeptTree from './modules/dept-tree.vue';
 
 const appStore = useAppStore();
+const { hasAuth } = useAuth();
 
-const userSearchForm: Form.SearchForm = [
+const userSearchForm: SearchFormType = [
   {
     key: 'username',
     label: '用户名',
-    type: 'input',
-    placeholder: '请输入用户名',
-    options: []
+    type: 'Input',
+    props: {
+      placeholder: '请输入用户名'
+    }
   },
   {
     key: 'nickName',
     label: '昵称',
-    type: 'input',
-    placeholder: '请输入昵称',
-    options: []
+    type: 'Input',
+    props: {
+      placeholder: '请输入昵称'
+    }
   },
   {
     key: 'gender',
     label: '性别',
-    type: 'select',
-    placeholder: '请选择性别',
-    options: [
-      {
-        value: '0',
-        label: '女'
-      },
-      {
-        value: '1',
-        label: '男'
-      }
-    ]
+    type: 'Select',
+    props: {
+      placeholder: '请选择性别',
+      options: [
+        {
+          value: 1,
+          label: '男'
+        },
+        {
+          value: 0,
+          label: '女'
+        }
+      ]
+    }
   },
   {
     key: 'roleId',
     label: '角色',
-    type: 'select',
-    placeholder: '请选择角色',
-    options: [
-      {
-        value: '1',
-        label: '管理员'
-      },
-      {
-        value: '2',
-        label: '普通用户'
-      }
-    ]
+    type: 'Select',
+    props: {
+      placeholder: '请选择角色',
+      options: [
+        {
+          value: 1,
+          label: '管理员'
+        },
+        {
+          value: 2,
+          label: '普通用户'
+        }
+      ]
+    }
   }
 ];
 
@@ -108,7 +118,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             return null;
           }
 
-          return <NAvatar src={row.avatar} round size="medium"></NAvatar>;
+          return <NAvatar src={row.avatar as string} round size="medium"></NAvatar>;
         }
       },
       {
@@ -184,7 +194,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
 
           const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
             1: 'success',
-            0: 'warning'
+            0: 'error'
           };
 
           const label = $t(enableStatusRecord[row.status]);
@@ -203,12 +213,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
               {$t('common.edit')}
             </NButton>
-            <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
+            <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id)}>
               {{
-                default: () => $t('common.confirmDelete'),
+                default: () =>
+                  $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
                 trigger: () => (
-                  <NButton type="error" ghost size="small">
-                    {$t('common.delete')}
+                  <NButton type={row.status ? 'error' : 'success'} ghost size="small">
+                    {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
                   </NButton>
                 )
               }}
@@ -219,7 +230,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit, onDeleted, onBatchDeleted } =
+const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit, onBatchDeleted } =
   useTableOperate(data, getData);
 
 async function handleBatchDelete() {
@@ -233,10 +244,16 @@ function edit(id: string) {
   handleEdit(id);
 }
 
-function handleDelete(id: string) {
+function handleChangeStatus(id: string) {
   console.log(id);
   // request
-  onDeleted();
+  getDataByPage();
+}
+
+function handleBatchDChangeStatus() {
+  console.log(checkedRowKeys);
+  // request
+  getDataByPage();
 }
 
 function selectDept(deptId: string) {
@@ -264,13 +281,28 @@ function selectDept(deptId: string) {
             <TableHeaderOperation
               v-model:columns="columnChecks"
               prefix="system:user"
+              :hide-delete="true"
+              :hide-add="true"
               :disabled-delete="checkedRowKeys.length === 0"
               :loading="loading"
               @add="handleAdd"
               @delete="handleBatchDelete"
               @refresh="getData"
-            />
+            >
+              <NPopconfirm
+                v-if="hasAuth(generatePrefix('system:user', 'update'))"
+                @positive-click="handleBatchDChangeStatus"
+              >
+                <template #trigger>
+                  <NButton type="error" ghost size="small" :disabled="checkedRowKeys.length === 0">
+                    {{ $t('common.batchDisable') }}
+                  </NButton>
+                </template>
+                {{ `${$t('common.batchDisable')}?` }}
+              </NPopconfirm>
+            </TableHeaderOperation>
             <NDataTable
+              v-model:checked-row-keys="checkedRowKeys"
               :columns="columns"
               :data="data"
               size="small"

@@ -8,10 +8,12 @@ defineOptions({
 });
 
 interface Props {
-  itemAlign?: NaiveUI.Align;
-  disabledDelete?: boolean;
-  loading?: boolean;
   prefix: string;
+  itemAlign?: NaiveUI.Align;
+  hideDelete?: boolean;
+  disabledDelete?: boolean;
+  hideAdd?: boolean;
+  loading?: boolean;
   treeTable?: boolean;
 }
 
@@ -74,13 +76,19 @@ function fold() {
       <slot name="prefix"></slot>
       <slot name="default">
         <!-- 把 prefix 和 :create 拼接起来 就可以和后端的权限对应 -->
-        <NButton v-if="hasAuth(generatePrefix(prefix, 'create'))" size="small" ghost type="primary" @click="add">
+        <NButton
+          v-if="!hideAdd && hasAuth(generatePrefix(prefix, 'create'))"
+          size="small"
+          ghost
+          type="primary"
+          @click="add"
+        >
           <template #icon>
             <icon-ic-round-plus class="text-icon" />
           </template>
           {{ $t('common.add') }}
         </NButton>
-        <NPopconfirm v-if="hasAuth(generatePrefix(prefix, 'delete'))" @positive-click="batchDelete">
+        <NPopconfirm v-if="!hideDelete && hasAuth(generatePrefix(prefix, 'delete'))" @positive-click="batchDelete">
           <template #trigger>
             <NButton size="small" ghost type="error" :disabled="disabledDelete">
               <template #icon>

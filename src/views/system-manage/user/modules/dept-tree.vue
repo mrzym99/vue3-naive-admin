@@ -64,7 +64,7 @@ onMounted(() => {
   <div class="h-full w-full overflow-hidden">
     <div class="flex items-center">
       <span class="mr-1 whitespace-nowrap text-[1rem] font-bold">部门</span>
-      <NInputGroup class="flex-1 items-center">
+      <NInputGroup class="mr-1 flex-1 items-center">
         <NInput
           v-model:value="deptName"
           size="small"
@@ -84,8 +84,11 @@ onMounted(() => {
         <NIcon class="mb-1" size="16"><IcOutlineMoreVert /></NIcon>
       </NDropdown>
     </div>
-
+    <div v-if="loading" size="small" class="grid h-[60%] w-full place-items-center">
+      <NSpin />
+    </div>
     <NTree
+      v-else
       class="mt-8 h-full w-full overflow-auto"
       block-line
       :data="deptTreeData"

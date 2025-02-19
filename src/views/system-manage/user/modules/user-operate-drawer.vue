@@ -3,7 +3,7 @@ import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchUpdateUserProfile } from '@/service/api';
-import type { ConfigFormType } from '@/components/advanced/config-form/type';
+import type { ConfigFormType } from '@/components/advanced/config-form';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -69,11 +69,11 @@ const userConfigForm: ConfigFormType = [
     options: [
       {
         label: '男',
-        value: '1'
+        value: 1
       },
       {
         label: '女',
-        value: '0'
+        value: 0
       }
     ],
     props: {
@@ -103,7 +103,10 @@ const userConfigForm: ConfigFormType = [
     type: 'Upload',
     required: true,
     props: {
-      placeholder: '请上传头像'
+      cropper: true,
+      placeholder: '请上传头像',
+      'list-type': 'image-card',
+      max: 1
     }
   },
   {
@@ -133,10 +136,11 @@ const userConfigForm: ConfigFormType = [
       options: [
         {
           label: '正常',
-          value: '1'
+          value: 1
         },
         {
-          label: '禁用'
+          label: '禁用',
+          value: 0
         }
       ]
     }
@@ -169,10 +173,10 @@ function createDefaultModel(): Model {
     gender: null,
     phone: '',
     email: '',
-    avatar: '',
+    avatar: [],
     signature: '',
     address: '',
-    birthDate: '',
+    birthDate: null,
     introduction: ''
   };
 }
@@ -203,19 +207,29 @@ async function getRoleOptions() {
 
 function handleInitModel() {
   model.value = createDefaultModel();
-
   if (props.operateType === 'edit' && props.rowData) {
-    const { birthDate, gender } = props.rowData;
-    const timeStamp = new Date(birthDate).getTime();
+    const { birthDate } = props.rowData;
+    const timeStamp = birthDate ? new Date(birthDate).getTime() : null;
     Object.assign(model.value, props.rowData, {
       birthDate: timeStamp,
-      gender: String(gender)
+      avatar: [
+        {
+          name: 'avatar',
+          url: props.rowData.avatar,
+          status: 'finished'
+        }
+      ]
     });
   }
 }
 
 async function updateUserProfile() {
-  const { error, data } = await fetchUpdateUserProfile(props.rowData!.id, model.value as any);
+  const { avatar, ...values } = model.value;
+  const avatarUrl = Array.isArray(avatar) ? avatar[0].url : avatar;
+  const { error, data } = await fetchUpdateUserProfile(props.rowData!.id, {
+    avatar: avatarUrl,
+    ...values
+  } as any);
   if (!error) {
     console.log(data);
     window.$message?.success($t('common.updateSuccess'));

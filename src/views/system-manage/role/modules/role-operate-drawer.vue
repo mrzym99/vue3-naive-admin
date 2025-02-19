@@ -2,18 +2,18 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchCreateDept, fetchUpdateDept } from '@/service/api';
+import { fetchCreateRole, fetchUpdateRole } from '@/service/api';
 import type { ConfigFormType } from '@/components/advanced/config-form/config-form-type';
 
 defineOptions({
-  name: 'DeptOperateDrawer'
+  name: 'RoleOperateDrawer'
 });
 
 interface Props {
   /** the type of operation */
   operateType: NaiveUI.TableOperateType;
   /** the edit row data */
-  rowData?: Api.SystemManage.Dept | null;
+  rowData?: Api.SystemManage.Role | null;
 }
 
 const props = defineProps<Props>();
@@ -32,17 +32,17 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.dept.addDept'),
-    edit: $t('page.manage.dept.editDept')
+    add: $t('page.manage.role.addRole'),
+    edit: $t('page.manage.role.editRole')
   };
   return titles[props.operateType];
 });
 
-type Model = Partial<Api.SystemManage.Dept>;
+type Model = Partial<Api.SystemManage.Role>;
 
 const model = ref(createDefaultModel());
 
-const deptConfigForm: ConfigFormType = [
+const roleConfigForm: ConfigFormType = [
   {
     key: 'name',
     label: '部门名称',
@@ -89,7 +89,8 @@ const deptConfigForm: ConfigFormType = [
 function createDefaultModel(): Model {
   return {
     name: '',
-    order: null
+    status: null,
+    value: ''
   };
 }
 
@@ -101,8 +102,8 @@ function handleInitModel() {
   }
 }
 
-async function addOrEditDept() {
-  const api = props.operateType === 'add' ? fetchCreateDept : fetchUpdateDept;
+async function addOrEditRole() {
+  const api = props.operateType === 'add' ? fetchCreateRole : fetchUpdateRole;
 
   const { error } = await api(model.value as any);
   if (!error) {
@@ -117,7 +118,7 @@ function closeDrawer() {
 
 async function handleSubmit() {
   await validate();
-  await addOrEditDept();
+  await addOrEditRole();
   // request
   closeDrawer();
   emit('submitted');
@@ -136,7 +137,7 @@ watch(visible, () => {
 <template>
   <NDrawer v-model:show="visible" display-directive="show" width="40%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
-      <ConfigForm ref="formRef" v-model:model="model" :fields="deptConfigForm" />
+      <ConfigForm ref="formRef" v-model:model="model" :fields="roleConfigForm" />
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
-import type { Option } from './type';
+import type { Option } from './config-form-type';
 
 defineOptions({
-  name: 'RenderOptions'
+  name: 'ConfigFormItemOptions'
 });
 
 defineProps<{
