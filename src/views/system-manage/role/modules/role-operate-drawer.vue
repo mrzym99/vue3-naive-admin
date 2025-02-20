@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateRole, fetchUpdateRole } from '@/service/api';
@@ -42,55 +42,62 @@ type Model = Partial<Api.SystemManage.Role>;
 
 const model = ref(createDefaultModel());
 
-const roleConfigForm: ConfigFormType = [
+const roleConfigForm: ConfigFormType = reactive([
   {
     key: 'name',
-    label: '部门名称',
+    label: '角色名称',
     type: 'Input',
     props: {
-      placeholder: '请输入部门名称'
+      placeholder: '请输入角色名称'
     }
   },
   {
-    key: 'order',
-    label: '排序',
-    type: 'InputNumber',
+    key: 'value',
+    label: '角色值',
+    type: 'Input',
     props: {
-      placeholder: '请输入排序'
+      placeholder: '请输入角色值'
     }
   },
   {
-    key: 'parentId',
-    label: '父级部门',
-    type: 'TreeSelect',
+    key: 'status',
+    label: '状态',
+    type: 'Radio',
+    options: [
+      {
+        label: $t('common.enable'),
+        value: 1
+      },
+      {
+        label: $t('common.disable'),
+        value: 0
+      }
+    ]
+  },
+  {
+    key: 'default',
+    label: '默认角色',
+    type: 'Switch'
+  },
+  {
+    key: 'description',
+    label: '描述',
+    type: 'Input',
     span: 24,
-    // tree select 比较特殊 options 可以通过 props 传入
     props: {
-      placeholder: '请选择父级部门',
-      options: [
-        {
-          label: 'Rubber Soul',
-          key: 'The Beatles',
-          value: 'The Beatles',
-          children: [
-            {
-              label: "Everybody's Got Something to Hide Except Me and My Monkey",
-              key: "Everybody's Got Something to Hide Except Me and My Monkey",
-              value: "Everybody's Got Something to Hide Except Me and My Monkey"
-            }
-          ]
-        }
-      ]
-    },
-    required: false
+      type: 'textarea',
+      placeholder: '请输入描述'
+    }
   }
-];
+]);
 
 function createDefaultModel(): Model {
   return {
     name: '',
     status: null,
-    value: ''
+    value: '',
+    description: '',
+    default: 0
   };
 }
 

@@ -2,7 +2,7 @@
 import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchDeleteRole, fetchGetRoleList } from '@/service/api';
+import { fetchDeleteRole, fetchGetRoleList, fetchSetRoleDefault } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { enableStatusRecord } from '@/constants/business';
@@ -63,8 +63,10 @@ const {
   showTotal: true,
   apiParams: {
     currentPage: 1,
-    pageSize: 999,
-    name: ''
+    pageSize: 10,
+    name: '',
+    value: '',
+    status: null
   },
   columns: () => [
     {
@@ -137,9 +139,9 @@ const {
       key: 'operate',
       title: $t('common.operate'),
       align: 'center',
-      width: 240,
+      width: 220,
       render: row => (
-        <div class="flex-center gap-8px">
+        <div class="flex justify-items-start gap-8px">
           <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
           </NButton>
@@ -153,16 +155,20 @@ const {
               )
             }}
           </NPopconfirm>
-          <NPopconfirm onPositiveClick={() => handleSetDefault(row.id)}>
-            {{
-              default: () => '设置为默认',
-              trigger: () => (
-                <NButton type={'tertiary'} ghost size="small">
-                  设为默认
-                </NButton>
-              )
-            }}
-          </NPopconfirm>
+          {row.default ? (
+            ''
+          ) : (
+            <NPopconfirm onPositiveClick={() => handleSetDefault(row.id)}>
+              {{
+                default: () => '设置为默认',
+                trigger: () => (
+                  <NButton type={'tertiary'} ghost size="small">
+                    设为默认
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
+          )}
         </div>
       )
     }
@@ -183,8 +189,9 @@ async function handleDelete(id: string) {
 }
 
 async function handleSetDefault(id: string) {
-  const { error } = await fetchDeleteRole(id);
+  const { error } = await fetchSetRoleDefault(id);
   if (!error) {
+    window.$message?.success('设置成功');
     getDataByPage();
   }
 }

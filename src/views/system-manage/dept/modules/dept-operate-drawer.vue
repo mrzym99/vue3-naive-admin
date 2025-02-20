@@ -59,6 +59,7 @@ const deptConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入排序'
     }
   },
+
   {
     key: 'parentId',
     label: '父级部门',
@@ -70,13 +71,20 @@ const deptConfigForm = reactive<ConfigFormType>([
       options: []
     },
     required: false
+  },
+  {
+    key: 'default',
+    label: '默认角色',
+    type: 'Switch'
   }
 ]);
 
 function createDefaultModel(): Model {
   return {
     name: '',
-    order: null
+    order: null,
+    default: 0,
+    parentId: ''
   };
 }
 

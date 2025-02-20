@@ -2,7 +2,7 @@
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchDeleteDept, fetchGetDeptList } from '@/service/api';
+import { fetchDeleteDept, fetchGetDeptList, fetchSetDeptDefault } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import DeptOperateDrawer from './modules/dept-operate-drawer.vue';
@@ -75,9 +75,9 @@ const {
       key: 'operate',
       title: $t('common.operate'),
       align: 'center',
-      width: 130,
+      width: 220,
       render: row => (
-        <div class="flex-center gap-8px">
+        <div class="flex justify-items-start gap-8px">
           <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
           </NButton>
@@ -91,6 +91,20 @@ const {
               )
             }}
           </NPopconfirm>
+          {row.default ? (
+            ''
+          ) : (
+            <NPopconfirm onPositiveClick={() => handleSetDefault(row.id)}>
+              {{
+                default: () => '设置为默认',
+                trigger: () => (
+                  <NButton type={'tertiary'} ghost size="small">
+                    设为默认
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
+          )}
         </div>
       )
     }
@@ -107,6 +121,14 @@ async function handleDelete(id: string) {
   const { error } = await fetchDeleteDept(id);
   if (!error) {
     onDeleted();
+  }
+}
+
+async function handleSetDefault(id: string) {
+  const { error } = await fetchSetDeptDefault(id);
+  if (!error) {
+    window.$message?.success('设为默认成功');
+    getDataByPage();
   }
 }
 </script>

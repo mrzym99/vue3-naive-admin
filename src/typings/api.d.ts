@@ -97,10 +97,13 @@ declare namespace Api {
     type Dept = Common.CommonRecord<{
       /** dept name */
       name: string;
+      /** dept parent */
+      parentId?: string;
       /** 排序 */
       order?: number | null;
-      /** 是否默认 */
-      default?: boolean;
+      /** 是否默认 1 是 0 否 */
+      default?: number;
+
       children?: Dept[];
     }>;
 
@@ -123,7 +126,7 @@ declare namespace Api {
       /** role description */
       description: string;
       /** role default */
-      default: boolean;
+      default: number;
     }>;
 
     /** role search params */

@@ -32,19 +32,27 @@ const userSearchForm: SearchFormType = [
     }
   },
   {
-    key: 'gender',
-    label: '性别',
+    key: 'email',
+    label: '邮箱',
+    type: 'Input',
+    props: {
+      placeholder: '请输入邮箱'
+    }
+  },
+  {
+    key: 'status',
+    label: '状态',
     type: 'Select',
     props: {
-      placeholder: '请选择性别',
+      placeholder: '请选择状态',
       options: [
         {
           value: 1,
-          label: '男'
+          label: $t('common.enable')
         },
         {
           value: 0,
-          label: '女'
+          label: $t('common.disable')
         }
       ]
     }
@@ -75,7 +83,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     showTotal: true,
     apiParams: {
       currentPage: 1,
-      pageSize: 20,
+      pageSize: 10,
       // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
       // the value can not be undefined, otherwise the property in Form will not be reactive
       status: null,

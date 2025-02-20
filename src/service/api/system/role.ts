@@ -24,6 +24,12 @@ export function fetchUpdateRole(data?: Api.SystemManage.Role) {
   });
 }
 
+export function fetchSetRoleDefault(id?: string) {
+  return request<App.Service.Response>({
+    url: `/system/role/default/${id}`,
+    method: 'put'
+  });
+}
 export function fetchDeleteRole(id?: string) {
   return request<App.Service.Response>({
     url: `/system/role/${id}`,
