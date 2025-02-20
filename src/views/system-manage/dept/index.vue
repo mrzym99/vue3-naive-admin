@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { NButton, NPopconfirm } from 'naive-ui';
+import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteDept, fetchGetDeptList } from '@/service/api';
@@ -62,6 +62,20 @@ const {
       align: 'center',
       width: 100
     },
+    {
+      key: 'default',
+      title: '默认部门',
+      align: 'center',
+      width: 120,
+      render: row => {
+        if (!row.default) {
+          return null;
+        }
+
+        return <NTag type={'primary'}>是</NTag>;
+      }
+    },
+
     {
       fixed: 'right',
       key: 'operate',
