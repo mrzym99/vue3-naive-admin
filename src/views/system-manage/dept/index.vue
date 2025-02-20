@@ -44,12 +44,6 @@ const {
   },
   columns: () => [
     {
-      fixed: 'left',
-      type: 'selection',
-      align: 'center',
-      width: 48
-    },
-    {
       key: 'name',
       title: '部门名称', // $t('page.manage.dept.role'),
       align: 'left',
@@ -103,15 +97,7 @@ const {
   ]
 });
 
-const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit, onDeleted, onBatchDeleted } =
-  useTableOperate(data, getData);
-
-async function handleBatchDelete() {
-  // request
-  console.log(checkedRowKeys.value);
-
-  onBatchDeleted();
-}
+const { drawerVisible, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(data, getData);
 
 function edit(id: string) {
   handleEdit(id);
@@ -139,18 +125,15 @@ async function handleDelete(id: string) {
           v-model:columns="columnChecks"
           prefix="system:dept"
           :hide-delete="true"
-          :disabled-delete="checkedRowKeys.length === 0"
           :loading="loading"
           :tree-table="isTreeTable"
           @add="handleAdd"
-          @delete="handleBatchDelete"
           @refresh="getData"
           @expand="setExpand"
           @fold="setFold"
         />
         <NDataTable
           v-model:expanded-row-keys="expandedRowKeys"
-          v-model:checked-row-keys="checkedRowKeys"
           :columns="columns"
           :data="data"
           size="small"
