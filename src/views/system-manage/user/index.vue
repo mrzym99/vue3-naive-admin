@@ -2,7 +2,7 @@
 import { NAvatar, NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchGetUserList } from '@/service/api';
+import { fetchGetUserList, fetchUpdatedUserStatus } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
@@ -221,7 +221,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
               {$t('common.edit')}
             </NButton>
-            <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id)}>
+            <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id, row.status)}>
               {{
                 default: () =>
                   $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
@@ -252,14 +252,26 @@ function edit(id: string) {
   handleEdit(id);
 }
 
-function handleChangeStatus(id: string) {
-  console.log(id);
+async function handleChangeStatus(id: string, status: number | null) {
+  const { error } = await fetchUpdatedUserStatus({
+    ids: [id],
+    status: status ? 0 : 1
+  });
+  if (!error) {
+    window.$message?.success('操作成功');
+  }
   // request
   getDataByPage();
 }
 
-function handleBatchDChangeStatus() {
-  console.log(checkedRowKeys);
+async function handleBatchDChangeStatus() {
+  const { error } = await fetchUpdatedUserStatus({
+    ids: checkedRowKeys.value,
+    status: 0
+  });
+  if (!error) {
+    window.$message?.success('操作成功');
+  }
   // request
   getDataByPage();
 }

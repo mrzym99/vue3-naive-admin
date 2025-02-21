@@ -29,7 +29,7 @@ declare namespace Api {
      * - "1": enabled
      * - "2": disabled
      */
-    type EnableStatus = '0' | '1';
+    type EnableStatus = 0 | 1;
 
     /** common record */
     type CommonRecord<T = any> = {
@@ -57,6 +57,13 @@ declare namespace Api {
     interface LoginToken {
       access_token: string;
       // refreshToken: string;
+    }
+
+    interface LoginDto {
+      username: string;
+      password: string;
+      code: string;
+      type?: string;
     }
 
     interface UserInfo {
@@ -177,6 +184,11 @@ declare namespace Api {
       birthDate: number | null;
       introduction: string;
     }>;
+
+    type StatusDto = {
+      ids: string[];
+      status: number;
+    };
 
     type FileInfo = {
       name: string;

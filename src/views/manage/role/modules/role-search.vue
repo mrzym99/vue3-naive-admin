@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { $t } from '@/locales';
-import { enableStatusOptions } from '@/constants/business';
-import { translateOptions } from '@/utils/common';
+// import { enableStatusOptions } from '@/constants/business';
+// import { translateOptions } from '@/utils/common';
 
 defineOptions({
   name: 'RoleSearch'
@@ -41,7 +41,7 @@ function search() {
               <NSelect
                 v-model:value="model.status"
                 :placeholder="$t('page.manage.role.form.roleStatus')"
-                :options="translateOptions(enableStatusOptions)"
+                :options="[]"
                 clearable
               />
             </NFormItemGi>

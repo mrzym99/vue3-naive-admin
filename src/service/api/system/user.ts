@@ -17,6 +17,14 @@ export function fetchUpdateUserProfile(id: string, data: Api.SystemManage.Profil
   });
 }
 
+export function fetchUpdatedUserStatus(params: Api.SystemManage.StatusDto) {
+  return request<App.Service.Response>({
+    url: `/system/user/updateStatus`,
+    method: 'put',
+    params
+  });
+}
+
 /** get all pages */
 export function fetchGetAllPages() {
   return request<string[]>({

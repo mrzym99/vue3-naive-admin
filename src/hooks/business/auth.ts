@@ -8,7 +8,7 @@ export function useAuth() {
       return false;
     }
 
-    if (authStore.userInfo.roles.includes('admin')) {
+    if (authStore.userInfo.roles.includes('admin') || authStore.userInfo.roles.includes('super-admin')) {
       return true;
     }
 

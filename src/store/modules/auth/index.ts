@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchGetUserInfo, fetchLogin } from '@/service/api';
+import { fetchGetUserInfo, fetchLogin, fetchSuperLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
@@ -61,10 +61,12 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
    * @param password Password
    * @param [redirect=true] Whether to redirect after login. Default is `true`
    */
-  async function login(username: string, password: string, code: string, redirect = true) {
+  async function login(loginDto: Api.Auth.LoginDto, redirect = true) {
+    const { username, password, code, type } = loginDto;
     startLoading();
+    const api = type === 'super' ? fetchSuperLogin : fetchLogin;
 
-    const { data: loginToken, error } = await fetchLogin(username, password, code);
+    const { data: loginToken, error } = await api(username, password, code);
     if (!error) {
       const pass = await loginByToken(loginToken);
 
@@ -73,7 +75,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
         window.$notification?.success({
           title: $t('page.login.common.loginSuccess'),
-          content: $t('page.login.common.welcomeBack', { username: userInfo.username }),
+          content: $t('page.login.common.welcomeBack', { username: userInfo.nickName }),
           duration: 4500
         });
       }

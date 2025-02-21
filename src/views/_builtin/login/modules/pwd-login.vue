@@ -39,42 +39,44 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
 async function handleSubmit() {
   await validate();
-  await authStore.login(model.username, model.password, model.code);
+  await authStore.login(model as Api.Auth.LoginDto);
 }
 
-// type AccountKey = 'super' | 'admin' | 'user';
+type AccountKey = 'super' | 'admin' | 'user';
 
-// interface Account {
-//   key: AccountKey;
-//   label: string;
-//   username: string;
-//   password: string;
-// }
+interface Account {
+  key: AccountKey;
+  label: string;
+  username: string;
+  password: string;
+  type?: string;
+}
 
-// const accounts = computed<Account[]>(() => [
-//   {
-//     key: 'super',
-//     label: $t('page.login.pwdLogin.superAdmin'),
-//     username: 'Super',
-//     password: '123456'
-//   },
-//   {
-//     key: 'admin',
-//     label: $t('page.login.pwdLogin.admin'),
-//     username: 'Admin',
-//     password: '123456'
-//   },
-//   {
-//     key: 'user',
-//     label: $t('page.login.pwdLogin.user'),
-//     username: 'User',
-//     password: '123456'
-//   }
-// ]);
+const accounts = computed<Account[]>(() => [
+  {
+    key: 'super',
+    label: $t('page.login.pwdLogin.superAdmin'),
+    username: 'superadmin',
+    password: '123456',
+    type: 'super'
+  },
+  {
+    key: 'user',
+    label: $t('page.login.pwdLogin.user'),
+    username: 'xiaozhang',
+    password: '123456'
+  }
+]);
 
-// async function handleAccountLogin(account: Account) {
-//   await authStore.login(account.username, account.password);
-// }
+async function handleAccountLogin(account: Account) {
+  const acc: Api.Auth.LoginDto = {
+    username: account.username,
+    password: account.password,
+    code: '123',
+    type: account.type
+  };
+  await authStore.login(acc);
+}
 </script>
 
 <template>
@@ -109,13 +111,11 @@ async function handleSubmit() {
         </NButton>
       </div>
       <NDivider class="text-14px text-#666 !m-0">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</NDivider>
-      <!--
- <div class="flex-center gap-12px">
+      <div class="flex-center gap-12px">
         <NButton v-for="item in accounts" :key="item.key" type="primary" @click="handleAccountLogin(item)">
           {{ item.label }}
         </NButton>
-      </div> 
--->
+      </div>
     </NSpace>
   </NForm>
 </template>

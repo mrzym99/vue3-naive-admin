@@ -98,7 +98,7 @@ function createDefaultModel(): Model {
     icon: '',
     iconType: '1',
     parentId: 0,
-    status: '1',
+    status: 1,
     keepAlive: false,
     constant: false,
     order: 0,

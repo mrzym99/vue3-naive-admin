@@ -19,6 +19,24 @@ export function fetchLogin(username: string, password: string, code: string) {
 }
 
 /**
+ * Login
+ *
+ * @param username User name
+ * @param password Password
+ */
+export function fetchSuperLogin(username: string, password: string, code: string) {
+  return request<Api.Auth.LoginToken>({
+    url: '/auth/super/login',
+    method: 'post',
+    data: {
+      username,
+      password,
+      code
+    }
+  });
+}
+
+/**
  * Refresh token
  *
  * @param refreshToken Refresh token

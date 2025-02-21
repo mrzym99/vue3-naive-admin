@@ -74,7 +74,7 @@ const deptConfigForm = reactive<ConfigFormType>([
   },
   {
     key: 'default',
-    label: '默认角色',
+    label: '默认部门',
     type: 'Switch'
   }
 ]);
