@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchUpdateUserProfile } from '@/service/api';
-import type { ConfigFormType } from '@/components/advanced/config-form';
+import { fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
+import type { ConfigFormType, Option } from '@/components/advanced/config-form';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -42,7 +42,26 @@ type Model = Partial<Api.SystemManage.User>;
 
 const model = ref(createDefaultModel());
 
-const userConfigForm: ConfigFormType = [
+const userConfigForm = reactive<ConfigFormType>([
+  {
+    key: 'deptId',
+    label: '所属部门',
+    type: 'TreeSelect',
+    props: {
+      placeholder: '请选择所属部门',
+      options: []
+    }
+  },
+  {
+    key: 'roleIds',
+    label: '所属角色',
+    type: 'Select',
+    props: {
+      multiple: true,
+      placeholder: '请选择角色',
+      options: []
+    }
+  },
   {
     key: 'username',
     label: '用户名',
@@ -128,22 +147,21 @@ const userConfigForm: ConfigFormType = [
   {
     key: 'status',
     label: '状态',
-    type: 'Select',
+    type: 'Radio',
     required: true,
-    disabled: true,
     props: {
-      placeholder: '请选择状态',
-      options: [
-        {
-          label: '正常',
-          value: 1
-        },
-        {
-          label: '禁用',
-          value: 0
-        }
-      ]
-    }
+      placeholder: '请选择状态'
+    },
+    options: [
+      {
+        label: '正常',
+        value: 1
+      },
+      {
+        label: '禁用',
+        value: 0
+      }
+    ]
   },
   {
     key: 'birthDate',
@@ -164,10 +182,12 @@ const userConfigForm: ConfigFormType = [
       placeholder: '请输入简介'
     }
   }
-];
+]);
 
 function createDefaultModel(): Model {
   return {
+    roleIds: [],
+    deptId: '',
     username: '',
     nickName: '',
     gender: null,
@@ -181,37 +201,50 @@ function createDefaultModel(): Model {
   };
 }
 
-/** the enabled role options */
-const roleOptions = ref<CommonType.Option<string>[]>([]);
-
 async function getRoleOptions() {
-  // const { error, data } = await fetchGetAllRoles();
+  const { error, data } = await fetchGetAllRole();
 
-  // if (!error) {
-  // const options = data.map(item => ({
-  //   label: item.roleName,
-  //   value: item.roleCode
-  // }));
+  if (!error) {
+    const options = data
+      ? data.map(item => ({
+          label: item.name,
+          value: item.id
+        }))
+      : [];
 
-  // // the mock data does not have the roleCode, so fill it
-  // // if the real request, remove the following code
-  // const userRoleOptions = model.value.userRoles.map(item => ({
-  //   label: item,
-  //   value: item
-  // }));
-  // end
+    userConfigForm[1]!.props!.options = options;
+  }
+}
 
-  roleOptions.value = [];
-  // }
+function mapTree(tree: Api.SystemManage.DeptTree): Option[] {
+  return tree.map(item => {
+    const { children } = item;
+    return {
+      label: item.name,
+      value: item.id,
+      key: item.id,
+      isLeaf: !children || children.length === 0,
+      children: children ? mapTree(children) : []
+    };
+  });
+}
+
+async function getDeptTree() {
+  const { data, error } = await fetchGetDeptTree();
+  if (!error) {
+    userConfigForm[0]!.props!.options = mapTree(data);
+  }
 }
 
 function handleInitModel() {
   model.value = createDefaultModel();
   if (props.operateType === 'edit' && props.rowData) {
-    const { birthDate } = props.rowData;
+    const { birthDate, roles, dept } = props.rowData;
     const timeStamp = birthDate ? new Date(birthDate).getTime() : null;
     Object.assign(model.value, props.rowData, {
       birthDate: timeStamp,
+      roleIds: roles && roles.length ? roles.map(r => r.id) : [],
+      deptId: dept ? dept.id : '',
       avatar: [
         {
           name: 'avatar',
@@ -226,12 +259,11 @@ function handleInitModel() {
 async function updateUserProfile() {
   const { avatar, ...values } = model.value;
   const avatarUrl = Array.isArray(avatar) ? avatar[0].url : avatar;
-  const { error, data } = await fetchUpdateUserProfile(props.rowData!.id, {
+  const { error } = await fetchUpdateUser(props.rowData!.id, {
     avatar: avatarUrl,
     ...values
   } as any);
   if (!error) {
-    console.log(data);
     window.$message?.success($t('common.updateSuccess'));
   }
 }
@@ -254,13 +286,14 @@ watch(visible, () => {
     nextTick(() => {
       restoreValidation();
     });
+    getDeptTree();
     getRoleOptions();
   }
 });
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" width="40%">
+  <NDrawer v-model:show="visible" display-directive="show" width="50%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <ConfigForm ref="formRef" v-model:model="model" :fields="userConfigForm" />
       <template #footer>

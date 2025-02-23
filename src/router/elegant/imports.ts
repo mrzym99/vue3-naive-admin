@@ -56,6 +56,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   plugin_typeit: () => import("@/views/plugin/typeit/index.vue"),
   plugin_video: () => import("@/views/plugin/video/index.vue"),
   "system-manage_dept": () => import("@/views/system-manage/dept/index.vue"),
+  "system-manage_menu": () => import("@/views/system-manage/menu/index.vue"),
   "system-manage_role": () => import("@/views/system-manage/role/index.vue"),
   "system-manage_user": () => import("@/views/system-manage/user/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),

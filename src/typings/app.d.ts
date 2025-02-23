@@ -671,9 +671,11 @@ declare namespace App {
             addMenu: string;
             editMenu: string;
             addChildMenu: string;
+            addPermission: string;
             type: {
               directory: string;
               menu: string;
+              permission: string;
             };
             iconType: {
               iconify: string;

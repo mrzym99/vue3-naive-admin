@@ -590,6 +590,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'system-manage_menu',
+        path: '/system-manage/menu',
+        component: 'view.system-manage_menu',
+        meta: {
+          title: 'system-manage_menu',
+          i18nKey: 'route.system-manage_menu'
+        }
+      },
+      {
         name: 'system-manage_role',
         path: '/system-manage/role',
         component: 'view.system-manage_role',

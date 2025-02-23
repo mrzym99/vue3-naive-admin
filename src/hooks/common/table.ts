@@ -222,18 +222,27 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
 
   const operateType = ref<NaiveUI.TableOperateType>('add');
 
-  function handleAdd() {
-    operateType.value = 'add';
-    openDrawer();
-  }
-
+  const addingData = ref<T | null>(null);
   /** the editing row data */
   const editingData: Ref<T | null> = ref(null);
 
-  function handleEdit(id: T['id']) {
+  function handleAdd(addData?: Record<string, any>) {
+    operateType.value = 'add';
+    addingData.value = addData;
+    openDrawer();
+  }
+
+  function handleEdit(id: T['id'], detail?: T) {
     operateType.value = 'edit';
     const findItem = data.value.find(item => item.id === id) || null;
     editingData.value = jsonClone(findItem);
+
+    if (detail) {
+      editingData.value = {
+        ...editingData.value,
+        ...detail
+      };
+    }
 
     openDrawer();
   }
@@ -263,6 +272,7 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     closeDrawer,
     operateType,
     handleAdd,
+    addingData,
     editingData,
     handleEdit,
     checkedRowKeys,

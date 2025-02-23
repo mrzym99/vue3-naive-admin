@@ -236,7 +236,8 @@ const local: App.I18n.Schema = {
     'system-manage': 'SystemManage',
     'system-manage_role': 'RoleMange',
     'system-manage_user': 'UserMange',
-    'system-manage_dept': 'DeptManage'
+    'system-manage_dept': 'DeptManage',
+    'system-manage_menu': 'MenuManage'
   },
   page: {
     login: {
@@ -497,9 +498,11 @@ const local: App.I18n.Schema = {
         addMenu: 'Add Menu',
         editMenu: 'Edit Menu',
         addChildMenu: 'Add Child Menu',
+        addPermission: 'Add Permission',
         type: {
           directory: 'Directory',
-          menu: 'Menu'
+          menu: 'Menu',
+          permission: 'Permission'
         },
         iconType: {
           iconify: 'Iconify Icon',

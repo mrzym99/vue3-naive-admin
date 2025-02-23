@@ -12,7 +12,7 @@ defineProps<{
   field: ConfigForm;
 }>();
 
-const value = defineModel<Array<any> | number | string>('value');
+const value = defineModel<Array<any> | number | string | boolean>('value');
 
 const getComponent = (type: ComponentType) => {
   if (!componentMap[type]) {
@@ -37,6 +37,15 @@ const getComponentProps = (componentProps: ComponentProps) => {
   }, {});
 };
 
+const getDisabled = (field: ConfigForm) => {
+  const { disabled } = field;
+  if (typeof disabled === 'function') {
+    return disabled();
+  }
+
+  return disabled;
+};
+
 /** 表单组件事件 */
 const componentEvents = (componentProps: ComponentProps) => {
   if (!componentProps) return {};
@@ -57,7 +66,7 @@ const componentEvents = (componentProps: ComponentProps) => {
     v-bind="getComponentProps(field.props)"
     v-model:value="value"
     clearable
-    :disabled="field.disabled"
+    :disabled="getDisabled(field)"
     v-on="componentEvents(field.props)"
   >
     <!-- 部分组件 如 RadioGroup 不能通过传入 Options 来渲染这里特殊处理 -->

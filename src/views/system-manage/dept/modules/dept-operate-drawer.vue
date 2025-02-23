@@ -82,7 +82,7 @@ const deptConfigForm = reactive<ConfigFormType>([
 function createDefaultModel(): Model {
   return {
     name: '',
-    order: null,
+    order: 1,
     default: 0,
     parentId: ''
   };

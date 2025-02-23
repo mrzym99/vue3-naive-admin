@@ -134,6 +134,8 @@ declare namespace Api {
       description: string;
       /** role default */
       default: number;
+      /** role menu */
+      menuIds: string[];
     }>;
 
     /** role search params */
@@ -164,6 +166,10 @@ declare namespace Api {
       roles: Role[];
       /** user dept */
       dept: Dept;
+      /** roleIds */
+      roleIds?: [];
+      /** deptId */
+      deptId?: string;
     }> &
       Profile;
 
@@ -212,12 +218,21 @@ declare namespace Api {
     type UserList = Common.PaginatingQueryRecord<User>;
 
     /**
+     * icon type
+     *
+     * - "1": iconify icon
+     * - "2": local icon
+     */
+    type IconType = 0 | 1;
+
+    /**
      * menu type
      *
-     * - "1": directory
-     * - "2": menu
+     * - 0: directory
+     * - 1: menu
+     * - 2: permission
      */
-    type MenuType = '1' | '2';
+    type MenuType = 0 | 1 | 2;
 
     type MenuButton = {
       /**
@@ -230,14 +245,6 @@ declare namespace Api {
       desc: string;
     };
 
-    /**
-     * icon type
-     *
-     * - "1": iconify icon
-     * - "2": local icon
-     */
-    type IconType = '1' | '2';
-
     type MenuPropsOfRoute = Pick<
       import('vue-router').RouteMeta,
       | 'i18nKey'
@@ -245,6 +252,8 @@ declare namespace Api {
       | 'constant'
       | 'order'
       | 'href'
+      | 'isExt'
+      | 'extOpenMode'
       | 'hideInMenu'
       | 'activeMenu'
       | 'multiTab'
@@ -254,23 +263,23 @@ declare namespace Api {
 
     type Menu = Common.CommonRecord<{
       /** parent menu id */
-      parentId: number;
+      parentId: string;
       /** menu type */
-      menuType: MenuType;
+      type: MenuType;
       /** menu name */
-      menuName: string;
+      title: string;
       /** route name */
-      routeName: string;
+      name: string;
       /** route path */
-      routePath: string;
+      path: string;
       /** component */
       component?: string;
       /** iconify icon name or local icon name */
       icon: string;
       /** icon type */
       iconType: IconType;
-      /** buttons */
-      buttons?: MenuButton[] | null;
+      /** 权限 */
+      permission?: string | null;
       /** children menu */
       children?: Menu[] | null;
     }> &
@@ -279,11 +288,18 @@ declare namespace Api {
     /** menu list */
     type MenuList = Common.PaginatingQueryRecord<Menu>;
 
-    type MenuTree = {
-      id: number;
-      label: string;
-      pId: number;
-      children?: MenuTree[];
+    /** role search params */
+    type MenuSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Menu, 'title' | 'name' | 'path' | 'status'> & CommonSearchParams
+    >;
+
+    type MenuTreeItem = {
+      id: string;
+      title: string;
+      pId: string;
+      children?: MenuTreeItem[];
     };
+
+    type MenuTree = MenuTreeItem[];
   }
 }

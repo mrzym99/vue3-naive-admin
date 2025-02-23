@@ -8,6 +8,20 @@ export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams & Ap
   });
 }
 
+export function fetchGetAllRole() {
+  return request<Api.SystemManage.Role[]>({
+    url: '/system/role/all',
+    method: 'get'
+  });
+}
+
+export function fetchGetRoleInfo(id?: string) {
+  return request<Api.SystemManage.Role>({
+    url: `/system/role/info/${id}`,
+    method: 'get'
+  });
+}
+
 export function fetchCreateRole(data?: Api.SystemManage.Role) {
   return request<App.Service.Response>({
     url: '/system/role',

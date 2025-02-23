@@ -84,6 +84,7 @@ declare module "@elegant-router/types" {
     "plugin_video": "/plugin/video";
     "system-manage": "/system-manage";
     "system-manage_dept": "/system-manage/dept";
+    "system-manage_menu": "/system-manage/menu";
     "system-manage_role": "/system-manage/role";
     "system-manage_user": "/system-manage/user";
     "user-center": "/user-center";
@@ -203,6 +204,7 @@ declare module "@elegant-router/types" {
     | "plugin_typeit"
     | "plugin_video"
     | "system-manage_dept"
+    | "system-manage_menu"
     | "system-manage_role"
     | "system-manage_user"
     | "user-center"

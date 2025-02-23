@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import type { ConfigFormType } from './config-form-type';
 
@@ -29,7 +29,8 @@ const model = defineModel<Record<string, any>>('model', { default: () => ({}), t
 const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
   return props.fields.reduce(
     (acc, field) => {
-      if (field.required) {
+      const required = typeof field.required === 'function' ? field.required() : field.required;
+      if (required) {
         acc[field.key] = [
           {
             required: true
@@ -46,7 +47,13 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
 });
 
 const finalFields = computed<ConfigFormType>(() => {
-  return props.fields.filter(item => !item.hide);
+  return props.fields.filter(item => (typeof item.hide === 'function' ? !item.hide() : !item.hide));
+});
+const gridKey = ref(0); // 新增 gridKey
+
+// 使用 key 强制刷新 form 布局 以解决 grid 在fields变化时 新出现的 form-item 布局不生效的问题
+watch(finalFields, () => {
+  gridKey.value += 1;
 });
 
 defineExpose({
@@ -57,6 +64,7 @@ defineExpose({
 
 <template>
   <NForm
+    :key="gridKey"
     ref="formRef"
     :model="model"
     :rules="rules"
@@ -68,7 +76,7 @@ defineExpose({
     <NGrid responsive="screen" item-responsive :x-gap="16">
       <NFormItemGi
         v-for="field in finalFields"
-        :key="field.key"
+        :key="field.label"
         :span="field.span || span"
         :label="field.label"
         :path="field.key"

@@ -48,6 +48,10 @@ declare module 'vue-router' {
     order?: number | null;
     /** The outer link of the route */
     href?: string | null;
+    /** 是否外链 */
+    isExt?: boolean;
+    /** 外链打开方式 */
+    extOpenMode?: number | null;
     /** Whether to hide the route in the menu */
     hideInMenu?: boolean | null;
     /**

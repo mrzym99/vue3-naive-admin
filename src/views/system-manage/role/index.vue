@@ -2,7 +2,7 @@
 import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchDeleteRole, fetchGetRoleList, fetchSetRoleDefault } from '@/service/api';
+import { fetchDeleteRole, fetchGetRoleInfo, fetchGetRoleList, fetchSetRoleDefault } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { enableStatusRecord } from '@/constants/business';
@@ -72,13 +72,14 @@ const {
     {
       key: 'name',
       title: '角色名称', // $t('page.manage.role.role'),
-      align: 'left',
+      align: 'center',
       width: 200
     },
     {
       key: 'value',
       title: '角色值', // $t('page.manage.role.role'),
-      width: 120
+      width: 120,
+      align: 'center'
     },
     {
       key: 'status',
@@ -116,12 +117,15 @@ const {
     {
       key: 'description',
       title: '描述', // $t('page.manage.role.role'),
-      minWidth: 200
+      width: 200,
+      ellipsis: {
+        tooltip: true
+      }
     },
     {
       key: 'createdAt',
       title: '创建时间',
-      width: 160,
+      width: 180,
       render: row => {
         return <NTime time={new Date(row.createdAt)} />;
       }
@@ -129,7 +133,7 @@ const {
     {
       key: 'updatedAt',
       title: '更新时间',
-      width: 160,
+      width: 180,
       render: row => {
         return <NTime time={new Date(row.updatedAt)} />;
       }
@@ -177,8 +181,12 @@ const {
 
 const { drawerVisible, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(data, getData);
 
-function edit(id: string) {
-  handleEdit(id);
+async function edit(id: string) {
+  const { error, data: roleInfo } = await fetchGetRoleInfo(id);
+  if (error) {
+    return;
+  }
+  handleEdit(id, roleInfo as any);
 }
 
 async function handleDelete(id: string) {

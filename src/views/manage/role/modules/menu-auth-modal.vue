@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue';
 import { $t } from '@/locales';
 // import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
@@ -125,4 +125,4 @@ watch(visible, val => {
   </NModal>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->

@@ -236,7 +236,8 @@ const local: App.I18n.Schema = {
     'system-manage': '系统管理',
     'system-manage_role': '角色管理',
     'system-manage_user': '用户管理',
-    'system-manage_dept': '部门管理'
+    'system-manage_dept': '部门管理',
+    'system-manage_menu': '菜单管理'
   },
   page: {
     login: {
@@ -497,9 +498,11 @@ const local: App.I18n.Schema = {
         addMenu: '新增菜单',
         editMenu: '编辑菜单',
         addChildMenu: '新增子菜单',
+        addPermission: '新增权限',
         type: {
           directory: '目录',
-          menu: '菜单'
+          menu: '菜单',
+          permission: '权限'
         },
         iconType: {
           iconify: 'iconify图标',

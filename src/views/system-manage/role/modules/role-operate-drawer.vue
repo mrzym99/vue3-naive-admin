@@ -2,8 +2,8 @@
 import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchCreateRole, fetchUpdateRole } from '@/service/api';
-import type { ConfigFormType } from '@/components/advanced/config-form/config-form-type';
+import { fetchCreateRole, fetchGetMenuTree, fetchUpdateRole } from '@/service/api';
+import type { ConfigFormType, Option } from '@/components/advanced/config-form';
 
 defineOptions({
   name: 'RoleOperateDrawer'
@@ -88,16 +88,30 @@ const roleConfigForm: ConfigFormType = reactive([
       type: 'textarea',
       placeholder: '请输入描述'
     }
+  },
+  {
+    key: 'menuIds',
+    label: '菜单权限',
+    type: 'TreeSelect',
+    span: 24,
+    props: {
+      multiple: true,
+      placeholder: '请选择菜单权限',
+      treeCheckable: true,
+      treeCheckStrictly: true,
+      treeData: []
+    }
   }
 ]);
 
 function createDefaultModel(): Model {
   return {
     name: '',
-    status: null,
+    status: 1,
     value: '',
     description: '',
-    default: 0
+    default: 0,
+    menuIds: []
   };
 }
 
@@ -106,6 +120,26 @@ function handleInitModel() {
 
   if (props.operateType === 'edit' && props.rowData) {
     Object.assign(model.value, props.rowData);
+  }
+}
+
+function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
+  return tree.map(item => {
+    const { children } = item;
+    return {
+      label: item.title,
+      value: item.id,
+      key: item.id,
+      isLeaf: !children || children.length === 0,
+      children: children ? mapTree(children) : []
+    };
+  });
+}
+
+async function getMenuTree() {
+  const { data, error } = await fetchGetMenuTree();
+  if (!error) {
+    roleConfigForm[roleConfigForm.length - 1]!.props!.options = mapTree(data);
   }
 }
 
@@ -134,6 +168,7 @@ async function handleSubmit() {
 watch(visible, () => {
   if (visible.value) {
     handleInitModel();
+    getMenuTree();
     nextTick(() => {
       restoreValidation();
     });

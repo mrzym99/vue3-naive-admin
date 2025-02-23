@@ -9,6 +9,15 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
   });
 }
 
+export function fetchUpdateUser(id: string, data: Api.SystemManage.Profile) {
+  return request<App.Service.Response>({
+    url: `/system/user/update/${id}`,
+    method: 'put',
+    data
+  });
+}
+
+// 这个不可以修改部门、角色 用于用户修改
 export function fetchUpdateUserProfile(id: string, data: Api.SystemManage.Profile) {
   return request<App.Service.Response>({
     url: `/system/user/updateProfile/${id}`,
@@ -34,9 +43,9 @@ export function fetchGetAllPages() {
 }
 
 /** get menu tree */
-export function fetchGetMenuTree() {
-  return request<Api.SystemManage.MenuTree[]>({
-    url: '/systemManage/getMenuTree',
-    method: 'get'
-  });
-}
+// export function fetchGetMenuTree() {
+//   return request<Api.SystemManage.MenuTree[]>({
+//     url: '/systemManage/getMenuTree',
+//     method: 'get'
+//   });
+// }

@@ -1,0 +1,48 @@
+import { request } from '../../request';
+
+export function fetchGetMenuTree(params?: Api.SystemManage.MenuSearchParams) {
+  return request<Api.SystemManage.MenuTree>({
+    url: '/system/menu/tree',
+    method: 'get',
+    params
+  });
+}
+
+export function fetchGetMenuList(params?: Api.SystemManage.MenuSearchParams & Api.Common.CommonSearchParams) {
+  return request<Api.SystemManage.MenuList>({
+    url: '/system/menu/list',
+    method: 'get',
+    params
+  });
+}
+
+export function fetchCreateMenu(data?: Api.SystemManage.Menu) {
+  return request<App.Service.Response>({
+    url: '/system/menu',
+    method: 'post',
+    data
+  });
+}
+
+export function fetchUpdateMenu(data?: Api.SystemManage.Menu) {
+  return request<App.Service.Response>({
+    url: `/system/menu/update/${data?.id}`,
+    method: 'put',
+    data
+  });
+}
+
+export function fetchUpdatedMenuStatus(params: Api.SystemManage.StatusDto) {
+  return request<App.Service.Response>({
+    url: `/system/menu/updateStatus`,
+    method: 'put',
+    params
+  });
+}
+
+export function fetchDeleteMenu(id?: string) {
+  return request<App.Service.Response>({
+    url: `/system/menu/${id}`,
+    method: 'delete'
+  });
+}

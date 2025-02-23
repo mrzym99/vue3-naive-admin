@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<!-- <script setup lang="tsx">
 import { computed, ref, watch } from 'vue';
 import type { SelectOption } from 'naive-ui';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
@@ -462,4 +462,4 @@ watch(
   </NModal>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->

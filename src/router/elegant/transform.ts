@@ -56,6 +56,7 @@ function transformElegantRouteToVueRoute(
   }
 
   function getViewName(component: string) {
+    if(!component) return ''
     const view = component.replace(VIEW_PREFIX, '');
 
     if(!views[view]) {
@@ -124,6 +125,7 @@ function transformElegantRouteToVueRoute(
       }
 
       if (isView(component)) {
+        
         const viewName = getViewName(component);
 
         vueRoute.component = views[viewName];
@@ -230,6 +232,7 @@ const routeMap: RouteMap = {
   "plugin_video": "/plugin/video",
   "system-manage": "/system-manage",
   "system-manage_dept": "/system-manage/dept",
+  "system-manage_menu": "/system-manage/menu",
   "system-manage_role": "/system-manage/role",
   "system-manage_user": "/system-manage/user",
   "user-center": "/user-center"
