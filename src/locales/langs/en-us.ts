@@ -199,7 +199,7 @@ const local: App.I18n.Schema = {
     system_user: 'User Mange',
     system_dept: 'Dept Manage',
     system_menu: 'Menu Manage',
-    system_online: 'Online User Manage',
+    system_online: 'Online User',
     'multi-menu': 'Multi Menu',
     'multi-menu_first': 'Menu One',
     'multi-menu_first_child': 'Menu One Child',

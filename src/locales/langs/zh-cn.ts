@@ -199,7 +199,7 @@ const local: App.I18n.Schema = {
     system_user: '用户管理',
     system_dept: '部门管理',
     system_menu: '菜单管理',
-    system_online: '在线用户管理',
+    system_online: '在线用户',
     'multi-menu': '多级菜单',
     'multi-menu_first': '菜单一',
     'multi-menu_first_child': '菜单一子菜单',

@@ -42,7 +42,6 @@ export const useSSEStore = defineStore('sse', () => {
 
   function closeEventSource() {
     serverConnected.value = false;
-    console.log(eventSource);
     eventSource?.close();
     eventSource = null;
   }
@@ -60,7 +59,7 @@ export const useSSEStore = defineStore('sse', () => {
 
     // 处理 SSE 传递的数据
     eventSource.onmessage = event => {
-      const { type, data } = JSON.parse(event.data) as MessageEvent;
+      const { type } = JSON.parse(event.data) as MessageEvent;
 
       // 服务器关闭 SSE 连接
       if (type === 'close') {
@@ -75,8 +74,8 @@ export const useSSEStore = defineStore('sse', () => {
         emitter.emit('onlineUser', onlineUserCount.value);
       }
 
-      console.log('data', data);
-      console.log('eventSource', event.data);
+      console.log('sse', type);
+      // console.log('eventSource', event.data);
     };
     eventSource.onerror = err => {
       console.log('eventSource err', err);

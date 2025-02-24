@@ -1,12 +1,15 @@
 <script setup lang="tsx">
 import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
+import { onMounted } from 'vue';
 import { useAppStore } from '@/store/modules/app';
+import { useSSEStore } from '@/store/modules/sse';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetOnlineUserList, fetchKickOnlineUser } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 
 const appStore = useAppStore();
+const sseStore = useSSEStore();
 
 const userSearchForm: SearchFormType = [
   {
@@ -132,6 +135,12 @@ async function handleKick(tokenId: string) {
     getDataByPage();
   }
 }
+
+onMounted(async () => {
+  sseStore.emitter.on('onlineUser', () => {
+    getDataByPage();
+  });
+});
 </script>
 
 <template>

@@ -61,10 +61,16 @@ const accounts = computed<Account[]>(() => [
     type: 'super'
   },
   {
-    key: 'user',
-    label: $t('page.login.pwdLogin.user'),
+    key: 'admin',
+    label: $t('page.login.pwdLogin.admin'),
     username: 'xiaozhang',
     password: '123456'
+  },
+  {
+    key: 'user',
+    label: '测试',
+    username: 'test',
+    password: 'test123'
   }
 ]);
 

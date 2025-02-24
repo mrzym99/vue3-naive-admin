@@ -25,6 +25,8 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       return config;
     },
     isBackendSuccess(response) {
+      const sseStore = useSSEStore();
+      sseStore.setServerConnectStatus(true);
       // when the backend response code is "0000"(default), it means the request is success
       // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
       return String(response.data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
@@ -48,6 +50,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
 
       // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
       const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
+
       if (logoutCodes.includes(responseCode)) {
         handleLogout();
         return null;
@@ -98,15 +101,26 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
     },
     // 这里也是使用在了 intercepter 里， 用于错误code处理
     onError(error) {
+      const authStore = useAuthStore();
+
+      function handleLogout() {
+        authStore.resetStore();
+      }
       // when the request is fail, you can show error message
 
       let message = error.message;
       let backendErrorCode = '';
 
       // get backend error message and code
-      if (error.code === BACKEND_ERROR_CODE) {
+      if (error.code === BACKEND_ERROR_CODE || error.code === 'ERR_BAD_REQUEST') {
         message = error.response?.data?.message || message;
         backendErrorCode = String(error.response?.data?.code || '');
+      }
+
+      // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
+      const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
+      if (logoutCodes.includes(backendErrorCode)) {
+        handleLogout();
       }
 
       // the error message is displayed in the modal
@@ -122,9 +136,6 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       }
 
       showErrorMsg(request.state, message);
-
-      const sseStore = useSSEStore();
-      sseStore.setServerConnectStatus(true);
     }
   }
 );
