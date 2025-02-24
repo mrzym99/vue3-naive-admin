@@ -3,7 +3,7 @@ import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateMenu, fetchGetMenuTree, fetchUpdateMenu } from '@/service/api';
-import type { ConfigFormType, Option } from '@/components/advanced/config-form';
+import type { ConfigFormObjectType, Option } from '@/components/advanced/config-form';
 
 defineOptions({
   name: 'MenuOperateDrawer'
@@ -44,11 +44,12 @@ type Model = Partial<Api.SystemManage.Menu>;
 
 const model = ref(createDefaultModel());
 
-const menuConfigForm = reactive<ConfigFormType>([
-  {
+const menuConfigForm = reactive<ConfigFormObjectType>({
+  type: {
     key: 'type',
     label: '菜单类型',
     type: 'Radio',
+    disabled: props.operateType === 'edit',
     options: [
       {
         value: 0,
@@ -74,7 +75,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       }
     }
   },
-  {
+  title: {
     key: 'title',
     label: '菜单名称',
     type: 'Input',
@@ -83,7 +84,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入菜单名称'
     }
   },
-  {
+  i18nKey: {
     key: 'i18nKey',
     label: '国际化',
     type: 'Input',
@@ -91,7 +92,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入国际化key'
     }
   },
-  {
+  parentId: {
     key: 'parentId',
     label: '上级菜单',
     type: 'TreeSelect',
@@ -104,7 +105,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请选择上级菜单'
     }
   },
-  {
+  iconType: {
     key: 'iconType',
     label: '图标类型',
     type: 'Select',
@@ -123,21 +124,25 @@ const menuConfigForm = reactive<ConfigFormType>([
           label: 'local',
           value: 1
         }
-      ]
+      ],
+      'onUpdate:value': (value: number) => {
+        menuConfigForm.type.props!.type = value;
+      }
     }
   },
-  {
+  icon: {
     key: 'icon',
     label: '图标',
-    type: 'Input',
+    type: 'IconSelect',
     hide: (): boolean => {
       return isPermission();
     },
     props: {
-      placeholder: '请输入图标'
+      type: 0,
+      placeholder: '请选择图标'
     }
   },
-  {
+  path: {
     key: 'path',
     label: '菜单地址',
     type: 'Input',
@@ -148,7 +153,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入路由地址'
     }
   },
-  {
+  name: {
     key: 'name',
     label: '组件名称',
     type: 'Input',
@@ -159,7 +164,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入组件名称'
     }
   },
-  {
+  component: {
     key: 'component',
     label: '组件路径',
     type: 'Input',
@@ -170,7 +175,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入组件路径'
     }
   },
-  {
+  permission: {
     key: 'permission',
     label: '权限标识',
     type: 'Input',
@@ -181,12 +186,12 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入权限标识'
     }
   },
-  {
+  keepAlive: {
     key: 'keepAlive',
     label: '缓存',
     type: 'Switch'
   },
-  {
+  hideInMenu: {
     key: 'hideInMenu',
     label: '是否隐藏',
     type: 'Switch',
@@ -198,7 +203,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       }
     }
   },
-  {
+  activeMenu: {
     key: 'activeMenu',
     label: '激活菜单',
     type: 'TreeSelect',
@@ -210,7 +215,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       treeData: []
     }
   },
-  {
+  isExt: {
     key: 'isExt',
     label: '是否外链',
     type: 'Switch',
@@ -218,7 +223,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       return Boolean(model.value.hideInMenu);
     }
   },
-  {
+  extOpenMode: {
     key: 'extOpenMode',
     label: '外链方式',
     type: 'Radio',
@@ -236,17 +241,17 @@ const menuConfigForm = reactive<ConfigFormType>([
       }
     ]
   },
-  {
+  multiTab: {
     key: 'multiTab',
     label: '多页签',
     type: 'Switch'
   },
-  {
+  fixedIndexInTab: {
     key: 'fixedIndexInTab',
     label: '固定页签的序号',
     type: 'InputNumber'
   },
-  {
+  order: {
     key: 'order',
     label: '排序',
     type: 'InputNumber',
@@ -254,7 +259,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       placeholder: '请输入排序'
     }
   },
-  {
+  status: {
     key: 'status',
     label: '状态',
     type: 'Radio',
@@ -273,7 +278,7 @@ const menuConfigForm = reactive<ConfigFormType>([
       }
     ]
   }
-]);
+});
 
 function isPermission() {
   return model.value.type === 2;
@@ -312,26 +317,20 @@ function handleInitModel() {
   }
 }
 
-async function addOrEditMenu() {
-  const api = props.operateType === 'add' ? fetchCreateMenu : fetchUpdateMenu;
-
-  const { error } = await api(model.value as any);
-  if (!error) {
-    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
-    window.$message?.success(message);
-  }
-}
-
 function closeDrawer() {
   visible.value = false;
 }
 
 async function handleSubmit() {
   await validate();
-  await addOrEditMenu();
-  // request
-  closeDrawer();
-  emit('submitted');
+  const api = props.operateType === 'add' ? fetchCreateMenu : fetchUpdateMenu;
+  const { error } = await api(model.value as any);
+  if (!error) {
+    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
+    window.$message?.success(message);
+    closeDrawer();
+    emit('submitted');
+  }
 }
 
 function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
@@ -341,7 +340,7 @@ function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
       label: item.title,
       value: item.id,
       key: item.id,
-      disabled: props.operateType === 'edit' && item.id === model.value.parentId,
+      disabled: props.operateType === 'edit' && (item.id === model.value.parentId || item.id === model.value.id),
       isLeaf: !children || children.length === 0,
       children: children ? mapTree(children) : []
     };
@@ -351,8 +350,8 @@ function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
 async function getMenuTree() {
   const { data, error } = await fetchGetMenuTree();
   if (!error) {
-    menuConfigForm[3]!.props!.options = mapTree(data);
-    menuConfigForm[12]!.props!.options = mapTree(data);
+    menuConfigForm.parentId!.props!.options = mapTree(data);
+    menuConfigForm.activeMenu!.props!.options = mapTree(data);
   }
 }
 

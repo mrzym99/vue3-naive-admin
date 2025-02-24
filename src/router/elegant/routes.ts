@@ -518,7 +518,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base',
     meta: {
       title: 'system',
-      i18nKey: 'route.system'
+      i18nKey: 'route.system',
+      icon: 'ic:baseline-brightness-5'
     },
     children: [
       {
@@ -527,7 +528,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.system_dept',
         meta: {
           title: 'system_dept',
-          i18nKey: 'route.system_dept'
+          i18nKey: 'route.system_dept',
+          icon: 'mdi:office-building-cog-outline'
         }
       },
       {
@@ -536,7 +538,17 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.system_menu',
         meta: {
           title: 'system_menu',
-          i18nKey: 'route.system_menu'
+          i18nKey: 'route.system_menu',
+          icon: 'mdi:apps-box'
+        }
+      },
+      {
+        name: 'system_online',
+        path: '/system/online',
+        component: 'view.system_online',
+        meta: {
+          title: 'system_online',
+          i18nKey: 'route.system_online'
         }
       },
       {
@@ -545,7 +557,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.system_role',
         meta: {
           title: 'system_role',
-          i18nKey: 'route.system_role'
+          i18nKey: 'route.system_role',
+          icon: 'mdi:account-group-outline'
         }
       },
       {
@@ -554,7 +567,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.system_user',
         meta: {
           title: 'system_user',
-          i18nKey: 'route.system_user'
+          i18nKey: 'route.system_user',
+          icon: 'mdi:account-cog-outline'
         }
       }
     ]

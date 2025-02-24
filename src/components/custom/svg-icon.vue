@@ -19,7 +19,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const attrs = useAttrs();
+const attrs = useAttrs() as Record<string, any>;
 
 const bindAttrs = computed<{ class: string; style: string }>(() => ({
   class: (attrs.class as string) || '',

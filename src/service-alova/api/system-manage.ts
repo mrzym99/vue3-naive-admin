@@ -55,5 +55,5 @@ export function fetchGetAllPages() {
 
 /** get menu tree */
 export function fetchGetMenuTree() {
-  return alova.Get<Api.SystemManage.MenuTree[]>('/systemManage/getMenuTree');
+  return '';
 }

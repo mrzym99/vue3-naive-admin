@@ -3,14 +3,14 @@ import { computed, ref } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { $t } from '@/locales';
 import { useNaiveForm } from '@/hooks/common/form';
-import type { ConfigFormType } from '../config-form/config-form-type';
+import type { ConfigFormArrayType } from '../config-form/config-form-type';
 
 defineOptions({
   name: 'SearchForm'
 });
 
 interface Props {
-  fields: ConfigFormType;
+  fields: ConfigFormArrayType;
 }
 
 interface Emits {
@@ -64,7 +64,7 @@ const span = (breakpoints: string) => {
   }
 };
 
-const finalFields = computed<ConfigFormType>(() => {
+const finalFields = computed<ConfigFormArrayType>(() => {
   if (isCllapse.value) {
     return props.fields.slice(0, 24 / span(activeBreakpoint.value) - 1);
   }

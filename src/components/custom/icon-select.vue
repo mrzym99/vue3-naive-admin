@@ -1,19 +1,23 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+import { iconifyIconList, localIconList } from '@/constants/icon';
 
-defineOptions({ name: 'CustomIconSelect' });
+defineOptions({ name: 'IconSelect' });
+
+type IconType = 0 | 1;
 
 interface Props {
   /** Selected icon */
   value: string;
-  /** List of icons */
-  icons: string[];
   /** Icon for when nothing is selected */
   emptyIcon?: string;
+  /** icon type 0 iconify 1 local */
+  type?: IconType;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  emptyIcon: 'mdi:apps'
+  emptyIcon: 'mdi:apps',
+  type: 0
 });
 
 interface Emits {
@@ -35,7 +39,10 @@ const selectedIcon = computed(() => modelValue.value || props.emptyIcon);
 
 const searchValue = ref('');
 
-const iconsList = computed(() => props.icons.filter(v => v.includes(searchValue.value)));
+const iconsList = computed(() => {
+  const list = props.type === 0 ? iconifyIconList : localIconList;
+  return list.filter(v => v.includes(searchValue.value));
+});
 
 function handleChange(iconItem: string) {
   modelValue.value = iconItem;
@@ -57,7 +64,14 @@ function handleChange(iconItem: string) {
     <div v-if="iconsList.length > 0" class="grid grid-cols-9 h-auto overflow-auto">
       <span v-for="iconItem in iconsList" :key="iconItem" @click="handleChange(iconItem)">
         <SvgIcon
+          v-if="type === 0"
           :icon="iconItem"
+          class="m-2px cursor-pointer border-1px border-#d9d9d9 p-5px text-30px"
+          :class="{ 'border-primary': modelValue === iconItem }"
+        />
+        <SvgIcon
+          v-else
+          :local-icon="iconItem"
           class="m-2px cursor-pointer border-1px border-#d9d9d9 p-5px text-30px"
           :class="{ 'border-primary': modelValue === iconItem }"
         />

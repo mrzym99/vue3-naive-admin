@@ -3,7 +3,7 @@ import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
-import type { ConfigFormType, Option } from '@/components/advanced/config-form';
+import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -42,7 +42,7 @@ type Model = Partial<Api.SystemManage.User>;
 
 const model = ref(createDefaultModel());
 
-const userConfigForm = reactive<ConfigFormType>([
+const userConfigForm = reactive<ConfigFormArrayType>([
   {
     key: 'deptId',
     label: '所属部门',
@@ -256,7 +256,12 @@ function handleInitModel() {
   }
 }
 
-async function updateUserProfile() {
+function closeDrawer() {
+  visible.value = false;
+}
+
+async function handleSubmit() {
+  await validate();
   const { avatar, ...values } = model.value;
   const avatarUrl = Array.isArray(avatar) ? avatar[0].url : avatar;
   const { error } = await fetchUpdateUser(props.rowData!.id, {
@@ -264,20 +269,12 @@ async function updateUserProfile() {
     ...values
   } as any);
   if (!error) {
-    window.$message?.success($t('common.updateSuccess'));
+    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
+    window.$message?.success(message);
+    // request
+    closeDrawer();
+    emit('submitted');
   }
-}
-
-function closeDrawer() {
-  visible.value = false;
-}
-
-async function handleSubmit() {
-  await validate();
-  await updateUserProfile();
-  // request
-  closeDrawer();
-  emit('submitted');
 }
 
 watch(visible, () => {

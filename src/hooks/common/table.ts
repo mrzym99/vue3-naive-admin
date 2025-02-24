@@ -232,9 +232,16 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     openDrawer();
   }
 
+  function flatData(treeData: T[]): T[] {
+    return treeData.reduce((pre: T[], cur: T) => {
+      return pre.concat(cur, cur.children && cur.children.length ? flatData(cur.children as T[]) : []);
+    }, [] as T[]);
+  }
+
   function handleEdit(id: T['id'], detail?: T) {
     operateType.value = 'edit';
-    const findItem = data.value.find(item => item.id === id) || null;
+    const flatTableData = flatData(data.value);
+    const findItem = flatTableData.find(item => item.id === id) || null;
     editingData.value = jsonClone(findItem);
 
     if (detail) {

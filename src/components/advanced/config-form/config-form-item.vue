@@ -2,14 +2,14 @@
 import type { ComponentType } from './component-map';
 import { componentMap, optionsComponentMap } from './component-map';
 import ConfigFormItemOptions from './config-form-item-options.vue';
-import type { ConfigForm } from './config-form-type';
+import type { ConfigFormItem } from './config-form-type';
 
 defineOptions({ name: 'ConfigFormItem' });
 
 type ComponentProps = Record<string, any> | undefined;
 
 defineProps<{
-  field: ConfigForm;
+  field: ConfigFormItem;
 }>();
 
 const value = defineModel<Array<any> | number | string | boolean>('value');
@@ -37,7 +37,7 @@ const getComponentProps = (componentProps: ComponentProps) => {
   }, {});
 };
 
-const getDisabled = (field: ConfigForm) => {
+const getDisabled = (field: ConfigFormItem) => {
   const { disabled } = field;
   if (typeof disabled === 'function') {
     return disabled();

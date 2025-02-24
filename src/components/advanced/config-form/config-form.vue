@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
-import type { ConfigFormType } from './config-form-type';
+import type { ConfigFormArrayType, ConfigFormType } from './config-form-type';
 
 defineOptions({
   name: 'ConfigForm'
@@ -27,7 +27,7 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 const model = defineModel<Record<string, any>>('model', { default: () => ({}), type: Object });
 
 const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
-  return props.fields.reduce(
+  return generateFieldArr().reduce(
     (acc, field) => {
       const required = typeof field.required === 'function' ? field.required() : field.required;
       if (required) {
@@ -46,14 +46,31 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
   );
 });
 
-const finalFields = computed<ConfigFormType>(() => {
-  return props.fields.filter(item => (typeof item.hide === 'function' ? !item.hide() : !item.hide));
+const finalFields = computed<ConfigFormArrayType>(() => {
+  const fields = generateFieldArr();
+  return fields.filter(item => (typeof item.hide === 'function' ? !item.hide() : !item.hide));
 });
+
+// 根据传入的 fields 生成 fields 数组
+function generateFieldArr(): ConfigFormArrayType {
+  if (Array.isArray(props.fields)) {
+    return props.fields;
+  }
+  return Object.entries(props.fields).map(([_pKey, pValue]) => {
+    return {
+      ...pValue
+    };
+  });
+}
+
 const gridKey = ref(0); // 新增 gridKey
 
 // 使用 key 强制刷新 form 布局 以解决 grid 在fields变化时 新出现的 form-item 布局不生效的问题
 watch(finalFields, () => {
-  gridKey.value += 1;
+  // 使用 nextTick 是为了确保 属性变化完全后再更新
+  nextTick(() => {
+    gridKey.value += 1;
+  });
 });
 
 defineExpose({

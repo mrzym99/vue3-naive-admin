@@ -45,6 +45,8 @@ declare namespace Api {
       updatedAt: string;
       /** record status */
       status: EnableStatus | null;
+      /** record children */
+      children?: T[];
     } & T;
   }
 
@@ -261,6 +263,20 @@ declare namespace Api {
       | 'query'
     >;
 
+    /** role search params */
+    type MenuSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Menu, 'title' | 'name' | 'path' | 'status'> & CommonSearchParams
+    >;
+
+    type MenuTreeItem = {
+      id: string;
+      title: string;
+      pId: string;
+      children?: MenuTreeItem[];
+    };
+
+    type MenuTree = MenuTreeItem[];
+
     type Menu = Common.CommonRecord<{
       /** parent menu id */
       parentId: string;
@@ -289,17 +305,37 @@ declare namespace Api {
     type MenuList = Common.PaginatingQueryRecord<Menu>;
 
     /** role search params */
-    type MenuSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Menu, 'title' | 'name' | 'path' | 'status'> & CommonSearchParams
+    type OnlineUserSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.OnlineUser, 'username' | 'nickName'> & CommonSearchParams
     >;
 
-    type MenuTreeItem = {
-      id: string;
-      title: string;
-      pId: string;
-      children?: MenuTreeItem[];
-    };
+    type OnlineUser = Common.CommonRecord<{
+      /** token id */
+      tokenId: string;
+      /** dept name */
+      deptName: string;
+      /** user id */
+      uid: string;
+      /* username */
+      username: string;
+      /** is current user */
+      isCurrentUser: boolean;
+      /** disabled kick admin */
+      disabled: boolean;
+      /** ip */
+      ip: string;
+      /** address */
+      address: string;
+      /** operate system */
+      os: string;
+      /** browser */
+      browser: string;
+      /** login time */
+      time: string;
+      /** nick name */
+      nickName: string;
+    }>;
 
-    type MenuTree = MenuTreeItem[];
+    type OnlineUserList = Common.PaginatingQueryRecord<OnlineUser>;
   }
 }

@@ -1,0 +1,167 @@
+<script setup lang="tsx">
+import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
+import { useAppStore } from '@/store/modules/app';
+import { useTable, useTableOperate } from '@/hooks/common/table';
+import { fetchGetOnlineUserList, fetchKickOnlineUser } from '@/service/api';
+import { $t } from '@/locales';
+import type { SearchFormType } from '@/components/advanced/search-form';
+
+const appStore = useAppStore();
+
+const userSearchForm: SearchFormType = [
+  {
+    key: 'username',
+    label: '用户名',
+    type: 'Input',
+    props: {
+      placeholder: '请输入用户名'
+    }
+  },
+  {
+    key: 'nickName',
+    label: '昵称',
+    type: 'Input',
+    props: {
+      placeholder: '请输入昵称'
+    }
+  }
+];
+
+const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
+  useTable({
+    apiFn: fetchGetOnlineUserList,
+    showTotal: true,
+    apiParams: {
+      currentPage: 1,
+      pageSize: 10,
+      // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
+      // the value can not be undefined, otherwise the property in Form will not be reactive
+      username: null,
+      nickName: null
+    },
+    columns: () => [
+      {
+        key: 'tokenId',
+        title: '会话编号',
+        align: 'left',
+        minWidth: 150
+      },
+      {
+        key: 'username',
+        title: $t('page.manage.user.username'),
+        align: 'center',
+        minWidth: 100
+      },
+      {
+        key: 'deptName',
+        title: '部门名称', // $t('page.manage.user.userGender'),
+        align: 'center',
+        width: 100,
+        render: row => {
+          if (row.deptName === null) return null;
+          return <NTag>{row.deptName}</NTag>;
+        }
+      },
+      {
+        key: 'ip',
+        title: '登录ip',
+        align: 'center',
+        minWidth: 100
+      },
+      {
+        key: 'address',
+        title: '登录地址', // $t('page.manage.user.role'),
+        align: 'center',
+        minWidth: 100
+      },
+      {
+        key: 'browser',
+        title: '浏览器', // $t('page.manage.user.role'),
+        align: 'center',
+        minWidth: 100
+      },
+      {
+        key: 'os',
+        title: '操作系统',
+        align: 'center',
+        width: 120
+      },
+      {
+        key: 'time',
+        title: '登录时间',
+        render: row => {
+          return <NTime time={new Date(row.createdAt)} />;
+        }
+      },
+      {
+        fixed: 'right',
+        key: 'operate',
+        title: $t('common.operate'),
+        align: 'center',
+        width: 130,
+        render: row => (
+          <div class="flex-center gap-8px">
+            <NPopconfirm onPositiveClick={() => handleKick(row.tokenId)}>
+              {{
+                default: () =>
+                  $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
+                trigger: () => (
+                  <NButton type={row.status ? 'error' : 'success'} ghost size="small">
+                    {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
+          </div>
+        )
+      }
+    ]
+  });
+
+const { checkedRowKeys } = useTableOperate(data, getData);
+
+async function handleKick(tokenId: string) {
+  const { error } = await fetchKickOnlineUser({
+    tokenId
+  });
+  if (!error) {
+    window.$message?.success('操作成功');
+    getDataByPage();
+  }
+}
+</script>
+
+<template>
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <SearchForm
+        v-model:model="searchParams"
+        :fields="userSearchForm"
+        @search="getDataByPage"
+        @reset="resetSearchParams"
+      />
+      <TableHeaderOperation
+        v-model:columns="columnChecks"
+        prefix="system:online"
+        :hide-delete="true"
+        :hide-add="true"
+        :loading="loading"
+        @refresh="getData"
+      />
+      <NDataTable
+        v-model:checked-row-keys="checkedRowKeys"
+        :columns="columns"
+        :data="data"
+        size="small"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :pagination="pagination"
+        remote
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
+    </NCard>
+  </div>
+</template>
+
+<style scoped></style>

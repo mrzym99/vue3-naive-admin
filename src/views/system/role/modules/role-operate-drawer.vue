@@ -3,7 +3,7 @@ import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateRole, fetchGetMenuTree, fetchUpdateRole } from '@/service/api';
-import type { ConfigFormType, Option } from '@/components/advanced/config-form';
+import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form';
 
 defineOptions({
   name: 'RoleOperateDrawer'
@@ -42,7 +42,7 @@ type Model = Partial<Api.SystemManage.Role>;
 
 const model = ref(createDefaultModel());
 
-const roleConfigForm: ConfigFormType = reactive([
+const roleConfigForm: ConfigFormArrayType = reactive([
   {
     key: 'name',
     label: '角色名称',
@@ -143,26 +143,21 @@ async function getMenuTree() {
   }
 }
 
-async function addOrEditRole() {
-  const api = props.operateType === 'add' ? fetchCreateRole : fetchUpdateRole;
-
-  const { error } = await api(model.value as any);
-  if (!error) {
-    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
-    window.$message?.success(message);
-  }
-}
-
 function closeDrawer() {
   visible.value = false;
 }
 
 async function handleSubmit() {
   await validate();
-  await addOrEditRole();
-  // request
-  closeDrawer();
-  emit('submitted');
+  const api = props.operateType === 'add' ? fetchCreateRole : fetchUpdateRole;
+
+  const { error } = await api(model.value as any);
+  if (!error) {
+    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
+    window.$message?.success(message);
+    closeDrawer();
+    emit('submitted');
+  }
 }
 
 watch(visible, () => {

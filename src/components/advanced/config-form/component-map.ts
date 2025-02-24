@@ -16,6 +16,7 @@ import {
 } from 'naive-ui';
 import type { Component, VNodeProps } from 'vue';
 import PictureUpload from '@/components/common/file-upload.vue';
+import IconSelect from '@/components/custom/icon-select.vue';
 
 const componentMap = {
   Input: NInput,
@@ -30,7 +31,8 @@ const componentMap = {
   DatePicker: NDatePicker,
   TimePicker: NTimePicker,
   Upload: PictureUpload,
-  Divider: NDivider
+  Divider: NDivider,
+  IconSelect
 };
 
 const optionsComponentMap = {

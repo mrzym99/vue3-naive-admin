@@ -3,7 +3,7 @@ import type { ComponentType } from './component-map';
 
 type returnBoolean = () => boolean;
 
-export interface ConfigForm {
+export interface ConfigFormItem {
   key: string;
   label: string;
   type: ComponentType;
@@ -16,7 +16,9 @@ export interface ConfigForm {
   rules?: FormItemRule;
 }
 
-export type ConfigFormType = Array<ConfigForm>;
+export type ConfigFormArrayType = Array<ConfigFormItem>;
+export type ConfigFormObjectType = Record<string, ConfigFormItem>;
+export type ConfigFormType = ConfigFormObjectType | ConfigFormArrayType;
 
 export type Option<K = string> = {
   value: K;

@@ -190,7 +190,7 @@ const {
       key: 'operate',
       title: $t('common.operate'),
       align: 'center',
-      width: 240,
+      width: 220,
       render: row => (
         <div class="flex justify-items-start gap-8px">
           {row.type === 0 && (

@@ -3,7 +3,7 @@ import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateDept, fetchGetDeptTree, fetchUpdateDept } from '@/service/api';
-import type { ConfigFormType, Option } from '@/components/advanced/config-form/config-form-type';
+import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form/config-form-type';
 
 defineOptions({
   name: 'DeptOperateDrawer'
@@ -42,7 +42,7 @@ type Model = Partial<Api.SystemManage.Dept>;
 
 const model = ref(createDefaultModel());
 
-const deptConfigForm = reactive<ConfigFormType>([
+const deptConfigForm = reactive<ConfigFormArrayType>([
   {
     key: 'name',
     label: '部门名称',
@@ -96,26 +96,21 @@ function handleInitModel() {
   }
 }
 
-async function addOrEditDept() {
-  const api = props.operateType === 'add' ? fetchCreateDept : fetchUpdateDept;
-
-  const { error } = await api(model.value as any);
-  if (!error) {
-    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
-    window.$message?.success(message);
-  }
-}
-
 function closeDrawer() {
   visible.value = false;
 }
 
 async function handleSubmit() {
   await validate();
-  await addOrEditDept();
-  // request
-  closeDrawer();
-  emit('submitted');
+  const api = props.operateType === 'add' ? fetchCreateDept : fetchUpdateDept;
+
+  const { error } = await api(model.value as any);
+  if (!error) {
+    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
+    window.$message?.success(message);
+    closeDrawer();
+    emit('submitted');
+  }
 }
 
 function mapTree(tree: Api.SystemManage.DeptTree): Option[] {

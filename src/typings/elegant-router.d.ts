@@ -80,6 +80,7 @@ declare module "@elegant-router/types" {
     "system": "/system";
     "system_dept": "/system/dept";
     "system_menu": "/system/menu";
+    "system_online": "/system/online";
     "system_role": "/system/role";
     "system_user": "/system/user";
     "user-center": "/user-center";
@@ -195,6 +196,7 @@ declare module "@elegant-router/types" {
     | "plugin_video"
     | "system_dept"
     | "system_menu"
+    | "system_online"
     | "system_role"
     | "system_user"
     | "user-center"
