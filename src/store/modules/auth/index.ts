@@ -9,12 +9,14 @@ import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
+import { useSSEStore } from '../sse';
 import { clearAuthStorage, getToken } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute();
   const routeStore = useRouteStore();
   const tabStore = useTabStore();
+  const sseStore = useSSEStore();
   const { toLogin, redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
@@ -52,6 +54,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     tabStore.cacheTabs();
     routeStore.resetStore();
+    sseStore.closeEventSource();
   }
 
   /**
@@ -78,6 +81,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
           content: $t('page.login.common.welcomeBack', { username: userInfo.nickName }),
           duration: 4500
         });
+        sseStore.initServerMsgListener();
       }
     } else {
       resetStore();

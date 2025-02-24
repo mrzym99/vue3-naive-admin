@@ -44,7 +44,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'tokenId',
         title: '会话编号',
         align: 'left',
-        minWidth: 150
+        width: 300,
+        ellipsis: {
+          tooltip: true
+        }
       },
       {
         key: 'username',
@@ -89,8 +92,9 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       {
         key: 'time',
         title: '登录时间',
+        width: 200,
         render: row => {
-          return <NTime time={new Date(row.createdAt)} />;
+          return <NTime time={new Date(row.time)} />;
         }
       },
       {
@@ -103,11 +107,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
           <div class="flex-center gap-8px">
             <NPopconfirm onPositiveClick={() => handleKick(row.tokenId)}>
               {{
-                default: () =>
-                  $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
+                default: () => `下线用户 - ${row.username} ？`,
                 trigger: () => (
-                  <NButton type={row.status ? 'error' : 'success'} ghost size="small">
-                    {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
+                  <NButton type={'error'} ghost size="small">
+                    {'下线'}
                   </NButton>
                 )
               }}

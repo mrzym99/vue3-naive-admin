@@ -3,6 +3,7 @@ import { BACKEND_ERROR_CODE, createFlatRequest } from '@sa/axios';
 import { useAuthStore } from '@/store/modules/auth';
 import { $t } from '@/locales';
 import { getServiceBaseURL } from '@/utils/service';
+import { useSSEStore } from '@/store/modules/sse';
 import { getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
@@ -31,6 +32,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
     // 这里会对后台定义的 成功 code 进行一次判断，并且对错误的 code 进行处理 数据层我们只需判断 error 即可
     async onBackendFail(response, instance) {
       const authStore = useAuthStore();
+
       const responseCode = String(response.data.code);
 
       function handleLogout() {
@@ -120,6 +122,9 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       }
 
       showErrorMsg(request.state, message);
+
+      const sseStore = useSSEStore();
+      sseStore.setServerConnectStatus(true);
     }
   }
 );
