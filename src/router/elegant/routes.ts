@@ -204,65 +204,6 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'manage',
-    path: '/manage',
-    component: 'layout.base',
-    meta: {
-      title: 'manage',
-      i18nKey: 'route.manage',
-      icon: 'carbon:cloud-service-management',
-      order: 9
-    },
-    children: [
-      {
-        name: 'manage_menu',
-        path: '/manage/menu',
-        component: 'view.manage_menu',
-        meta: {
-          title: 'manage_menu',
-          i18nKey: 'route.manage_menu',
-          icon: 'material-symbols:route',
-          order: 3,
-          keepAlive: true
-        }
-      },
-      {
-        name: 'manage_role',
-        path: '/manage/role',
-        component: 'view.manage_role',
-        meta: {
-          title: 'manage_role',
-          i18nKey: 'route.manage_role',
-          icon: 'carbon:user-role',
-          order: 2
-        }
-      },
-      {
-        name: 'manage_user',
-        path: '/manage/user',
-        component: 'view.manage_user',
-        meta: {
-          title: 'manage_user',
-          i18nKey: 'route.manage_user',
-          icon: 'ic:round-manage-accounts',
-          order: 1
-        }
-      },
-      {
-        name: 'manage_user-detail',
-        path: '/manage/user-detail/:id',
-        component: 'view.manage_user-detail',
-        props: true,
-        meta: {
-          title: 'manage_user-detail',
-          i18nKey: 'route.manage_user-detail',
-          hideInMenu: true,
-          activeMenu: 'manage_user'
-        }
-      }
-    ]
-  },
-  {
     name: 'multi-menu',
     path: '/multi-menu',
     component: 'layout.base',
@@ -572,48 +513,48 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
-    name: 'system-manage',
-    path: '/system-manage',
+    name: 'system',
+    path: '/system',
     component: 'layout.base',
     meta: {
-      title: 'system-manage',
-      i18nKey: 'route.system-manage'
+      title: 'system',
+      i18nKey: 'route.system'
     },
     children: [
       {
-        name: 'system-manage_dept',
-        path: '/system-manage/dept',
-        component: 'view.system-manage_dept',
+        name: 'system_dept',
+        path: '/system/dept',
+        component: 'view.system_dept',
         meta: {
-          title: 'system-manage_dept',
-          i18nKey: 'route.system-manage_dept'
+          title: 'system_dept',
+          i18nKey: 'route.system_dept'
         }
       },
       {
-        name: 'system-manage_menu',
-        path: '/system-manage/menu',
-        component: 'view.system-manage_menu',
+        name: 'system_menu',
+        path: '/system/menu',
+        component: 'view.system_menu',
         meta: {
-          title: 'system-manage_menu',
-          i18nKey: 'route.system-manage_menu'
+          title: 'system_menu',
+          i18nKey: 'route.system_menu'
         }
       },
       {
-        name: 'system-manage_role',
-        path: '/system-manage/role',
-        component: 'view.system-manage_role',
+        name: 'system_role',
+        path: '/system/role',
+        component: 'view.system_role',
         meta: {
-          title: 'system-manage_role',
-          i18nKey: 'route.system-manage_role'
+          title: 'system_role',
+          i18nKey: 'route.system_role'
         }
       },
       {
-        name: 'system-manage_user',
-        path: '/system-manage/user',
-        component: 'view.system-manage_user',
+        name: 'system_user',
+        path: '/system/user',
+        component: 'view.system_user',
         meta: {
-          title: 'system-manage_user',
-          i18nKey: 'route.system-manage_user'
+          title: 'system_user',
+          i18nKey: 'route.system_user'
         }
       }
     ]

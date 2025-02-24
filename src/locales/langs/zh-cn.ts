@@ -194,11 +194,11 @@ const local: App.I18n.Schema = {
     function_request: '请求',
     'function_toggle-auth': '切换权限',
     'function_super-page': '超级管理员可见',
-    manage: '系统管理',
-    manage_user: '用户管理',
-    'manage_user-detail': '用户详情',
-    manage_role: '角色管理',
-    manage_menu: '菜单管理',
+    system: '系统管理',
+    system_role: '角色管理',
+    system_user: '用户管理',
+    system_dept: '部门管理',
+    system_menu: '菜单管理',
     'multi-menu': '多级菜单',
     'multi-menu_first': '菜单一',
     'multi-menu_first_child': '菜单一子菜单',
@@ -232,12 +232,7 @@ const local: App.I18n.Schema = {
     plugin_gantt_vtable: 'VTableGantt',
     plugin_typeit: '打字机',
     plugin_tables: '表格',
-    plugin_tables_vtable: 'VTable',
-    'system-manage': '系统管理',
-    'system-manage_role': '角色管理',
-    'system-manage_user': '用户管理',
-    'system-manage_dept': '部门管理',
-    'system-manage_menu': '菜单管理'
+    plugin_tables_vtable: 'VTable'
   },
   page: {
     login: {

@@ -47,11 +47,6 @@ declare module "@elegant-router/types" {
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
-    "manage": "/manage";
-    "manage_menu": "/manage/menu";
-    "manage_role": "/manage/role";
-    "manage_user": "/manage/user";
-    "manage_user-detail": "/manage/user-detail/:id";
     "multi-menu": "/multi-menu";
     "multi-menu_first": "/multi-menu/first";
     "multi-menu_first_child": "/multi-menu/first/child";
@@ -82,11 +77,11 @@ declare module "@elegant-router/types" {
     "plugin_tables_vtable": "/plugin/tables/vtable";
     "plugin_typeit": "/plugin/typeit";
     "plugin_video": "/plugin/video";
-    "system-manage": "/system-manage";
-    "system-manage_dept": "/system-manage/dept";
-    "system-manage_menu": "/system-manage/menu";
-    "system-manage_role": "/system-manage/role";
-    "system-manage_user": "/system-manage/user";
+    "system": "/system";
+    "system_dept": "/system/dept";
+    "system_menu": "/system/menu";
+    "system_role": "/system/role";
+    "system_user": "/system/user";
     "user-center": "/user-center";
   };
 
@@ -140,10 +135,9 @@ declare module "@elegant-router/types" {
     | "home"
     | "iframe-page"
     | "login"
-    | "manage"
     | "multi-menu"
     | "plugin"
-    | "system-manage"
+    | "system"
     | "user-center"
   >;
 
@@ -178,10 +172,6 @@ declare module "@elegant-router/types" {
     | "function_tab"
     | "function_toggle-auth"
     | "home"
-    | "manage_menu"
-    | "manage_role"
-    | "manage_user-detail"
-    | "manage_user"
     | "multi-menu_first_child"
     | "multi-menu_second_child_home"
     | "plugin_barcode"
@@ -203,10 +193,10 @@ declare module "@elegant-router/types" {
     | "plugin_tables_vtable"
     | "plugin_typeit"
     | "plugin_video"
-    | "system-manage_dept"
-    | "system-manage_menu"
-    | "system-manage_role"
-    | "system-manage_user"
+    | "system_dept"
+    | "system_menu"
+    | "system_role"
+    | "system_user"
     | "user-center"
   >;
 

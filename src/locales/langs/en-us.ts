@@ -194,11 +194,11 @@ const local: App.I18n.Schema = {
     function_request: 'Request',
     'function_toggle-auth': 'Toggle Auth',
     'function_super-page': 'Super Admin Visible',
-    manage: 'System Manage',
-    manage_user: 'User Manage',
-    'manage_user-detail': 'User Detail',
-    manage_role: 'Role Manage',
-    manage_menu: 'Menu Manage',
+    system: 'SystemManage',
+    system_role: 'RoleMange',
+    system_user: 'UserMange',
+    system_dept: 'DeptManage',
+    system_menu: 'MenuManage',
     'multi-menu': 'Multi Menu',
     'multi-menu_first': 'Menu One',
     'multi-menu_first_child': 'Menu One Child',
@@ -232,12 +232,7 @@ const local: App.I18n.Schema = {
     plugin_gantt_vtable: 'VTableGantt',
     plugin_typeit: 'Typeit',
     plugin_tables: 'Tables',
-    plugin_tables_vtable: 'VTable',
-    'system-manage': 'SystemManage',
-    'system-manage_role': 'RoleMange',
-    'system-manage_user': 'UserMange',
-    'system-manage_dept': 'DeptManage',
-    'system-manage_menu': 'MenuManage'
+    plugin_tables_vtable: 'VTable'
   },
   page: {
     login: {

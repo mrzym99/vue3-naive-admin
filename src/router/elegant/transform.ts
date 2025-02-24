@@ -56,7 +56,6 @@ function transformElegantRouteToVueRoute(
   }
 
   function getViewName(component: string) {
-    if(!component) return ''
     const view = component.replace(VIEW_PREFIX, '');
 
     if(!views[view]) {
@@ -194,11 +193,6 @@ const routeMap: RouteMap = {
   "home": "/home",
   "iframe-page": "/iframe-page/:url",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
-  "manage": "/manage",
-  "manage_menu": "/manage/menu",
-  "manage_role": "/manage/role",
-  "manage_user": "/manage/user",
-  "manage_user-detail": "/manage/user-detail/:id",
   "multi-menu": "/multi-menu",
   "multi-menu_first": "/multi-menu/first",
   "multi-menu_first_child": "/multi-menu/first/child",
@@ -229,11 +223,11 @@ const routeMap: RouteMap = {
   "plugin_tables_vtable": "/plugin/tables/vtable",
   "plugin_typeit": "/plugin/typeit",
   "plugin_video": "/plugin/video",
-  "system-manage": "/system-manage",
-  "system-manage_dept": "/system-manage/dept",
-  "system-manage_menu": "/system-manage/menu",
-  "system-manage_role": "/system-manage/role",
-  "system-manage_user": "/system-manage/user",
+  "system": "/system",
+  "system_dept": "/system/dept",
+  "system_menu": "/system/menu",
+  "system_role": "/system/role",
+  "system_user": "/system/user",
   "user-center": "/user-center"
 };
 
