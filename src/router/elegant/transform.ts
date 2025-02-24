@@ -125,7 +125,6 @@ function transformElegantRouteToVueRoute(
       }
 
       if (isView(component)) {
-        
         const viewName = getViewName(component);
 
         vueRoute.component = views[viewName];
