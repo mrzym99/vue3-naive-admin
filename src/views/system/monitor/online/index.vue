@@ -59,6 +59,12 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         minWidth: 100
       },
       {
+        key: 'nickName',
+        title: '昵称',
+        align: 'center',
+        minWidth: 100
+      },
+      {
         key: 'deptName',
         title: '部门名称', // $t('page.manage.user.userGender'),
         align: 'center',

@@ -67,6 +67,15 @@ const { columns, data, loading, pagination, getDataByPage, getData, searchParams
       }
     },
     {
+      key: 'nickName',
+      title: '昵称',
+      align: 'center',
+      width: 100,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
       key: 'ip',
       title: 'IP',
       align: 'center',
