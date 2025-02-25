@@ -3,12 +3,16 @@ import { nextTick, ref, useAttrs, watch } from 'vue';
 import { NButton, NModal, NText, NUpload, useMessage } from 'naive-ui';
 import { to } from 'await-to-js';
 // 更多组件详情 https://advanced-cropper.github.io/vue-advanced-cropper/components/cropper.html#props
+import type { CropperResult } from 'vue-advanced-cropper';
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import type { UploadCustomRequestOptions, UploadFileInfo } from 'naive-ui';
 import { upload } from '@/service/api';
 
-export type RequestFun = (file: File, onProgerss?: (e: { percent: number }) => void) => Promise<string>;
+export type RequestFun = (
+  file: File,
+  onProgerss?: (e: { percent: number }) => void
+) => Promise<App.Service.Response<string>>;
 
 export interface Option {
   requestFunc?: RequestFun;
@@ -123,8 +127,31 @@ function handleCropperInit(file: UploadFileInfo) {
   showCropper.value = true;
 }
 
-function handleChange({ image }: { image: Blob }) {
-  currentBlob.value = image;
+async function blobUrlToBlob(blobUrl: string): Promise<Blob | null> {
+  try {
+    const response = await fetch(blobUrl);
+    if (!response.ok) {
+      console.error('Failed to fetch the blob:', response.statusText);
+      return null;
+    }
+    const blob = await response.blob();
+    return blob;
+  } catch (error) {
+    console.error('Error converting blob URL to Blob:', error);
+    return null;
+  }
+}
+
+function handleChange({ image }: CropperResult) {
+  const blobUrl = image.src;
+
+  if (!blobUrl) return;
+  // 将 Blob URL 转换为 Blob 对象
+  blobUrlToBlob(blobUrl).then(blob => {
+    if (blob) {
+      currentBlob.value = blob;
+    }
+  });
 }
 
 async function handleConfirmCropper() {
@@ -139,7 +166,7 @@ async function handleConfirmCropper() {
 
   if (!verifySize(file)) return false;
   cropperLoading.value = true;
-  const [err, res] = await to<any>(uploadApi(file));
+  const [err, res] = await to(uploadApi(file));
   cropperLoading.value = false;
   if (err) {
     return false;
@@ -171,7 +198,7 @@ async function handleCustomRequest({ file, onError, onFinish, onProgress }: Uplo
   onFinish();
   nextTick(() => {
     const index = fileList.value.findIndex(item => item.id === file.id);
-    fileList.value[index].url = res;
+    fileList.value[index].url = res.data;
     handleFileListChange();
   });
 }

@@ -71,5 +71,5 @@ function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
     return '/api';
   }
 
-  return `/api-${key}`;
+  return `/${key}`;
 }
