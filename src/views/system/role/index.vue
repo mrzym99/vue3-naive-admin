@@ -52,6 +52,7 @@ const {
   columnChecks,
   data,
   loading,
+  pagination,
   getDataByPage,
   getData,
   searchParams,
@@ -72,7 +73,7 @@ const {
     {
       key: 'name',
       title: '角色名称', // $t('page.manage.role.role'),
-      align: 'center',
+      align: 'left',
       width: 200
     },
     {
@@ -231,6 +232,7 @@ async function handleSetDefault(id: string) {
           size="small"
           :flex-height="!appStore.isMobile"
           :loading="loading"
+          :pagination="pagination"
           remote
           :row-key="row => row.id"
           class="sm:h-full"

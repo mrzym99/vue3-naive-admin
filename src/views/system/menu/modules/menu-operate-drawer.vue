@@ -66,9 +66,6 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     ],
     props: {
       'onUpdate:value': (value: number) => {
-        if (value === 0) {
-          model.value.parentId = '';
-        }
         if (value !== 2) {
           model.value.permission = '';
         }
@@ -96,9 +93,6 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     key: 'parentId',
     label: '上级菜单',
     type: 'TreeSelect',
-    hide: (): boolean => {
-      return Boolean(!model.value.type);
-    },
     props: {
       treeData: [],
       treeNodeFilterProp: 'title',

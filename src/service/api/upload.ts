@@ -4,7 +4,7 @@ import { request } from '../request';
 export function upload(file: File) {
   const formData = new FormData();
   formData.append('file', file);
-  return request<App.Service.Response>({
+  return request<string>({
     url: '/tools/upload',
     method: 'post',
     data: formData,

@@ -10,7 +10,7 @@ export function fetchGetOnlineUserList(params?: Api.SystemManage.OnlineUserSearc
 }
 
 export function fetchKickOnlineUser(data: { tokenId: string }) {
-  return request<App.Service.Response>({
+  return request({
     url: '/system/online/kick',
     method: 'post',
     data

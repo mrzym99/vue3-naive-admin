@@ -543,13 +543,41 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
-        name: 'system_online',
-        path: '/system/online',
-        component: 'view.system_online',
+        name: 'system_monitor',
+        path: '/system/monitor',
         meta: {
-          title: 'system_online',
-          i18nKey: 'route.system_online'
-        }
+          title: 'system_monitor',
+          i18nKey: 'route.system_monitor'
+        },
+        children: [
+          {
+            name: 'system_monitor_login-log',
+            path: '/system/monitor/login-log',
+            component: 'view.system_monitor_login-log',
+            meta: {
+              title: 'system_monitor_login-log',
+              i18nKey: 'route.system_monitor_login-log'
+            }
+          },
+          {
+            name: 'system_monitor_online',
+            path: '/system/monitor/online',
+            component: 'view.system_monitor_online',
+            meta: {
+              title: 'system_monitor_online',
+              i18nKey: 'route.system_monitor_online'
+            }
+          },
+          {
+            name: 'system_monitor_serve',
+            path: '/system/monitor/serve',
+            component: 'view.system_monitor_serve',
+            meta: {
+              title: 'system_monitor_serve',
+              i18nKey: 'route.system_monitor_serve'
+            }
+          }
+        ]
       },
       {
         name: 'system_role',

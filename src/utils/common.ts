@@ -60,3 +60,19 @@ export function toggleHtmlClass(className: string) {
 export function generatePrefix(prefix: string, perm: string) {
   return prefix ? `${prefix.replace(/\{:}+/, ':')}:${perm}` : perm;
 }
+
+/**
+ * @param bytes 字节
+ * @param decimals 小数位数
+ */
+export function formatSizeUnits(bytes: number, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return `${Number.parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
+}

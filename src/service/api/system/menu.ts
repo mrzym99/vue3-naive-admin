@@ -17,7 +17,7 @@ export function fetchGetMenuList(params?: Api.SystemManage.MenuSearchParams & Ap
 }
 
 export function fetchCreateMenu(data?: Api.SystemManage.Menu) {
-  return request<App.Service.Response>({
+  return request({
     url: '/system/menu',
     method: 'post',
     data
@@ -25,7 +25,7 @@ export function fetchCreateMenu(data?: Api.SystemManage.Menu) {
 }
 
 export function fetchUpdateMenu(data?: Api.SystemManage.Menu) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/menu/update/${data?.id}`,
     method: 'put',
     data
@@ -33,7 +33,7 @@ export function fetchUpdateMenu(data?: Api.SystemManage.Menu) {
 }
 
 export function fetchUpdatedMenuStatus(params: Api.SystemManage.StatusDto) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/menu/updateStatus`,
     method: 'put',
     params
@@ -41,7 +41,7 @@ export function fetchUpdatedMenuStatus(params: Api.SystemManage.StatusDto) {
 }
 
 export function fetchDeleteMenu(id?: string) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/menu/${id}`,
     method: 'delete'
   });

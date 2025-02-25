@@ -23,7 +23,7 @@ export function fetchGetRoleInfo(id?: string) {
 }
 
 export function fetchCreateRole(data?: Api.SystemManage.Role) {
-  return request<App.Service.Response>({
+  return request({
     url: '/system/role',
     method: 'post',
     data
@@ -31,7 +31,7 @@ export function fetchCreateRole(data?: Api.SystemManage.Role) {
 }
 
 export function fetchUpdateRole(data?: Api.SystemManage.Role) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/role/${data?.id}`,
     method: 'put',
     data
@@ -39,13 +39,13 @@ export function fetchUpdateRole(data?: Api.SystemManage.Role) {
 }
 
 export function fetchSetRoleDefault(id?: string) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/role/default/${id}`,
     method: 'put'
   });
 }
 export function fetchDeleteRole(id?: string) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/role/${id}`,
     method: 'delete'
   });

@@ -146,32 +146,34 @@ onMounted(async () => {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
-      <SearchForm
-        v-model:model="searchParams"
-        :fields="userSearchForm"
-        @search="getDataByPage"
-        @reset="resetSearchParams"
-      />
-      <TableHeaderOperation
-        v-model:columns="columnChecks"
-        prefix="system:online"
-        :hide-delete="true"
-        :hide-add="true"
-        :loading="loading"
-        @refresh="getData"
-      />
-      <NDataTable
-        v-model:checked-row-keys="checkedRowKeys"
-        :columns="columns"
-        :data="data"
-        size="small"
-        :flex-height="!appStore.isMobile"
-        :loading="loading"
-        :pagination="pagination"
-        remote
-        :row-key="row => row.id"
-        class="sm:h-full"
-      />
+      <div class="h-full flex-col-stretch">
+        <SearchForm
+          v-model:model="searchParams"
+          :fields="userSearchForm"
+          @search="getDataByPage"
+          @reset="resetSearchParams"
+        />
+        <TableHeaderOperation
+          v-model:columns="columnChecks"
+          prefix="system:online"
+          :hide-delete="true"
+          :hide-add="true"
+          :loading="loading"
+          @refresh="getData"
+        />
+        <NDataTable
+          v-model:checked-row-keys="checkedRowKeys"
+          :columns="columns"
+          :data="data"
+          size="small"
+          :flex-height="!appStore.isMobile"
+          :loading="loading"
+          :pagination="pagination"
+          remote
+          :row-key="row => row.id"
+          class="sm:h-full"
+        />
+      </div>
     </NCard>
   </div>
 </template>

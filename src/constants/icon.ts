@@ -9,6 +9,8 @@ export const iconifyIconList: string[] = [
   'uil:brightness-plus',
   'uil:capture',
   'mdi:apps-box',
+  'mdi:account-multiple-check-outline',
+  'mdi:monitor-eye',
   'mdi:alert',
   'mdi:airballoon',
   'mdi:airplane-edit',

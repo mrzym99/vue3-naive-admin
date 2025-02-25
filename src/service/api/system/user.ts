@@ -10,7 +10,7 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
 }
 
 export function fetchUpdateUser(id: string, data: Api.SystemManage.Profile) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/user/update/${id}`,
     method: 'put',
     data
@@ -19,7 +19,7 @@ export function fetchUpdateUser(id: string, data: Api.SystemManage.Profile) {
 
 // 这个不可以修改部门、角色 用于用户修改
 export function fetchUpdateUserProfile(id: string, data: Api.SystemManage.Profile) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/user/updateProfile/${id}`,
     method: 'put',
     data
@@ -27,7 +27,7 @@ export function fetchUpdateUserProfile(id: string, data: Api.SystemManage.Profil
 }
 
 export function fetchUpdatedUserStatus(params: Api.SystemManage.StatusDto) {
-  return request<App.Service.Response>({
+  return request({
     url: `/system/user/updateStatus`,
     method: 'put',
     params

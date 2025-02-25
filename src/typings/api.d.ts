@@ -304,7 +304,7 @@ declare namespace Api {
     /** menu list */
     type MenuList = Common.PaginatingQueryRecord<Menu>;
 
-    /** role search params */
+    /** online user search params */
     type OnlineUserSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.OnlineUser, 'username' | 'nickName'> & CommonSearchParams
     >;
@@ -337,5 +337,33 @@ declare namespace Api {
     }>;
 
     type OnlineUserList = Common.PaginatingQueryRecord<OnlineUser>;
+
+    /** login log type */
+    type LoginLog = Common.CommonRecord<{
+      /** ip id */
+      ip: string;
+      /** address */
+      address: string;
+      /* username */
+      username: string;
+      /** operate system */
+      os: string;
+      /** browser */
+      browser: string;
+      /** login time */
+      time: string;
+      /** nick name */
+      nickName: string;
+    }>;
+
+    /** online user search params */
+    type LoginLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.LoginLog, 'username' | 'ip' | 'address'> &
+        CommonSearchParams & {
+          time: Array<string> | null;
+        }
+    >;
+
+    type LoginLogList = Common.PaginatingQueryRecord<LoginLog>;
   }
 }
