@@ -682,6 +682,10 @@ declare namespace App {
               local: string;
             };
           };
+          parameter: {
+            addParameter: string;
+            editParameter: string;
+          };
         };
       };
       form: {

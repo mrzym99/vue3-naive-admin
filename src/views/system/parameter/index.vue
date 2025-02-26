@@ -1,123 +1,59 @@
 <script setup lang="tsx">
-import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
+import { NButton, NPopconfirm, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchDeleteRole, fetchGetRoleInfo, fetchGetRoleList, fetchSetRoleDefault } from '@/service/api';
+import { fetchDeleteParameter, fetchGetParameterInfo, fetchGetParameterList } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
-import { enableStatusRecord } from '@/constants/business';
-import RoleOperateDrawer from './modules/role-operate-drawer.vue';
+import ParameterOperateDrawer from './modules/parameter-operate-drawer.vue';
 
 const appStore = useAppStore();
 
-const roleSearchForm: SearchFormType = [
+const parameterSearchForm: SearchFormType = [
   {
     key: 'name',
-    label: '角色名称',
+    label: '参数名称',
     type: 'Input',
     props: {
-      placeholder: '请输入角色名称'
-    }
-  },
-  {
-    key: 'value',
-    label: '角色值',
-    type: 'Input',
-    props: {
-      placeholder: '请输入角色值'
-    }
-  },
-  {
-    key: 'status',
-    label: '状态',
-    type: 'Select',
-    props: {
-      placeholder: '请选择状态',
-      options: [
-        {
-          label: $t('common.enable'),
-          value: 1
-        },
-        {
-          label: $t('common.disable'),
-          value: 0
-        }
-      ]
+      placeholder: '请输入参数名称'
     }
   }
 ];
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
-    apiFn: fetchGetRoleList,
+    apiFn: fetchGetParameterList,
     showTotal: true,
     apiParams: {
       currentPage: 1,
       pageSize: 10,
-      name: '',
-      value: '',
-      status: null
+      name: ''
     },
     columns: () => [
       {
         key: 'name',
-        title: '角色名称', // $t('page.manage.role.role'),
+        title: '参数名称', // $t('page.manage.parameter.parameter'),
         align: 'left',
         width: 200
       },
       {
+        key: 'key',
+        title: 'Key', // $t('page.manage.parameter.parameter'),
+        align: 'center',
+        width: 200
+      },
+      {
         key: 'value',
-        title: '角色值', // $t('page.manage.role.role'),
+        title: '参数值', // $t('page.manage.parameter.parameter'),
         width: 120,
         align: 'center'
       },
       {
-        key: 'status',
-        title: $t('common.status'),
-        align: 'center',
-        width: 60,
-        render: row => {
-          if (row.status === null) {
-            return null;
-          }
-
-          const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
-            1: 'success',
-            0: 'error'
-          };
-
-          const label = $t(enableStatusRecord[row.status]);
-
-          return <NTag type={tagMap[row.status]}>{label}</NTag>;
-        }
-      },
-      {
-        key: 'default',
-        title: '默认角色',
-        align: 'center',
-        width: 80,
-        render: row => {
-          if (!row.default) {
-            return null;
-          }
-
-          return <NTag type={'primary'}>是</NTag>;
-        }
-      },
-      {
-        key: 'description',
-        title: '描述', // $t('page.manage.role.role'),
+        key: 'remark',
+        title: '备注', // $t('page.manage.parameter.parameter'),
         width: 200,
         ellipsis: {
           tooltip: true
-        }
-      },
-      {
-        key: 'createdAt',
-        title: '创建时间',
-        width: 180,
-        render: row => {
-          return <NTime time={new Date(row.createdAt)} />;
         }
       },
       {
@@ -149,20 +85,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                 )
               }}
             </NPopconfirm>
-            {row.default ? (
-              ''
-            ) : (
-              <NPopconfirm onPositiveClick={() => handleSetDefault(row.id)}>
-                {{
-                  default: () => '设置为默认',
-                  trigger: () => (
-                    <NButton type={'tertiary'} ghost size="small">
-                      设为默认
-                    </NButton>
-                  )
-                }}
-              </NPopconfirm>
-            )}
           </div>
         )
       }
@@ -172,25 +94,17 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
 const { drawerVisible, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(data, getData);
 
 async function edit(id: string) {
-  const { error, data: roleInfo } = await fetchGetRoleInfo(id);
+  const { error, data: parameterInfo } = await fetchGetParameterInfo(id);
   if (error) {
     return;
   }
-  handleEdit(id, roleInfo as any);
+  handleEdit(id, parameterInfo as any);
 }
 
 async function handleDelete(id: string) {
-  const { error } = await fetchDeleteRole(id);
+  const { error } = await fetchDeleteParameter(id);
   if (!error) {
     onDeleted();
-  }
-}
-
-async function handleSetDefault(id: string) {
-  const { error } = await fetchSetRoleDefault(id);
-  if (!error) {
-    window.$message?.success('设置成功');
-    getDataByPage();
   }
 }
 </script>
@@ -201,13 +115,13 @@ async function handleSetDefault(id: string) {
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
-          :fields="roleSearchForm"
+          :fields="parameterSearchForm"
           @search="getDataByPage"
           @reset="resetSearchParams"
         />
         <TableHeaderOperation
           v-model:columns="columnChecks"
-          prefix="system:role"
+          prefix="system:parameter"
           :hide-delete="true"
           :loading="loading"
           @add="handleAdd"
@@ -226,7 +140,7 @@ async function handleSetDefault(id: string) {
         />
       </div>
     </NCard>
-    <RoleOperateDrawer
+    <ParameterOperateDrawer
       v-model:visible="drawerVisible"
       :operate-type="operateType"
       :row-data="editingData"

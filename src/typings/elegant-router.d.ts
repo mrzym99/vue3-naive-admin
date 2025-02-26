@@ -84,6 +84,7 @@ declare module "@elegant-router/types" {
     "system_monitor_login-log": "/system/monitor/login-log";
     "system_monitor_online": "/system/monitor/online";
     "system_monitor_serve": "/system/monitor/serve";
+    "system_parameter": "/system/parameter";
     "system_role": "/system/role";
     "system_user": "/system/user";
     "tools": "/tools";
@@ -207,6 +208,7 @@ declare module "@elegant-router/types" {
     | "system_monitor_login-log"
     | "system_monitor_online"
     | "system_monitor_serve"
+    | "system_parameter"
     | "system_role"
     | "system_user"
     | "tools_storage_local"

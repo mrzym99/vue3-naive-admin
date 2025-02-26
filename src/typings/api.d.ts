@@ -354,7 +354,7 @@ declare namespace Api {
     >;
     type LoginLogList = Common.PaginatingQueryRecord<LoginLog>;
 
-    /** storage type */
+    /** storage local type */
     type StorageLocal = Common.CommonRecord<{
       /** name */
       name: string;
@@ -379,6 +379,7 @@ declare namespace Api {
     >;
     type StorageLocalList = Common.PaginatingQueryRecord<StorageLocal>;
 
+    /** storage oss type */
     type StorageOss = Common.CommonRecord<{
       /** name */
       name: string;
@@ -397,5 +398,24 @@ declare namespace Api {
       Pick<Api.SystemManage.StorageOss, 'name'> & CommonSearchParams
     >;
     type StorageOssList = Common.PaginatingQueryRecord<StorageOss>;
+
+    /** parameter type */
+    type Parameter = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** extName */
+      key: string;
+      /** size */
+      value: string;
+      /* url */
+      remark: string;
+      /** lastModified */
+      updatedAt: string;
+    }>;
+    type ParameterSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Parameter, 'name'> & CommonSearchParams
+    >;
+
+    type ParameterList = Common.PaginatingQueryRecord<Parameter>;
   }
 }

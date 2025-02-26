@@ -199,6 +199,7 @@ const local: App.I18n.Schema = {
     system_user: 'User Mange',
     system_dept: 'Dept Manage',
     system_menu: 'Menu Manage',
+    system_parameter: 'Parameter Manage',
     system_monitor: 'System monitor',
     system_monitor_online: 'Online User',
     'system_monitor_login-log': 'LoginLog Manage',
@@ -511,6 +512,10 @@ const local: App.I18n.Schema = {
           iconify: 'Iconify Icon',
           local: 'Local Icon'
         }
+      },
+      parameter: {
+        addParameter: 'Add Parameter',
+        editParameter: 'Edit Parameter'
       }
     }
   },

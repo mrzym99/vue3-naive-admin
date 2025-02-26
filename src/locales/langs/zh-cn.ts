@@ -199,6 +199,7 @@ const local: App.I18n.Schema = {
     system_user: '用户管理',
     system_dept: '部门管理',
     system_menu: '菜单管理',
+    system_parameter: '参数管理',
     system_monitor: '系统监控',
     system_monitor_online: '在线用户',
     'system_monitor_login-log': '登录日志',
@@ -511,6 +512,10 @@ const local: App.I18n.Schema = {
           iconify: 'iconify图标',
           local: '本地图标'
         }
+      },
+      parameter: {
+        addParameter: '新增参数',
+        editParameter: '编辑参数'
       }
     }
   },

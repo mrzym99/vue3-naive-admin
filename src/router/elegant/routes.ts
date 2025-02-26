@@ -580,6 +580,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         ]
       },
       {
+        name: 'system_parameter',
+        path: '/system/parameter',
+        component: 'view.system_parameter',
+        meta: {
+          title: 'system_parameter',
+          i18nKey: 'route.system_parameter'
+        }
+      },
+      {
         name: 'system_role',
         path: '/system/role',
         component: 'view.system_role',
