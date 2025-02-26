@@ -1,8 +1,8 @@
 import { request } from '../../request';
 
 /** get online list */
-export function fetchGetStorageLocalList(params?: Api.SystemManage.StorageLocalSearchParams) {
-  return request<Api.SystemManage.StorageLocalList>({
+export function fetchGetStorageLocalList(params?: Api.ToolsManage.StorageLocalSearchParams) {
+  return request<Api.ToolsManage.StorageLocalList>({
     url: '/tools/storage/list',
     method: 'get',
     params

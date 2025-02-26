@@ -620,6 +620,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'tools_mail',
+        path: '/tools/mail',
+        component: 'view.tools_mail',
+        meta: {
+          title: 'tools_mail',
+          i18nKey: 'route.tools_mail'
+        }
+      },
+      {
         name: 'tools_storage',
         path: '/tools/storage',
         meta: {

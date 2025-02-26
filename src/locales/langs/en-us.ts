@@ -208,6 +208,7 @@ const local: App.I18n.Schema = {
     tools_storage: 'Storage Manage',
     tools_storage_local: 'Local Storage',
     tools_storage_oss: 'Oss Storage',
+    tools_mail: 'Send Email',
     'multi-menu': 'Multi Menu',
     'multi-menu_first': 'Menu One',
     'multi-menu_first_child': 'Menu One Child',

@@ -59,6 +59,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   system_parameter: () => import("@/views/system/parameter/index.vue"),
   system_role: () => import("@/views/system/role/index.vue"),
   system_user: () => import("@/views/system/user/index.vue"),
+  tools_mail: () => import("@/views/tools/mail/index.vue"),
   tools_storage_local: () => import("@/views/tools/storage/local/index.vue"),
   tools_storage_oss: () => import("@/views/tools/storage/oss/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),

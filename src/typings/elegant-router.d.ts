@@ -88,6 +88,7 @@ declare module "@elegant-router/types" {
     "system_role": "/system/role";
     "system_user": "/system/user";
     "tools": "/tools";
+    "tools_mail": "/tools/mail";
     "tools_storage": "/tools/storage";
     "tools_storage_local": "/tools/storage/local";
     "tools_storage_oss": "/tools/storage/oss";
@@ -211,6 +212,7 @@ declare module "@elegant-router/types" {
     | "system_parameter"
     | "system_role"
     | "system_user"
+    | "tools_mail"
     | "tools_storage_local"
     | "tools_storage_oss"
     | "user-center"

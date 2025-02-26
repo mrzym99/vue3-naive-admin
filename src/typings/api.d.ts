@@ -354,6 +354,30 @@ declare namespace Api {
     >;
     type LoginLogList = Common.PaginatingQueryRecord<LoginLog>;
 
+    /** parameter type */
+    type Parameter = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** extName */
+      key: string;
+      /** size */
+      value: string;
+      /* url */
+      remark: string;
+      /** lastModified */
+      updatedAt: string;
+    }>;
+    type ParameterSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Parameter, 'name'> & CommonSearchParams
+    >;
+
+    type ParameterList = Common.PaginatingQueryRecord<Parameter>;
+  }
+
+  /** tools manage */
+  namespace ToolsManage {
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'currentPage' | 'pageSize'>;
+
     /** storage local type */
     type StorageLocal = Common.CommonRecord<{
       /** name */
@@ -372,7 +396,7 @@ declare namespace Api {
       createdAt: string;
     }>;
     type StorageLocalSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.StorageLocal, 'username' | 'name'> &
+      Pick<Api.ToolsManage.StorageLocal, 'username' | 'name'> &
         CommonSearchParams & {
           time: Array<string> | null;
         }
@@ -395,27 +419,17 @@ declare namespace Api {
       type: string;
     }>;
     type StorageOssSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.StorageOss, 'name'> & CommonSearchParams
+      Pick<Api.ToolsManage.StorageOss, 'name'> & CommonSearchParams
     >;
     type StorageOssList = Common.PaginatingQueryRecord<StorageOss>;
 
-    /** parameter type */
-    type Parameter = Common.CommonRecord<{
-      /** name */
-      name: string;
-      /** extName */
-      key: string;
-      /** size */
-      value: string;
-      /* url */
-      remark: string;
-      /** lastModified */
-      updatedAt: string;
-    }>;
-    type ParameterSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Parameter, 'name'> & CommonSearchParams
-    >;
-
-    type ParameterList = Common.PaginatingQueryRecord<Parameter>;
+    type Mail = {
+      /** subject */
+      subject: string;
+      /** to */
+      to: string;
+      /** content */
+      content: string;
+    };
   }
 }

@@ -208,6 +208,7 @@ const local: App.I18n.Schema = {
     tools_storage: '存储管理',
     tools_storage_local: '本地存储',
     tools_storage_oss: 'Oss存储',
+    tools_mail: '发送邮件',
     'multi-menu': '多级菜单',
     'multi-menu_first': '菜单一',
     'multi-menu_first_child': '菜单一子菜单',
