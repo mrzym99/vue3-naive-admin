@@ -61,23 +61,26 @@ async function handleSend() {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1-auto card-wrapper">
-      <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" label-align="left" label-width="80">
-        <NFormItem key="to" path="to" label="收件人">
-          <NInput v-model:value="model.to" :disabled="loading" placeholder="请输入收件人" />
-        </NFormItem>
-        <NFormItem key="subject" path="subject" label="邮件主题">
-          <NInput v-model:value="model.subject" :disabled="loading" placeholder="请输入邮件主题" />
-        </NFormItem>
-        <NFormItem key="content" path="content" label="正文">
-          <TinymceEditor
-            v-model:value="model.content"
-            :init="{
-              width: '100%',
-              height: 320
-            }"
-          />
-        </NFormItem>
-      </NForm>
+      <NSpin :show="loading">
+        <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" label-align="left" label-width="80">
+          <NFormItem key="to" path="to" label="收件人">
+            <NInput v-model:value="model.to" :disabled="loading" placeholder="请输入收件人" />
+          </NFormItem>
+          <NFormItem key="subject" path="subject" label="邮件主题">
+            <NInput v-model:value="model.subject" :disabled="loading" placeholder="请输入邮件主题" />
+          </NFormItem>
+          <NFormItem key="content" path="content" label="正文">
+            <TinymceEditor
+              v-model:value="model.content"
+              :init="{
+                width: '100%',
+                height: 320
+              }"
+            />
+          </NFormItem>
+        </NForm>
+      </NSpin>
+
       <NSpace class="w-full" justify="end">
         <NButton type="primary" :loading="loading" @click="handleSend">发送邮件</NButton>
       </NSpace>

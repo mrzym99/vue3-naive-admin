@@ -78,114 +78,113 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-auto lt-sm:overflow-auto">
-    <NCard v-if="loading" :bordered="false" class="grid h-full w-full place-items-center card-wrapper">
-      <NSpin />
-    </NCard>
-    <NGrid v-else x-gap="16" y-gap="16" responsive="screen" item-responsive>
-      <NGridItem span="24 m:12">
-        <NCard :bordered="false" class="h-full card-wrapper" title="运行环境">
-          <NDescriptions size="small" label-placement="left" bordered :column="1">
-            <NDescriptionsItem>
-              <template #label>操作系统</template>
-              {{ cardData.runtime.os }}
-            </NDescriptionsItem>
-            <NDescriptionsItem>
-              <template #label>系统架构</template>
-              {{ cardData.runtime.arch }}
-            </NDescriptionsItem>
-            <NDescriptionsItem>
-              <template #label>Node版本</template>
-              {{ cardData.runtime.nodeVersion }}
-            </NDescriptionsItem>
-            <NDescriptionsItem>
-              <template #label>Npm版本</template>
-              {{ cardData.runtime.npmVersion }}
-            </NDescriptionsItem>
-          </NDescriptions>
-        </NCard>
-      </NGridItem>
-      <NGridItem span="24 m:12">
-        <NCard :bordered="false" class="h-full card-wrapper" title="磁盘">
-          <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
-            <NGridItem span="24 m:12">
-              <NDescriptions size="small" label-placement="left" bordered :column="1">
-                <NDescriptionsItem>
-                  <template #label>总空间</template>
-                  {{ formatSizeUnits(cardData.disk.size) }}
-                </NDescriptionsItem>
-                <NDescriptionsItem>
-                  <template #label>已用空间</template>
-                  {{ formatSizeUnits(cardData.disk.used) }}
-                </NDescriptionsItem>
-                <NDescriptionsItem>
-                  <template #label>可用空间</template>
-                  {{ formatSizeUnits(cardData.disk.available) }}
-                </NDescriptionsItem>
-              </NDescriptions>
-            </NGridItem>
-            <NGridItem span="24 m:12" class="flex-center">
-              <NProgress
-                :color="progressColor(parseDiskPercentage)"
-                type="dashboard"
-                gap-position="bottom"
-                :percentage="parseDiskPercentage"
-              />
-            </NGridItem>
-          </NGrid>
-        </NCard>
-      </NGridItem>
-      <NGridItem span="24 m:12">
-        <NCard :bordered="false" class="h-full card-wrapper" title="CPU">
-          <NDescriptions size="small" label-placement="left" bordered :column="1">
-            <NDescriptionsItem>
-              <template #label>详细</template>
-              {{ parseCpuInfo }}
-            </NDescriptionsItem>
-            <NDescriptionsItem>
-              <template #label>负载</template>
-              {{ formatSizeUnits(cardData.disk.used) }}
-            </NDescriptionsItem>
-            <NDescriptionsItem v-for="(item, index) in cardData.cpu.coresLoad" :key="index">
-              <template #label>{{ `核心${index + 1} 负载` }}</template>
-              <NProgress
-                :percentage="formatPercentage(item.rawLoad, item.rawLoad + item.rawLoadIdle)"
-                :color="progressColor(formatPercentage(item.rawLoad, item.rawLoad + item.rawLoadIdle))"
-              />
-            </NDescriptionsItem>
-          </NDescriptions>
-        </NCard>
-      </NGridItem>
-      <NGridItem span="24 m:12">
-        <NCard :bordered="false" class="h-full card-wrapper" title="memory">
-          <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
-            <NGridItem span="24 m:12">
-              <NDescriptions size="small" label-placement="left" bordered :column="1">
-                <NDescriptionsItem>
-                  <template #label>总内存</template>
-                  {{ formatSizeUnits(cardData.memory.total) }}
-                </NDescriptionsItem>
-                <NDescriptionsItem>
-                  <template #label>已用内存</template>
-                  {{ formatSizeUnits(cardData.memory.active) }}
-                </NDescriptionsItem>
-                <NDescriptionsItem>
-                  <template #label>可用内存</template>
-                  {{ formatSizeUnits(cardData.memory.available) }}
-                </NDescriptionsItem>
-              </NDescriptions>
-            </NGridItem>
-            <NGridItem span="24 m:12" class="flex-center">
-              <NProgress
-                :color="progressColor(parseMemPercentage)"
-                type="dashboard"
-                gap-position="bottom"
-                :percentage="parseMemPercentage"
-              />
-            </NGridItem>
-          </NGrid>
-        </NCard>
-      </NGridItem>
-    </NGrid>
+    <NSpin :show="loading">
+      <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
+        <NGridItem span="24 m:12">
+          <NCard :bordered="false" class="h-full card-wrapper" title="运行环境">
+            <NDescriptions size="small" label-placement="left" bordered :column="1">
+              <NDescriptionsItem>
+                <template #label>操作系统</template>
+                {{ cardData.runtime.os }}
+              </NDescriptionsItem>
+              <NDescriptionsItem>
+                <template #label>系统架构</template>
+                {{ cardData.runtime.arch }}
+              </NDescriptionsItem>
+              <NDescriptionsItem>
+                <template #label>Node版本</template>
+                {{ cardData.runtime.nodeVersion }}
+              </NDescriptionsItem>
+              <NDescriptionsItem>
+                <template #label>Npm版本</template>
+                {{ cardData.runtime.npmVersion }}
+              </NDescriptionsItem>
+            </NDescriptions>
+          </NCard>
+        </NGridItem>
+        <NGridItem span="24 m:12">
+          <NCard :bordered="false" class="h-full card-wrapper" title="磁盘">
+            <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
+              <NGridItem span="24 m:12">
+                <NDescriptions size="small" label-placement="left" bordered :column="1">
+                  <NDescriptionsItem>
+                    <template #label>总空间</template>
+                    {{ formatSizeUnits(cardData.disk.size) }}
+                  </NDescriptionsItem>
+                  <NDescriptionsItem>
+                    <template #label>已用空间</template>
+                    {{ formatSizeUnits(cardData.disk.used) }}
+                  </NDescriptionsItem>
+                  <NDescriptionsItem>
+                    <template #label>可用空间</template>
+                    {{ formatSizeUnits(cardData.disk.available) }}
+                  </NDescriptionsItem>
+                </NDescriptions>
+              </NGridItem>
+              <NGridItem span="24 m:12" class="flex-center">
+                <NProgress
+                  :color="progressColor(parseDiskPercentage)"
+                  type="dashboard"
+                  gap-position="bottom"
+                  :percentage="parseDiskPercentage"
+                />
+              </NGridItem>
+            </NGrid>
+          </NCard>
+        </NGridItem>
+        <NGridItem span="24 m:12">
+          <NCard :bordered="false" class="h-full card-wrapper" title="CPU">
+            <NDescriptions size="small" label-placement="left" bordered :column="1">
+              <NDescriptionsItem>
+                <template #label>详细</template>
+                {{ parseCpuInfo }}
+              </NDescriptionsItem>
+              <NDescriptionsItem>
+                <template #label>负载</template>
+                {{ formatSizeUnits(cardData.disk.used) }}
+              </NDescriptionsItem>
+              <NDescriptionsItem v-for="(item, index) in cardData.cpu.coresLoad" :key="index">
+                <template #label>{{ `核心${index + 1} 负载` }}</template>
+                <NProgress
+                  :percentage="formatPercentage(item.rawLoad, item.rawLoad + item.rawLoadIdle)"
+                  :color="progressColor(formatPercentage(item.rawLoad, item.rawLoad + item.rawLoadIdle))"
+                />
+              </NDescriptionsItem>
+            </NDescriptions>
+          </NCard>
+        </NGridItem>
+        <NGridItem span="24 m:12">
+          <NCard :bordered="false" class="h-full card-wrapper" title="memory">
+            <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
+              <NGridItem span="24 m:12">
+                <NDescriptions size="small" label-placement="left" bordered :column="1">
+                  <NDescriptionsItem>
+                    <template #label>总内存</template>
+                    {{ formatSizeUnits(cardData.memory.total) }}
+                  </NDescriptionsItem>
+                  <NDescriptionsItem>
+                    <template #label>已用内存</template>
+                    {{ formatSizeUnits(cardData.memory.active) }}
+                  </NDescriptionsItem>
+                  <NDescriptionsItem>
+                    <template #label>可用内存</template>
+                    {{ formatSizeUnits(cardData.memory.available) }}
+                  </NDescriptionsItem>
+                </NDescriptions>
+              </NGridItem>
+              <NGridItem span="24 m:12" class="flex-center">
+                <NProgress
+                  :color="progressColor(parseMemPercentage)"
+                  type="dashboard"
+                  gap-position="bottom"
+                  :percentage="parseMemPercentage"
+                />
+              </NGridItem>
+            </NGrid>
+          </NCard>
+        </NGridItem>
+      </NGrid>
+    </NSpin>
   </div>
 </template>
 

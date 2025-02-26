@@ -90,20 +90,18 @@ onMounted(() => {
         <NIcon class="mb-1" size="16"><IcOutlineMoreVert /></NIcon>
       </NDropdown>
     </div>
-    <div v-if="loading" size="small" class="grid h-[60%] w-full place-items-center">
-      <NSpin />
-    </div>
-    <NTree
-      v-else
-      class="mt-8 h-full w-full overflow-auto"
-      block-line
-      :data="deptTreeData"
-      label-field="name"
-      key-field="id"
-      :default-expanded-keys="defaultExpandedKeys"
-      :default-expand-all="defaultExpandAll"
-      :node-props="nodeProps"
-    />
+    <NSpin :show="loading">
+      <NTree
+        class="mt-8 h-full w-full overflow-auto"
+        block-line
+        :data="deptTreeData"
+        label-field="name"
+        key-field="id"
+        :default-expanded-keys="defaultExpandedKeys"
+        :default-expand-all="defaultExpandAll"
+        :node-props="nodeProps"
+      />
+    </NSpin>
   </div>
 </template>
 
