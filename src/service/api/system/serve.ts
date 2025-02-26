@@ -1,6 +1,6 @@
 import { request } from '../../request';
 
-/** get online list */
+/** get serve */
 export function fetchGetServeStat() {
   return request<any>({
     url: '/system/serve',

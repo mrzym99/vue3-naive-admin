@@ -1,4 +1,5 @@
 // import { useAuthStore } from '@/store/modules/auth';
+import type { InternalAxiosRequestConfig } from 'axios';
 import { localStg } from '@/utils/storage';
 // import { fetchRefreshToken } from '../api';
 import type { RequestInstanceState } from './type';
@@ -8,6 +9,16 @@ export function getAuthorization() {
   const Authorization = token ? `Bearer ${token}` : null;
 
   return Authorization;
+}
+
+export function addTimestamp(config: InternalAxiosRequestConfig) {
+  if (config.method === 'get') {
+    const timestamp = new Date().getTime();
+    config.params = {
+      ...config.params,
+      _t: timestamp
+    };
+  }
 }
 
 /** refresh token */

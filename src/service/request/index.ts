@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/modules/auth';
 import { $t } from '@/locales';
 import { getServiceBaseURL } from '@/utils/service';
 import { useSSEStore } from '@/store/modules/sse';
-import { getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
+import { addTimestamp, getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
@@ -21,7 +21,8 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
     async onRequest(config) {
       const Authorization = getAuthorization();
       Object.assign(config.headers, { Authorization });
-
+      // get get请求增加 时间戳 防止 304
+      addTimestamp(config);
       return config;
     },
     isBackendSuccess(response) {

@@ -151,6 +151,14 @@ declare namespace Api {
     /** all role */
     type AllRole = Pick<Role, 'id' | 'name' | 'value'>;
 
+    /** file info */
+    type FileInfo = {
+      name: string;
+      url: string;
+      id?: string;
+      status?: string;
+    };
+
     /**
      * user gender
      *
@@ -198,13 +206,6 @@ declare namespace Api {
       status: number;
     };
 
-    type FileInfo = {
-      name: string;
-      url: string;
-      id?: string;
-      status?: string;
-    };
-
     /** user search params */
     type UserSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.User, 'username' | 'gender' | 'nickName' | 'phone' | 'email' | 'status'> &
@@ -235,7 +236,6 @@ declare namespace Api {
      * - 2: permission
      */
     type MenuType = 0 | 1 | 2;
-
     type MenuButton = {
       /**
        * button code
@@ -246,7 +246,7 @@ declare namespace Api {
       /** button description */
       desc: string;
     };
-
+    /** menu type */
     type MenuPropsOfRoute = Pick<
       import('vue-router').RouteMeta,
       | 'i18nKey'
@@ -262,21 +262,16 @@ declare namespace Api {
       | 'fixedIndexInTab'
       | 'query'
     >;
-
-    /** role search params */
     type MenuSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.Menu, 'title' | 'name' | 'path' | 'status'> & CommonSearchParams
     >;
-
     type MenuTreeItem = {
       id: string;
       title: string;
       pId: string;
       children?: MenuTreeItem[];
     };
-
     type MenuTree = MenuTreeItem[];
-
     type Menu = Common.CommonRecord<{
       /** parent menu id */
       parentId: string;
@@ -300,15 +295,9 @@ declare namespace Api {
       children?: Menu[] | null;
     }> &
       MenuPropsOfRoute;
-
-    /** menu list */
     type MenuList = Common.PaginatingQueryRecord<Menu>;
 
-    /** online user search params */
-    type OnlineUserSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.OnlineUser, 'username' | 'nickName'> & CommonSearchParams
-    >;
-
+    /** online type */
     type OnlineUser = Common.CommonRecord<{
       /** token id */
       tokenId: string;
@@ -335,12 +324,14 @@ declare namespace Api {
       /** nick name */
       nickName: string;
     }>;
-
+    type OnlineUserSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.OnlineUser, 'username' | 'nickName'> & CommonSearchParams
+    >;
     type OnlineUserList = Common.PaginatingQueryRecord<OnlineUser>;
 
     /** login log type */
     type LoginLog = Common.CommonRecord<{
-      /** ip id */
+      /** ip */
       ip: string;
       /** address */
       address: string;
@@ -355,15 +346,56 @@ declare namespace Api {
       /** nick name */
       nickName: string;
     }>;
-
-    /** online user search params */
     type LoginLogSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.LoginLog, 'username' | 'ip' | 'address'> &
         CommonSearchParams & {
           time: Array<string> | null;
         }
     >;
-
     type LoginLogList = Common.PaginatingQueryRecord<LoginLog>;
+
+    /** storage type */
+    type StorageLocal = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** extName */
+      extName: string;
+      /* path */
+      path: string;
+      /** type */
+      type: string;
+      /** size */
+      size: string;
+      /** username */
+      username: string;
+      /** createdAt */
+      createdAt: string;
+    }>;
+    type StorageLocalSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.StorageLocal, 'username' | 'name'> &
+        CommonSearchParams & {
+          time: Array<string> | null;
+        }
+    >;
+    type StorageLocalList = Common.PaginatingQueryRecord<StorageLocal>;
+
+    type StorageOss = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** extName */
+      extName: string;
+      /** size */
+      size: string;
+      /* url */
+      url: string;
+      /** lastModified */
+      lastModified: string;
+      /** type */
+      type: string;
+    }>;
+    type StorageOssSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.StorageOss, 'name'> & CommonSearchParams
+    >;
+    type StorageOssList = Common.PaginatingQueryRecord<StorageOss>;
   }
 }

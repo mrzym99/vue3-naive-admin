@@ -78,7 +78,10 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-auto lt-sm:overflow-auto">
-    <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive :class="loading ? 'loading' : ''">
+    <NCard v-if="loading" :bordered="false" class="grid h-full w-full place-items-center card-wrapper">
+      <NSpin />
+    </NCard>
+    <NGrid v-else x-gap="16" y-gap="16" responsive="screen" item-responsive>
       <NGridItem span="24 m:12">
         <NCard :bordered="false" class="h-full card-wrapper" title="运行环境">
           <NDescriptions size="small" label-placement="left" bordered :column="1">

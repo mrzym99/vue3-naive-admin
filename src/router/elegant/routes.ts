@@ -602,6 +602,45 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'tools',
+    path: '/tools',
+    component: 'layout.base',
+    meta: {
+      title: 'tools',
+      i18nKey: 'route.tools'
+    },
+    children: [
+      {
+        name: 'tools_storage',
+        path: '/tools/storage',
+        meta: {
+          title: 'tools_storage',
+          i18nKey: 'route.tools_storage'
+        },
+        children: [
+          {
+            name: 'tools_storage_local',
+            path: '/tools/storage/local',
+            component: 'view.tools_storage_local',
+            meta: {
+              title: 'tools_storage_local',
+              i18nKey: 'route.tools_storage_local'
+            }
+          },
+          {
+            name: 'tools_storage_oss',
+            path: '/tools/storage/oss',
+            component: 'view.tools_storage_oss',
+            meta: {
+              title: 'tools_storage_oss',
+              i18nKey: 'route.tools_storage_oss'
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     name: 'user-center',
     path: '/user-center',
     component: 'layout.base$view.user-center',

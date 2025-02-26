@@ -86,6 +86,10 @@ declare module "@elegant-router/types" {
     "system_monitor_serve": "/system/monitor/serve";
     "system_role": "/system/role";
     "system_user": "/system/user";
+    "tools": "/tools";
+    "tools_storage": "/tools/storage";
+    "tools_storage_local": "/tools/storage/local";
+    "tools_storage_oss": "/tools/storage/oss";
     "user-center": "/user-center";
   };
 
@@ -142,6 +146,7 @@ declare module "@elegant-router/types" {
     | "multi-menu"
     | "plugin"
     | "system"
+    | "tools"
     | "user-center"
   >;
 
@@ -204,6 +209,8 @@ declare module "@elegant-router/types" {
     | "system_monitor_serve"
     | "system_role"
     | "system_user"
+    | "tools_storage_local"
+    | "tools_storage_oss"
     | "user-center"
   >;
 
