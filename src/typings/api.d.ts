@@ -116,10 +116,7 @@ declare namespace Api {
       children?: Dept[];
     }>;
 
-    type DeptSearchParams = {
-      /** dept name */
-      name?: string | null;
-    };
+    type DeptSearchParams = CommonType.RecordNullable<Pick<Api.SystemManage.Role, 'name'> & CommonSearchParams>;
 
     type DeptTree = Dept[];
 
@@ -372,6 +369,40 @@ declare namespace Api {
     >;
 
     type ParameterList = Common.PaginatingQueryRecord<Parameter>;
+
+    /** task type */
+    type Task = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** service */
+      service: string;
+      /** type */
+      type: TaskType;
+      /* status */
+      status: number;
+      /** startTime */
+      startTime: Date | string | null;
+      /** endTime */
+      endTime: Date | string | null;
+      /** limit */
+      limit: number;
+      /** cron */
+      cron: string;
+      /** every */
+      every: number;
+      /** data */
+      data: string;
+      /** jobOpts */
+      jobOpts: string;
+      /** remark */
+      remark: string;
+    }>;
+    type TaskSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Task, 'name' | 'service' | 'status' | 'type'> & CommonSearchParams
+    >;
+
+    type TaskList = Common.PaginatingQueryRecord<Task>;
+    type TaskType = 0 | 1;
   }
 
   /** tools manage */

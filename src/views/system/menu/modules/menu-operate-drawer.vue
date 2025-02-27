@@ -120,7 +120,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
         }
       ],
       'onUpdate:value': (value: number) => {
-        menuConfigForm.type.props!.type = value;
+        menuConfigForm.type!.props!.type = value;
       }
     }
   },

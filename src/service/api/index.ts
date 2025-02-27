@@ -11,6 +11,7 @@ export * from './system/online';
 export * from './system/login-log';
 export * from './system/serve';
 export * from './system/parameter';
+export * from './system/task';
 
 export * from './tool/storage-local';
 export * from './tool/storage-oss';

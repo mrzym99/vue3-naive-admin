@@ -10,7 +10,7 @@ defineOptions({
 });
 
 interface Props {
-  fields: ConfigFormArrayType;
+  fields: ConfigFormArrayType<any>;
 }
 
 interface Emits {
@@ -102,7 +102,7 @@ async function search() {
         :label="field.label"
         :path="field.key"
       >
-        <ConfigFormItem v-model:value="model[field.key]" :field="field" />
+        <ConfigFormItem v-model:value="model[field.key]" :field="field" :model="model" />
       </NFormItemGi>
       <NFormItemGi :span="collapseSpan(activeBreakpoint)">
         <NSpace class="w-full" justify="end" :wrap="false">

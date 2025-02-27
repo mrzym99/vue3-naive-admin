@@ -86,6 +86,8 @@ declare module "@elegant-router/types" {
     "system_monitor_serve": "/system/monitor/serve";
     "system_parameter": "/system/parameter";
     "system_role": "/system/role";
+    "system_schedule": "/system/schedule";
+    "system_schedule_task": "/system/schedule/task";
     "system_user": "/system/user";
     "tools": "/tools";
     "tools_mail": "/tools/mail";
@@ -211,6 +213,7 @@ declare module "@elegant-router/types" {
     | "system_monitor_serve"
     | "system_parameter"
     | "system_role"
+    | "system_schedule_task"
     | "system_user"
     | "tools_mail"
     | "tools_storage_local"

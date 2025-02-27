@@ -599,6 +599,25 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'system_schedule',
+        path: '/system/schedule',
+        meta: {
+          title: 'system_schedule',
+          i18nKey: 'route.system_schedule'
+        },
+        children: [
+          {
+            name: 'system_schedule_task',
+            path: '/system/schedule/task',
+            component: 'view.system_schedule_task',
+            meta: {
+              title: 'system_schedule_task',
+              i18nKey: 'route.system_schedule_task'
+            }
+          }
+        ]
+      },
+      {
         name: 'system_user',
         path: '/system/user',
         component: 'view.system_user',

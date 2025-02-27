@@ -200,6 +200,8 @@ const local: App.I18n.Schema = {
     system_dept: '部门管理',
     system_menu: '菜单管理',
     system_parameter: '参数管理',
+    system_schedule: '任务调度',
+    system_schedule_task: '定时任务',
     system_monitor: '系统监控',
     system_monitor_online: '在线用户',
     'system_monitor_login-log': '登录日志',
@@ -517,6 +519,19 @@ const local: App.I18n.Schema = {
       parameter: {
         addParameter: '新增参数',
         editParameter: '编辑参数'
+      },
+      task: {
+        addTask: '新增任务',
+        editTask: '修编辑任务',
+        startTask: '启动',
+        stopTask: '停止',
+        onceTask: '启动一次',
+        deleteTask: '删除',
+        taskInfo: '任务信息',
+        type: {
+          cron: 'Cron',
+          interval: '间隔'
+        }
       }
     }
   },

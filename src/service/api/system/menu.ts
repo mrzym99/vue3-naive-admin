@@ -8,7 +8,7 @@ export function fetchGetMenuTree(params?: Api.SystemManage.MenuSearchParams) {
   });
 }
 
-export function fetchGetMenuList(params?: Api.SystemManage.MenuSearchParams & Api.Common.CommonSearchParams) {
+export function fetchGetMenuList(params?: Api.SystemManage.MenuSearchParams) {
   return request<Api.SystemManage.MenuList>({
     url: '/system/menu/list',
     method: 'get',

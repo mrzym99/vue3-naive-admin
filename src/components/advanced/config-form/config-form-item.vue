@@ -8,8 +8,9 @@ defineOptions({ name: 'ConfigFormItem' });
 
 type ComponentProps = Record<string, any> | undefined;
 
-defineProps<{
-  field: ConfigFormItem;
+const props = defineProps<{
+  field: ConfigFormItem<any>;
+  model: Record<string, any>;
 }>();
 
 const value = defineModel<Array<any> | number | string | boolean>('value');
@@ -37,10 +38,10 @@ const getComponentProps = (componentProps: ComponentProps) => {
   }, {});
 };
 
-const getDisabled = (field: ConfigFormItem) => {
+const getDisabled = (field: ConfigFormItem<any>) => {
   const { disabled } = field;
   if (typeof disabled === 'function') {
-    return disabled();
+    return disabled(props.model);
   }
 
   return disabled;

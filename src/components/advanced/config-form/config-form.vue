@@ -8,7 +8,7 @@ defineOptions({
 });
 
 interface Props {
-  fields: ConfigFormType;
+  fields: ConfigFormType<any>;
   span?: number; // 一行占多少个
   labelPlacement?: 'left' | 'top';
   labelWidth?: number | string | 'auto';
@@ -29,7 +29,7 @@ const model = defineModel<Record<string, any>>('model', { default: () => ({}), t
 const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
   return generateFieldArr().reduce(
     (acc, field) => {
-      const required = typeof field.required === 'function' ? field.required() : field.required;
+      const required = typeof field.required === 'function' ? field.required(model) : field.required;
       if (required) {
         acc[field.key] = [
           {
@@ -48,11 +48,11 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
 
 const finalFields = computed<ConfigFormArrayType>(() => {
   const fields = generateFieldArr();
-  return fields.filter(item => (typeof item.hide === 'function' ? !item.hide() : !item.hide));
+  return fields.filter(item => (typeof item.hide === 'function' ? !item.hide(model) : !item.hide));
 });
 
 // 根据传入的 fields 生成 fields 数组
-function generateFieldArr(): ConfigFormArrayType {
+function generateFieldArr(): ConfigFormArrayType<any> {
   if (Array.isArray(props.fields)) {
     return props.fields;
   }
@@ -60,7 +60,7 @@ function generateFieldArr(): ConfigFormArrayType {
     return {
       ...pValue
     };
-  });
+  }) as any;
 }
 
 const gridKey = ref(0); // 新增 gridKey
@@ -98,7 +98,7 @@ defineExpose({
         :label="field.label"
         :path="field.key"
       >
-        <ConfigFormItem v-model:value="model[field.key]" :field="field" />
+        <ConfigFormItem v-model:value="model[field.key]" :field="field" :model="model" />
       </NFormItemGi>
     </NGrid>
   </NForm>

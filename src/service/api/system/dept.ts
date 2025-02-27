@@ -8,7 +8,7 @@ export function fetchGetDeptTree(params?: Api.SystemManage.DeptSearchParams) {
   });
 }
 
-export function fetchGetDeptList(params?: Api.SystemManage.DeptSearchParams & Api.Common.CommonSearchParams) {
+export function fetchGetDeptList(params?: Api.SystemManage.DeptSearchParams) {
   return request<Api.SystemManage.DeptList>({
     url: '/system/dept/list',
     method: 'get',

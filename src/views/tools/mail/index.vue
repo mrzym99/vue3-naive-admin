@@ -80,7 +80,6 @@ async function handleSend() {
           </NFormItem>
         </NForm>
       </NSpin>
-
       <NSpace class="w-full" justify="end">
         <NButton type="primary" :loading="loading" @click="handleSend">发送邮件</NButton>
       </NSpace>
@@ -88,4 +87,4 @@ async function handleSend() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

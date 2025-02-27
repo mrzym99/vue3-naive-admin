@@ -1,4 +1,5 @@
 import { transformRecordToOption } from '@/utils/common';
+import { TaskTypeEnum } from './enum';
 
 export const enableStatusRecord: Record<Api.Common.EnableStatus, App.I18n.I18nKey> = {
   0: 'page.manage.common.status.disable',
@@ -28,3 +29,8 @@ export const menuIconTypeRecord: Record<Api.SystemManage.IconType, App.I18n.I18n
 };
 
 export const menuIconTypeOptions = transformRecordToOption(menuIconTypeRecord);
+
+export const TaskTypeRecord: Record<Api.Common.EnableStatus, App.I18n.I18nKey> = {
+  [TaskTypeEnum.CRON]: 'page.manage.task.type.cron',
+  [TaskTypeEnum.INTERVAL]: 'page.manage.task.type.interval'
+};

@@ -200,6 +200,8 @@ const local: App.I18n.Schema = {
     system_dept: 'Dept Manage',
     system_menu: 'Menu Manage',
     system_parameter: 'Parameter Manage',
+    system_schedule: 'Task Schedule',
+    system_schedule_task: 'Schedule Task',
     system_monitor: 'System monitor',
     system_monitor_online: 'Online User',
     'system_monitor_login-log': 'LoginLog Manage',
@@ -517,6 +519,19 @@ const local: App.I18n.Schema = {
       parameter: {
         addParameter: 'Add Parameter',
         editParameter: 'Edit Parameter'
+      },
+      task: {
+        addTask: 'Add Task',
+        editTask: 'Edit Task',
+        startTask: 'Start',
+        stopTask: 'Stop',
+        onceTask: 'Once',
+        deleteTask: 'Delete',
+        taskInfo: 'Task Info',
+        type: {
+          cron: 'Cron',
+          interval: 'Interval'
+        }
       }
     }
   },

@@ -1,6 +1,6 @@
 import { request } from '../../request';
 
-export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams & Api.Common.CommonSearchParams) {
+export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
   return request<Api.SystemManage.RoleList>({
     url: '/system/role/list',
     method: 'get',

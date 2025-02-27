@@ -686,6 +686,19 @@ declare namespace App {
             addParameter: string;
             editParameter: string;
           };
+          task: {
+            addTask: string;
+            editTask: string;
+            startTask: string;
+            stopTask: string;
+            onceTask: string;
+            deleteTask: string;
+            taskInfo: string;
+            type: {
+              cron: string;
+              interval: string;
+            };
+          };
         };
       };
       form: {

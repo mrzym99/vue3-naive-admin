@@ -58,6 +58,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   system_monitor_serve: () => import("@/views/system/monitor/serve/index.vue"),
   system_parameter: () => import("@/views/system/parameter/index.vue"),
   system_role: () => import("@/views/system/role/index.vue"),
+  system_schedule_task: () => import("@/views/system/schedule/task/index.vue"),
   system_user: () => import("@/views/system/user/index.vue"),
   tools_mail: () => import("@/views/tools/mail/index.vue"),
   tools_storage_local: () => import("@/views/tools/storage/local/index.vue"),
