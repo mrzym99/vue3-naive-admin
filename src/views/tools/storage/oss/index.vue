@@ -6,7 +6,7 @@ import { fetchGetStorageOssList } from '@/service/api';
 import type { SearchFormType } from '@/components/advanced/search-form';
 const appStore = useAppStore();
 
-const storageOssSearchForm: SearchFormType = [
+const storageOssSearchForm: SearchFormType<Api.ToolsManage.StorageOssSearchParams> = [
   {
     key: 'name',
     label: '文件名',

@@ -10,7 +10,7 @@ import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 
 const appStore = useAppStore();
 
-const roleSearchForm: SearchFormType = [
+const roleSearchForm: SearchFormType<Api.SystemManage.RoleSearchParams> = [
   {
     key: 'name',
     label: '角色名称',

@@ -11,7 +11,7 @@ import type { SearchFormType } from '@/components/advanced/search-form';
 const appStore = useAppStore();
 const sseStore = useSSEStore();
 
-const userSearchForm: SearchFormType = [
+const userSearchForm: SearchFormType<Api.SystemManage.OnlineUserSearchParams> = [
   {
     key: 'username',
     label: '用户名',

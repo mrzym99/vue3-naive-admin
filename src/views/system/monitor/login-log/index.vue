@@ -7,7 +7,7 @@ import { fetchGetLoginLogList } from '@/service/api';
 
 const appStore = useAppStore();
 
-const userSearchForm: SearchFormType = [
+const userSearchForm: SearchFormType<Api.SystemManage.LoginLogSearchParams> = [
   {
     key: 'username',
     label: '用户名',

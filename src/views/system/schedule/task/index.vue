@@ -62,7 +62,8 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       currentPage: 1,
       pageSize: 10,
       name: '',
-      status: null
+      status: null,
+      service: ''
     },
     columns: () => [
       {

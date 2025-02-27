@@ -11,7 +11,7 @@ import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
 
 const appStore = useAppStore();
 
-const MenuSearchForm: SearchFormType = [
+const menuSearchForm: SearchFormType<Api.SystemManage.MenuSearchParams> = [
   {
     key: 'title',
     label: '菜单名称',
@@ -251,7 +251,7 @@ async function handleDelete(id: string) {
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
-          :fields="MenuSearchForm"
+          :fields="menuSearchForm"
           @search="getDataByPage"
           @reset="resetSearchParams"
         />

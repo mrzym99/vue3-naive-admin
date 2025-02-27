@@ -9,7 +9,7 @@ import DeptOperateDrawer from './modules/dept-operate-drawer.vue';
 
 const appStore = useAppStore();
 
-const deptSearchForm: SearchFormType = [
+const deptSearchForm: SearchFormType<Api.SystemManage.DeptSearchParams> = [
   {
     key: 'name',
     label: '部门名称',

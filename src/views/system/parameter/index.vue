@@ -9,7 +9,7 @@ import ParameterOperateDrawer from './modules/parameter-operate-drawer.vue';
 
 const appStore = useAppStore();
 
-const parameterSearchForm: SearchFormType = [
+const parameterSearchForm: SearchFormType<Api.SystemManage.ParameterSearchParams> = [
   {
     key: 'name',
     label: '参数名称',
@@ -69,7 +69,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
-        width: 220,
+        width: 120,
         render: row => (
           <div class="flex justify-items-start gap-8px">
             <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>

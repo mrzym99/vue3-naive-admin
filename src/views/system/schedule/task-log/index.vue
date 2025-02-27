@@ -5,7 +5,7 @@ import { useTable } from '@/hooks/common/table';
 import { fetchGetTaskLogList } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
-import { successOrFailRecord } from '@/constants/common';
+import { successOrFailOptions, successOrFailRecord } from '@/constants/common';
 
 const appStore = useAppStore();
 
@@ -23,7 +23,7 @@ const taskLogSearchForm: SearchFormType<Api.SystemManage.TaskLogSearchParams> = 
     label: '状态',
     type: 'Select',
     props: {
-      options: successOrFailRecord,
+      options: successOrFailOptions,
       placeholder: '请选择任务状态'
     }
   }

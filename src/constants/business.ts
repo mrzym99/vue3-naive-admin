@@ -2,8 +2,8 @@ import { transformRecordToOption } from '@/utils/common';
 import { TaskTypeEnum } from './enum';
 
 export const enableStatusRecord: Record<Api.Common.EnableStatus, App.I18n.I18nKey> = {
-  0: 'page.manage.common.status.disable',
-  1: 'page.manage.common.status.enable'
+  1: 'page.manage.common.status.enable',
+  0: 'page.manage.common.status.disable'
 };
 
 export const enableStatusOptions = transformRecordToOption(enableStatusRecord);

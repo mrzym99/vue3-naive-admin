@@ -14,7 +14,7 @@ import DeptTree from './modules/dept-tree.vue';
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
-const userSearchForm: SearchFormType = [
+const userSearchForm: SearchFormType<Api.SystemManage.UserSearchParams> = [
   {
     key: 'username',
     label: '用户名',
@@ -65,12 +65,12 @@ const userSearchForm: SearchFormType = [
       placeholder: '请选择角色',
       options: [
         {
-          value: 1,
-          label: '管理员'
+          value: '43df8dd8-a7ab-4fdc-82bf-c322f206d8e1',
+          label: '测试'
         },
         {
-          value: 2,
-          label: '普通用户'
+          value: 'bf468315-8ceb-4e18-8fc7-bd9743c5a4c7',
+          label: '管理员'
         }
       ]
     }

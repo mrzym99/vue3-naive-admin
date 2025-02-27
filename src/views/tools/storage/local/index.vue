@@ -8,7 +8,7 @@ import type { SearchFormType } from '@/components/advanced/search-form';
 
 const appStore = useAppStore();
 
-const storageLocalSearchForm: SearchFormType = [
+const storageLocalSearchForm: SearchFormType<Api.ToolsManage.StorageLocalSearchParams> = [
   {
     key: 'name',
     label: '文件名',
