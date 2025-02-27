@@ -17,7 +17,7 @@ import TaskOperateDrawer from './modules/task-operate-drawer.vue';
 
 const appStore = useAppStore();
 
-const taskSearchForm: SearchFormType<Api.SystemManage.Task> = [
+const taskSearchForm: SearchFormType<Api.SystemManage.TaskSearchParams> = [
   {
     key: 'name',
     label: '任务名称',
@@ -27,11 +27,11 @@ const taskSearchForm: SearchFormType<Api.SystemManage.Task> = [
     }
   },
   {
-    key: 'limit',
-    label: '任务值',
+    key: 'service',
+    label: '调用服务',
     type: 'Input',
     props: {
-      placeholder: '请输入任务值'
+      placeholder: '请输入调用服务'
     }
   },
   {

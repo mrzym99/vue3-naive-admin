@@ -53,6 +53,10 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: 'Yes',
       no: 'No'
+    },
+    successOrFailRecord: {
+      success: 'Success',
+      fail: 'Fail'
     }
   },
   request: {
@@ -202,6 +206,8 @@ const local: App.I18n.Schema = {
     system_parameter: 'Parameter Manage',
     system_schedule: 'Task Schedule',
     system_schedule_task: 'Schedule Task',
+    'system_schedule_task-log': 'Schedule Task Log',
+    'system_monitor_captcha-log': 'Captcha Log',
     system_monitor: 'System monitor',
     system_monitor_online: 'Online User',
     'system_monitor_login-log': 'LoginLog Manage',

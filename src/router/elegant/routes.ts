@@ -551,6 +551,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         },
         children: [
           {
+            name: 'system_monitor_captcha-log',
+            path: '/system/monitor/captcha-log',
+            component: 'view.system_monitor_captcha-log',
+            meta: {
+              title: 'system_monitor_captcha-log',
+              i18nKey: 'route.system_monitor_captcha-log'
+            }
+          },
+          {
             name: 'system_monitor_login-log',
             path: '/system/monitor/login-log',
             component: 'view.system_monitor_login-log',
@@ -613,6 +622,15 @@ export const generatedRoutes: GeneratedRoute[] = [
             meta: {
               title: 'system_schedule_task',
               i18nKey: 'route.system_schedule_task'
+            }
+          },
+          {
+            name: 'system_schedule_task-log',
+            path: '/system/schedule/task-log',
+            component: 'view.system_schedule_task-log',
+            meta: {
+              title: 'system_schedule_task-log',
+              i18nKey: 'route.system_schedule_task-log'
             }
           }
         ]

@@ -53,6 +53,10 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: '是',
       no: '否'
+    },
+    successOrFailRecord: {
+      success: '成功',
+      fail: '失败'
     }
   },
   request: {
@@ -202,6 +206,8 @@ const local: App.I18n.Schema = {
     system_parameter: '参数管理',
     system_schedule: '任务调度',
     system_schedule_task: '定时任务',
+    'system_schedule_task-log': '任务日志',
+    'system_monitor_captcha-log': '验证码日志',
     system_monitor: '系统监控',
     system_monitor_online: '在线用户',
     'system_monitor_login-log': '登录日志',

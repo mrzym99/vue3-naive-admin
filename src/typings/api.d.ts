@@ -403,6 +403,44 @@ declare namespace Api {
 
     type TaskList = Common.PaginatingQueryRecord<Task>;
     type TaskType = 0 | 1;
+
+    /** tasklog type */
+    type TaskLog = Common.CommonRecord<{
+      /** taskId */
+      taskId: string;
+      /** name */
+      name: string;
+      /** status */
+      status: number;
+      /** service */
+      consumeTime: Date;
+      /** type */
+      detail: string;
+      /** createdAt */
+      createdAt: Date;
+    }>;
+    type TaskLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.TaskLog, 'name' | 'status'> & CommonSearchParams
+    >;
+
+    type TaskLogList = Common.PaginatingQueryRecord<TaskLog>;
+
+    /** CaptchaLog type */
+    type CaptchaLog = Common.CommonRecord<{
+      /** account */
+      account: string;
+      /** code */
+      code: string;
+      /** provider */
+      provider: string;
+      /** createdAt */
+      createdAt: Date;
+    }>;
+    type CaptchaLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.CaptchaLog, 'account' | 'provider'> & CommonSearchParams
+    >;
+
+    type CaptchaLogList = Common.PaginatingQueryRecord<CaptchaLog>;
   }
 
   /** tools manage */

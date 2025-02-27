@@ -43,77 +43,78 @@ const userSearchForm: SearchFormType = [
   }
 ];
 
-const { columns, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } = useTable({
-  apiFn: fetchGetLoginLogList,
-  showTotal: true,
-  apiParams: {
-    currentPage: 1,
-    pageSize: 10,
-    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
-    // the value can not be undefined, otherwise the property in Form will not be reactive
-    username: '',
-    address: '',
-    ip: '',
-    time: null
-  },
-  columns: () => [
-    {
-      key: 'username',
-      title: '用户名',
-      align: 'left',
-      width: 180,
-      ellipsis: {
-        tooltip: true
+const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
+  useTable({
+    apiFn: fetchGetLoginLogList,
+    showTotal: true,
+    apiParams: {
+      currentPage: 1,
+      pageSize: 10,
+      // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
+      // the value can not be undefined, otherwise the property in Form will not be reactive
+      username: '',
+      address: '',
+      ip: '',
+      time: null
+    },
+    columns: () => [
+      {
+        key: 'username',
+        title: '用户名',
+        align: 'left',
+        width: 180,
+        ellipsis: {
+          tooltip: true
+        }
+      },
+      {
+        key: 'nickName',
+        title: '昵称',
+        align: 'center',
+        width: 100,
+        ellipsis: {
+          tooltip: true
+        }
+      },
+      {
+        key: 'ip',
+        title: 'IP',
+        align: 'center',
+        width: 180,
+        render: row => {
+          if (row.ip === null) return null;
+          return <NTag>{row.ip}</NTag>;
+        }
+      },
+      {
+        key: 'address',
+        title: '登录地点', // $t('page.manage.user.userGender'),
+        align: 'center',
+        width: 280
+      },
+      {
+        key: 'time',
+        title: '登录时间',
+        width: 200,
+        render: row => {
+          if (row.time === null) return null;
+          return <NTime time={new Date(row.time)} />;
+        }
+      },
+      {
+        key: 'os',
+        title: '操作系统',
+        align: 'center',
+        width: 120
+      },
+      {
+        key: 'browser',
+        title: '浏览器', // $t('page.manage.user.role'),
+        align: 'center',
+        width: 200
       }
-    },
-    {
-      key: 'nickName',
-      title: '昵称',
-      align: 'center',
-      width: 100,
-      ellipsis: {
-        tooltip: true
-      }
-    },
-    {
-      key: 'ip',
-      title: 'IP',
-      align: 'center',
-      width: 180,
-      render: row => {
-        if (row.ip === null) return null;
-        return <NTag>{row.ip}</NTag>;
-      }
-    },
-    {
-      key: 'address',
-      title: '登录地点', // $t('page.manage.user.userGender'),
-      align: 'center',
-      width: 280
-    },
-    {
-      key: 'time',
-      title: '登录时间',
-      width: 200,
-      render: row => {
-        if (row.time === null) return null;
-        return <NTime time={new Date(row.time)} />;
-      }
-    },
-    {
-      key: 'os',
-      title: '操作系统',
-      align: 'center',
-      width: 120
-    },
-    {
-      key: 'browser',
-      title: '浏览器', // $t('page.manage.user.role'),
-      align: 'center',
-      width: 200
-    }
-  ]
-});
+    ]
+  });
 </script>
 
 <template>
@@ -127,6 +128,7 @@ const { columns, data, loading, pagination, getDataByPage, getData, searchParams
           @reset="resetSearchParams"
         />
         <TableHeaderOperation
+          v-model:columns="columnChecks"
           prefix="system:login-log"
           :hide-delete="true"
           :hide-add="true"

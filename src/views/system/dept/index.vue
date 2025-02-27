@@ -37,6 +37,7 @@ const {
   apiFn: fetchGetDeptList,
   showTotal: true,
   isTreeTable: true,
+  expandAll: true,
   apiParams: {
     currentPage: 1,
     pageSize: 999,

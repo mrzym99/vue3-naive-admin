@@ -16,7 +16,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
 
   const isMobile = computed(() => appStore.isMobile);
 
-  const { apiFn, apiParams, immediate, showTotal, isTreeTable } = config;
+  const { apiFn, apiParams, immediate, showTotal, isTreeTable, expandAll = false } = config;
 
   const SELECTION_KEY = '__selection__';
 
@@ -112,7 +112,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
         itemCount: total
       });
     },
-    immediate
+    immediate,
+    expandAll
   });
 
   const pagination: PaginationProps = reactive({
@@ -213,7 +214,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     setFold,
     setExpand,
     expandedRowKeys,
-    isTreeTable
+    isTreeTable,
+    expandAll
   };
 }
 

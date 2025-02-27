@@ -10,7 +10,9 @@ defineOptions({
 });
 
 interface Props {
-  fields: ConfigFormArrayType<any>;
+  fields: ConfigFormArrayType;
+  labelWidth?: number;
+  labelPlacement?: 'left' | 'top';
 }
 
 interface Emits {
@@ -18,7 +20,10 @@ interface Emits {
   (e: 'search'): void;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  labelWidth: 80,
+  labelPlacement: 'left'
+});
 
 const emit = defineEmits<Emits>();
 
@@ -93,7 +98,14 @@ async function search() {
 </script>
 
 <template>
-  <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
+  <NForm
+    ref="formRef"
+    :model="model"
+    :rules="rules"
+    v-bind="$attrs"
+    :label-width="labelWidth"
+    :label-placement="labelPlacement"
+  >
     <NGrid responsive="screen" item-responsive :x-gap="16">
       <NFormItemGi
         v-for="field in finalFields"

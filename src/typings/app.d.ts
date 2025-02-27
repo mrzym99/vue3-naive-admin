@@ -342,6 +342,10 @@ declare namespace App {
           yes: string;
           no: string;
         };
+        successOrFailRecord: {
+          success: string;
+          fail: string;
+        };
       };
       request: {
         logout: string;

@@ -238,15 +238,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit, onBatchDeleted } =
-  useTableOperate(data, getData);
-
-async function handleBatchDelete() {
-  // request
-  console.log(checkedRowKeys.value);
-
-  onBatchDeleted();
-}
+const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit } = useTableOperate(
+  data,
+  getData
+);
 
 function edit(id: string) {
   handleEdit(id);
@@ -306,7 +301,6 @@ function selectDept(deptId: string) {
               :disabled-delete="checkedRowKeys.length === 0"
               :loading="loading"
               @add="handleAdd"
-              @delete="handleBatchDelete"
               @refresh="getData"
             >
               <NPopconfirm

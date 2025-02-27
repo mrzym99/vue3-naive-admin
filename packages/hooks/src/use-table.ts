@@ -59,13 +59,20 @@ export type TableConfig<A extends ApiFn, T, C> = {
    * @default true
    */
   immediate?: boolean;
+
+  /**
+   * whether to expandTree
+   *
+   * @default false
+   */
+  expandAll?: boolean;
 };
 
 export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<A, T, C>) {
   const { loading, startLoading, endLoading } = useLoading();
   const { bool: empty, setBool: setEmpty } = useBoolean();
 
-  const { apiFn, apiParams, transformer, immediate = true, getColumnChecks, getColumns } = config;
+  const { apiFn, apiParams, transformer, immediate = true, getColumnChecks, getColumns, expandAll } = config;
 
   const searchParams: NonNullable<Parameters<A>[0]> = reactive(jsonClone({ ...apiParams }));
 
@@ -129,6 +136,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     await config.onFetched?.(transformed);
 
     endLoading();
+    if (expandAll) setExpand();
   }
 
   function formatSearchParams(params: Record<string, unknown>) {

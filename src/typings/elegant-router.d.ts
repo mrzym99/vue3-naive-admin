@@ -81,6 +81,7 @@ declare module "@elegant-router/types" {
     "system_dept": "/system/dept";
     "system_menu": "/system/menu";
     "system_monitor": "/system/monitor";
+    "system_monitor_captcha-log": "/system/monitor/captcha-log";
     "system_monitor_login-log": "/system/monitor/login-log";
     "system_monitor_online": "/system/monitor/online";
     "system_monitor_serve": "/system/monitor/serve";
@@ -88,6 +89,7 @@ declare module "@elegant-router/types" {
     "system_role": "/system/role";
     "system_schedule": "/system/schedule";
     "system_schedule_task": "/system/schedule/task";
+    "system_schedule_task-log": "/system/schedule/task-log";
     "system_user": "/system/user";
     "tools": "/tools";
     "tools_mail": "/tools/mail";
@@ -208,11 +210,13 @@ declare module "@elegant-router/types" {
     | "plugin_video"
     | "system_dept"
     | "system_menu"
+    | "system_monitor_captcha-log"
     | "system_monitor_login-log"
     | "system_monitor_online"
     | "system_monitor_serve"
     | "system_parameter"
     | "system_role"
+    | "system_schedule_task-log"
     | "system_schedule_task"
     | "system_user"
     | "tools_mail"

@@ -43,7 +43,7 @@ type Model = Partial<Api.SystemManage.Task>;
 
 const model = ref(createDefaultModel());
 
-const taskConfigForm: ConfigFormObjectType<Api.SystemManage.Task> = reactive({
+const taskConfigForm: ConfigFormObjectType<Api.SystemManage.TaskSearchParams> = reactive({
   type: {
     key: 'type',
     label: '类型',

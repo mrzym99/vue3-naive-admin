@@ -2,79 +2,88 @@
 import { NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
-import { fetchGetStorageOssList } from '@/service/api';
 import type { SearchFormType } from '@/components/advanced/search-form';
+import { fetchGetCaptchaLogList } from '@/service/api';
+
 const appStore = useAppStore();
 
-const storageOssSearchForm: SearchFormType = [
+const userSearchForm: SearchFormType<Api.SystemManage.CaptchaLogSearchParams> = [
   {
-    key: 'name',
-    label: '文件名',
+    key: 'account',
+    label: '账户',
     type: 'Input',
     props: {
-      placeholder: '请输入文件名'
+      placeholder: '请输入账户'
+    }
+  },
+  {
+    key: 'provider',
+    label: '验证码提供商',
+    type: 'Select',
+    span: 8,
+    props: {
+      placeholder: '请选择服务验证码提供商',
+      options: [
+        {
+          label: '验证码',
+          value: 'captcha'
+        },
+        {
+          label: '短信',
+          value: 'sms'
+        },
+        {
+          label: '邮件',
+          value: 'email'
+        }
+      ]
     }
   }
 ];
 
-const { columns, columnChecks, searchParams, data, loading, pagination, getData, getDataByPage, resetSearchParams } =
+const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
-    apiFn: fetchGetStorageOssList,
+    apiFn: fetchGetCaptchaLogList,
     showTotal: true,
     apiParams: {
       currentPage: 1,
       pageSize: 10,
-      name: ''
       // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
       // the value can not be undefined, otherwise the property in Form will not be reactive
+      account: '',
+      provider: ''
     },
     columns: () => [
       {
-        key: 'name',
-        title: '文件名',
+        key: 'account',
+        title: '账户',
         align: 'left',
+
+        width: 150
+      },
+      {
+        key: 'code',
+        title: '验证码',
+        align: 'center',
+        width: 120
+      },
+      {
+        key: 'provider',
+        title: '验证码提供商', // $t('page.manage.user.userGender'),
+        align: 'center',
         width: 200,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'extName',
-        title: '文件扩展名',
-        align: 'center',
-        width: 100
-      },
-      {
-        key: 'type',
-        title: '文件类型',
-        align: 'center',
-        width: 120,
         render: row => {
-          if (row.type === null) return null;
-          return <NTag>{row.type}</NTag>;
+          if (row.provider === null) return null;
+          return <NTag type={'primary'}>{row.provider}</NTag>;
         }
       },
       {
-        key: 'size',
-        title: '文件大小',
-        align: 'center',
-        width: 100
-      },
-      {
-        key: 'lastModified',
-        title: '最近修改时间',
-        align: 'center',
-        minWidth: 100,
+        key: 'createdAt',
+        title: '发送时间',
+        width: 200,
         render: row => {
-          return <NTime time={new Date(row.lastModified)} />;
-        }
-      },
-      {
-        key: 'url',
-        title: '访问路径',
-        align: 'center',
-        ellipsis: {
-          tooltip: true
+          if (row.createdAt === null) return null;
+          return <NTime time={new Date(row.createdAt)} />;
         }
       }
     ]
@@ -87,15 +96,16 @@ const { columns, columnChecks, searchParams, data, loading, pagination, getData,
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
-          :fields="storageOssSearchForm"
+          :label-width="100"
+          :fields="userSearchForm"
           @search="getDataByPage"
           @reset="resetSearchParams"
         />
         <TableHeaderOperation
           v-model:columns="columnChecks"
-          prefix="system:online"
-          :hide-add="true"
+          prefix="system:captcha-log"
           :hide-delete="true"
+          :hide-add="true"
           :loading="loading"
           @refresh="getData"
         />

@@ -8,7 +8,7 @@ defineOptions({
 });
 
 interface Props {
-  fields: ConfigFormType<any>;
+  fields: ConfigFormType;
   span?: number; // 一行占多少个
   labelPlacement?: 'left' | 'top';
   labelWidth?: number | string | 'auto';
@@ -52,7 +52,7 @@ const finalFields = computed<ConfigFormArrayType>(() => {
 });
 
 // 根据传入的 fields 生成 fields 数组
-function generateFieldArr(): ConfigFormArrayType<any> {
+function generateFieldArr(): ConfigFormArrayType {
   if (Array.isArray(props.fields)) {
     return props.fields;
   }
