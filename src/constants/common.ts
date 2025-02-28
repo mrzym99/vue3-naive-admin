@@ -1,4 +1,4 @@
-import { transformRecordToOption } from '@/utils/common';
+import { transLateRecordToOption } from '@/utils/common';
 
 export const yesOrNoRecord: Record<CommonType.YesOrNo, App.I18n.I18nKey> = {
   Y: 'common.yesOrNo.yes',
@@ -15,5 +15,6 @@ export const successOrFailRecord: Record<CommonType.SuccessOrFail, App.I18n.I18n
   0: 'common.successOrFailRecord.fail'
 };
 
-export const yesOrNoOptions = transformRecordToOption(yesOrNoRecord);
-export const successOrFailOptions = transformRecordToOption(successOrFailRecord);
+export const yesOrNoOptions = transLateRecordToOption(yesOrNoRecord);
+export const yesOrNoNumberOptions = transLateRecordToOption(yesOrNoNumberRecord).sort((a, b) => b.value - a.value);
+export const successOrFailOptions = transLateRecordToOption(successOrFailRecord).sort((a, b) => b.value - a.value);

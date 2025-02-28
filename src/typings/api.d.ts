@@ -61,11 +61,17 @@ declare namespace Api {
       // refreshToken: string;
     }
 
+    interface CaptchaImg {
+      id: string;
+      img: string;
+    }
+
     interface LoginDto {
       username: string;
       password: string;
       code: string;
       type?: string;
+      captchaId?: string;
     }
 
     interface UserInfo {
@@ -162,7 +168,7 @@ declare namespace Api {
      * - "1": "male"
      * - "2": "female"
      */
-    type UserGender = '0' | '1';
+    type UserGender = 0 | 1;
 
     /** user */
     type User = Common.CommonRecord<{
@@ -432,10 +438,12 @@ declare namespace Api {
       /** code */
       code: string;
       /** provider */
-      provider: string;
+      provider: Provider;
       /** createdAt */
       createdAt: Date;
     }>;
+    type Provider = 'sms' | 'email' | 'captcha';
+
     type CaptchaLogSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.CaptchaLog, 'account' | 'provider'> & CommonSearchParams
     >;

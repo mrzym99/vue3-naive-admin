@@ -6,7 +6,7 @@ import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteMenu, fetchGetMenuList } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
-import { enableStatusRecord, menuTypeRecord } from '@/constants/business';
+import { enableStatusOptions, enableStatusRecord, menuTypeRecord } from '@/constants/business';
 import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
 
 const appStore = useAppStore();
@@ -34,10 +34,7 @@ const menuSearchForm: SearchFormType<Api.SystemManage.MenuSearchParams> = [
     type: 'Select',
     props: {
       placeholder: '请选择状态',
-      options: Object.entries(enableStatusRecord).map(([key, value]) => ({
-        label: $t(value),
-        value: key
-      }))
+      options: enableStatusOptions
     }
   }
 ];

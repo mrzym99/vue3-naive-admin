@@ -57,7 +57,8 @@ const local: App.I18n.Schema = {
     successOrFailRecord: {
       success: 'Success',
       fail: 'Fail'
-    }
+    },
+    setDefault: 'Set as Default'
   },
   request: {
     logout: 'Logout user after request failed',
@@ -537,6 +538,13 @@ const local: App.I18n.Schema = {
         type: {
           cron: 'Cron',
           interval: 'Interval'
+        }
+      },
+      captcha: {
+        provider: {
+          email: 'Email',
+          sms: 'Sms',
+          captcha: 'Captcha'
         }
       }
     }

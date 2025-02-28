@@ -1,19 +1,18 @@
 import { request } from '../request';
 
 /**
- * Login
+ * Captcha
  *
  * @param username User name
  * @param password Password
  */
-export function fetchLogin(username: string, password: string, code: string) {
-  return request<Api.Auth.LoginToken>({
-    url: '/auth/login',
-    method: 'post',
-    data: {
-      username,
-      password,
-      code
+export function fetchCaptchaImg(width?: number, height?: number) {
+  return request<Api.Auth.CaptchaImg>({
+    url: '/auth/captcha/img',
+    method: 'get',
+    params: {
+      width,
+      height
     }
   });
 }
@@ -24,15 +23,25 @@ export function fetchLogin(username: string, password: string, code: string) {
  * @param username User name
  * @param password Password
  */
-export function fetchSuperLogin(username: string, password: string, code: string) {
+export function fetchLogin(data: Api.Auth.LoginDto) {
+  return request<Api.Auth.LoginToken>({
+    url: '/auth/login',
+    method: 'post',
+    data
+  });
+}
+
+/**
+ * Login
+ *
+ * @param username User name
+ * @param password Password
+ */
+export function fetchSuperLogin(data: Api.Auth.LoginDto) {
   return request<Api.Auth.LoginToken>({
     url: '/auth/super/login',
     method: 'post',
-    data: {
-      username,
-      password,
-      code
-    }
+    data
   });
 }
 

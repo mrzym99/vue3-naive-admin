@@ -57,7 +57,8 @@ const local: App.I18n.Schema = {
     successOrFailRecord: {
       success: '成功',
       fail: '失败'
-    }
+    },
+    setDefault: '设为默认'
   },
   request: {
     logout: '请求失败后登出用户',
@@ -537,6 +538,13 @@ const local: App.I18n.Schema = {
         type: {
           cron: 'Cron',
           interval: '间隔'
+        }
+      },
+      captcha: {
+        provider: {
+          email: '邮件',
+          sms: '短信',
+          captcha: 'Captcha'
         }
       }
     }

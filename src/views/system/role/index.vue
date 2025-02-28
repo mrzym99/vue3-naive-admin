@@ -5,7 +5,7 @@ import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteRole, fetchGetRoleInfo, fetchGetRoleList, fetchSetRoleDefault } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
-import { enableStatusRecord } from '@/constants/business';
+import { enableStatusOptions, enableStatusRecord } from '@/constants/business';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 
 const appStore = useAppStore();
@@ -33,16 +33,7 @@ const roleSearchForm: SearchFormType<Api.SystemManage.RoleSearchParams> = [
     type: 'Select',
     props: {
       placeholder: '请选择状态',
-      options: [
-        {
-          label: $t('common.enable'),
-          value: 1
-        },
-        {
-          label: $t('common.disable'),
-          value: 0
-        }
-      ]
+      options: enableStatusOptions
     }
   }
 ];
@@ -154,10 +145,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             ) : (
               <NPopconfirm onPositiveClick={() => handleSetDefault(row.id)}>
                 {{
-                  default: () => '设置为默认',
+                  default: () => $t('common.setDefault'),
                   trigger: () => (
                     <NButton type={'tertiary'} ghost size="small">
-                      设为默认
+                      {$t('common.setDefault')}
                     </NButton>
                   )
                 }}

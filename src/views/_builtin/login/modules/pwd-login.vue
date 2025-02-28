@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { $t } from '@/locales';
 import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
+import { fetchCaptchaImg } from '@/service/api';
 
 defineOptions({
   name: 'PwdLogin'
@@ -13,6 +14,9 @@ defineOptions({
 const authStore = useAuthStore();
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
+const captchaId = ref<string>('');
+const captchaImg = ref<string>('');
+const captchaLoading = ref<boolean>(false);
 
 interface FormModel {
   username: string;
@@ -23,7 +27,7 @@ interface FormModel {
 const model: FormModel = reactive({
   username: 'xiaozhang',
   password: '123456',
-  code: '123'
+  code: ''
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
@@ -39,7 +43,11 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
 async function handleSubmit() {
   await validate();
-  await authStore.login(model as Api.Auth.LoginDto);
+  const loginData: Api.Auth.LoginDto = {
+    ...model,
+    captchaId: captchaId.value
+  };
+  await authStore.login(loginData);
 }
 
 type AccountKey = 'super' | 'admin' | 'user';
@@ -78,11 +86,28 @@ async function handleAccountLogin(account: Account) {
   const acc: Api.Auth.LoginDto = {
     username: account.username,
     password: account.password,
-    code: '123',
-    type: account.type
+    code: model.code,
+    type: account.type,
+    captchaId: captchaId.value
   };
   await authStore.login(acc);
 }
+
+async function getCaptcha() {
+  captchaLoading.value = true;
+  const { data, error } = await fetchCaptchaImg(150, 50);
+  captchaLoading.value = false;
+  if (error) {
+    return;
+  }
+  const { img, id } = data;
+  captchaImg.value = img;
+  captchaId.value = id;
+}
+
+onMounted(() => {
+  getCaptcha();
+});
 </script>
 
 <template>
@@ -97,6 +122,14 @@ async function handleAccountLogin(account: Account) {
         show-password-on="click"
         :placeholder="$t('page.login.common.passwordPlaceholder')"
       />
+    </NFormItem>
+    <NFormItem path="code">
+      <div class="w-full flex items-center justify-between">
+        <NInput v-model:value="model.code" :placeholder="$t('page.login.codeLogin.imageCodePlaceholder')" />
+        <NSpin :show="captchaLoading">
+          <img class="cursur-pointer ml-10px h-40px w-150px rounded-sm" :src="captchaImg" alt="" @click="getCaptcha" />
+        </NSpin>
+      </div>
     </NFormItem>
     <NSpace vertical :size="24">
       <div class="flex-y-center justify-between">

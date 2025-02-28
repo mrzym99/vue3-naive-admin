@@ -4,6 +4,9 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { fetchGetCaptchaLogList } from '@/service/api';
+import { ProviderRecord, providerOptions } from '@/constants/business';
+import { ProviderEnum } from '@/constants/enum';
+import { $t } from '@/locales';
 
 const appStore = useAppStore();
 
@@ -23,20 +26,7 @@ const userSearchForm: SearchFormType<Api.SystemManage.CaptchaLogSearchParams> = 
     span: 8,
     props: {
       placeholder: '请选择服务验证码提供商',
-      options: [
-        {
-          label: '验证码',
-          value: 'captcha'
-        },
-        {
-          label: '短信',
-          value: 'sms'
-        },
-        {
-          label: '邮件',
-          value: 'email'
-        }
-      ]
+      options: providerOptions
     }
   }
 ];
@@ -74,7 +64,15 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         width: 200,
         render: row => {
           if (row.provider === null) return null;
-          return <NTag type={'primary'}>{row.provider}</NTag>;
+
+          const tagMap: Record<Api.SystemManage.Provider, NaiveUI.ThemeColor> = {
+            [ProviderEnum.CAPTCHA]: 'primary',
+            [ProviderEnum.SMS]: 'info',
+            [ProviderEnum.EMAIL]: 'warning'
+          };
+
+          const label = $t(ProviderRecord[row.provider]);
+          return <NTag type={tagMap[row.provider]}>{label}</NTag>;
         }
       },
       {

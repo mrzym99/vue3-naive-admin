@@ -4,6 +4,7 @@ import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
 import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form';
+import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -85,16 +86,7 @@ const userConfigForm = reactive<ConfigFormArrayType>([
     label: '性别',
     type: 'Radio',
     required: true,
-    options: [
-      {
-        label: '男',
-        value: 1
-      },
-      {
-        label: '女',
-        value: 0
-      }
-    ],
+    options: userGenderOptions,
     props: {
       placeholder: '请选择性别'
     }
@@ -152,16 +144,7 @@ const userConfigForm = reactive<ConfigFormArrayType>([
     props: {
       placeholder: '请选择状态'
     },
-    options: [
-      {
-        label: '正常',
-        value: 1
-      },
-      {
-        label: '禁用',
-        value: 0
-      }
-    ]
+    options: enableStatusOptions
   },
   {
     key: 'birthDate',

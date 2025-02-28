@@ -1,7 +1,7 @@
 import { ref, toValue } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { REG_CODE_SIX, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
+import { REG_CODE_FOUR, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
 import { $t } from '@/locales';
 
 export function useFormRules() {
@@ -22,7 +22,7 @@ export function useFormRules() {
       trigger: 'change'
     },
     code: {
-      pattern: REG_CODE_SIX,
+      pattern: REG_CODE_FOUR,
       message: $t('form.code.invalid'),
       trigger: 'change'
     },

@@ -12,7 +12,7 @@ import {
 } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
-import { TaskTypeRecord, enableStatusRecord } from '@/constants/business';
+import { TaskTypeRecord, enableStatusOptions, enableStatusRecord } from '@/constants/business';
 import TaskOperateDrawer from './modules/task-operate-drawer.vue';
 
 const appStore = useAppStore();
@@ -40,16 +40,7 @@ const taskSearchForm: SearchFormType<Api.SystemManage.TaskSearchParams> = [
     type: 'Select',
     props: {
       placeholder: '请选择状态',
-      options: [
-        {
-          label: $t('common.enable'),
-          value: 1
-        },
-        {
-          label: $t('common.disable'),
-          value: 0
-        }
-      ]
+      options: enableStatusOptions
     }
   }
 ];

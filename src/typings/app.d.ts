@@ -346,6 +346,7 @@ declare namespace App {
           success: string;
           fail: string;
         };
+        setDefault: string;
       };
       request: {
         logout: string;
@@ -701,6 +702,13 @@ declare namespace App {
             type: {
               cron: string;
               interval: string;
+            };
+          };
+          captcha: {
+            provider: {
+              email: string;
+              sms: string;
+              captcha: string;
             };
           };
         };

@@ -7,3 +7,9 @@ export enum TaskTypeEnum {
   CRON = 0,
   INTERVAL = 1
 }
+
+export enum ProviderEnum {
+  SMS = 'sms',
+  EMAIL = 'email',
+  CAPTCHA = 'captcha'
+}
