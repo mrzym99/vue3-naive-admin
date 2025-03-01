@@ -69,6 +69,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       const logoutCodes = VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
       if (logoutCodes.includes(backendErrorCode)) {
         handleLogout();
+        showErrorMsg(request.state, message);
         return;
       }
 
@@ -78,7 +79,6 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
         modelLogOut(message, handleLogout, logoutAndCleanup);
         return;
       }
-
       showErrorMsg(request.state, message);
     }
   }

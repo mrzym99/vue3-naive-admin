@@ -55,6 +55,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     tabStore.cacheTabs();
     routeStore.resetStore();
     sseStore.closeEventSource();
+    console.log('sse 断开');
   }
 
   /**

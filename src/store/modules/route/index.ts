@@ -11,6 +11,7 @@ import { getRouteName, getRoutePath } from '@/router/elegant/transform';
 import { fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
+import { useSSEStore } from '../sse';
 import {
   filterAuthRoutesByRoles,
   getBreadcrumbsByRoute,
@@ -26,6 +27,7 @@ import {
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const authStore = useAuthStore();
   const tabStore = useTabStore();
+  const sseStore = useSSEStore();
   const { bool: isInitConstantRoute, setBool: setIsInitConstantRoute } = useBoolean();
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
 
@@ -180,6 +182,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
     if (!authStore.userInfo.id) {
       await authStore.initUserInfo();
+      await sseStore.initServerMsgListener();
     }
 
     if (authRouteMode.value === 'static') {
