@@ -48,14 +48,14 @@ export function fetchSuperLogin(data: Api.Auth.LoginDto) {
 /**
  * Refresh token
  *
- * @param refreshToken Refresh token
+ * @param accessToken Access token
  */
-export function fetchRefreshToken(refreshToken: string) {
+export function fetchRefreshToken(accessToken: string) {
   return request<Api.Auth.LoginToken>({
     url: '/auth/refreshToken',
     method: 'post',
     data: {
-      refreshToken
+      accessToken
     }
   });
 }

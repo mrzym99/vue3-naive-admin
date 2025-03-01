@@ -1,7 +1,7 @@
-// import { useAuthStore } from '@/store/modules/auth';
 import type { InternalAxiosRequestConfig } from 'axios';
+import { useAuthStore } from '@/store/modules/auth';
 import { localStg } from '@/utils/storage';
-// import { fetchRefreshToken } from '../api';
+import { fetchRefreshToken } from '../api';
 import type { RequestInstanceState } from './type';
 
 export function getAuthorization() {
@@ -23,24 +23,20 @@ export function addTimestamp(config: InternalAxiosRequestConfig) {
 
 /** refresh token */
 async function handleRefreshToken() {
-  // const { resetStore } = useAuthStore();
-  // const rToken = localStg.get('refreshToken') || '';
-  // const { code, data } = await fetchRefreshToken(rToken);
-  // if (!code) {
-  //   localStg.set('token', data.access_token);
-  //   // localStg.set('refreshToken', data.refreshToken);
-  //   return true;
-  // }
-  // resetStore();
-  // return false;
+  const aToken = localStg.get('token') || '';
+  const { error, data } = await fetchRefreshToken(aToken);
+
+  if (!error) {
+    localStg.set('token', data.access_token);
+    return true;
+  }
+  return false;
 }
 
 export async function handleExpiredRequest(state: RequestInstanceState) {
-  // if (!state.refreshTokenFn) {
-  //   state.refreshTokenFn = handleRefreshToken();
-  // }
-  handleRefreshToken();
-
+  if (!state.refreshTokenFn) {
+    state.refreshTokenFn = handleRefreshToken();
+  }
   const success = await state.refreshTokenFn;
 
   setTimeout(() => {
@@ -70,4 +66,21 @@ export function showErrorMsg(state: RequestInstanceState, message: string) {
       }
     });
   }
+}
+
+export function useLogout() {
+  const authStore = useAuthStore();
+  function handleLogout() {
+    authStore.resetStore();
+  }
+
+  function logoutAndCleanup() {
+    handleLogout();
+    window.removeEventListener('beforeunload', handleLogout);
+  }
+
+  return {
+    handleLogout,
+    logoutAndCleanup
+  };
 }

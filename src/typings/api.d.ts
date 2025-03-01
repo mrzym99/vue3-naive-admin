@@ -58,7 +58,6 @@ declare namespace Api {
   namespace Auth {
     interface LoginToken {
       access_token: string;
-      // refreshToken: string;
     }
 
     interface CaptchaImg {
