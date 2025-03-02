@@ -96,7 +96,8 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     props: {
       treeData: [],
       treeNodeFilterProp: 'title',
-      placeholder: '请选择上级菜单'
+      placeholder: '请选择上级菜单',
+      filterable: true
     }
   },
   iconType: {

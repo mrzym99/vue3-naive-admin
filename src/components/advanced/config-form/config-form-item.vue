@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { ComponentType } from './component-map';
 import { componentMap, optionsComponentMap } from './component-map';
 import ConfigFormItemOptions from './config-form-item-options.vue';
@@ -59,11 +60,22 @@ const componentEvents = (componentProps: ComponentProps) => {
     return prev;
   }, {});
 };
+
+const getValue = computed<Record<string, any>>(() => {
+  const { model, field } = props;
+  return {
+    formModel: model,
+    key: field.key,
+    field
+  };
+});
 </script>
 
 <template>
+  <slot v-if="field.slot" :name="field.slot" v-bind="getValue" />
   <component
     :is="getComponent(field.type)"
+    v-else
     v-bind="getComponentProps(field.props)"
     v-model:value="value"
     clearable

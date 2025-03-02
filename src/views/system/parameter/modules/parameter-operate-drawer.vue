@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { VAceEditor } from 'vue3-ace-editor';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateParameter, fetchUpdateParameter } from '@/service/api';
 import type { ConfigFormArrayType } from '@/components/advanced/config-form';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-chrome';
 
 defineOptions({
   name: 'ParameterOperateDrawer'
@@ -47,6 +50,7 @@ const parameterConfigForm: ConfigFormArrayType = reactive([
     key: 'name',
     label: '参数名称',
     type: 'Input',
+    required: true,
     props: {
       placeholder: '请输入参数名称'
     }
@@ -55,6 +59,7 @@ const parameterConfigForm: ConfigFormArrayType = reactive([
     key: 'key',
     label: 'Key',
     type: 'Input',
+    required: true,
     props: {
       placeholder: '请输入Key'
     }
@@ -62,10 +67,10 @@ const parameterConfigForm: ConfigFormArrayType = reactive([
   {
     key: 'value',
     label: '参数值',
+    span: 24,
     type: 'Input',
-    props: {
-      placeholder: '请输入参数值'
-    }
+    slot: 'value',
+    required: true
   },
   {
     key: 'remark',
@@ -126,7 +131,11 @@ watch(visible, () => {
 <template>
   <NDrawer v-model:show="visible" display-directive="show" width="40%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
-      <ConfigForm ref="formRef" v-model:model="model" :fields="parameterConfigForm" />
+      <ConfigForm ref="formRef" v-model:model="model" :fields="parameterConfigForm">
+        <template #value="{ formModel, key }">
+          <VAceEditor v-model:value="formModel[key]" class="h-200px w-full" lang="json" theme="chrome" />
+        </template>
+      </ConfigForm>
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, ref, useSlots, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import type { ConfigFormArrayType, ConfigFormType } from './config-form-type';
 
@@ -73,6 +73,10 @@ watch(finalFields, () => {
   });
 });
 
+const slots = computed(() => {
+  return useSlots();
+});
+
 defineExpose({
   validate,
   restoreValidation
@@ -98,7 +102,11 @@ defineExpose({
         :label="field.label"
         :path="field.key"
       >
-        <ConfigFormItem v-model:value="model[field.key]" :field="field" :model="model" />
+        <ConfigFormItem v-model:value="model[field.key]" :field="field" :model="model">
+          <template v-for="name of slots" #[name]="slotProps">
+            <slot :name="name" v-bind="slotProps"></slot>
+          </template>
+        </ConfigFormItem>
       </NFormItemGi>
     </NGrid>
   </NForm>

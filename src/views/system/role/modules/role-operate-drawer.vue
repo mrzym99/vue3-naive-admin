@@ -94,12 +94,9 @@ const roleConfigForm: ConfigFormArrayType = reactive([
     label: '菜单权限',
     type: 'TreeSelect',
     span: 24,
+    slot: 'menu',
     props: {
-      multiple: true,
-      placeholder: '请选择菜单权限',
-      treeCheckable: true,
-      treeCheckStrictly: true,
-      treeData: []
+      options: []
     }
   }
 ]);
@@ -172,9 +169,22 @@ watch(visible, () => {
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" width="40%">
+  <NDrawer v-model:show="visible" display-directive="show" width="60%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
-      <ConfigForm ref="formRef" v-model:model="model" :fields="roleConfigForm" />
+      <ConfigForm ref="formRef" v-model:model="model" :fields="roleConfigForm">
+        <template #menu="{ formModel, key, field }">
+          <NCard>
+            <NTree
+              v-model:checked-keys="formModel[key]"
+              :data="field.props.options"
+              block-line
+              cascade
+              expand-on-click
+              checkable
+            />
+          </NCard>
+        </template>
+      </ConfigForm>
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>

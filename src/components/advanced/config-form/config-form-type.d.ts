@@ -15,6 +15,7 @@ export interface ConfigFormItem<T extends Recordable> {
   type: ComponentType;
   hide?: BooleanProp<T>;
   span?: number;
+  slot?: string;
   disabled?: BooleanProp<T>;
   required?: BooleanProp<T>;
   options?: Option<string | number>[];

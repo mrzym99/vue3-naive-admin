@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { NTag } from 'naive-ui';
+import { NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { fetchGetTaskLogList } from '@/service/api';
@@ -95,8 +95,9 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, searchP
       key: 'createdAt',
       title: '任务发起时间',
       width: 200,
-      ellipsis: {
-        tooltip: true
+      render: row => {
+        if (!row.createdAt) return null;
+        return <NTime time={new Date(row.createdAt)} />;
       }
     }
   ]

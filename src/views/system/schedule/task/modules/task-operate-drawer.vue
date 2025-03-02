@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { VAceEditor } from 'vue3-ace-editor'; // https://github.com/CarterLi/vue3-ace-editor
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateTask, fetchUpdateTask } from '@/service/api';
 import type { ConfigFormObjectType } from '@/components/advanced/config-form';
 import { StatusEnum, TaskTypeEnum } from '@/constants/enum';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-chrome';
 
 defineOptions({
   name: 'TaskOperateDrawer'
@@ -86,10 +89,7 @@ const taskConfigForm: ConfigFormObjectType<Api.SystemManage.TaskSearchParams> = 
     label: '任务参数',
     type: 'Input',
     span: 24,
-    props: {
-      type: 'textarea',
-      placeholder: '请输入任务参数'
-    }
+    slot: 'data'
   },
   limit: {
     key: 'limit',
@@ -222,9 +222,13 @@ watch(visible, () => {
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" width="40%">
+  <NDrawer v-model:show="visible" display-directive="show" width="50%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
-      <ConfigForm ref="formRef" v-model:model="model" :fields="taskConfigForm" />
+      <ConfigForm ref="formRef" v-model:model="model" :fields="taskConfigForm">
+        <template #data="{ formModel, key }">
+          <VAceEditor v-model:value="formModel[key]" class="h-200px w-full" lang="json" theme="chrome" />
+        </template>
+      </ConfigForm>
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>
