@@ -23,17 +23,17 @@ const statisticData = computed<StatisticData[]>(() => [
   {
     id: 0,
     label: $t('page.home.projectCount'),
-    value: '25'
+    value: '3'
   },
   {
     id: 1,
     label: $t('page.home.todo'),
-    value: '4/16'
+    value: '1/3'
   },
   {
     id: 2,
     label: $t('page.home.message'),
-    value: '12'
+    value: '8'
   }
 ]);
 </script>
@@ -43,12 +43,14 @@ const statisticData = computed<StatisticData[]>(() => [
     <NGrid :x-gap="gap" :y-gap="16" responsive="screen" item-responsive>
       <NGi span="24 s:24 m:18">
         <div class="flex-y-center">
-          <div class="size-72px shrink-0 overflow-hidden rd-1/2">
-            <img src="@/assets/imgs/soybean.jpg" class="size-full" />
-          </div>
+          <NAvatar :src="authStore.userInfo.avatar" :size="72" round>
+            <template #fallback>
+              <SvgIcon icon="ph:user-circle" class="h-72px w-72px" />
+            </template>
+          </NAvatar>
           <div class="pl-12px">
             <h3 class="text-18px font-semibold">
-              {{ $t('page.home.greeting', { userName: authStore.userInfo.nickName }) }}
+              {{ $t('page.home.greeting', { nickName: authStore.userInfo.nickName }) }}
             </h3>
             <p class="text-#999 leading-30px">{{ $t('page.home.weatherDesc') }}</p>
           </div>

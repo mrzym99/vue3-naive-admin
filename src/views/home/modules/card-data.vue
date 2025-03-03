@@ -23,7 +23,7 @@ const cardData = computed<CardData[]>(() => [
   {
     key: 'visitCount',
     title: $t('page.home.visitCount'),
-    value: 9725,
+    value: 1024,
     unit: '',
     color: {
       start: '#ec4786',
@@ -32,20 +32,20 @@ const cardData = computed<CardData[]>(() => [
     icon: 'ant-design:bar-chart-outlined'
   },
   {
-    key: 'turnover',
-    title: $t('page.home.turnover'),
-    value: 1026,
-    unit: '$',
+    key: 'online',
+    title: $t('page.home.online'),
+    value: 1024,
+    unit: '',
     color: {
       start: '#865ec0',
       end: '#5144b4'
     },
-    icon: 'ant-design:money-collect-outlined'
+    icon: 'ant-design:user-outlined'
   },
   {
-    key: 'downloadCount',
-    title: $t('page.home.downloadCount'),
-    value: 970925,
+    key: 'goods',
+    title: $t('page.home.goods'),
+    value: 1024,
     unit: '',
     color: {
       start: '#56cdf3',
@@ -56,7 +56,7 @@ const cardData = computed<CardData[]>(() => [
   {
     key: 'dealCount',
     title: $t('page.home.dealCount'),
-    value: 8080,
+    value: 1024,
     unit: '',
     color: {
       start: '#fcbc25',

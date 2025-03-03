@@ -10,49 +10,6 @@ import { transformElegantRoutesToVueRoutes } from '../elegant/transform';
  */
 const customRoutes: CustomRoute[] = [
   {
-    name: 'exception',
-    path: '/exception',
-    component: 'layout.base',
-    meta: {
-      title: 'exception',
-      i18nKey: 'route.exception',
-      icon: 'ant-design:exception-outlined',
-      order: 7
-    },
-    children: [
-      {
-        name: 'exception_403',
-        path: '/exception/403',
-        component: 'view.403',
-        meta: {
-          title: 'exception_403',
-          i18nKey: 'route.exception_403',
-          icon: 'ic:baseline-block'
-        }
-      },
-      {
-        name: 'exception_404',
-        path: '/exception/404',
-        component: 'view.404',
-        meta: {
-          title: 'exception_404',
-          i18nKey: 'route.exception_404',
-          icon: 'ic:baseline-web-asset-off'
-        }
-      },
-      {
-        name: 'exception_500',
-        path: '/exception/500',
-        component: 'view.500',
-        meta: {
-          title: 'exception_500',
-          i18nKey: 'route.exception_500',
-          icon: 'ic:baseline-wifi-off'
-        }
-      }
-    ]
-  },
-  {
     name: 'document',
     path: '/document',
     component: 'layout.base',
@@ -89,20 +46,6 @@ const customRoutes: CustomRoute[] = [
           i18nKey: 'route.document_naive',
           order: 6,
           icon: 'logos:naiveui'
-        }
-      },
-      {
-        name: 'document_alova',
-        path: '/document/alova',
-        component: 'view.iframe-page',
-        props: {
-          url: 'https://alova.js.org'
-        },
-        meta: {
-          title: 'document_alova',
-          i18nKey: 'route.document_alova',
-          order: 7,
-          localIcon: 'alova'
         }
       },
       {
@@ -183,13 +126,14 @@ export function createStaticRoutes() {
 
   const authRoutes: ElegantRoute[] = [];
 
-  [...customRoutes, ...generatedRoutes].forEach(item => {
+  generatedRoutes.forEach(item => {
     if (item.meta?.constant) {
       constantRoutes.push(item);
     } else {
       authRoutes.push(item);
     }
   });
+  constantRoutes.push(...customRoutes);
 
   return {
     constantRoutes,

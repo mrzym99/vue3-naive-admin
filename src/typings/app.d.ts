@@ -490,7 +490,7 @@ declare namespace App {
           projectCount: string;
           todo: string;
           message: string;
-          downloadCount: string;
+          goods: string;
           registerCount: string;
           schedule: string;
           study: string;
@@ -498,7 +498,7 @@ declare namespace App {
           rest: string;
           entertainment: string;
           visitCount: string;
-          turnover: string;
+          online: string;
           dealCount: string;
           projectNews: {
             title: string;
@@ -507,7 +507,6 @@ declare namespace App {
             desc2: string;
             desc3: string;
             desc4: string;
-            desc5: string;
           };
           creativity: string;
         };

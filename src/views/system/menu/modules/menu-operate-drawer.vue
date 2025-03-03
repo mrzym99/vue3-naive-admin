@@ -186,10 +186,11 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
       return !isPermission();
     },
     props: {
+      filterable: true,
+      placeholder: '请选择权限标识',
       'check-strategy': 'child',
       separator: ':',
-      options: [],
-      placeholder: '请选择权限标识'
+      options: []
     }
   },
   keepAlive: {
@@ -301,7 +302,7 @@ function createDefaultModel(): Model {
     iconType: 0,
     path: '',
     component: '',
-    permission: '',
+    permission: null,
     order: 1,
     isExt: false,
     extOpenMode: 0,

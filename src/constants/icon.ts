@@ -5,6 +5,7 @@ export const iconifyIconList: string[] = [
   'mdi:arm-flex-outline',
   'mdi:account-group-outline',
   'mdi:account-cog-outline',
+  'mdi:account-heart-outline',
   'mdi:database-cog-outline',
   'mdi:cloud-check-variant-outline',
   'mdi:record-circle-outline',

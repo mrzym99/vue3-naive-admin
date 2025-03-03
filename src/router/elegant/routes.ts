@@ -51,123 +51,6 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'function',
-    path: '/function',
-    component: 'layout.base',
-    meta: {
-      title: 'function',
-      i18nKey: 'route.function',
-      icon: 'icon-park-outline:all-application',
-      order: 6
-    },
-    children: [
-      {
-        name: 'function_hide-child',
-        path: '/function/hide-child',
-        meta: {
-          title: 'function_hide-child',
-          i18nKey: 'route.function_hide-child',
-          icon: 'material-symbols:filter-list-off',
-          order: 2
-        },
-        redirect: '/function/hide-child/one',
-        children: [
-          {
-            name: 'function_hide-child_one',
-            path: '/function/hide-child/one',
-            component: 'view.function_hide-child_one',
-            meta: {
-              title: 'function_hide-child_one',
-              i18nKey: 'route.function_hide-child_one',
-              icon: 'material-symbols:filter-list-off',
-              hideInMenu: true,
-              activeMenu: 'function_hide-child'
-            }
-          },
-          {
-            name: 'function_hide-child_three',
-            path: '/function/hide-child/three',
-            component: 'view.function_hide-child_three',
-            meta: {
-              title: 'function_hide-child_three',
-              i18nKey: 'route.function_hide-child_three',
-              hideInMenu: true,
-              activeMenu: 'function_hide-child'
-            }
-          },
-          {
-            name: 'function_hide-child_two',
-            path: '/function/hide-child/two',
-            component: 'view.function_hide-child_two',
-            meta: {
-              title: 'function_hide-child_two',
-              i18nKey: 'route.function_hide-child_two',
-              hideInMenu: true,
-              activeMenu: 'function_hide-child'
-            }
-          }
-        ]
-      },
-      {
-        name: 'function_multi-tab',
-        path: '/function/multi-tab',
-        component: 'view.function_multi-tab',
-        meta: {
-          title: 'function_multi-tab',
-          i18nKey: 'route.function_multi-tab',
-          icon: 'ic:round-tab',
-          multiTab: true,
-          hideInMenu: true,
-          activeMenu: 'function_tab'
-        }
-      },
-      {
-        name: 'function_request',
-        path: '/function/request',
-        component: 'view.function_request',
-        meta: {
-          title: 'function_request',
-          i18nKey: 'route.function_request',
-          icon: 'carbon:network-overlay',
-          order: 3
-        }
-      },
-      {
-        name: 'function_super-page',
-        path: '/function/super-page',
-        component: 'view.function_super-page',
-        meta: {
-          title: 'function_super-page',
-          i18nKey: 'route.function_super-page',
-          icon: 'ic:round-supervisor-account',
-          order: 5
-        }
-      },
-      {
-        name: 'function_tab',
-        path: '/function/tab',
-        component: 'view.function_tab',
-        meta: {
-          title: 'function_tab',
-          i18nKey: 'route.function_tab',
-          icon: 'ic:round-tab',
-          order: 1
-        }
-      },
-      {
-        name: 'function_toggle-auth',
-        path: '/function/toggle-auth',
-        component: 'view.function_toggle-auth',
-        meta: {
-          title: 'function_toggle-auth',
-          i18nKey: 'route.function_toggle-auth',
-          icon: 'ic:round-construction',
-          order: 4
-        }
-      }
-    ]
-  },
-  {
     name: 'home',
     path: '/home',
     component: 'layout.base$view.home',
@@ -204,76 +87,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'multi-menu',
-    path: '/multi-menu',
-    component: 'layout.base',
-    meta: {
-      title: 'multi-menu',
-      i18nKey: 'route.multi-menu',
-      order: 8
-    },
-    children: [
-      {
-        name: 'multi-menu_first',
-        path: '/multi-menu/first',
-        meta: {
-          title: 'multi-menu_first',
-          i18nKey: 'route.multi-menu_first',
-          order: 1
-        },
-        children: [
-          {
-            name: 'multi-menu_first_child',
-            path: '/multi-menu/first/child',
-            component: 'view.multi-menu_first_child',
-            meta: {
-              title: 'multi-menu_first_child',
-              i18nKey: 'route.multi-menu_first_child'
-            }
-          }
-        ]
-      },
-      {
-        name: 'multi-menu_second',
-        path: '/multi-menu/second',
-        meta: {
-          title: 'multi-menu_second',
-          i18nKey: 'route.multi-menu_second',
-          order: 2
-        },
-        children: [
-          {
-            name: 'multi-menu_second_child',
-            path: '/multi-menu/second/child',
-            meta: {
-              title: 'multi-menu_second_child',
-              i18nKey: 'route.multi-menu_second_child'
-            },
-            children: [
-              {
-                name: 'multi-menu_second_child_home',
-                path: '/multi-menu/second/child/home',
-                component: 'view.multi-menu_second_child_home',
-                meta: {
-                  title: 'multi-menu_second_child_home',
-                  i18nKey: 'route.multi-menu_second_child_home'
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
     name: 'plugin',
     path: '/plugin',
     component: 'layout.base',
     meta: {
       title: '插件示例',
       i18nKey: 'route.plugin',
-      order: 7,
-      icon: 'clarity:plugin-line'
+      order: 8,
+      icon: 'clarity:plugin-line',
+      constant: true
     },
     children: [
       {
@@ -701,8 +523,7 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base$view.user-center',
     meta: {
       title: 'user-center',
-      i18nKey: 'route.user-center',
-      hideInMenu: true
+      i18nKey: 'route.user-center'
     }
   }
 ];

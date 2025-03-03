@@ -72,6 +72,7 @@ declare module 'vue' {
     MAvatar: typeof import('./../components/custom/m-avatar.vue')['default']
     MenuToggler: typeof import('./../components/common/menu-toggler.vue')['default']
     NAlert: typeof import('naive-ui')['NAlert']
+    NAvatar: typeof import('naive-ui')['NAvatar']
     NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']
     NBreadcrumbItem: typeof import('naive-ui')['NBreadcrumbItem']
     NButton: typeof import('naive-ui')['NButton']

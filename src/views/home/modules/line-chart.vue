@@ -21,7 +21,7 @@ const { domRef, updateOptions } = useEcharts(() => ({
     }
   },
   legend: {
-    data: [$t('page.home.downloadCount'), $t('page.home.registerCount')]
+    data: [$t('page.home.goods'), $t('page.home.registerCount')]
   },
   grid: {
     left: '3%',
@@ -40,7 +40,7 @@ const { domRef, updateOptions } = useEcharts(() => ({
   series: [
     {
       color: '#8e9dff',
-      name: $t('page.home.downloadCount'),
+      name: $t('page.home.goods'),
       type: 'line',
       smooth: true,
       stack: 'Total',

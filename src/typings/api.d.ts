@@ -83,6 +83,7 @@ declare namespace Api {
       id: string;
       username: string;
       nickName: string;
+      avatar: string;
       roles: string[];
       permissions: string[];
     }
