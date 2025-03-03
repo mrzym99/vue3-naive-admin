@@ -1,11 +1,13 @@
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useCountDown, useLoading } from '@sa/hooks';
 import { $t } from '@/locales';
-import { REG_PHONE } from '@/constants/reg';
+import { REG_EMAIL } from '@/constants/reg';
+import { fetchGetCaptchaEmail } from '@/service/api';
 
 export function useCaptcha() {
+  const code = ref('');
   const { loading, startLoading, endLoading } = useLoading();
-  const { count, start, stop, isCounting } = useCountDown(10);
+  const { count, start, stop, isCounting } = useCountDown(60);
 
   const label = computed(() => {
     let text = $t('page.login.codeLogin.getCode');
@@ -23,15 +25,15 @@ export function useCaptcha() {
     return text;
   });
 
-  function isPhoneValid(phone: string) {
-    if (phone.trim() === '') {
-      window.$message?.error?.($t('form.phone.required'));
+  function isEmailValid(email: string) {
+    if (email.trim() === '') {
+      window.$message?.error?.($t('form.email.required'));
 
       return false;
     }
 
-    if (!REG_PHONE.test(phone)) {
-      window.$message?.error?.($t('form.phone.invalid'));
+    if (!REG_EMAIL.test(email)) {
+      window.$message?.error?.($t('form.email.invalid'));
 
       return false;
     }
@@ -39,28 +41,28 @@ export function useCaptcha() {
     return true;
   }
 
-  async function getCaptcha(phone: string) {
-    const valid = isPhoneValid(phone);
+  async function getCaptcha(email: string) {
+    const valid = isEmailValid(email);
 
     if (!valid || loading.value) {
       return;
     }
 
     startLoading();
-
+    code.value = '';
     // request
-    await new Promise(resolve => {
-      setTimeout(resolve, 500);
-    });
+    const { error, data } = await fetchGetCaptchaEmail(email);
 
+    if (error) return;
+    code.value = data;
     window.$message?.success?.($t('page.login.codeLogin.sendCodeSuccess'));
-
     start();
 
     endLoading();
   }
 
   return {
+    code,
     label,
     start,
     stop,

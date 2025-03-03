@@ -262,10 +262,12 @@ const local: App.I18n.Schema = {
         codePlaceholder: 'Please enter verification code',
         passwordPlaceholder: 'Please enter password',
         confirmPasswordPlaceholder: 'Please enter password again',
+        emailPlaceholder: 'Please enter email(QQ)',
         codeLogin: 'Verification code login',
         confirm: 'Confirm',
         back: 'Back',
         validateSuccess: 'Verification passed',
+        registerSuccess: 'Registration successful，Starting to log in',
         loginSuccess: 'Login successfully',
         welcomeBack: 'Welcome back, {username} !'
       },
@@ -298,6 +300,9 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: 'Bind WeChat'
+      },
+      superLogin: {
+        title: 'SuperAdmin Login'
       }
     },
     about: {

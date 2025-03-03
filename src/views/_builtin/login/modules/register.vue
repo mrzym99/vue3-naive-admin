@@ -4,6 +4,7 @@ import { $t } from '@/locales';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useCaptcha } from '@/hooks/business/captcha';
+import { fetchRegister } from '@/service/api';
 
 defineOptions({
   name: 'Register'
@@ -11,18 +12,18 @@ defineOptions({
 
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
-const { label, isCounting, loading, getCaptcha } = useCaptcha();
+const { label, code, isCounting, loading, getCaptcha } = useCaptcha();
 
 interface FormModel {
-  phone: string;
+  email: string;
   code: string;
   password: string;
   confirmPassword: string;
 }
 
 const model: FormModel = reactive({
-  phone: '',
-  code: '',
+  email: '',
+  code: code.value,
   password: '',
   confirmPassword: ''
 });
@@ -31,7 +32,7 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   const { formRules, createConfirmPwdRule } = useFormRules();
 
   return {
-    phone: formRules.phone,
+    email: formRules.email,
     code: formRules.code,
     password: formRules.pwd,
     confirmPassword: createConfirmPwdRule(model.password)
@@ -40,20 +41,23 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
 async function handleSubmit() {
   await validate();
+  const { error } = await fetchRegister(model as Api.Auth.RegisterDto);
+  if (error) return;
   // request to register
-  window.$message?.success($t('page.login.common.validateSuccess'));
+  window.$message?.success($t('page.login.common.registerSuccess'));
+  toggleLoginModule('pwd-login');
 }
 </script>
 
 <template>
   <NForm ref="formRef" :model="model" :rules="rules" size="large" :show-label="false" @keyup.enter="handleSubmit">
-    <NFormItem path="phone">
-      <NInput v-model:value="model.phone" :placeholder="$t('page.login.common.phonePlaceholder')" />
+    <NFormItem path="email">
+      <NInput v-model:value="model.email" :placeholder="$t('page.login.common.emailPlaceholder')" />
     </NFormItem>
     <NFormItem path="code">
       <div class="w-full flex-y-center gap-16px">
         <NInput v-model:value="model.code" :placeholder="$t('page.login.common.codePlaceholder')" />
-        <NButton size="large" :disabled="isCounting" :loading="loading" @click="getCaptcha(model.phone)">
+        <NButton size="large" :disabled="isCounting" :loading="loading" @click="getCaptcha(model.email)">
           {{ label }}
         </NButton>
       </div>

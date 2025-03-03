@@ -75,7 +75,11 @@ const deptConfigForm = reactive<ConfigFormArrayType>([
   {
     key: 'default',
     label: '默认部门',
-    type: 'Switch'
+    type: 'Switch',
+    props: {
+      'checked-value': 1,
+      'unchecked-value': 0
+    }
   }
 ]);
 
@@ -113,15 +117,16 @@ async function handleSubmit() {
   }
 }
 
-function mapTree(tree: Api.SystemManage.DeptTree): Option[] {
+function mapTree(tree: Api.SystemManage.DeptTree, deep: number = 0): Option[] {
   return tree.map(item => {
     const { children } = item;
     return {
       label: item.name,
       value: item.id,
       key: item.id,
+      disabled: deep > 0,
       isLeaf: !children || children.length === 0,
-      children: children ? mapTree(children) : []
+      children: children ? mapTree(children, deep + 1) : []
     };
   });
 }

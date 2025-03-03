@@ -262,10 +262,12 @@ const local: App.I18n.Schema = {
         codePlaceholder: '请输入验证码',
         passwordPlaceholder: '请输入密码',
         confirmPasswordPlaceholder: '请再次输入密码',
+        emailPlaceholder: '请输入邮箱(QQ)',
         codeLogin: '验证码登录',
         confirm: '确定',
         back: '返回',
         validateSuccess: '验证成功',
+        registerSuccess: '注册成功，快去登录吧',
         loginSuccess: '登录成功',
         welcomeBack: '欢迎回来，{username} ！'
       },
@@ -298,6 +300,9 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: '绑定微信'
+      },
+      superLogin: {
+        title: '超级管理员登录'
       }
     },
     about: {

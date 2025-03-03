@@ -52,7 +52,7 @@ function handleChange(iconItem: string) {
 <template>
   <NPopover placement="bottom-end" trigger="click">
     <template #trigger>
-      <NInput v-model:value="modelValue" readonly placeholder="点击选择图标">
+      <NInput v-model:value="modelValue" placeholder="点击选择图标">
         <template #suffix>
           <SvgIcon :icon="selectedIcon" class="p-5px text-30px" />
         </template>

@@ -103,7 +103,7 @@ defineExpose({
         :path="field.key"
       >
         <ConfigFormItem v-model:value="model[field.key]" :field="field" :model="model">
-          <template v-for="name of slots" #[name]="slotProps">
+          <template v-for="name of Object.keys(slots)" #[name]="slotProps">
             <slot :name="name" v-bind="slotProps"></slot>
           </template>
         </ConfigFormItem>

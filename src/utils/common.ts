@@ -1,3 +1,4 @@
+import type { CascaderOption } from 'naive-ui';
 import { $t } from '@/locales';
 
 /**
@@ -82,4 +83,52 @@ export function formatSizeUnits(bytes: number, decimals = 2) {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return `${Number.parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
+}
+
+/**
+ * 对树进行扁平化
+ *
+ * @param tree
+ */
+export function flatTreeData<T>(tree: T[], child: keyof T = 'children' as keyof T): T[] {
+  return tree.reduce((prev, cur) => {
+    // 将当前节点添加到结果中
+    const result = [...prev, cur];
+
+    // 如果当前节点有子节点，则递归处理子节点
+    if (cur[child] && Array.isArray(cur[child])) {
+      return result.concat(flatTreeData(cur[child] as T[], child));
+    }
+
+    return result;
+  }, [] as T[]);
+}
+
+export function str2tree(str: string, treeData: CascaderOption[] = [], separator: string = ':') {
+  return str.split(separator).reduce((prev, curr, currentIndex, arr): any => {
+    // 构造当前路径
+    const value = arr.slice(0, currentIndex + 1).join(separator);
+
+    // 在当前层级中查找是否存在该路径的节点
+    const index = prev.findIndex(item => item.value === value);
+
+    if (index !== -1) {
+      // 如果存在，直接返回该节点的子节点数组
+      // 确保 children 是一个数组，如果 children 是 undefined，则初始化为 []
+      return prev[index].children || [];
+    }
+
+    // 如果不存在，创建一个新的节点
+    const item: CascaderOption = {
+      value,
+      label: curr,
+      children: []
+    };
+    if (currentIndex === arr.length - 1) delete item.children;
+    // 将新节点添加到当前层级
+    prev.push(item);
+
+    // 返回新节点的子节点数组，用于下一次迭代
+    return item.children;
+  }, treeData);
 }

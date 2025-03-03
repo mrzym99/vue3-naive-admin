@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref, watch } from 'vue';
+import type { CascaderOption } from 'naive-ui';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchCreateMenu, fetchGetMenuTree, fetchUpdateMenu } from '@/service/api';
+import { fetchCreateMenu, fetchGetAllPermissions, fetchGetMenuTree, fetchUpdateMenu } from '@/service/api';
 import type { ConfigFormObjectType, Option } from '@/components/advanced/config-form';
+import { str2tree } from '@/utils/common';
 
 defineOptions({
   name: 'MenuOperateDrawer'
@@ -68,6 +70,12 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
       'onUpdate:value': (value: number) => {
         if (value !== 2) {
           model.value.permission = '';
+        } else {
+          model.value.component = '';
+          model.value.path = '';
+          model.value.icon = '';
+          model.value.isExt = false;
+          model.value.name = '';
         }
       }
     }
@@ -173,12 +181,15 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   permission: {
     key: 'permission',
     label: '权限标识',
-    type: 'Input',
+    type: 'Cascader',
     hide: () => {
       return !isPermission();
     },
     props: {
-      placeholder: '请输入权限标识'
+      'check-strategy': 'child',
+      separator: ':',
+      options: [],
+      placeholder: '请选择权限标识'
     }
   },
   keepAlive: {
@@ -350,10 +361,21 @@ async function getMenuTree() {
   }
 }
 
+async function getAllPermissions() {
+  const { data, error } = await fetchGetAllPermissions();
+  if (!error) {
+    menuConfigForm.permission!.props!.options = data.reduce((prev: CascaderOption[], curr: string) => {
+      str2tree(curr, prev, ':');
+      return prev;
+    }, []);
+  }
+}
+
 watch(visible, () => {
   if (visible.value) {
     handleInitModel();
     getMenuTree();
+    getAllPermissions();
     nextTick(() => {
       restoreValidation();
     });

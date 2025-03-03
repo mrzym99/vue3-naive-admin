@@ -25,7 +25,7 @@ interface FormModel {
 }
 
 const model: FormModel = reactive({
-  username: 'xiaozhang',
+  username: 'admin',
   password: '123456',
   code: ''
 });
@@ -45,44 +45,10 @@ async function handleSubmit() {
   await validate();
   const loginData: Api.Auth.LoginDto = {
     ...model,
-    captchaId: captchaId.value
+    captchaId: captchaId.value,
+    type: 'super'
   };
   await authStore.login(loginData);
-}
-
-type AccountKey = 'user' | 'guest';
-
-interface Account {
-  key: AccountKey;
-  label: string;
-  username: string;
-  password: string;
-  type?: string;
-}
-
-const accounts = computed<Account[]>(() => [
-  {
-    key: 'user',
-    label: '业务繁忙的测试',
-    username: 'test',
-    password: 'test123'
-  },
-  {
-    key: 'guest',
-    label: '无所事事的游客',
-    username: 'guest',
-    password: '123456'
-  }
-]);
-
-async function handleAccountLogin(account: Account) {
-  const acc: Api.Auth.LoginDto = {
-    username: account.username,
-    password: account.password,
-    code: model.code,
-    captchaId: captchaId.value
-  };
-  await authStore.login(acc);
 }
 
 async function getCaptcha() {
@@ -137,12 +103,6 @@ onMounted(() => {
       </div>
     </NFormItem>
     <NSpace vertical :size="24">
-      <div class="flex-y-center justify-between">
-        <NCheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</NCheckbox>
-        <NButton quaternary @click="toggleLoginModule('reset-pwd')">
-          {{ $t('page.login.pwdLogin.forgetPassword') }}
-        </NButton>
-      </div>
       <NButton type="primary" size="large" round block :loading="authStore.loginLoading" @click="handleSubmit">
         {{ $t('common.confirm') }}
       </NButton>
@@ -155,12 +115,6 @@ onMounted(() => {
         </NButton>
         <NButton class="flex-1" block @click="toggleLoginModule('register')">
           {{ $t(loginModuleRecord.register) }}
-        </NButton>
-      </div>
-      <NDivider class="text-14px text-#666 !m-0">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</NDivider>
-      <div class="flex-center gap-12px">
-        <NButton v-for="item in accounts" :key="item.key" type="primary" @click="handleAccountLogin(item)">
-          {{ item.label }}
         </NButton>
       </div>
     </NSpace>

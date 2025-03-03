@@ -427,10 +427,12 @@ declare namespace App {
             codePlaceholder: string;
             passwordPlaceholder: string;
             confirmPasswordPlaceholder: string;
+            emailPlaceholder: string;
             codeLogin: string;
             confirm: string;
             back: string;
             validateSuccess: string;
+            registerSuccess: string;
             loginSuccess: string;
             welcomeBack: string;
           };
@@ -462,6 +464,9 @@ declare namespace App {
             title: string;
           };
           bindWeChat: {
+            title: string;
+          };
+          superLogin: {
             title: string;
           };
         };

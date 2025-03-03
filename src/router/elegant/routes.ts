@@ -539,7 +539,7 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'system_menu',
           i18nKey: 'route.system_menu',
-          icon: 'mdi:apps-box'
+          icon: 'mdi:list-box-outline'
         }
       },
       {

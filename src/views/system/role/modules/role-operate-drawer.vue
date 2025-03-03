@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref, watch } from 'vue';
+import type { TreeOption } from 'naive-ui';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateRole, fetchGetMenuTree, fetchUpdateRole } from '@/service/api';
 import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form';
+import { flatTreeData } from '@/utils/common';
 
 defineOptions({
   name: 'RoleOperateDrawer'
@@ -77,7 +79,11 @@ const roleConfigForm: ConfigFormArrayType = reactive([
   {
     key: 'default',
     label: '默认角色',
-    type: 'Switch'
+    type: 'Switch',
+    props: {
+      'checked-value': 1,
+      'unchecked-value': 0
+    }
   },
   {
     key: 'description',
@@ -157,6 +163,24 @@ async function handleSubmit() {
   }
 }
 
+function updateCheckdKeys(
+  keys: Array<string>,
+  _options: Array<TreeOption | null>,
+  meta: {
+    node: TreeOption | null;
+    action: 'check' | 'uncheck';
+  }
+) {
+  const { node, action } = meta;
+  if (action === 'check') {
+    if (node?.children && node.children.length) {
+      const allChildren = flatTreeData<TreeOption>(node.children);
+      // 去重再返回
+      model.value.menuIds = Array.from(new Set([...keys, ...allChildren.map(v => v.key as string)]));
+    }
+  }
+}
+
 watch(visible, () => {
   if (visible.value) {
     handleInitModel();
@@ -178,9 +202,9 @@ watch(visible, () => {
               v-model:checked-keys="formModel[key]"
               :data="field.props.options"
               block-line
-              cascade
               expand-on-click
               checkable
+              @update:checked-keys="updateCheckdKeys"
             />
           </NCard>
         </template>

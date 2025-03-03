@@ -6,13 +6,29 @@ import { request } from '../request';
  * @param username User name
  * @param password Password
  */
-export function fetchCaptchaImg(width?: number, height?: number) {
+export function fetchGetCaptchaImg(width?: number, height?: number) {
   return request<Api.Auth.CaptchaImg>({
     url: '/auth/captcha/img',
     method: 'get',
     params: {
       width,
       height
+    }
+  });
+}
+
+/**
+ * Captcha
+ *
+ * @param username User name
+ * @param password Password
+ */
+export function fetchGetCaptchaEmail(email: string) {
+  return request({
+    url: '/auth/email/send',
+    method: 'post',
+    data: {
+      email
     }
   });
 }
@@ -40,6 +56,20 @@ export function fetchLogin(data: Api.Auth.LoginDto) {
 export function fetchSuperLogin(data: Api.Auth.LoginDto) {
   return request<Api.Auth.LoginToken>({
     url: '/auth/super/login',
+    method: 'post',
+    data
+  });
+}
+
+/**
+ * register
+ *
+ * @param username User name
+ * @param password Password
+ */
+export function fetchRegister(data: Api.Auth.RegisterDto) {
+  return request({
+    url: '/auth/register',
     method: 'post',
     data
   });

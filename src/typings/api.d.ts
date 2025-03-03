@@ -73,6 +73,12 @@ declare namespace Api {
       captchaId?: string;
     }
 
+    interface RegisterDto {
+      email: string;
+      password: string;
+      code: string;
+    }
+
     interface UserInfo {
       id: string;
       username: string;

@@ -46,3 +46,10 @@ export function fetchDeleteMenu(id?: string) {
     method: 'delete'
   });
 }
+
+export function fetchGetAllPermissions() {
+  return request({
+    url: `/system/menu/permissions`,
+    method: 'get'
+  });
+}
