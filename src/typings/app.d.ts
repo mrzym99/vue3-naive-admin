@@ -510,59 +510,6 @@ declare namespace App {
           };
           creativity: string;
         };
-        function: {
-          tab: {
-            tabOperate: {
-              title: string;
-              addTab: string;
-              addTabDesc: string;
-              closeTab: string;
-              closeCurrentTab: string;
-              closeAboutTab: string;
-              addMultiTab: string;
-              addMultiTabDesc1: string;
-              addMultiTabDesc2: string;
-            };
-            tabTitle: {
-              title: string;
-              changeTitle: string;
-              change: string;
-              resetTitle: string;
-              reset: string;
-            };
-          };
-          multiTab: {
-            routeParam: string;
-            backTab: string;
-          };
-          toggleAuth: {
-            toggleAccount: string;
-            authHook: string;
-            superAdminVisible: string;
-            adminVisible: string;
-            adminOrUserVisible: string;
-          };
-          request: {
-            repeatedErrorOccurOnce: string;
-            repeatedError: string;
-            repeatedErrorMsg1: string;
-            repeatedErrorMsg2: string;
-          };
-        };
-        alova: {
-          scenes: {
-            captchaSend: string;
-            autoRequest: string;
-            visibilityRequestTips: string;
-            pollingRequestTips: string;
-            networkRequestTips: string;
-            refreshTime: string;
-            startRequest: string;
-            stopRequest: string;
-            requestCrossComponent: string;
-            triggerAllRequest: string;
-          };
-        };
         manage: {
           common: {
             status: {

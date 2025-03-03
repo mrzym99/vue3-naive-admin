@@ -182,7 +182,6 @@ const local: App.I18n.Schema = {
     document_unocss: 'UnoCSS文档',
     document_naive: 'Naive UI文档',
     document_antd: 'Ant Design Vue文档',
-    document_alova: 'Alova文档',
     'user-center': '个人中心',
     about: '关于',
     system: '系统管理',
@@ -325,59 +324,6 @@ const local: App.I18n.Schema = {
         desc4: '小张 目前正在对项目进行 测试和Bug 修复工作 !'
       },
       creativity: '创意'
-    },
-    function: {
-      tab: {
-        tabOperate: {
-          title: '标签页操作',
-          addTab: '添加标签页',
-          addTabDesc: '跳转到关于页面',
-          closeTab: '关闭标签页',
-          closeCurrentTab: '关闭当前标签页',
-          closeAboutTab: '关闭"关于"标签页',
-          addMultiTab: '添加多标签页',
-          addMultiTabDesc1: '跳转到多标签页页面',
-          addMultiTabDesc2: '跳转到多标签页页面(带有查询参数)'
-        },
-        tabTitle: {
-          title: '标签页标题',
-          changeTitle: '修改标题',
-          change: '修改',
-          resetTitle: '重置标题',
-          reset: '重置'
-        }
-      },
-      multiTab: {
-        routeParam: '路由参数',
-        backTab: '返回 function_tab'
-      },
-      toggleAuth: {
-        toggleAccount: '切换账号',
-        authHook: '权限钩子函数 `hasAuth`',
-        superAdminVisible: '超级管理员可见',
-        adminVisible: '管理员可见',
-        adminOrUserVisible: '管理员和用户可见'
-      },
-      request: {
-        repeatedErrorOccurOnce: '重复请求错误只出现一次',
-        repeatedError: '重复请求错误',
-        repeatedErrorMsg1: '自定义请求错误 1',
-        repeatedErrorMsg2: '自定义请求错误 2'
-      }
-    },
-    alova: {
-      scenes: {
-        captchaSend: '发送验证码',
-        autoRequest: '自动请求',
-        visibilityRequestTips: '浏览器窗口切换自动请求数据',
-        pollingRequestTips: '每3秒自动请求一次',
-        networkRequestTips: '网络重连后自动请求',
-        refreshTime: '更新时间',
-        startRequest: '开始请求',
-        stopRequest: '停止请求',
-        requestCrossComponent: '跨组件触发请求',
-        triggerAllRequest: '手动触发所有自动请求'
-      }
     },
     manage: {
       common: {

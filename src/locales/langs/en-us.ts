@@ -182,7 +182,6 @@ const local: App.I18n.Schema = {
     document_unocss: 'UnoCSS Document',
     document_naive: 'Naive UI Document',
     document_antd: 'Ant Design Vue Document',
-    document_alova: 'Alova Document',
     'user-center': 'User Center',
     about: 'About',
     system: 'SystemManage',
@@ -325,59 +324,6 @@ const local: App.I18n.Schema = {
         desc4: ' Xiao Zhang is currently conducting testing and bug fixing work on the project'
       },
       creativity: 'Creativity'
-    },
-    function: {
-      tab: {
-        tabOperate: {
-          title: 'Tab Operation',
-          addTab: 'Add Tab',
-          addTabDesc: 'To about page',
-          closeTab: 'Close Tab',
-          closeCurrentTab: 'Close Current Tab',
-          closeAboutTab: 'Close "About" Tab',
-          addMultiTab: 'Add Multi Tab',
-          addMultiTabDesc1: 'To MultiTab page',
-          addMultiTabDesc2: 'To MultiTab page(with query params)'
-        },
-        tabTitle: {
-          title: 'Tab Title',
-          changeTitle: 'Change Title',
-          change: 'Change',
-          resetTitle: 'Reset Title',
-          reset: 'Reset'
-        }
-      },
-      multiTab: {
-        routeParam: 'Route Param',
-        backTab: 'Back function_tab'
-      },
-      toggleAuth: {
-        toggleAccount: 'Toggle Account',
-        authHook: 'Auth Hook Function `hasAuth`',
-        superAdminVisible: 'Super Admin Visible',
-        adminVisible: 'Admin Visible',
-        adminOrUserVisible: 'Admin and User Visible'
-      },
-      request: {
-        repeatedErrorOccurOnce: 'Repeated Request Error Occurs Once',
-        repeatedError: 'Repeated Request Error',
-        repeatedErrorMsg1: 'Custom Request Error 1',
-        repeatedErrorMsg2: 'Custom Request Error 2'
-      }
-    },
-    alova: {
-      scenes: {
-        captchaSend: 'Captcha Send',
-        autoRequest: 'Auto Request',
-        visibilityRequestTips: 'Automatically request when switching browser window',
-        pollingRequestTips: 'It will request every 3 seconds',
-        networkRequestTips: 'Automatically request after network reconnecting',
-        refreshTime: 'Refresh Time',
-        startRequest: 'Start Request',
-        stopRequest: 'Stop Request',
-        requestCrossComponent: 'Request Cross Component',
-        triggerAllRequest: 'Manually Trigger All Automated Requests'
-      }
     },
     manage: {
       common: {

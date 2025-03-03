@@ -175,7 +175,6 @@ const routeMap: RouteMap = {
   "document_unocss": "/document/unocss",
   "document_naive": "/document/naive",
   "document_antd": "/document/antd",
-  "document_alova": "/document/alova",
   "403": "/403",
   "404": "/404",
   "500": "/500",
