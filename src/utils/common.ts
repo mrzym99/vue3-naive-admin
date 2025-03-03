@@ -105,7 +105,7 @@ export function flatTreeData<T>(tree: T[], child: keyof T = 'children' as keyof 
 }
 
 export function str2tree(str: string, treeData: CascaderOption[] = [], separator: string = ':') {
-  return str.split(separator).reduce((prev, curr, currentIndex, arr): any => {
+  return str.split(separator).reduce((prev, curr, currentIndex, arr) => {
     // 构造当前路径
     const value = arr.slice(0, currentIndex + 1).join(separator);
 
@@ -113,9 +113,7 @@ export function str2tree(str: string, treeData: CascaderOption[] = [], separator
     const index = prev.findIndex(item => item.value === value);
 
     if (index !== -1) {
-      // 如果存在，直接返回该节点的子节点数组
-      // 确保 children 是一个数组，如果 children 是 undefined，则初始化为 []
-      return prev[index].children || [];
+      return (prev[index]?.children || []) as CascaderOption[];
     }
 
     // 如果不存在，创建一个新的节点
@@ -129,6 +127,6 @@ export function str2tree(str: string, treeData: CascaderOption[] = [], separator
     prev.push(item);
 
     // 返回新节点的子节点数组，用于下一次迭代
-    return item.children;
+    return item.children as CascaderOption[];
   }, treeData);
 }
