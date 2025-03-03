@@ -48,6 +48,7 @@ const userConfigForm = reactive<ConfigFormArrayType>([
     key: 'deptId',
     label: '所属部门',
     type: 'TreeSelect',
+    required: true,
     props: {
       placeholder: '请选择所属部门',
       options: []
@@ -57,6 +58,7 @@ const userConfigForm = reactive<ConfigFormArrayType>([
     key: 'roleIds',
     label: '所属角色',
     type: 'Select',
+    required: true,
     props: {
       multiple: true,
       placeholder: '请选择角色',

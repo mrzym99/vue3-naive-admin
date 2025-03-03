@@ -47,7 +47,10 @@ const deptConfigForm = reactive<ConfigFormArrayType>([
     key: 'name',
     label: '部门名称',
     type: 'Input',
+    required: true,
     props: {
+      maxlength: 20,
+      'show-count': true,
       placeholder: '请输入部门名称'
     }
   },
@@ -56,6 +59,8 @@ const deptConfigForm = reactive<ConfigFormArrayType>([
     label: '排序',
     type: 'InputNumber',
     props: {
+      min: 1,
+      max: 9999,
       placeholder: '请输入排序'
     }
   },

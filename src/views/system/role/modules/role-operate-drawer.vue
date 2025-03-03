@@ -49,17 +49,41 @@ const roleConfigForm: ConfigFormArrayType = reactive([
     key: 'name',
     label: '角色名称',
     type: 'Input',
+    required: true,
     props: {
+      maxlength: 20,
+      'show-count': true,
       placeholder: '请输入角色名称'
     }
   },
   {
     key: 'value',
-    label: '角色值',
+    label: '角色标识',
     type: 'Input',
+    required: true,
     props: {
-      placeholder: '请输入角色值'
-    }
+      maxlength: 20,
+      'show-count': true,
+      placeholder: '请输入角色标识'
+    },
+    rules: [
+      {
+        required: true,
+        message: '请输入角色标识',
+        validator: (_, value) => {
+          return Boolean(value);
+        },
+        trigger: 'blur'
+      },
+      {
+        required: true,
+        message: '角色表示仅仅能包含英文字母、数字、下划线、横线',
+        validator: (_, value) => {
+          return /^[a-zA-Z0-9_-]+$/.test(value);
+        },
+        trigger: 'blur'
+      }
+    ]
   },
   {
     key: 'status',

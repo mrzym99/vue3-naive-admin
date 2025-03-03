@@ -12,14 +12,6 @@ const appStore = useAppStore();
 
 const userSearchForm: SearchFormType<Api.SystemManage.CaptchaLogSearchParams> = [
   {
-    key: 'account',
-    label: '账户',
-    type: 'Input',
-    props: {
-      placeholder: '请输入账户'
-    }
-  },
-  {
     key: 'provider',
     label: '验证码提供商',
     type: 'Select',
@@ -27,6 +19,14 @@ const userSearchForm: SearchFormType<Api.SystemManage.CaptchaLogSearchParams> = 
     props: {
       placeholder: '请选择服务验证码提供商',
       options: providerOptions
+    }
+  },
+  {
+    key: 'account',
+    label: '账户',
+    type: 'Input',
+    props: {
+      placeholder: '请输入账户'
     }
   }
 ];
@@ -44,13 +44,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       provider: null
     },
     columns: () => [
-      {
-        key: 'account',
-        title: '账户',
-        align: 'left',
-
-        width: 150
-      },
       {
         key: 'code',
         title: '验证码',
@@ -83,6 +76,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
           if (row.createdAt === null) return null;
           return <NTime time={new Date(row.createdAt)} />;
         }
+      },
+      {
+        key: 'account',
+        title: '账户',
+        align: 'left',
+
+        width: 150
       }
     ]
   });

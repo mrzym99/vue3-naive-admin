@@ -33,7 +33,9 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
       if (required) {
         acc[field.key] = [
           {
-            required: true
+            required: true,
+            message: `${field.label}不能为空`,
+            trigger: 'blur'
           }
         ];
       }

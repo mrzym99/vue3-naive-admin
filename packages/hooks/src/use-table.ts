@@ -84,7 +84,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   const columns = computed(() => getColumns(allColumns.value, columnChecks.value));
 
-  const expandedRowKeys = ref<string[]>([]);
+  const expandedRowKeys = ref<Array<string | number>>([]);
 
   function flatTreeData(treeData: any[]) {
     return treeData.reduce((prev, cur) => {

@@ -69,7 +69,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     props: {
       'onUpdate:value': (value: number) => {
         if (value !== 2) {
-          model.value.permission = '';
+          model.value.permission = null;
         } else {
           model.value.component = '';
           model.value.path = '';
@@ -147,7 +147,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   path: {
     key: 'path',
-    label: '菜单地址',
+    label: '路由地址',
     type: 'Input',
     hide: (): boolean => {
       return isPermission();
@@ -263,6 +263,8 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     label: '排序',
     type: 'InputNumber',
     props: {
+      min: 1,
+      max: 9999,
       placeholder: '请输入排序'
     }
   },

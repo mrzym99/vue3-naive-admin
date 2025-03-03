@@ -5,9 +5,11 @@ import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteDept, fetchGetDeptList, fetchSetDeptDefault } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
+import { useAuth } from '@/hooks/business/auth';
 import DeptOperateDrawer from './modules/dept-operate-drawer.vue';
 
 const appStore = useAppStore();
+const { hasAuth } = useAuth();
 
 const deptSearchForm: SearchFormType<Api.SystemManage.DeptSearchParams> = [
   {
@@ -79,14 +81,20 @@ const {
       width: 220,
       render: row => (
         <div class="flex justify-items-start gap-8px">
-          <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
+          <NButton
+            disabled={!hasAuth('system:dept:update')}
+            type="primary"
+            ghost
+            size="small"
+            onClick={() => edit(row.id)}
+          >
             {$t('common.edit')}
           </NButton>
           <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
             {{
               default: () => $t('common.confirmDelete'),
               trigger: () => (
-                <NButton type="error" ghost size="small">
+                <NButton disabled={!hasAuth('system:dept:delete')} type="error" ghost size="small">
                   {$t('common.delete')}
                 </NButton>
               )
@@ -99,7 +107,7 @@ const {
               {{
                 default: () => '设置为默认',
                 trigger: () => (
-                  <NButton type={'tertiary'} ghost size="small">
+                  <NButton disabled={!hasAuth('system:dept:update')} type={'tertiary'} ghost size="small">
                     设为默认
                   </NButton>
                 )

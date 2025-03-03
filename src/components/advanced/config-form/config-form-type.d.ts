@@ -20,7 +20,7 @@ export interface ConfigFormItem<T extends Recordable> {
   required?: BooleanProp<T>;
   options?: Option<string | number>[];
   props?: Recordable;
-  rules?: FormItemRule;
+  rules?: FormItemRule[];
 }
 
 export type ConfigFormArrayType<T extends Recordable = Recordable> = Array<ConfigFormItem<T>>;
