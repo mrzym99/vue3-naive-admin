@@ -1,9 +1,9 @@
 <script setup lang="tsx">
 import { NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
-import { useTable } from '@/hooks/common/table';
+import { useTable, useTableOperate } from '@/hooks/common/table';
 import type { SearchFormType } from '@/components/advanced/search-form';
-import { fetchGetLoginLogList } from '@/service/api';
+import { fetchBatchDeleteLoginLog, fetchGetLoginLogList } from '@/service/api';
 
 const appStore = useAppStore();
 
@@ -58,6 +58,11 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       time: null
     },
     columns: () => [
+      {
+        fixed: 'left',
+        type: 'selection',
+        width: 48
+      },
       {
         key: 'username',
         title: '用户名',
@@ -115,6 +120,14 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       }
     ]
   });
+const { checkedRowKeys, onBatchDeleted } = useTableOperate(data, getData);
+
+async function batchDelete() {
+  const { error } = await fetchBatchDeleteLoginLog(checkedRowKeys.value as string[]);
+  if (!error) {
+    onBatchDeleted();
+  }
+}
 </script>
 
 <template>
@@ -130,12 +143,14 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         <TableHeaderOperation
           v-model:columns="columnChecks"
           prefix="system:login-log"
-          :hide-delete="true"
           :hide-add="true"
           :loading="loading"
+          :disabled-delete="checkedRowKeys.length === 0"
           @refresh="getData"
+          @delete="batchDelete"
         />
         <NDataTable
+          v-model:checked-row-keys="checkedRowKeys"
           :columns="columns"
           :data="data"
           size="small"

@@ -8,3 +8,13 @@ export function fetchGetCaptchaLogList(params?: Api.SystemManage.CaptchaLogSearc
     params
   });
 }
+
+export function fetchBatchDeleteCaptchaLog(ids: string[]) {
+  return request({
+    url: '/system/log/captcha/delete',
+    method: 'delete',
+    data: {
+      ids
+    }
+  });
+}

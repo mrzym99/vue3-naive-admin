@@ -182,7 +182,8 @@ function createDefaultModel(): Model {
     signature: '',
     address: '',
     birthDate: null,
-    introduction: ''
+    introduction: '',
+    status: 1
   };
 }
 

@@ -7,9 +7,11 @@ import { fetchDeleteMenu, fetchGetMenuList } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { enableStatusOptions, enableStatusRecord, menuTypeRecord } from '@/constants/business';
+import { useAuth } from '@/hooks/business/auth';
 import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
 
 const appStore = useAppStore();
+const { hasAuth } = useAuth();
 
 const menuSearchForm: SearchFormType<Api.SystemManage.MenuSearchParams> = [
   {
@@ -191,23 +193,41 @@ const {
       render: row => (
         <div class="flex justify-items-start gap-8px">
           {row.type === 0 && (
-            <NButton type="success" ghost size="small" onClick={() => add(row.id, 1)}>
+            <NButton
+              disabled={!hasAuth('system:menu:create')}
+              type="success"
+              ghost
+              size="small"
+              onClick={() => add(row.id, 1)}
+            >
               {$t('page.manage.menu.addChildMenu')}
             </NButton>
           )}
           {row.type === 1 && (
-            <NButton type="error" ghost size="small" onClick={() => add(row.id, 2)}>
+            <NButton
+              disabled={!hasAuth('system:menu:create')}
+              type="error"
+              ghost
+              size="small"
+              onClick={() => add(row.id, 2)}
+            >
               {$t('page.manage.menu.addPermission')}
             </NButton>
           )}
-          <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
+          <NButton
+            disabled={!hasAuth('system:menu:update')}
+            type="primary"
+            ghost
+            size="small"
+            onClick={() => edit(row.id)}
+          >
             {$t('common.edit')}
           </NButton>
           <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
             {{
               default: () => $t('common.confirmDelete'),
               trigger: () => (
-                <NButton type="error" ghost size="small">
+                <NButton disabled={!hasAuth('system:menu:delete')} type="error" ghost size="small">
                   {$t('common.delete')}
                 </NButton>
               )

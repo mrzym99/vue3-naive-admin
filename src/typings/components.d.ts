@@ -15,6 +15,8 @@ declare module 'vue' {
     ConfigFormItemOptions: typeof import('./../components/advanced/config-form/config-form-item-options.vue')['default']
     CountTo: typeof import('./../components/custom/count-to.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
+    DetailsDescription: typeof import('../components/advanced/details-descriptions/details-descriptions.vue')['default']
+    DetailsDescriptions: typeof import('./../components/advanced/details-descriptions/details-descriptions.vue')['default']
     ExceptionBase: typeof import('./../components/common/exception-base.vue')['default']
     FileUpload: typeof import('./../components/common/file-upload.vue')['default']
     FormItem: typeof import('../components/advanced/config-form/config-form-item.vue')['default']

@@ -3,6 +3,7 @@ import type { Ref } from 'vue';
 import type { PaginationProps } from 'naive-ui';
 import { jsonClone } from '@sa/utils';
 import { useBoolean, useHookTable } from '@sa/hooks';
+import type { RowKey } from 'naive-ui/es/data-table/src/interface';
 import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
 
@@ -221,12 +222,15 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
 
 export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>, getData: () => Promise<void>) {
   const { bool: drawerVisible, setTrue: openDrawer, setFalse: closeDrawer } = useBoolean();
+  const { bool: modelVisible, setTrue: openModal, setFalse: closeModal } = useBoolean();
 
   const operateType = ref<NaiveUI.TableOperateType>('add');
 
   const addingData = ref<T | null>(null);
   /** the editing row data */
   const editingData: Ref<T | null> = ref(null);
+  /** the detail row data */
+  const detailData: Ref<T | null> = ref(null);
 
   function handleAdd(addData?: Record<string, any>) {
     operateType.value = 'add';
@@ -257,7 +261,7 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
   }
 
   /** the checked row keys of table */
-  const checkedRowKeys = ref<string[]>([]);
+  const checkedRowKeys = ref<RowKey[]>([]);
 
   /** the hook after the batch delete operation is completed */
   async function onBatchDeleted() {
@@ -275,7 +279,22 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     await getData();
   }
 
+  function handleDetail(id: T['id'], detail?: T) {
+    const flatTableData = flatData(data.value);
+    const findItem = flatTableData.find(item => item.id === id) || null;
+    detailData.value = jsonClone(findItem);
+
+    if (detail) {
+      detailData.value = {
+        ...detailData.value,
+        ...detail
+      };
+    }
+    openModal();
+  }
+
   return {
+    modelVisible,
     drawerVisible,
     openDrawer,
     closeDrawer,
@@ -283,10 +302,13 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     handleAdd,
     addingData,
     editingData,
+    detailData,
     handleEdit,
     checkedRowKeys,
     onBatchDeleted,
-    onDeleted
+    onDeleted,
+    handleDetail,
+    closeModal
   };
 }
 

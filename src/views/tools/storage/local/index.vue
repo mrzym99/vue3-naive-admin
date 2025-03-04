@@ -5,6 +5,8 @@ import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteStorageLocal, fetchGetStorageLocalList } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
+import { useAuth } from '@/hooks/business/auth';
+const { hasAuth } = useAuth();
 
 const appStore = useAppStore();
 
@@ -120,11 +122,11 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         width: 130,
         render: row => (
           <div class="flex-center gap-8px">
-            <NPopconfirm onPositiveClick={() => handleDelete([row.id])}>
+            <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
                 default: () => `删除文件 - ${row.name} ？`,
                 trigger: () => (
-                  <NButton type={'error'} ghost size="small">
+                  <NButton disabled={!hasAuth('tool:storage:delete')} type={'error'} ghost size="small">
                     删除
                   </NButton>
                 )
@@ -138,8 +140,16 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
 
 const { checkedRowKeys } = useTableOperate(data, getData);
 
-async function handleDelete(ids: string[]) {
-  const { error } = await fetchDeleteStorageLocal(ids);
+async function handleDelete(id: string) {
+  const { error } = await fetchDeleteStorageLocal([id]);
+  if (!error) {
+    window.$message?.success('删除');
+    getDataByPage();
+  }
+}
+
+async function handleBatchDelete() {
+  const { error } = await fetchDeleteStorageLocal(checkedRowKeys.value as string[]);
   if (!error) {
     window.$message?.success('删除');
     getDataByPage();
@@ -163,7 +173,7 @@ async function handleDelete(ids: string[]) {
           :hide-add="true"
           :loading="loading"
           :disabled-delete="checkedRowKeys.length === 0"
-          @delete="handleDelete(checkedRowKeys)"
+          @delete="handleBatchDelete"
           @refresh="getData"
         />
         <NDataTable

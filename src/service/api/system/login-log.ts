@@ -8,3 +8,13 @@ export function fetchGetLoginLogList(params?: Api.SystemManage.LoginLogSearchPar
     params
   });
 }
+
+export function fetchBatchDeleteLoginLog(ids: string[]) {
+  return request({
+    url: '/system/log/login/delete',
+    method: 'delete',
+    data: {
+      ids
+    }
+  });
+}

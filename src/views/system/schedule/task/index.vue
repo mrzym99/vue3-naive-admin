@@ -13,9 +13,11 @@ import {
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { TaskTypeRecord, enableStatusOptions, enableStatusRecord } from '@/constants/business';
+import { useAuth } from '@/hooks/business/auth';
 import TaskOperateDrawer from './modules/task-operate-drawer.vue';
 
 const appStore = useAppStore();
+const { hasAuth } = useAuth();
 
 const taskSearchForm: SearchFormType<Api.SystemManage.TaskSearchParams> = [
   {
@@ -134,7 +136,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         width: 260,
         render: row => (
           <div class="flex justify-items-start gap-8px">
-            <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
+            <NButton
+              disabled={!hasAuth('system:task:update')}
+              type="primary"
+              ghost
+              size="small"
+              onClick={() => edit(row.id)}
+            >
               {$t('common.edit')}
             </NButton>
 
@@ -143,7 +151,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                 {{
                   default: () => `${$t('page.manage.task.startTask')}?`,
                   trigger: () => (
-                    <NButton type="primary" ghost size="small">
+                    <NButton disabled={!hasAuth('system:task:start')} type="primary" ghost size="small">
                       {$t('page.manage.task.startTask')}
                     </NButton>
                   )
@@ -157,7 +165,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                 {{
                   default: () => `${$t('page.manage.task.onceTask')}?`,
                   trigger: () => (
-                    <NButton type="primary" ghost size="small">
+                    <NButton disabled={!hasAuth('system:task:once')} type="primary" ghost size="small">
                       {$t('page.manage.task.onceTask')}
                     </NButton>
                   )
@@ -171,7 +179,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                 {{
                   default: () => `${$t('page.manage.task.stopTask')}?`,
                   trigger: () => (
-                    <NButton type="error" ghost size="small">
+                    <NButton disabled={!hasAuth('system:task:stop')} type="error" ghost size="small">
                       {$t('page.manage.task.stopTask')}
                     </NButton>
                   )
@@ -184,7 +192,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
               {{
                 default: () => $t('common.confirmDelete'),
                 trigger: () => (
-                  <NButton type="error" ghost size="small">
+                  <NButton disabled={!hasAuth('system:task:delete')} type="error" ghost size="small">
                     {$t('common.delete')}
                   </NButton>
                 )

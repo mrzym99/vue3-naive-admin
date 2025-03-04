@@ -83,7 +83,7 @@ function handleDropdown(key: DropdownKey) {
       <ButtonIcon>
         <NAvatar size="small" round :src="authStore.userInfo.avatar">
           <template #fallback>
-            <SvgIcon icon="ph:user-circle" class="text-icon-large" />
+            <SvgIcon icon="ph:user-circle" class="h-[1.8rem] w-[1.8rem]" />
           </template>
         </NAvatar>
         <span class="text-16px font-medium">{{ authStore.userInfo.nickName }}</span>

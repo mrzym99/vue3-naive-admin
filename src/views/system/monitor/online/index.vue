@@ -7,9 +7,11 @@ import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetOnlineUserList, fetchKickOnlineUser } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
+import { useAuth } from '@/hooks/business/auth';
 
 const appStore = useAppStore();
 const sseStore = useSSEStore();
+const { hasAuth } = useAuth();
 
 const userSearchForm: SearchFormType<Api.SystemManage.OnlineUserSearchParams> = [
   {
@@ -118,7 +120,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
               {{
                 default: () => `下线用户 - ${row.username} ？`,
                 trigger: () => (
-                  <NButton type={'error'} ghost size="small">
+                  <NButton disabled={!hasAuth('system:online:kick')} type={'error'} ghost size="small">
                     {'下线'}
                   </NButton>
                 )

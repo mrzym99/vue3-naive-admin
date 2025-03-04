@@ -77,7 +77,8 @@ function fold() {
       <slot name="default">
         <!-- 把 prefix 和 :create 拼接起来 就可以和后端的权限对应 -->
         <NButton
-          v-if="!hideAdd && hasAuth(generatePrefix(prefix, 'create'))"
+          v-if="!hideAdd"
+          :disabled="!hasAuth(generatePrefix(prefix, 'create'))"
           size="small"
           ghost
           type="primary"
@@ -88,9 +89,14 @@ function fold() {
           </template>
           {{ $t('common.add') }}
         </NButton>
-        <NPopconfirm v-if="!hideDelete && hasAuth(generatePrefix(prefix, 'delete'))" @positive-click="batchDelete">
+        <NPopconfirm v-if="!hideDelete" @positive-click="batchDelete">
           <template #trigger>
-            <NButton size="small" ghost type="error" :disabled="disabledDelete">
+            <NButton
+              size="small"
+              ghost
+              type="error"
+              :disabled="disabledDelete || !hasAuth(generatePrefix(prefix, 'delete'))"
+            >
               <template #icon>
                 <icon-ic-round-delete class="text-icon" />
               </template>

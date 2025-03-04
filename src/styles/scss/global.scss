@@ -1,1 +1,6 @@
 @forward 'scrollbar';
+
+.detail-link {
+  color: rgb(var(--primary-color));
+  cursor: pointer;
+}

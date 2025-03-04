@@ -272,7 +272,6 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     key: 'status',
     label: '状态',
     type: 'Radio',
-    required: true,
     props: {
       placeholder: '请选择状态'
     },

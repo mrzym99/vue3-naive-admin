@@ -1,9 +1,9 @@
 <script setup lang="tsx">
 import { NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
-import { useTable } from '@/hooks/common/table';
+import { useTable, useTableOperate } from '@/hooks/common/table';
 import type { SearchFormType } from '@/components/advanced/search-form';
-import { fetchGetCaptchaLogList } from '@/service/api';
+import { fetchBatchDeleteCaptchaLog, fetchGetCaptchaLogList } from '@/service/api';
 import { ProviderRecord, providerOptions } from '@/constants/business';
 import { ProviderEnum } from '@/constants/enum';
 import { $t } from '@/locales';
@@ -45,9 +45,14 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
+        type: 'selection',
+        fixed: 'left',
+        width: 48
+      },
+      {
         key: 'code',
         title: '验证码',
-        align: 'center',
+        align: 'left',
         width: 120
       },
       {
@@ -86,6 +91,14 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       }
     ]
   });
+const { checkedRowKeys, onBatchDeleted } = useTableOperate(data, getData);
+
+async function batchDelete() {
+  const { error } = await fetchBatchDeleteCaptchaLog(checkedRowKeys.value as string[]);
+  if (!error) {
+    onBatchDeleted();
+  }
+}
 </script>
 
 <template>
@@ -102,12 +115,14 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         <TableHeaderOperation
           v-model:columns="columnChecks"
           prefix="system:captcha-log"
-          :hide-delete="true"
           :hide-add="true"
           :loading="loading"
+          :disabled-delete="checkedRowKeys.length === 0"
           @refresh="getData"
+          @delete="batchDelete"
         />
         <NDataTable
+          v-model:checked-row-keys="checkedRowKeys"
           :columns="columns"
           :data="data"
           size="small"

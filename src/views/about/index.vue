@@ -37,7 +37,7 @@ const pkgJson: PkgJson = {
   devDependencies: Object.entries(devDependencies).map(item => transformVersionData(item))
 };
 
-const latestBuildTime = BUILD_TIME;
+// const latestBuildTime = BUILD_TIME;
 </script>
 
 <template>
@@ -45,7 +45,8 @@ const latestBuildTime = BUILD_TIME;
     <NCard :title="$t('page.about.title')" :bordered="false" size="small" segmented class="card-wrapper">
       <p>{{ $t('page.about.introduction') }}</p>
     </NCard>
-    <NCard :title="$t('page.about.projectInfo.title')" :bordered="false" size="small" segmented class="card-wrapper">
+    <!--
+ <NCard :title="$t('page.about.projectInfo.title')" :bordered="false" size="small" segmented class="card-wrapper">
       <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem :label="$t('page.about.projectInfo.version')">
           <NTag type="primary">{{ pkgJson.version }}</NTag>
@@ -64,7 +65,8 @@ const latestBuildTime = BUILD_TIME;
           </a>
         </NDescriptionsItem>
       </NDescriptions>
-    </NCard>
+    </NCard> 
+-->
     <NCard :title="$t('page.about.prdDep')" :bordered="false" size="small" segmented class="card-wrapper">
       <NDescriptions label-placement="left" bordered size="small" :column="column">
         <NDescriptionsItem v-for="item in pkgJson.dependencies" :key="item.name" :label="item.name">

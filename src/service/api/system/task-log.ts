@@ -8,3 +8,13 @@ export function fetchGetTaskLogList(params?: Api.SystemManage.TaskLogSearchParam
     params
   });
 }
+
+export function fetchBatchDeleteTaskLog(ids: string[]) {
+  return request({
+    url: '/system/log/task/delete',
+    method: 'delete',
+    data: {
+      ids
+    }
+  });
+}

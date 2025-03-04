@@ -148,14 +148,18 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       {
         key: 'roles',
         title: '角色', // $t('page.manage.user.role'),
-        align: 'center',
-        minWidth: 100,
+        align: 'left',
+        width: 180,
         render: row => {
           if (row.roles.length === 0) return null;
           const roleMap: Record<any, NaiveUI.ThemeColor> = {
             admin: 'primary'
           };
-          return row.roles.map(role => <NTag type={roleMap[role.value] || 'success'}>{role.name}</NTag>);
+          return row.roles.map(role => (
+            <NTag class={'mr-8px'} type={roleMap[role.value] || 'success'}>
+              {role.name}
+            </NTag>
+          ));
         }
       },
       {
@@ -188,7 +192,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'email',
         title: $t('page.manage.user.email'),
         align: 'center',
-        minWidth: 200
+        width: 200
       },
       {
         key: 'status',
@@ -218,7 +222,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         width: 130,
         render: row => (
           <div class="flex-center gap-8px">
-            <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
+            <NButton
+              disabled={!hasAuth('system:user:update')}
+              type="primary"
+              ghost
+              size="small"
+              onClick={() => edit(row.id)}
+            >
               {$t('common.edit')}
             </NButton>
             <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id, row.status)}>
@@ -226,7 +236,12 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                 default: () =>
                   $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
                 trigger: () => (
-                  <NButton type={row.status ? 'error' : 'success'} ghost size="small">
+                  <NButton
+                    disabled={!hasAuth('system:user:update')}
+                    type={row.status ? 'error' : 'success'}
+                    ghost
+                    size="small"
+                  >
                     {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
                   </NButton>
                 )
@@ -261,7 +276,7 @@ async function handleChangeStatus(id: string, status: number | null) {
 
 async function handleBatchDChangeStatus() {
   const { error } = await fetchUpdatedUserStatus({
-    ids: checkedRowKeys.value,
+    ids: checkedRowKeys.value as string[],
     status: 0
   });
   if (!error) {

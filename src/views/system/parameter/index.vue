@@ -5,9 +5,11 @@ import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteParameter, fetchGetParameterInfo, fetchGetParameterList } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
+import { useAuth } from '@/hooks/business/auth';
 import ParameterOperateDrawer from './modules/parameter-operate-drawer.vue';
 
 const appStore = useAppStore();
+const { hasAuth } = useAuth();
 
 const parameterSearchForm: SearchFormType<Api.SystemManage.ParameterSearchParams> = [
   {
@@ -72,14 +74,20 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         width: 120,
         render: row => (
           <div class="flex justify-items-start gap-8px">
-            <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
+            <NButton
+              disabled={!hasAuth('system:parameter:update')}
+              type="primary"
+              ghost
+              size="small"
+              onClick={() => edit(row.id)}
+            >
               {$t('common.edit')}
             </NButton>
             <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
                 default: () => $t('common.confirmDelete'),
                 trigger: () => (
-                  <NButton type="error" ghost size="small">
+                  <NButton disabled={!hasAuth('system:parameter:delete')} type="error" ghost size="small">
                     {$t('common.delete')}
                   </NButton>
                 )

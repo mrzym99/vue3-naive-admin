@@ -143,6 +143,8 @@ async function blobUrlToBlob(blobUrl: string): Promise<Blob | null> {
 }
 
 function handleChange({ image }: CropperResult) {
+  console.log(image);
+
   const blobUrl = image.src;
 
   if (!blobUrl) return;

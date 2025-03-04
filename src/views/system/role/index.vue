@@ -6,9 +6,12 @@ import { fetchDeleteRole, fetchGetRoleInfo, fetchGetRoleList, fetchSetRoleDefaul
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { enableStatusOptions, enableStatusRecord } from '@/constants/business';
+import { useAuth } from '@/hooks/business/auth';
+import type { DetailsDescriptionsType } from '@/components/advanced/details-descriptions';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 
 const appStore = useAppStore();
+const { hasAuth } = useAuth();
 
 const roleSearchForm: SearchFormType<Api.SystemManage.RoleSearchParams> = [
   {
@@ -54,7 +57,14 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'name',
         title: '角色名称', // $t('page.manage.role.role'),
         align: 'left',
-        width: 200
+        width: 200,
+        render: row => {
+          return (
+            <span class={'detail-link'} onClick={() => detail(row.id)}>
+              {row.name}
+            </span>
+          );
+        }
       },
       {
         key: 'value',
@@ -127,14 +137,20 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         width: 220,
         render: row => (
           <div class="flex justify-items-start gap-8px">
-            <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
+            <NButton
+              disabled={!hasAuth('system:role:update')}
+              type="primary"
+              ghost
+              size="small"
+              onClick={() => edit(row.id)}
+            >
               {$t('common.edit')}
             </NButton>
             <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
                 default: () => $t('common.confirmDelete'),
                 trigger: () => (
-                  <NButton type="error" ghost size="small">
+                  <NButton disabled={!hasAuth('system:role:delete')} type="error" ghost size="small">
                     {$t('common.delete')}
                   </NButton>
                 )
@@ -147,7 +163,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                 {{
                   default: () => $t('common.setDefault'),
                   trigger: () => (
-                    <NButton type={'tertiary'} ghost size="small">
+                    <NButton disabled={!hasAuth('system:role:update')} type={'tertiary'} ghost size="small">
                       {$t('common.setDefault')}
                     </NButton>
                   )
@@ -160,7 +176,44 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { drawerVisible, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(data, getData);
+const detailColumns: DetailsDescriptionsType = [
+  {
+    key: 'name',
+    label: '名称'
+  },
+  {
+    key: 'value',
+    label: '角色标识'
+  },
+  {
+    key: 'status',
+    label: '状态'
+  },
+  {
+    key: 'default',
+    label: '默认角色'
+  },
+  {
+    key: 'description',
+    label: '描述'
+  }
+];
+
+const {
+  drawerVisible,
+  modelVisible,
+  detailData,
+  handleDetail,
+  operateType,
+  editingData,
+  handleAdd,
+  handleEdit,
+  onDeleted
+} = useTableOperate(data, getData);
+
+async function detail(id: string) {
+  handleDetail(id);
+}
 
 async function edit(id: string) {
   const { error, data: roleInfo } = await fetchGetRoleInfo(id);
@@ -223,6 +276,7 @@ async function handleSetDefault(id: string) {
       :row-data="editingData"
       @submitted="getDataByPage"
     />
+    <DetailsDescriptions v-model:visible="modelVisible" :fields="detailColumns" :data="detailData" />
   </div>
 </template>
 

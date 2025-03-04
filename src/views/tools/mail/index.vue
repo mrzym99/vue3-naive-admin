@@ -6,7 +6,9 @@ import TinymceEditor from '@/components/common/tinymce/index.vue';
 import { fetchSendEmail } from '@/service/api';
 import { useNaiveForm } from '@/hooks/common/form';
 import { REG_EMAIL } from '@/constants/reg';
+import { useAuth } from '@/hooks/business/auth';
 
+const { hasAuth } = useAuth();
 const createDefaultModel = () => {
   return {
     subject: '',
@@ -15,7 +17,7 @@ const createDefaultModel = () => {
   };
 };
 
-const model = ref(createDefaultModel());
+const model = ref<Api.ToolsManage.Mail>(createDefaultModel());
 const loading = ref(false);
 
 const rules = reactive<FormRules>({
@@ -81,7 +83,9 @@ async function handleSend() {
         </NForm>
       </NSpin>
       <NSpace class="w-full" justify="end">
-        <NButton type="primary" :loading="loading" @click="handleSend">发送邮件</NButton>
+        <NButton :disabled="hasAuth('tool:mail:send')" type="primary" :loading="loading" @click="handleSend">
+          发送邮件
+        </NButton>
       </NSpace>
     </NCard>
   </div>
