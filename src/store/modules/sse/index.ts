@@ -77,6 +77,7 @@ export const useSSEStore = defineStore('sse', () => {
       console.log('sse', type);
       // console.log('eventSource', event.data);
     };
+
     eventSource.onerror = err => {
       console.log('eventSource err', err);
       closeEventSource();

@@ -236,7 +236,7 @@ const local: App.I18n.Schema = {
     login: {
       common: {
         loginOrRegister: 'Login / Register',
-        usernamePlaceholder: 'Please enter user name',
+        usernamePlaceholder: 'Please enter user name / email',
         phonePlaceholder: 'Please enter phone number',
         codePlaceholder: 'Please enter verification code',
         passwordPlaceholder: 'Please enter password',
@@ -491,7 +491,7 @@ const local: App.I18n.Schema = {
     },
     pwd: {
       required: 'Please enter password',
-      invalid: '6-18 characters, including letters, numbers, and underscores'
+      invalid: '6-18 characters, including letters, numbers, and special characters'
     },
     confirmPwd: {
       required: 'Please enter password again',

@@ -17,6 +17,7 @@ const { label, code, isCounting, loading, getCaptcha } = useCaptcha();
 interface FormModel {
   email: string;
   code: string;
+  username: string;
   password: string;
   confirmPassword: string;
 }
@@ -24,16 +25,18 @@ interface FormModel {
 const model: FormModel = reactive({
   email: '',
   code: code.value,
+  username: '',
   password: '',
   confirmPassword: ''
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
-  const { formRules, createConfirmPwdRule } = useFormRules();
+  const { formRules, createConfirmPwdRule, createValidateUsername } = useFormRules();
 
   return {
     email: formRules.email,
     code: formRules.code,
+    username: createValidateUsername(),
     password: formRules.pwd,
     confirmPassword: createConfirmPwdRule(model.password)
   };
@@ -61,6 +64,9 @@ async function handleSubmit() {
           {{ label }}
         </NButton>
       </div>
+    </NFormItem>
+    <NFormItem path="username">
+      <NInput v-model:value="model.username" :placeholder="$t('page.login.common.usernamePlaceholder')" />
     </NFormItem>
     <NFormItem path="password">
       <NInput

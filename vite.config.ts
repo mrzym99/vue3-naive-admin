@@ -41,10 +41,25 @@ export default defineConfig(configEnv => {
       port: 9725
     },
     build: {
+      minify: 'terser',
       reportCompressedSize: false,
       sourcemap: viteEnv.VITE_SOURCE_MAP === 'Y',
       commonjsOptions: {
         ignoreTryCatch: false
+      },
+      rollupOptions: {
+        output: {
+          // 分包 chunk 的名字应该遵循 rollup 的输出规范
+          entryFileNames: `assets/[name].[hash].js`,
+          chunkFileNames: `assets/[name].[hash].js`,
+          assetFileNames: `assets/[name].[hash].[ext]`
+        },
+        manualChunks(id: string) {
+          if (id.includes('/node_modules/')) {
+            return id.toString().split('/node_modules/')[1].split('/')[0].toString();
+          }
+          return null;
+        }
       }
     }
   };

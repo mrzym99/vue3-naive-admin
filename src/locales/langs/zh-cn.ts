@@ -236,7 +236,7 @@ const local: App.I18n.Schema = {
     login: {
       common: {
         loginOrRegister: '登录 / 注册',
-        usernamePlaceholder: '请输入用户名',
+        usernamePlaceholder: '请输入用户名 / 邮箱',
         phonePlaceholder: '请输入手机号',
         codePlaceholder: '请输入验证码',
         passwordPlaceholder: '请输入密码',
@@ -491,7 +491,7 @@ const local: App.I18n.Schema = {
     },
     pwd: {
       required: '请输入密码',
-      invalid: '密码格式不正确，6-18位字符，包含字母、数字、下划线'
+      invalid: '密码格式不正确，6-18位字符，包含字母、数字、特殊字符'
     },
     confirmPwd: {
       required: '请输入确认密码',

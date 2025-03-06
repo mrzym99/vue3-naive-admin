@@ -34,7 +34,7 @@ export function useFormRules() {
   } satisfies Record<string, App.Global.FormRule>;
 
   const formRules = {
-    username: [createRequiredRule($t('form.username.required')), patternRules.username],
+    username: [createRequiredRule($t('form.username.required')), ...createValidateUsername()],
     phone: [createRequiredRule($t('form.phone.required')), patternRules.phone],
     pwd: [createRequiredRule($t('form.pwd.required')), patternRules.pwd],
     code: [createRequiredRule($t('form.code.required')), patternRules.code],
@@ -69,12 +69,31 @@ export function useFormRules() {
     return confirmPwdRule;
   }
 
+  /** 自定义校验函数，校验用户名或邮箱 */
+  function createValidateUsername() {
+    const usernameRule: App.Global.FormRule[] = [
+      {
+        asyncValidator: (rule, value) => {
+          if (!value) return Promise.resolve();
+          if (REG_USER_NAME.test(value) || REG_EMAIL.test(value)) {
+            return Promise.resolve();
+          }
+          return Promise.reject(rule.message);
+        },
+        message: $t('form.username.invalid'),
+        trigger: 'input'
+      }
+    ];
+    return usernameRule;
+  }
+
   return {
     patternRules,
     formRules,
     defaultRequiredRule,
     createRequiredRule,
-    createConfirmPwdRule
+    createConfirmPwdRule,
+    createValidateUsername
   };
 }
 
