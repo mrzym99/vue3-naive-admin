@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchGetUserInfo, fetchLogin, fetchSuperLogin } from '@/service/api';
+import { fetchGetUserInfo, fetchGetUserPermissions, fetchLogin, fetchSuperLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
@@ -115,6 +115,11 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     if (!error) {
       // update store
       Object.assign(userInfo, info);
+      const { data: permissions, error: pError } = await fetchGetUserPermissions();
+
+      if (!pError) {
+        userInfo.permissions = permissions;
+      }
 
       return true;
     }
