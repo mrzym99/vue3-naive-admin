@@ -1,15 +1,17 @@
-
-# 第二阶段：运行环境
+# 使用 Alpine 版本的 Nginx 作为基础镜像
 FROM nginx:alpine
+
+# 删除默认的 Nginx 配置文件
+RUN rm /etc/nginx/conf.d/default.conf
 
 # 复制构建产物
 COPY  /dist /usr/share/nginx/html
 
-# 复制自定义nginx配置（需自行创建）
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# 将自定义的 Nginx 配置文件复制到镜像中
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# 暴露端口
+# 暴露 80 端口
 EXPOSE 80
 
-# 启动nginx服务
+# 启动 Nginx
 CMD ["nginx", "-g", "daemon off;"]
