@@ -34,18 +34,10 @@ export function fetchUpdatedUserStatus(params: Api.SystemManage.StatusDto) {
   });
 }
 
-/** get all pages */
-export function fetchGetAllPages() {
-  return request<string[]>({
-    url: '/systemManage/getAllPages',
-    method: 'get'
+/** reset password */
+export function fetchResetPassword(id: string) {
+  return request({
+    url: `/system/user/resetPassword/${id}`,
+    method: 'put'
   });
 }
-
-/** get menu tree */
-// export function fetchGetMenuTree() {
-//   return request<Api.SystemManage.MenuTree[]>({
-//     url: '/systemManage/getMenuTree',
-//     method: 'get'
-//   });
-// }

@@ -142,10 +142,8 @@ async function blobUrlToBlob(blobUrl: string): Promise<Blob | null> {
   }
 }
 
-function handleChange({ image }: CropperResult) {
-  console.log(image);
-
-  const blobUrl = image.src;
+function handleChange({ canvas }: CropperResult) {
+  const blobUrl = canvas?.toDataURL();
 
   if (!blobUrl) return;
   // 将 Blob URL 转换为 Blob 对象

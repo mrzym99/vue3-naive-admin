@@ -330,7 +330,8 @@ const local: App.I18n.Schema = {
         status: {
           enable: '启用',
           disable: '禁用'
-        }
+        },
+        resetPassword: '重置密码'
       },
       dept: {
         title: '部门',

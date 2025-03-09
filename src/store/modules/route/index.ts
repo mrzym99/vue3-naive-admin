@@ -8,7 +8,7 @@ import { router } from '@/router';
 import { createStaticRoutes, getAuthVueRoutes } from '@/router/routes';
 import { ROOT_ROUTE } from '@/router/routes/builtin';
 import { getRouteName, getRoutePath } from '@/router/elegant/transform';
-import { fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
+import { fetchGetUserRoutes } from '@/service/api';
 import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 import { useSSEStore } from '../sse';
@@ -292,9 +292,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       return isRouteExistByRouteName(routeName, staticAuthRoutes);
     }
 
-    const { data } = await fetchIsRouteExist(routeName);
+    // const { data } = await fetchIsRouteExist(routeName);
 
-    return data;
+    return false;
   }
 
   /**

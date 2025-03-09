@@ -330,7 +330,8 @@ const local: App.I18n.Schema = {
         status: {
           enable: 'Enable',
           disable: 'Disable'
-        }
+        },
+        resetPassword: 'Reset Password'
       },
       dept: {
         title: 'Dept',

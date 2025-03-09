@@ -516,6 +516,7 @@ declare namespace App {
               enable: string;
               disable: string;
             };
+            resetPassword: string;
           };
           dept: {
             title: string;

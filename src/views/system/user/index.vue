@@ -2,7 +2,7 @@
 import { NAvatar, NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchGetUserList, fetchUpdatedUserStatus } from '@/service/api';
+import { fetchGetUserList, fetchResetPassword, fetchUpdatedUserStatus } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
@@ -219,7 +219,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
-        width: 130,
+        width: 200,
         render: row => (
           <div class="flex-center gap-8px">
             <NButton
@@ -243,6 +243,16 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                     size="small"
                   >
                     {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
+            <NPopconfirm onPositiveClick={() => resetPassword(row.id)}>
+              {{
+                default: () => $t('page.manage.common.resetPassword'),
+                trigger: () => (
+                  <NButton disabled={!hasAuth('system:user:pass:reset')} type={'error'} ghost size="small">
+                    {$t('page.manage.common.resetPassword')}
                   </NButton>
                 )
               }}
@@ -272,6 +282,13 @@ async function handleChangeStatus(id: string, status: number | null) {
   }
   // request
   getDataByPage();
+}
+
+async function resetPassword(id: string) {
+  const { error } = await fetchResetPassword(id);
+  if (!error) {
+    window.$message?.success('重置成功');
+  }
 }
 
 async function handleBatchDChangeStatus() {

@@ -25,8 +25,8 @@ interface FormModel {
 }
 
 const model: FormModel = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
   code: ''
 });
 
@@ -50,8 +50,7 @@ async function handleSubmit() {
   await authStore.login(loginData);
 }
 
-type AccountKey = 'user' | 'guest';
-
+type AccountKey = 'admin' | 'user' | 'guest';
 interface Account {
   key: AccountKey;
   label: string;
@@ -62,14 +61,20 @@ interface Account {
 
 const accounts = computed<Account[]>(() => [
   {
+    key: 'admin',
+    label: '管理员',
+    username: 'admin',
+    password: '123456'
+  },
+  {
     key: 'user',
-    label: '业务繁忙的测试',
+    label: '测试',
     username: 'test',
-    password: 'test123'
+    password: '123456'
   },
   {
     key: 'guest',
-    label: '无所事事的游客',
+    label: '游客',
     username: 'guest',
     password: '123456'
   }
@@ -147,9 +152,11 @@ onMounted(() => {
         {{ $t('common.confirm') }}
       </NButton>
       <div class="flex-y-center justify-between gap-12px">
-        <NButton class="flex-1" block @click="toggleLoginModule('code-login')">
+        <!--
+ <NButton class="flex-1" block @click="toggleLoginModule('code-login')">
           {{ $t(loginModuleRecord['code-login']) }}
-        </NButton>
+        </NButton> 
+-->
         <NButton class="flex-1" block @click="toggleLoginModule('super-login')">
           {{ $t(loginModuleRecord['super-login']) }}
         </NButton>

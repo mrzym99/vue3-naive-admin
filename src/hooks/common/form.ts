@@ -37,7 +37,7 @@ export function useFormRules() {
     username: [createRequiredRule($t('form.username.required')), ...createValidateUsername()],
     phone: [createRequiredRule($t('form.phone.required')), patternRules.phone],
     pwd: [createRequiredRule($t('form.pwd.required')), patternRules.pwd],
-    code: [createRequiredRule($t('form.code.required')), patternRules.code],
+    code: [patternRules.code], // [createRequiredRule($t('form.code.required')), patternRules.code],
     email: [createRequiredRule($t('form.email.required')), patternRules.email]
   } satisfies Record<string, App.Global.FormRule[]>;
 
