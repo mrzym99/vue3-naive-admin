@@ -4,6 +4,12 @@ FROM nginx:alpine
 # 删除默认的 Nginx 配置文件
 RUN rm /etc/nginx/conf.d/default.conf
 
+#  下载依赖
+RUN pnpm install
+
+# 构建前端应用
+RUN pnpm run build
+
 # 复制构建产物
 COPY  /dist /usr/share/nginx/html
 
