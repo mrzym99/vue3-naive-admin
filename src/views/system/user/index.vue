@@ -92,7 +92,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       nickName: null,
       phone: null,
       email: null,
-      deptId: null,
+      deptIds: null,
       roleId: null
     },
     columns: () => [
@@ -286,9 +286,14 @@ async function handleBatchDChangeStatus() {
   getDataByPage();
 }
 
-function selectDept(deptId: string) {
-  if (searchParams.deptId && searchParams.deptId === deptId) return;
-  searchParams.deptId = deptId;
+function arraysEqual(arr1: any[], arr2: any[]): boolean {
+  if (arr1.length !== arr2.length) return false;
+  return arr1.every((val, index) => val === arr2[index]);
+}
+
+function selectDept(deptIds: string[]) {
+  if (searchParams.deptIds && arraysEqual(searchParams.deptIds, deptIds)) return;
+  searchParams.deptIds = deptIds;
   getDataByPage();
 }
 </script>

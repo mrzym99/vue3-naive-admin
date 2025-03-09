@@ -220,7 +220,7 @@ declare namespace Api {
       Pick<Api.SystemManage.User, 'username' | 'gender' | 'nickName' | 'phone' | 'email' | 'status'> &
         CommonSearchParams & {
           /** user dept id */
-          deptId: string;
+          deptIds: string[];
           /** user role id */
           roleId: string;
         }

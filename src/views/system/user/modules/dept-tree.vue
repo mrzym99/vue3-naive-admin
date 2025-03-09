@@ -5,7 +5,7 @@ import { fetchGetDeptTree } from '@/service/api';
 import IcOutlineMoreVert from '~icons/ic/outline-more-vert';
 
 interface Emits {
-  (e: 'select', deptId: string): void;
+  (e: 'select', deptIds: string[]): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -26,10 +26,27 @@ const dropDownOptions = [
   }
 ];
 
+const deepTree = (data: TreeOption[]): string[] => {
+  const ids: string[] = [];
+
+  const traverse = (items: TreeOption[]) => {
+    items.forEach(item => {
+      ids.push(item.id as string);
+      if (item.children && item.children.length > 0) {
+        traverse(item.children);
+      }
+    });
+  };
+
+  traverse(data);
+  return ids;
+};
+
 const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
     onClick() {
-      emit('select', option.id as string);
+      const ids = deepTree([option]);
+      emit('select', ids);
     }
   };
 };
