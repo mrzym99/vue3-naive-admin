@@ -1,26 +1,23 @@
 # 第一阶段：构建前端应用
 # 使用 Node.js 镜像来构建应用
-FROM node:latest AS builder
+FROM node:21.7.3 AS builder
 
 # 设置工作目录
 WORKDIR /app
 
-# 复制 package.json 和 pnpm-lock.yaml
-COPY --chown=node:node package.json pnpm-lock.yaml ./
-
 # 安装 pnpm
 RUN npm i pnpm -g
 
-# 清理缓存并重新安装依赖
-RUN pnpm store prune
-RUN pnpm install --force
-
 # 复制应用代码
-COPY . .
+COPY . ./
 
+# 清理缓存并重新安装依赖
+RUN rm -rf node_modules && pnpm store prune && pnpm install
 
 # 构建应用，增加内存限制
 RUN NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
+
+
 
 # 第二阶段：运行 Nginx 服务
 # 使用 Alpine 版本的 Nginx 作为基础镜像
