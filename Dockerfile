@@ -1,38 +1,32 @@
-# 第一阶段：构建前端应用
-# 使用 Node.js 镜像来构建应用
-FROM node:21.7.3 AS builder
 
-# 设置工作目录
-WORKDIR /app
+ARG PROJECT_DIR=/vue3-naive-admin
 
-# 安装 pnpm
-RUN npm i pnpm -g
+FROM node:21.7.3 as builder
+ARG PROJECT_DIR
+WORKDIR $PROJECT_DIR
 
-# 复制应用代码
+# 安装pnpm
+RUN npm install -g pnpm
+
 COPY . ./
 
-# 清理缓存并重新安装依赖
-RUN rm -rf node_modules && pnpm store prune && pnpm install
+# 安装依赖
+# 若网络不通，可以使用淘宝源
+# RUN pnpm config set registry https://registry.npmmirror.com
+RUN rm -rf node_modules
+RUN pnpm install
 
-# 构建应用，增加内存限制
-RUN NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
+# 构建项目
+ENV VITE_BASE_URL=/
+RUN NODE_OPTIONS="--max-old-space-size=4096" pnpm build
 
 
+FROM nginx:alpine as production
+ARG PROJECT_DIR
 
-# 第二阶段：运行 Nginx 服务
-# 使用 Alpine 版本的 Nginx 作为基础镜像
-FROM nginx:alpine
+COPY --from=builder $PROJECT_DIR/dist/ /usr/share/nginx/html
+COPY --from=builder $PROJECT_DIR/nginx.conf /etc/nginx/nginx.conf
 
-# 删除默认的 Nginx 配置文件
-RUN rm /etc/nginx/conf.d/default.conf
-
-# 将构建生成的文件复制到 Nginx 的 root 目录
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# 将自定义的 Nginx 配置文件复制到镜像中
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# 暴露 80 端口
 EXPOSE 80
 
 # 启动 Nginx

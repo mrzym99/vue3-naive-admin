@@ -1,0 +1,13 @@
+services:
+  vue3-naive-admin:
+    # 从当前路径构建镜像
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: xiaozhang/vue3-naive-admin:latest
+    ports:
+      - '80:80'
+    env_file:
+      - .env
+      - .env.prod
