@@ -27,7 +27,7 @@ ARG PROJECT_DIR
 COPY --from=builder $PROJECT_DIR/dist/ /usr/share/nginx/html
 COPY --from=builder $PROJECT_DIR/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 3333
+EXPOSE 80
 
 # 启动 Nginx
 CMD ["nginx", "-g", "daemon off;"]
