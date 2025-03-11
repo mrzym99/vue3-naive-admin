@@ -160,20 +160,16 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             ) : (
               ''
             )}
-            {!row.status ? (
-              <NPopconfirm onPositiveClick={() => handleOnce(row.id)}>
-                {{
-                  default: () => `${$t('page.manage.task.onceTask')}?`,
-                  trigger: () => (
-                    <NButton disabled={!hasAuth('system:task:once')} type="primary" ghost size="small">
-                      {$t('page.manage.task.onceTask')}
-                    </NButton>
-                  )
-                }}
-              </NPopconfirm>
-            ) : (
-              ''
-            )}
+            <NPopconfirm onPositiveClick={() => handleOnce(row.id)}>
+              {{
+                default: () => `${$t('page.manage.task.onceTask')}?`,
+                trigger: () => (
+                  <NButton disabled={!hasAuth('system:task:once')} type="primary" ghost size="small">
+                    {$t('page.manage.task.onceTask')}
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
             {row.status ? (
               <NPopconfirm onPositiveClick={() => handleStop(row.id)}>
                 {{
