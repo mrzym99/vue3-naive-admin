@@ -6,6 +6,7 @@ import { $t } from '@/locales';
 import { fetchCreateMenu, fetchGetAllPermissions, fetchGetMenuTree, fetchUpdateMenu } from '@/service/api';
 import type { ConfigFormObjectType, Option } from '@/components/advanced/config-form';
 import { str2tree } from '@/utils/common';
+import routeList from '@/router/elegant/generate-route-list';
 
 defineOptions({
   name: 'MenuOperateDrawer'
@@ -45,6 +46,7 @@ const title = computed(() => {
 type Model = Partial<Api.SystemManage.Menu>;
 
 const model = ref(createDefaultModel());
+const iframePage = 'layout.base$view.iframe-page';
 
 const menuConfigForm = reactive<ConfigFormObjectType>({
   type: {
@@ -71,9 +73,9 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
         if (value !== 2) {
           model.value.permission = null;
         } else {
-          model.value.component = '';
-          model.value.path = '';
-          model.value.icon = '';
+          model.value.component = null;
+          model.value.path = null;
+          model.value.icon = null;
           model.value.isExt = false;
           model.value.name = '';
         }
@@ -147,24 +149,28 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   path: {
     key: 'path',
-    label: '路由地址',
-    type: 'Input',
+    label: '菜单地址',
+    type: 'Select',
     hide: (): boolean => {
       return isPermission();
     },
     props: {
-      placeholder: '请输入路由地址'
+      filterable: true,
+      tag: true,
+      placeholder: '请输入/选择菜单地址',
+      options: [],
+      'onUpdate:value': onPathSelectChange
     }
   },
   name: {
     key: 'name',
-    label: '组件名称',
+    label: '路由名称',
     type: 'Input',
     hide: (): boolean => {
       return isPermission();
     },
     props: {
-      placeholder: '请输入组件名称'
+      placeholder: '请输入路由名称'
     }
   },
   component: {
@@ -172,7 +178,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     label: '组件路径',
     type: 'Input',
     hide: (): boolean => {
-      return isPermission();
+      return isPermission() || hideComponent();
     },
     props: {
       placeholder: '请输入组件路径'
@@ -228,6 +234,15 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     type: 'Switch',
     hide: (): boolean => {
       return Boolean(model.value.hideInMenu);
+    },
+    props: {
+      'onUpdate:value': (val: boolean) => {
+        if (val) {
+          model.value.component = iframePage;
+        } else {
+          model.value.component = '';
+        }
+      }
     }
   },
   extOpenMode: {
@@ -247,6 +262,17 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
         value: 1
       }
     ]
+  },
+  href: {
+    key: 'href',
+    label: '外链地址',
+    type: 'Input',
+    hide: (): boolean => {
+      return !model.value.isExt;
+    },
+    required: (): boolean => {
+      return Boolean(model.value.isExt);
+    }
   },
   multiTab: {
     key: 'multiTab',
@@ -292,6 +318,20 @@ function isPermission() {
   return model.value.type === 2;
 }
 
+function hideComponent() {
+  return model.value.extOpenMode === 1;
+}
+
+function onPathSelectChange(path: string) {
+  const route = routeList.find(item => item.path === path);
+  if (route) {
+    model.value.component = route.component;
+    model.value.name = route.name;
+    model.value.title = route.meta?.title;
+    model.value.i18nKey = route.meta?.i18nKey;
+  }
+}
+
 function createDefaultModel(): Model {
   return {
     parentId: '',
@@ -301,8 +341,8 @@ function createDefaultModel(): Model {
     i18nKey: null,
     icon: '',
     iconType: 0,
-    path: '',
-    component: '',
+    path: null,
+    component: null,
     permission: null,
     order: 1,
     isExt: false,
@@ -373,11 +413,20 @@ async function getAllPermissions() {
   }
 }
 
+function getAllRoutes() {
+  const routes = routeList;
+  menuConfigForm.path!.props!.options = routes.map(item => ({
+    label: item.path,
+    value: item.path
+  }));
+}
+
 watch(visible, () => {
   if (visible.value) {
     handleInitModel();
     getMenuTree();
     getAllPermissions();
+    getAllRoutes();
     nextTick(() => {
       restoreValidation();
     });

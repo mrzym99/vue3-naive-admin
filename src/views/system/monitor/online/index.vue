@@ -58,7 +58,21 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'username',
         title: $t('page.manage.user.username'),
         align: 'center',
-        minWidth: 100
+        width: 150,
+        render: row => {
+          if (row.username === null) return null;
+
+          if (row.isCurrentUser) {
+            return (
+              <div>
+                {row.username}
+                <NTag type="success">Me</NTag>{' '}
+              </div>
+            );
+          }
+
+          return row.username;
+        }
       },
       {
         key: 'nickName',
@@ -80,7 +94,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'ip',
         title: '登录ip',
         align: 'center',
-        minWidth: 100
+        width: 150
       },
       {
         key: 'address',

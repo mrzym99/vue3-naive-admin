@@ -291,11 +291,11 @@ declare namespace Api {
       /** route name */
       name: string;
       /** route path */
-      path: string;
+      path: string | null;
       /** component */
-      component?: string;
+      component?: string | null;
       /** iconify icon name or local icon name */
-      icon: string;
+      icon: string | null;
       /** icon type */
       iconType: IconType;
       /** 权限 */

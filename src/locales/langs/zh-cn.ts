@@ -318,10 +318,12 @@ const local: App.I18n.Schema = {
       projectNews: {
         title: '项目动态',
         moreNews: '更多动态',
-        desc1: '小张 在2024年12月24日创建了开源项目 Nest+Vue Admin !',
-        desc2: '小张 在2024年12月24日提交了第一个 commit !',
-        desc3: '小张 在2025年03月02日 完成了前后端的功能对接 !',
-        desc4: '小张 目前正在对项目进行 测试和Bug 修复工作 !'
+        desc1: '小张在2024年12月24日创建了开源项目 Nest+Vue Admin !',
+        desc2: '小张在2024年12月24日提交了第一个 commit !',
+        desc3: '小张在2025年03月02日 完成了前后端的功能对接 !',
+        desc4: '小张目前正在对项目进行 测试和Bug 修复工作 !',
+        desc5: '截至2025年03月12日 小张优化了菜单和后端的对接，也完成了Docker的部署 !',
+        desc6: '小张后续要需要完善项目的国际化，详情组件、增加websocket、项目README文档编写......'
       },
       creativity: '创意'
     },

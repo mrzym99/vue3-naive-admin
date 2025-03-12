@@ -73,7 +73,10 @@ const {
       align: 'left',
       minWidth: 180,
       tree: true,
-      fixed: 'left'
+      fixed: 'left',
+      render: row => {
+        return <span>{row.i18nKey ? $t(row.i18nKey) : row.title}</span>;
+      }
     },
     {
       key: 'icon',

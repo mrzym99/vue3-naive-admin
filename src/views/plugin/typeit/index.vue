@@ -10,7 +10,7 @@ function init() {
   if (!textRef.value) return;
 
   const options: Options = {
-    strings: 'SoybeanAdmin是一个清新优雅、高颜值且功能强大的后台管理模板',
+    strings: 'NestAdmin是一个清新优雅、高颜值且功能强大的后台管理模板',
     lifeLike: true,
     speed: 120,
     loop: true

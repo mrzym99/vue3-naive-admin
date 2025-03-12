@@ -19,6 +19,7 @@ export const iconifyIconList: string[] = [
   'mdi:toolbox-outline',
   'mdi:email-arrow-right-outline',
   'mdi:folder-cog-outline',
+  'mdi:book-open-page-variant-outline',
   'ic:outline-reduce-capacity',
   'ic:outline-other-houses'
 ];
