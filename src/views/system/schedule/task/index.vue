@@ -14,6 +14,7 @@ import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { TaskTypeRecord, enableStatusOptions, enableStatusRecord } from '@/constants/business';
 import { useAuth } from '@/hooks/business/auth';
+import type { DetailsDescriptionsType } from '@/components/advanced/details-descriptions';
 import TaskOperateDrawer from './modules/task-operate-drawer.vue';
 
 const appStore = useAppStore();
@@ -66,6 +67,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         width: 150,
         ellipsis: {
           tooltip: true
+        },
+        render: row => {
+          return (
+            <span class={'detail-link'} onClick={() => detail(row.id)}>
+              {row.name}
+            </span>
+          );
         }
       },
       {
@@ -200,10 +208,61 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { drawerVisible, closeDrawer, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(
-  data,
-  getData
-);
+const detailColumns: DetailsDescriptionsType<Api.SystemManage.Task> = [
+  {
+    key: 'name',
+    label: '名称'
+  },
+  {
+    key: 'type',
+    label: '类型',
+    render: row => {
+      return <NTag type={row.type === 0 ? 'success' : 'primary'}>{row.type === 0 ? 'Corn' : '时间间隔'}</NTag>;
+    }
+  },
+  {
+    key: 'status',
+    label: '状态',
+    render: row => {
+      return <NTag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</NTag>;
+    }
+  },
+  {
+    key: 'service',
+    label: '调用服务'
+  },
+  {
+    key: 'data',
+    label: '执行参数',
+    span: 2
+  },
+  {
+    key: 'remark',
+    label: '备注',
+    span: 2
+  }
+];
+
+const {
+  drawerVisible,
+  closeDrawer,
+  operateType,
+  editingData,
+  handleAdd,
+  handleEdit,
+  onDeleted,
+  modelVisible,
+  detailData,
+  handleDetail
+} = useTableOperate(data, getData);
+
+async function detail(id: string) {
+  if (hasAuth('system:role:read')) {
+    handleDetail(id);
+  } else {
+    window.$message?.error($t('common.noPermission'));
+  }
+}
 
 async function edit(id: string) {
   const { error, data: taskInfo } = await fetchGetTaskInfo(id);
@@ -284,6 +343,13 @@ async function handleStop(id: string) {
       :operate-type="operateType"
       :row-data="editingData"
       @submitted="getDataByPage"
+    />
+    <DetailsDescriptions
+      v-model:visible="modelVisible"
+      title="任务详情"
+      class="!w-[50%]"
+      :fields="detailColumns"
+      :data="detailData"
     />
   </div>
 </template>

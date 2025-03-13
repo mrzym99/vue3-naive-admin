@@ -58,7 +58,8 @@ const local: App.I18n.Schema = {
       success: '成功',
       fail: '失败'
     },
-    setDefault: '设为默认'
+    setDefault: '设为默认',
+    noPermission: '非常抱歉，您没有权限！'
   },
   request: {
     logout: '请求失败后登出用户',
@@ -237,7 +238,7 @@ const local: App.I18n.Schema = {
       common: {
         loginOrRegister: '登录 / 注册',
         usernamePlaceholder: '请输入用户名 / 邮箱',
-        phonePlaceholder: '请输入手机号',
+        phonePlaceholder: '请输入手机号码',
         codePlaceholder: '请输入验证码',
         passwordPlaceholder: '请输入密码',
         confirmPasswordPlaceholder: '请再次输入密码',
@@ -366,7 +367,7 @@ const local: App.I18n.Schema = {
         username: '用户名',
         userGender: '性别',
         nickName: '昵称',
-        phone: '手机号',
+        phone: '手机号码',
         email: '邮箱',
         status: '用户状态',
         userRole: '用户角色',
@@ -374,7 +375,7 @@ const local: App.I18n.Schema = {
           username: '请输入用户名',
           gender: '请选择性别',
           nickName: '请输入昵称',
-          phone: '请输入手机号',
+          phone: '请输入手机号码',
           email: '请输入邮箱',
           status: '请选择用户状态',
           userRole: '请选择用户角色'
@@ -489,8 +490,8 @@ const local: App.I18n.Schema = {
       invalid: '用户名格式不正确'
     },
     phone: {
-      required: '请输入手机号',
-      invalid: '手机号格式不正确'
+      required: '请输入手机号码',
+      invalid: '手机号码格式不正确'
     },
     pwd: {
       required: '请输入密码',

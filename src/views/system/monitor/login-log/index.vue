@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { NTag, NTime } from 'naive-ui';
+import { NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import type { SearchFormType } from '@/components/advanced/search-form';
@@ -26,10 +26,10 @@ const userSearchForm: SearchFormType<Api.SystemManage.LoginLogSearchParams> = [
   },
   {
     key: 'address',
-    label: '登录地址',
+    label: '登录地点',
     type: 'Input',
     props: {
-      placeholder: '请输入登录地址'
+      placeholder: '请输入登录地点'
     }
   },
   {
@@ -67,7 +67,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'username',
         title: '用户名',
         align: 'left',
-        width: 180,
+        width: 150,
         ellipsis: {
           tooltip: true
         }
@@ -76,7 +76,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'nickName',
         title: '昵称',
         align: 'center',
-        width: 100,
+        width: 150,
         ellipsis: {
           tooltip: true
         }
@@ -85,10 +85,9 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'ip',
         title: 'IP',
         align: 'center',
-        width: 180,
-        render: row => {
-          if (row.ip === null) return null;
-          return <NTag>{row.ip}</NTag>;
+        width: 200,
+        ellipsis: {
+          tooltip: true
         }
       },
       {

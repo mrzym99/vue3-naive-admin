@@ -45,6 +45,19 @@ const model = ref(createDefaultModel());
 
 const userConfigForm = reactive<ConfigFormArrayType>([
   {
+    key: 'avatar',
+    label: '头像',
+    type: 'Upload',
+    required: true,
+    span: 24,
+    props: {
+      cropper: true,
+      placeholder: '请上传头像',
+      'list-type': 'image-card',
+      max: 1
+    }
+  },
+  {
     key: 'deptId',
     label: '所属部门',
     type: 'TreeSelect',
@@ -93,14 +106,7 @@ const userConfigForm = reactive<ConfigFormArrayType>([
       placeholder: '请选择性别'
     }
   },
-  {
-    key: 'phone',
-    label: '手机号',
-    type: 'Input',
-    props: {
-      placeholder: '请输入手机号'
-    }
-  },
+
   {
     key: 'email',
     label: '邮箱',
@@ -111,31 +117,29 @@ const userConfigForm = reactive<ConfigFormArrayType>([
     }
   },
   {
-    key: 'avatar',
-    label: '头像',
-    type: 'Upload',
-    required: true,
-    props: {
-      cropper: true,
-      placeholder: '请上传头像',
-      'list-type': 'image-card',
-      max: 1
-    }
-  },
-  {
-    key: 'signature',
-    label: '个性签名',
+    key: 'phone',
+    label: '手机号码',
     type: 'Input',
     props: {
-      placeholder: '请输入个性签名'
+      placeholder: '请输入手机号码'
     }
   },
+
   {
     key: 'address',
     label: '地址',
     type: 'Input',
     props: {
       placeholder: '请输入地址'
+    }
+  },
+  {
+    key: 'birthDate',
+    label: '出生日期',
+    type: 'DatePicker',
+    props: {
+      type: 'date',
+      placeholder: '请选择出生日期'
     }
   },
   {
@@ -149,12 +153,13 @@ const userConfigForm = reactive<ConfigFormArrayType>([
     options: enableStatusOptions
   },
   {
-    key: 'birthDate',
-    label: '出生日期',
-    type: 'DatePicker',
+    key: 'signature',
+    label: '个性签名',
+    type: 'Input',
+    span: 24,
     props: {
-      type: 'date',
-      placeholder: '请选择出生日期'
+      type: 'textarea',
+      placeholder: '请输入个性签名'
     }
   },
   {
@@ -198,7 +203,7 @@ async function getRoleOptions() {
         }))
       : [];
 
-    userConfigForm[1]!.props!.options = options;
+    userConfigForm[2]!.props!.options = options;
   }
 }
 
@@ -218,7 +223,7 @@ function mapTree(tree: Api.SystemManage.DeptTree): Option[] {
 async function getDeptTree() {
   const { data, error } = await fetchGetDeptTree();
   if (!error) {
-    userConfigForm[0]!.props!.options = mapTree(data);
+    userConfigForm[1]!.props!.options = mapTree(data);
   }
 }
 

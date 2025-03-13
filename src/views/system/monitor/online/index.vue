@@ -49,7 +49,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'tokenId',
         title: '会话编号',
         align: 'left',
-        width: 300,
+        width: 200,
         ellipsis: {
           tooltip: true
         }
@@ -94,7 +94,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'ip',
         title: '登录ip',
         align: 'center',
-        width: 150
+        width: 200,
+        ellipsis: {
+          tooltip: true
+        }
       },
       {
         key: 'address',

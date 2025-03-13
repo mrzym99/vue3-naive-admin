@@ -13,3 +13,11 @@ export enum ProviderEnum {
   EMAIL = 'email',
   CAPTCHA = 'captcha'
 }
+
+export enum MenuTypeEnum {
+  DIRECTORY = 0,
+  // 菜单
+  MENU = 1,
+  // 权限
+  PERMISSION = 2
+}

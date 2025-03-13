@@ -278,12 +278,17 @@ declare namespace Api {
       id: string;
       title: string;
       pId: string;
+      type: number;
       children?: MenuTreeItem[];
     };
     type MenuTree = MenuTreeItem[];
     type Menu = Common.CommonRecord<{
       /** parent menu id */
       parentId: string;
+      /** parent menu title */
+      parentTitle?: string;
+      /** parent menu i18n key */
+      parentI18Key?: App.I18n.I18nKey;
       /** menu type */
       type: MenuType;
       /** menu name */

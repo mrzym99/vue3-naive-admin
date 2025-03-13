@@ -53,7 +53,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'code',
         title: '验证码',
         align: 'left',
-        width: 120
+        width: 100
       },
       {
         key: 'provider',
@@ -85,8 +85,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       {
         key: 'account',
         title: '账户',
-        align: 'left',
-
         width: 150
       }
     ]

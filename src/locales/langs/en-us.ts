@@ -58,7 +58,8 @@ const local: App.I18n.Schema = {
       success: 'Success',
       fail: 'Fail'
     },
-    setDefault: 'Set as Default'
+    setDefault: 'Set as Default',
+    noPermission: 'Sorry, you do not have permission!'
   },
   request: {
     logout: 'Logout user after request failed',

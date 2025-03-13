@@ -347,6 +347,7 @@ declare namespace App {
           fail: string;
         };
         setDefault: string;
+        noPermission: string;
       };
       request: {
         logout: string;

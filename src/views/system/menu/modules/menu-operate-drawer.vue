@@ -82,6 +82,17 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
       }
     }
   },
+  parentId: {
+    key: 'parentId',
+    label: '上级菜单',
+    type: 'TreeSelect',
+    props: {
+      treeData: [],
+      treeNodeFilterProp: 'title',
+      placeholder: '请选择上级菜单',
+      filterable: true
+    }
+  },
   title: {
     key: 'title',
     label: '菜单名称',
@@ -97,17 +108,6 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     type: 'Input',
     props: {
       placeholder: '请输入国际化key'
-    }
-  },
-  parentId: {
-    key: 'parentId',
-    label: '上级菜单',
-    type: 'TreeSelect',
-    props: {
-      treeData: [],
-      treeNodeFilterProp: 'title',
-      placeholder: '请选择上级菜单',
-      filterable: true
     }
   },
   iconType: {
@@ -202,12 +202,18 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   keepAlive: {
     key: 'keepAlive',
     label: '缓存',
-    type: 'Switch'
+    type: 'Switch',
+    hide: (): boolean => {
+      return isPermission();
+    }
   },
   hideInMenu: {
     key: 'hideInMenu',
     label: '是否隐藏',
     type: 'Switch',
+    hide: (): boolean => {
+      return isPermission();
+    },
     props: {
       'onUpdate:value': (val: boolean) => {
         if (val) {
@@ -221,7 +227,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     label: '激活菜单',
     type: 'TreeSelect',
     hide: (): boolean => {
-      return !model.value.hideInMenu;
+      return !model.value.hideInMenu || isPermission();
     },
     props: {
       placeholder: '请选择激活菜单',
@@ -233,7 +239,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     label: '是否外链',
     type: 'Switch',
     hide: (): boolean => {
-      return Boolean(model.value.hideInMenu);
+      return Boolean(model.value.hideInMenu) || isPermission();
     },
     props: {
       'onUpdate:value': (val: boolean) => {
@@ -241,6 +247,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
           model.value.component = iframePage;
         } else {
           model.value.component = '';
+          model.value.extOpenMode = 0;
         }
       }
     }
@@ -277,12 +284,23 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   multiTab: {
     key: 'multiTab',
     label: '多页签',
-    type: 'Switch'
+    type: 'Switch',
+    hide: (): boolean => {
+      return isPermission() || model.value.extOpenMode === 1;
+    }
   },
   fixedIndexInTab: {
     key: 'fixedIndexInTab',
     label: '固定页签的序号',
-    type: 'InputNumber'
+    type: 'InputNumber',
+    hide: (): boolean => {
+      return isPermission() || model.value.extOpenMode === 1;
+    },
+    props: {
+      min: 1,
+      max: 9999,
+      placeholder: '请输入固定页签的序号'
+    }
   },
   order: {
     key: 'order',
@@ -382,17 +400,20 @@ async function handleSubmit() {
 }
 
 function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
-  return tree.map(item => {
-    const { children } = item;
-    return {
-      label: item.title,
-      value: item.id,
-      key: item.id,
-      disabled: props.operateType === 'edit' && (item.id === model.value.parentId || item.id === model.value.id),
-      isLeaf: !children || children.length === 0,
-      children: children ? mapTree(children) : []
-    };
-  });
+  return tree
+    .map(item => {
+      const { children } = item;
+      return {
+        label: item.title,
+        value: item.id,
+        key: item.id,
+        type: item.type,
+        disabled: props.operateType === 'edit' && (item.id === model.value.parentId || item.id === model.value.id),
+        isLeaf: !children || children.length === 0 || children.every(child => child.type === 2),
+        children: children ? mapTree(children) : []
+      };
+    })
+    .filter(item => item.type !== 2);
 }
 
 async function getMenuTree() {

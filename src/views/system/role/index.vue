@@ -187,15 +187,44 @@ const detailColumns: DetailsDescriptionsType = [
   },
   {
     key: 'status',
-    label: '状态'
+    label: '状态',
+    render: row => {
+      return <NTag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</NTag>;
+    }
   },
   {
     key: 'default',
-    label: '默认角色'
+    label: '默认角色',
+    render: row => {
+      return <NTag type={row.default ? 'success' : 'info'}>{row.default ? '是' : '否'}</NTag>;
+    }
   },
   {
     key: 'description',
-    label: '描述'
+    label: '描述',
+    span: 2
+  },
+  {
+    key: 'createdAt',
+    label: '创建时间',
+    span: 2,
+    render: row => {
+      if (row.createdAt === null) {
+        return null;
+      }
+      return <NTime time={new Date(row.createdAt)} />;
+    }
+  },
+  {
+    key: 'updatedAt',
+    label: '更新时间',
+    span: 2,
+    render: row => {
+      if (row.updatedAt === null) {
+        return null;
+      }
+      return <NTime time={new Date(row.updatedAt)} />;
+    }
   }
 ];
 
@@ -212,7 +241,11 @@ const {
 } = useTableOperate(data, getData);
 
 async function detail(id: string) {
-  handleDetail(id);
+  if (hasAuth('system:role:read')) {
+    handleDetail(id);
+  } else {
+    window.$message?.error($t('common.noPermission'));
+  }
 }
 
 async function edit(id: string) {
@@ -276,7 +309,13 @@ async function handleSetDefault(id: string) {
       :row-data="editingData"
       @submitted="getDataByPage"
     />
-    <DetailsDescriptions v-model:visible="modelVisible" :fields="detailColumns" :data="detailData" />
+    <DetailsDescriptions
+      v-model:visible="modelVisible"
+      title="角色详情"
+      class="!w-[50%]"
+      :fields="detailColumns"
+      :data="detailData"
+    />
   </div>
 </template>
 

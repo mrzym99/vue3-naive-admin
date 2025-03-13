@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { NAvatar, NButton, NPopconfirm, NTag } from 'naive-ui';
+import { NAvatar, NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetUserList, fetchResetPassword, fetchUpdatedUserStatus } from '@/service/api';
@@ -8,6 +8,7 @@ import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { useAuth } from '@/hooks/business/auth';
 import { generatePrefix } from '@/utils/common';
+import type { DetailsDescriptionsType } from '@/components/advanced/details-descriptions';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import DeptTree from './modules/dept-tree.vue';
 
@@ -77,6 +78,114 @@ const userSearchForm: SearchFormType<Api.SystemManage.UserSearchParams> = [
   }
 ];
 
+const detailColumns: DetailsDescriptionsType<Api.SystemManage.User> = [
+  {
+    key: 'avatar',
+    label: '头像',
+    span: 2,
+    render: row => {
+      if (row.avatar === null) {
+        return null;
+      }
+
+      return <NAvatar src={row.avatar as string} size={64}></NAvatar>;
+    }
+  },
+  {
+    key: 'dept',
+    label: '所属部门',
+    render: row => {
+      if (row.dept === null) {
+        return null;
+      }
+      return <NTag>{row.dept.name}</NTag>;
+    }
+  },
+  {
+    key: 'roles',
+    label: '所属角色',
+    render: row => {
+      if (row.roles.length === 0) return null;
+      const roleMap: Record<any, NaiveUI.ThemeColor> = {
+        admin: 'primary'
+      };
+
+      return row.roles.map((role: { value: string | number; name: any }) => (
+        <NTag class={'mr-8px'} type={roleMap[role.value] || 'success'}>
+          {role.name}
+        </NTag>
+      ));
+    }
+  },
+  {
+    key: 'username',
+    label: '用户名'
+  },
+  {
+    key: 'nickName',
+    label: '昵称'
+  },
+  {
+    key: 'gender',
+    label: '性别',
+    render: row => {
+      if (row.gender === null) {
+        return null;
+      }
+
+      const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
+        1: 'primary',
+        0: 'error'
+      };
+
+      const label = $t(userGenderRecord[row.gender]);
+
+      return <NTag type={tagMap[row.gender]}>{label}</NTag>;
+    }
+  },
+  {
+    key: 'email',
+    label: '邮箱'
+  },
+
+  {
+    key: 'phone',
+    label: '手机号码'
+  },
+
+  {
+    key: 'address',
+    label: '地址'
+  },
+  {
+    key: 'birthDate',
+    label: '出生日期',
+    render: row => {
+      if (!row.birthDate) {
+        return null;
+      }
+      return <NTime time={new Date(row.birthDate)} format="yyyy-MM-dd" />;
+    }
+  },
+  {
+    key: 'status',
+    label: '状态',
+    render: row => {
+      return <NTag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</NTag>;
+    }
+  },
+  {
+    key: 'signature',
+    label: '个性签名',
+    span: 2
+  },
+  {
+    key: 'introduction',
+    label: '简介',
+    span: 2
+  }
+];
+
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
     apiFn: fetchGetUserList,
@@ -113,9 +222,15 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'username',
         title: $t('page.manage.user.username'),
         align: 'center',
-        minWidth: 100
+        minWidth: 100,
+        render: row => {
+          return (
+            <span class={'detail-link'} onClick={() => detail(row.id)}>
+              {row.username}
+            </span>
+          );
+        }
       },
-
       {
         key: 'avatar',
         title: '头像', // $t('page.manage.user.userGender'),
@@ -183,16 +298,16 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         }
       },
       {
-        key: 'phone',
-        title: $t('page.manage.user.phone'),
-        align: 'center',
-        width: 120
-      },
-      {
         key: 'email',
         title: $t('page.manage.user.email'),
         align: 'center',
         width: 200
+      },
+      {
+        key: 'phone',
+        title: $t('page.manage.user.phone'),
+        align: 'center',
+        width: 120
       },
       {
         key: 'status',
@@ -263,11 +378,25 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit } = useTableOperate(
-  data,
-  getData
-);
+const {
+  drawerVisible,
+  checkedRowKeys,
+  operateType,
+  editingData,
+  handleAdd,
+  handleEdit,
+  modelVisible,
+  detailData,
+  handleDetail
+} = useTableOperate(data, getData);
 
+async function detail(id: string) {
+  if (hasAuth('system:user:read')) {
+    handleDetail(id);
+  } else {
+    window.$message?.error($t('common.noPermission'));
+  }
+}
 function edit(id: string) {
   handleEdit(id);
 }
@@ -373,6 +502,13 @@ function selectDept(deptIds: string[]) {
       :operate-type="operateType"
       :row-data="editingData"
       @submitted="getDataByPage"
+    />
+    <DetailsDescriptions
+      v-model:visible="modelVisible"
+      title="用户详情"
+      class="!w-[50%]"
+      :fields="detailColumns"
+      :data="detailData"
     />
   </div>
 </template>
