@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateDept, fetchGetDeptTree, fetchUpdateDept } from '@/service/api';
-import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form/config-form-type';
+import type { Option } from '@/components/advanced/config-form/config-form-type';
+import { useConfigForm } from '@/hooks/common/config-form';
 
 defineOptions({
   name: 'DeptOperateDrawer'
@@ -32,8 +33,8 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.dept.addDept'),
-    edit: $t('page.manage.dept.editDept')
+    add: $t('page.manage.dept.add'),
+    edit: $t('page.manage.dept.edit')
   };
   return titles[props.operateType];
 });
@@ -42,51 +43,50 @@ type Model = Partial<Api.SystemManage.Dept>;
 
 const model = ref(createDefaultModel());
 
-const deptConfigForm = reactive<ConfigFormArrayType>([
-  {
+const formFields = useConfigForm<Model>(() => ({
+  name: {
     key: 'name',
-    label: '部门名称',
+    label: $t('page.manage.dept.name'),
     type: 'Input',
     required: true,
     props: {
       maxlength: 20,
       'show-count': true,
-      placeholder: '请输入部门名称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.dept.name')
     }
   },
-  {
+  order: {
     key: 'order',
-    label: '排序',
+    label: $t('page.manage.common.order'),
     type: 'InputNumber',
     props: {
       min: 1,
       max: 9999,
-      placeholder: '请输入排序'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.common.order')
     }
   },
-
-  {
+  parentId: {
     key: 'parentId',
-    label: '父级部门',
+    label: $t('page.manage.dept.parent'),
     type: 'TreeSelect',
     span: 24,
     // tree select 比较特殊 options 可以通过 props 传入
     props: {
-      placeholder: '请选择父级部门',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.dept.parent'),
       options: []
     },
     required: false
   },
-  {
+  default: {
     key: 'default',
-    label: '默认部门',
+    label: $t('page.manage.dept.default'),
     type: 'Switch',
     props: {
       'checked-value': 1,
       'unchecked-value': 0
     }
   }
-]);
+}));
 
 function createDefaultModel(): Model {
   return {
@@ -139,7 +139,7 @@ function mapTree(tree: Api.SystemManage.DeptTree, deep: number = 0): Option[] {
 async function getDeptTree() {
   const { data, error } = await fetchGetDeptTree();
   if (!error) {
-    deptConfigForm[2]!.props!.options = mapTree(data);
+    formFields.value!.parentId!.props!.options = mapTree(data);
   }
 }
 
@@ -155,9 +155,9 @@ watch(visible, () => {
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" width="40%">
+  <NDrawer v-model:show="visible" display-directive="show" width="50%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
-      <ConfigForm ref="formRef" v-model:model="model" :fields="deptConfigForm" />
+      <ConfigForm ref="formRef" v-model:model="model" :fields="formFields" />
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>

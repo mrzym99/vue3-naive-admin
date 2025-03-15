@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import type { CascaderOption } from 'naive-ui';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateMenu, fetchGetAllPermissions, fetchGetMenuTree, fetchUpdateMenu } from '@/service/api';
-import type { ConfigFormObjectType, Option } from '@/components/advanced/config-form';
+import type { Option } from '@/components/advanced/config-form';
 import { str2tree } from '@/utils/common';
 import routeList from '@/router/elegant/generate-route-list';
+import { useConfigForm } from '@/hooks/common/config-form';
+import { MenuIconTypeEnum, MenuTypeEnum, StatusEnum } from '@/constants/enum';
 
 defineOptions({
   name: 'MenuOperateDrawer'
@@ -37,8 +39,8 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.menu.addMenu'),
-    edit: $t('page.manage.menu.editMenu')
+    add: $t('page.manage.menu.add'),
+    edit: $t('page.manage.menu.edit')
   };
   return titles[props.operateType];
 });
@@ -48,24 +50,24 @@ type Model = Partial<Api.SystemManage.Menu>;
 const model = ref(createDefaultModel());
 const iframePage = 'layout.base$view.iframe-page';
 
-const menuConfigForm = reactive<ConfigFormObjectType>({
+const menuConfigForm = useConfigForm<Model>(() => ({
   type: {
     key: 'type',
-    label: '菜单类型',
+    label: $t('page.manage.menu.menuType'),
     type: 'Radio',
     disabled: props.operateType === 'edit',
     options: [
       {
-        value: 0,
-        label: '目录'
+        value: MenuTypeEnum.DIRECTORY,
+        label: $t('page.manage.menu.type.directory')
       },
       {
-        value: 1,
-        label: '菜单'
+        value: MenuTypeEnum.MENU,
+        label: $t('page.manage.menu.type.menu')
       },
       {
-        value: 2,
-        label: '权限'
+        value: MenuTypeEnum.PERMISSION,
+        label: $t('page.manage.menu.type.permission')
       }
     ],
     props: {
@@ -84,72 +86,72 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   parentId: {
     key: 'parentId',
-    label: '上级菜单',
+    label: $t('page.manage.menu.parent'),
     type: 'TreeSelect',
     props: {
       treeData: [],
       treeNodeFilterProp: 'title',
-      placeholder: '请选择上级菜单',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.menu.parent'),
       filterable: true
     }
   },
   title: {
     key: 'title',
-    label: '菜单名称',
+    label: $t('page.manage.menu.menuName'),
     type: 'Input',
     required: true,
     props: {
-      placeholder: '请输入菜单名称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.menuName')
     }
   },
   i18nKey: {
     key: 'i18nKey',
-    label: '国际化',
+    label: $t('page.manage.menu.i18nKey'),
     type: 'Input',
     props: {
-      placeholder: '请输入国际化key'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.i18nKey')
     }
   },
   iconType: {
     key: 'iconType',
-    label: '图标类型',
+    label: $t('page.manage.menu.iconTypeTitle'),
     type: 'Select',
     required: true,
     hide: (): boolean => {
       return isPermission();
     },
     props: {
-      placeholder: '请选择图标类型',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.menu.iconTypeTitle'),
       options: [
         {
           label: 'iconify',
-          value: 0
+          value: MenuIconTypeEnum.ICONIFY
         },
         {
           label: 'local',
-          value: 1
+          value: MenuIconTypeEnum.LOCAL
         }
       ],
       'onUpdate:value': (value: number) => {
-        menuConfigForm.type!.props!.type = value;
+        menuConfigForm.value.type!.props!.type = value;
       }
     }
   },
   icon: {
     key: 'icon',
-    label: '图标',
+    label: $t('page.manage.menu.icon'),
     type: 'IconSelect',
     hide: (): boolean => {
       return isPermission();
     },
     props: {
       type: 0,
-      placeholder: '请选择图标'
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.menu.icon')
     }
   },
   path: {
     key: 'path',
-    label: '菜单地址',
+    label: $t('page.manage.menu.routePath'),
     type: 'Select',
     hide: (): boolean => {
       return isPermission();
@@ -157,43 +159,43 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     props: {
       filterable: true,
       tag: true,
-      placeholder: '请输入/选择菜单地址',
+      placeholder: `${$t('common.pleaseInput')}/${$t('common.pleaseSelect')}${$t('page.manage.menu.routePath')}`,
       options: [],
       'onUpdate:value': onPathSelectChange
     }
   },
   name: {
     key: 'name',
-    label: '路由名称',
+    label: $t('page.manage.menu.routeName'),
     type: 'Input',
     hide: (): boolean => {
       return isPermission();
     },
     props: {
-      placeholder: '请输入路由名称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.routeName')
     }
   },
   component: {
     key: 'component',
-    label: '组件路径',
+    label: $t('page.manage.menu.component'),
     type: 'Input',
     hide: (): boolean => {
       return isPermission() || hideComponent();
     },
     props: {
-      placeholder: '请输入组件路径'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.component')
     }
   },
   permission: {
     key: 'permission',
-    label: '权限标识',
+    label: $t('page.manage.menu.permission'),
     type: 'Cascader',
     hide: () => {
       return !isPermission();
     },
     props: {
       filterable: true,
-      placeholder: '请选择权限标识',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.menu.permission'),
       'check-strategy': 'child',
       separator: ':',
       options: []
@@ -201,7 +203,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   keepAlive: {
     key: 'keepAlive',
-    label: '缓存',
+    label: $t('page.manage.menu.keepAlive'),
     type: 'Switch',
     hide: (): boolean => {
       return isPermission();
@@ -209,7 +211,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   hideInMenu: {
     key: 'hideInMenu',
-    label: '是否隐藏',
+    label: $t('page.manage.menu.hideInMenu'),
     type: 'Switch',
     hide: (): boolean => {
       return isPermission();
@@ -224,19 +226,19 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   activeMenu: {
     key: 'activeMenu',
-    label: '激活菜单',
+    label: $t('page.manage.menu.activeMenu'),
     type: 'TreeSelect',
     hide: (): boolean => {
       return !model.value.hideInMenu || isPermission();
     },
     props: {
-      placeholder: '请选择激活菜单',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.menu.activeMenu'),
       treeData: []
     }
   },
   isExt: {
     key: 'isExt',
-    label: '是否外链',
+    label: $t('page.manage.menu.isExt'),
     type: 'Switch',
     hide: (): boolean => {
       return Boolean(model.value.hideInMenu) || isPermission();
@@ -254,25 +256,25 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   extOpenMode: {
     key: 'extOpenMode',
-    label: '外链方式',
+    label: $t('page.manage.menu.extOpenMode'),
     type: 'Radio',
     hide: (): boolean => {
       return !model.value.isExt;
     },
     options: [
       {
-        label: '内嵌页打开',
+        label: $t('page.manage.menu.inner'),
         value: 0
       },
       {
-        label: '新窗口打开',
+        label: $t('page.manage.menu.black'),
         value: 1
       }
     ]
   },
   href: {
     key: 'href',
-    label: '外链地址',
+    label: $t('page.manage.menu.href'),
     type: 'Input',
     hide: (): boolean => {
       return !model.value.isExt;
@@ -283,7 +285,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   multiTab: {
     key: 'multiTab',
-    label: '多页签',
+    label: $t('page.manage.menu.multiTab'),
     type: 'Switch',
     hide: (): boolean => {
       return isPermission() || model.value.extOpenMode === 1;
@@ -291,7 +293,7 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
   },
   fixedIndexInTab: {
     key: 'fixedIndexInTab',
-    label: '固定页签的序号',
+    label: $t('page.manage.menu.fixedIndexInTab'),
     type: 'InputNumber',
     hide: (): boolean => {
       return isPermission() || model.value.extOpenMode === 1;
@@ -299,38 +301,38 @@ const menuConfigForm = reactive<ConfigFormObjectType>({
     props: {
       min: 1,
       max: 9999,
-      placeholder: '请输入固定页签的序号'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.fixedIndexInTab')
     }
   },
   order: {
     key: 'order',
-    label: '排序',
+    label: $t('page.manage.menu.order'),
     type: 'InputNumber',
     props: {
       min: 1,
       max: 9999,
-      placeholder: '请输入排序'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.order')
     }
   },
   status: {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Radio',
     props: {
       placeholder: '请选择状态'
     },
     options: [
       {
-        label: '正常',
-        value: 1
+        label: $t('common.enable'),
+        value: StatusEnum.ENABLE
       },
       {
-        label: '禁用',
-        value: 0
+        label: $t('common.disable'),
+        value: StatusEnum.DISABLE
       }
     ]
   }
-});
+}));
 
 function isPermission() {
   return model.value.type === 2;
@@ -419,15 +421,15 @@ function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
 async function getMenuTree() {
   const { data, error } = await fetchGetMenuTree();
   if (!error) {
-    menuConfigForm.parentId!.props!.options = mapTree(data);
-    menuConfigForm.activeMenu!.props!.options = mapTree(data);
+    menuConfigForm.value.parentId!.props!.options = mapTree(data);
+    menuConfigForm.value.activeMenu!.props!.options = mapTree(data);
   }
 }
 
 async function getAllPermissions() {
   const { data, error } = await fetchGetAllPermissions();
   if (!error) {
-    menuConfigForm.permission!.props!.options = data.reduce((prev: CascaderOption[], curr: string) => {
+    menuConfigForm.value.permission!.props!.options = data.reduce((prev: CascaderOption[], curr: string) => {
       str2tree(curr, prev, ':');
       return prev;
     }, []);
@@ -436,7 +438,7 @@ async function getAllPermissions() {
 
 function getAllRoutes() {
   const routes = routeList;
-  menuConfigForm.path!.props!.options = routes.map(item => ({
+  menuConfigForm.value.path!.props!.options = routes.map(item => ({
     label: item.path,
     value: item.path
   }));

@@ -4,7 +4,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { fetchBatchDeleteCaptchaLog, fetchGetCaptchaLogList } from '@/service/api';
-import { ProviderRecord, providerOptions } from '@/constants/business';
+import { ProviderRecord } from '@/constants/business';
 import { ProviderEnum } from '@/constants/enum';
 import { $t } from '@/locales';
 
@@ -18,7 +18,7 @@ const userSearchForm: SearchFormType<Api.SystemManage.CaptchaLogSearchParams> = 
     span: 8,
     props: {
       placeholder: '请选择服务验证码提供商',
-      options: providerOptions
+      options: []
     }
   },
   {

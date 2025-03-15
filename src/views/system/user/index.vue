@@ -1,58 +1,60 @@
 <script setup lang="tsx">
 import { NAvatar, NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
+import { onMounted } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchGetUserList, fetchResetPassword, fetchUpdatedUserStatus } from '@/service/api';
+import { fetchGetAllRole, fetchGetUserList, fetchResetPassword, fetchUpdatedUserStatus } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
-import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
+import { $t, getLocale } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
 import { generatePrefix } from '@/utils/common';
-import type { DetailsDescriptionsType } from '@/components/advanced/details-descriptions';
+import { useSearchForm } from '@/hooks/common/search-form';
+import { StatusEnum } from '@/constants/enum';
+import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import DeptTree from './modules/dept-tree.vue';
 
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
-const userSearchForm: SearchFormType<Api.SystemManage.UserSearchParams> = [
+const userSearchForm = useSearchForm<Api.SystemManage.UserSearchParams>(() => [
   {
     key: 'username',
-    label: '用户名',
+    label: $t('page.manage.user.username'),
     type: 'Input',
     props: {
-      placeholder: '请输入用户名'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.username')
     }
   },
   {
     key: 'nickName',
-    label: '昵称',
+    label: $t('page.manage.user.nickName'),
     type: 'Input',
     props: {
-      placeholder: '请输入昵称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.nickName')
     }
   },
   {
     key: 'email',
-    label: '邮箱',
+    label: $t('page.manage.user.email'),
     type: 'Input',
     props: {
-      placeholder: '请输入邮箱'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.email')
     }
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Select',
     props: {
-      placeholder: '请选择状态',
+      placeholder: $t('common.pleaseSelect') + $t('common.status'),
       options: [
         {
-          value: 1,
+          value: StatusEnum.ENABLE,
           label: $t('common.enable')
         },
         {
-          value: 0,
+          value: StatusEnum.DISABLE,
           label: $t('common.disable')
         }
       ]
@@ -60,10 +62,10 @@ const userSearchForm: SearchFormType<Api.SystemManage.UserSearchParams> = [
   },
   {
     key: 'roleId',
-    label: '角色',
+    label: $t('page.manage.user.role'),
     type: 'Select',
     props: {
-      placeholder: '请选择角色',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.user.role'),
       options: [
         {
           value: '43df8dd8-a7ab-4fdc-82bf-c322f206d8e1',
@@ -76,12 +78,12 @@ const userSearchForm: SearchFormType<Api.SystemManage.UserSearchParams> = [
       ]
     }
   }
-];
+]);
 
-const detailColumns: DetailsDescriptionsType<Api.SystemManage.User> = [
+const detailColumns = useDetailDescriptions<Api.SystemManage.User>(() => [
   {
     key: 'avatar',
-    label: '头像',
+    label: $t('page.manage.user.avatar'),
     span: 2,
     render: row => {
       if (row.avatar === null) {
@@ -93,7 +95,7 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.User> = [
   },
   {
     key: 'dept',
-    label: '所属部门',
+    label: $t('page.manage.user.dept'),
     render: row => {
       if (row.dept === null) {
         return null;
@@ -103,7 +105,7 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.User> = [
   },
   {
     key: 'roles',
-    label: '所属角色',
+    label: $t('page.manage.user.role'),
     render: row => {
       if (row.roles.length === 0) return null;
       const roleMap: Record<any, NaiveUI.ThemeColor> = {
@@ -119,15 +121,15 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.User> = [
   },
   {
     key: 'username',
-    label: '用户名'
+    label: $t('page.manage.user.username')
   },
   {
     key: 'nickName',
-    label: '昵称'
+    label: $t('page.manage.user.nickName')
   },
   {
     key: 'gender',
-    label: '性别',
+    label: $t('page.manage.user.userGender'),
     render: row => {
       if (row.gender === null) {
         return null;
@@ -145,21 +147,21 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.User> = [
   },
   {
     key: 'email',
-    label: '邮箱'
+    label: $t('page.manage.user.email')
   },
 
   {
     key: 'phone',
-    label: '手机号码'
+    label: $t('page.manage.user.phone')
   },
 
   {
     key: 'address',
-    label: '地址'
+    label: $t('page.manage.user.address')
   },
   {
     key: 'birthDate',
-    label: '出生日期',
+    label: $t('page.manage.user.birthDate'),
     render: row => {
       if (!row.birthDate) {
         return null;
@@ -169,22 +171,26 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.User> = [
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     render: row => {
-      return <NTag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</NTag>;
+      return (
+        <NTag type={row.status === 1 ? 'success' : 'error'}>
+          {row.status === 1 ? $t('common.enable') : $t('common.disable')}
+        </NTag>
+      );
     }
   },
   {
     key: 'signature',
-    label: '个性签名',
+    label: $t('page.manage.user.signature'),
     span: 2
   },
   {
     key: 'introduction',
-    label: '简介',
+    label: $t('page.manage.user.introduction'),
     span: 2
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -233,7 +239,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'avatar',
-        title: '头像', // $t('page.manage.user.userGender'),
+        title: $t('page.manage.user.avatar'), // $t('page.manage.user.userGender'),
         align: 'center',
         width: 60,
         render: row => {
@@ -252,7 +258,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'dept',
-        title: '部门', // $t('page.manage.user.role'),
+        title: $t('page.manage.user.dept'),
         align: 'center',
         minWidth: 100,
         render: row => {
@@ -262,9 +268,9 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'roles',
-        title: '角色', // $t('page.manage.user.role'),
+        title: $t('page.manage.user.role'),
         align: 'left',
-        width: 180,
+        width: 160,
         render: row => {
           if (row.roles.length === 0) return null;
           const roleMap: Record<any, NaiveUI.ThemeColor> = {
@@ -281,7 +287,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'gender',
         title: $t('page.manage.user.userGender'),
         align: 'center',
-        width: 60,
+        width: 80,
         render: row => {
           if (row.gender === null) {
             return null;
@@ -311,7 +317,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'status',
-        title: $t('page.manage.user.status'),
+        title: $t('common.status'),
         align: 'center',
         width: 100,
         render: row => {
@@ -334,7 +340,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
-        width: 200,
+        width: getLocale.value === 'zh-CN' ? 200 : 260,
         render: row => (
           <div class="flex-center gap-8px">
             <NButton
@@ -364,10 +370,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             </NPopconfirm>
             <NPopconfirm onPositiveClick={() => resetPassword(row.id)}>
               {{
-                default: () => $t('page.manage.common.resetPassword'),
+                default: () => $t('page.manage.user.resetPassword'),
                 trigger: () => (
                   <NButton disabled={!hasAuth('system:user:pass:reset')} type={'error'} ghost size="small">
-                    {$t('page.manage.common.resetPassword')}
+                    {$t('page.manage.user.resetPassword')}
                   </NButton>
                 )
               }}
@@ -407,7 +413,7 @@ async function handleChangeStatus(id: string, status: number | null) {
     status: status ? 0 : 1
   });
   if (!error) {
-    window.$message?.success('操作成功');
+    window.$message?.success($t('common.operateSuccess'));
   }
   // request
   getDataByPage();
@@ -416,7 +422,7 @@ async function handleChangeStatus(id: string, status: number | null) {
 async function resetPassword(id: string) {
   const { error } = await fetchResetPassword(id);
   if (!error) {
-    window.$message?.success('重置成功');
+    window.$message?.success($t('common.resetSuccess'));
   }
 }
 
@@ -426,22 +432,29 @@ async function handleBatchDChangeStatus() {
     status: 0
   });
   if (!error) {
-    window.$message?.success('操作成功');
+    window.$message?.success($t('common.operateSuccess'));
   }
   // request
   getDataByPage();
 }
 
-function arraysEqual(arr1: any[], arr2: any[]): boolean {
-  if (arr1.length !== arr2.length) return false;
-  return arr1.every((val, index) => val === arr2[index]);
-}
-
-function selectDept(deptIds: string[]) {
-  if (searchParams.deptIds && arraysEqual(searchParams.deptIds, deptIds)) return;
-  searchParams.deptIds = deptIds;
+function change() {
   getDataByPage();
 }
+
+async function getAllRoles() {
+  const { data: roleList, error } = await fetchGetAllRole();
+  if (!error) {
+    userSearchForm.value[4]!.props!.options = roleList.map(item => ({
+      label: item.name,
+      value: item.id
+    }));
+  }
+}
+
+onMounted(() => {
+  getAllRoles();
+});
 </script>
 
 <template>
@@ -449,7 +462,7 @@ function selectDept(deptIds: string[]) {
     <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <NSplit class="h-full" direction="horizontal" :default-size="0.2" :max="0.9" :min="0.1">
         <template #1>
-          <DeptTree @select="selectDept" />
+          <DeptTree v-model:value="searchParams.deptIds" @change="change" />
         </template>
         <template #2>
           <div class="h-full flex-col-stretch">

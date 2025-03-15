@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useSlots, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
+import { getLocale } from '@/locales';
 import type { ConfigFormArrayType, ConfigFormType } from './config-form-type';
 
 defineOptions({
@@ -11,14 +12,14 @@ interface Props {
   fields: ConfigFormType;
   span?: number; // 一行占多少个
   labelPlacement?: 'left' | 'top';
-  labelWidth?: number | string | 'auto';
+  labelWidth?: number | string;
   requireMarkPlacement?: 'left' | 'right' | 'right-hanging';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   span: 12,
   labelPlacement: 'left',
-  labelWidth: 'auto',
+  labelWidth: 0,
   requireMarkPlacement: 'right'
 });
 
@@ -31,10 +32,11 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
     (acc, field) => {
       const required = typeof field.required === 'function' ? field.required(model) : field.required;
       if (required) {
+        const message = field.label;
         acc[field.key] = [
           {
             required: true,
-            message: `${field.label}不能为空`
+            message: `${message}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`
           }
         ];
       }
@@ -54,10 +56,8 @@ const finalFields = computed<ConfigFormArrayType>(() => {
 
 // 根据传入的 fields 生成 fields 数组
 function generateFieldArr(): ConfigFormArrayType {
-  if (Array.isArray(props.fields)) {
-    return props.fields;
-  }
-  return Object.entries(props.fields).map(([_pKey, pValue]) => {
+  const fields = typeof props.fields === 'function' ? props.fields() : props.fields;
+  return Object.entries(fields).map(([_pKey, pValue]) => {
     return {
       ...pValue
     };
@@ -78,6 +78,14 @@ const slots = computed(() => {
   return useSlots();
 });
 
+const computedLabelWidth = computed(() => {
+  if (props.labelWidth) return props.labelWidth;
+  if (getLocale.value === 'zh-CN') {
+    return 120;
+  }
+  return 150;
+});
+
 defineExpose({
   validate,
   restoreValidation
@@ -92,13 +100,13 @@ defineExpose({
     :rules="rules"
     v-bind="$attrs"
     :label-placement="labelPlacement"
-    :label-width="labelWidth"
+    :label-width="computedLabelWidth"
     :require-mark-placement="requireMarkPlacement"
   >
     <NGrid responsive="screen" item-responsive :x-gap="16">
       <NFormItemGi
         v-for="field in finalFields"
-        :key="field.label"
+        :key="field.key"
         :span="field.span || span"
         :label="field.label"
         :path="field.key"

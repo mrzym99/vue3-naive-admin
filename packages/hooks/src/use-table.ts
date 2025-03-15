@@ -92,6 +92,20 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     }, []);
   }
 
+  function toggleExpand(val?: boolean) {
+    if (val) {
+      setExpand();
+      return;
+    }
+
+    if (expandedRowKeys.value.length) {
+      setFold();
+      return;
+    }
+
+    setExpand();
+  }
+
   function setExpand() {
     const treeData = flatTreeData(data.value);
     expandedRowKeys.value = [];
@@ -121,7 +135,6 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   async function getData() {
     startLoading();
-    setFold();
 
     const formattedParams = formatSearchParams(searchParams);
 
@@ -136,7 +149,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     await config.onFetched?.(transformed);
 
     endLoading();
-    if (expandAll) setExpand();
+    if (expandAll) toggleExpand();
   }
 
   function formatSearchParams(params: Record<string, unknown>) {
@@ -180,8 +193,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     searchParams,
     updateSearchParams,
     resetSearchParams,
-    setExpand,
-    setFold,
+    toggleExpand,
     expandedRowKeys
   };
 }

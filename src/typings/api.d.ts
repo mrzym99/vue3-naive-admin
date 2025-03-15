@@ -279,6 +279,7 @@ declare namespace Api {
       title: string;
       pId: string;
       type: number;
+      i18nKey?: App.I18n.I18nKey;
       children?: MenuTreeItem[];
     };
     type MenuTree = MenuTreeItem[];

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { VAceEditor } from 'vue3-ace-editor';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateParameter, fetchUpdateParameter } from '@/service/api';
-import type { ConfigFormArrayType } from '@/components/advanced/config-form';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-chrome';
+import { useConfigForm } from '@/hooks/common/config-form';
 
 defineOptions({
   name: 'ParameterOperateDrawer'
@@ -45,8 +45,8 @@ type Model = Partial<Api.SystemManage.Parameter>;
 
 const model = ref(createDefaultModel());
 
-const parameterConfigForm: ConfigFormArrayType = reactive([
-  {
+const parameterConfigForm = useConfigForm<Model>(() => ({
+  name: {
     key: 'name',
     label: '参数名称',
     type: 'Input',
@@ -55,7 +55,7 @@ const parameterConfigForm: ConfigFormArrayType = reactive([
       placeholder: '请输入参数名称'
     }
   },
-  {
+  key: {
     key: 'key',
     label: 'Key',
     type: 'Input',
@@ -64,7 +64,7 @@ const parameterConfigForm: ConfigFormArrayType = reactive([
       placeholder: '请输入Key'
     }
   },
-  {
+  value: {
     key: 'value',
     label: '参数值',
     span: 24,
@@ -72,7 +72,7 @@ const parameterConfigForm: ConfigFormArrayType = reactive([
     slot: 'value',
     required: true
   },
-  {
+  remark: {
     key: 'remark',
     label: '备注',
     type: 'Input',
@@ -82,7 +82,7 @@ const parameterConfigForm: ConfigFormArrayType = reactive([
       placeholder: '请输入备注'
     }
   }
-]);
+}));
 
 function createDefaultModel(): Model {
   return {

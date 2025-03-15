@@ -1,4 +1,4 @@
-import type { App } from 'vue';
+import { type App, computed } from 'vue';
 import { createI18n } from 'vue-i18n';
 import { localStg } from '@/utils/storage';
 import messages from './locale';
@@ -24,3 +24,7 @@ export const $t = i18n.global.t as App.I18n.$T;
 export function setLocale(locale: App.I18n.LangType) {
   i18n.global.locale.value = locale;
 }
+
+export const getLocale = computed(() => {
+  return i18n.global.locale.value;
+});

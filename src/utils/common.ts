@@ -26,13 +26,6 @@ export function transformRecordToOption<T extends Record<string, string>>(record
   })) as CommonType.Option<keyof T>[];
 }
 
-export function transLateRecordToOption<T extends Record<string, string>>(record: T, valueToString?: boolean) {
-  return Object.entries(record).map(([value, label]) => ({
-    value: valueToString ? String(value) : Number(value),
-    label: $t(label as App.I18n.I18nKey)
-  })) as CommonType.Option<keyof T>[];
-}
-
 /**
  * Translate options
  *

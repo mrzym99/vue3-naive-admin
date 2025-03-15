@@ -1,3 +1,3 @@
-import type { DetailsDescriptionsType } from './type';
+import type { DetailsDescriptionsType, Recordable } from './type';
 export { default as DetailsDescriptions } from './details-descriptions.vue';
-export { DetailsDescriptionsType };
+export { DetailsDescriptionsType, Recordable };

@@ -2,11 +2,17 @@
 import type { TreeOption } from 'naive-ui';
 import { onMounted, ref } from 'vue';
 import { fetchGetDeptTree } from '@/service/api';
+import { $t } from '@/locales';
 import IcOutlineMoreVert from '~icons/ic/outline-more-vert';
 
 interface Emits {
-  (e: 'select', deptIds: string[]): void;
+  (e: 'change'): void;
+  (e: 'update:value', deptIds: string[]): void;
 }
+
+const props = defineProps<{
+  value: string[] | null | undefined;
+}>();
 
 const emit = defineEmits<Emits>();
 
@@ -17,11 +23,11 @@ const loading = ref(false);
 const defaultExpandAll = ref(false);
 const dropDownOptions = [
   {
-    label: '展开所有',
+    label: () => $t('common.expand'),
     key: 'expandAll'
   },
   {
-    label: '折叠所有',
+    label: () => $t('common.fold'),
     key: 'collapseAll'
   }
 ];
@@ -42,11 +48,20 @@ const deepTree = (data: TreeOption[]): string[] => {
   return ids;
 };
 
+function arraysEqual(arr1: any[], arr2: any[]): boolean {
+  if (arr1.length !== arr2.length) return false;
+  return arr1.every((val, index) => val === arr2[index]);
+}
 const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
     onClick() {
       const ids = deepTree([option]);
-      emit('select', ids);
+      if (props.value && props.value.length && arraysEqual(props.value, ids)) {
+        emit('update:value', []);
+      } else {
+        emit('update:value', ids);
+      }
+      emit('change');
     }
   };
 };
@@ -86,12 +101,12 @@ onMounted(() => {
 <template>
   <div class="h-full w-full overflow-hidden">
     <div class="flex items-center">
-      <span class="mr-1 whitespace-nowrap text-[1rem] font-bold">部门</span>
+      <span class="mr-1 whitespace-nowrap text-[1rem] font-bold">{{ $t('page.manage.dept.title') }}</span>
       <NInputGroup class="mr-1 flex-1 items-center">
         <NInput
           v-model:value="deptName"
           size="small"
-          placeholder="请输入部门名称"
+          :placeholder="$t('page.manage.dept.searchPlaceholder')"
           :disabled="loading"
           clearable
           @keyup.enter="getTreeData"

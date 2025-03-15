@@ -4,45 +4,56 @@ import { Icon } from '@iconify/vue';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteMenu, fetchGetMenuList } from '@/service/api';
-import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
-import { enableStatusOptions, enableStatusRecord, menuIconTypeRecord, menuTypeRecord } from '@/constants/business';
+import { $t, getLocale } from '@/locales';
+import { enableStatusRecord, menuIconTypeRecord, menuTypeRecord } from '@/constants/business';
 import { useAuth } from '@/hooks/business/auth';
-import type { DetailsDescriptionsType } from '@/components/advanced/details-descriptions';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 import { flatTreeData } from '@/utils/common';
+import { useSearchForm } from '@/hooks/common/search-form';
+import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
+import { StatusEnum } from '@/constants/enum';
 import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
 
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
-const menuSearchForm: SearchFormType<Api.SystemManage.MenuSearchParams> = [
+// 使用箭头函数可以保持 label的国际化响应式
+const menuSearchForm = useSearchForm<Api.SystemManage.MenuSearchParams>(() => [
   {
     key: 'title',
-    label: '菜单名称',
+    label: $t('page.manage.menu.menuName'),
     type: 'Input',
     props: {
-      placeholder: '请输入菜单名称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.menuName')
     }
   },
   {
     key: 'path',
-    label: '菜单路径',
+    label: $t('page.manage.menu.routePath'),
     type: 'Input',
     props: {
-      placeholder: '请输入菜单路径'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.routePath')
     }
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Select',
     props: {
-      placeholder: '请选择状态',
-      options: enableStatusOptions
+      placeholder: $t('common.pleaseSelect') + $t('common.status'),
+      options: [
+        {
+          label: $t('common.enable'),
+          value: StatusEnum.ENABLE
+        },
+        {
+          label: $t('common.disable'),
+          value: StatusEnum.DISABLE
+        }
+      ]
     }
   }
-];
+]);
 
 const {
   columns,
@@ -53,8 +64,7 @@ const {
   getData,
   searchParams,
   resetSearchParams,
-  setExpand,
-  setFold,
+  toggleExpand,
   expandedRowKeys,
   isTreeTable
 } = useTable({
@@ -72,7 +82,7 @@ const {
   columns: () => [
     {
       key: 'title',
-      title: '名称', // $t('page.manage.Menu.role'),
+      title: $t('page.manage.menu.title'), // $t('page.manage.Menu.role'),
       align: 'left',
       minWidth: 180,
       tree: true,
@@ -87,7 +97,7 @@ const {
     },
     {
       key: 'icon',
-      title: '图标',
+      title: $t('page.manage.menu.icon'),
       align: 'center',
       width: 50,
       render: row => {
@@ -103,9 +113,9 @@ const {
     },
     {
       key: 'type',
-      title: '类型', // $t('page.manage.Menu.role'),
+      title: $t('page.manage.menu.menuType'), // $t('page.manage.Menu.role'),
       align: 'center',
-      width: 60,
+      width: 100,
       render: row => {
         const label = $t(menuTypeRecord[row.type]);
 
@@ -120,7 +130,7 @@ const {
     },
     {
       key: 'path',
-      title: '菜单路径',
+      title: $t('page.manage.menu.routePath'),
       align: 'center',
       width: 150,
       ellipsis: {
@@ -129,7 +139,7 @@ const {
     },
     {
       key: 'name',
-      title: '组件名称',
+      title: $t('page.manage.menu.routeName'),
       align: 'center',
       width: 150,
       ellipsis: {
@@ -138,7 +148,7 @@ const {
     },
     {
       key: 'component',
-      title: '组件路径',
+      title: $t('page.manage.menu.component'),
       align: 'center',
       width: 180,
       ellipsis: {
@@ -147,9 +157,9 @@ const {
     },
     {
       key: 'permission',
-      title: '权限标识',
+      title: $t('page.manage.menu.permission'),
       align: 'center',
-      width: 180,
+      width: 120,
       render: row => {
         if (!row.permission) {
           return null;
@@ -159,15 +169,15 @@ const {
     },
     {
       key: 'order',
-      title: '排序',
+      title: $t('page.manage.menu.order'),
       align: 'center',
       width: 100
     },
     {
       key: 'keepAlive',
-      title: '是否缓存',
+      title: $t('page.manage.menu.keepAlive'),
       align: 'center',
-      width: 80,
+      width: 100,
       render: row => {
         const type = row.keepAlive ? 'success' : 'warning';
         const label = row.keepAlive ? $t('common.yesOrNo.yes') : $t('common.yesOrNo.no');
@@ -199,7 +209,7 @@ const {
       key: 'operate',
       title: $t('common.operate'),
       align: 'center',
-      width: 220,
+      width: getLocale.value === 'zh-CN' ? 220 : 260,
       render: row => (
         <div class="flex justify-items-start gap-8px">
           {row.type === 0 && (
@@ -249,10 +259,10 @@ const {
   ]
 });
 
-const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
+const detailColumns = useDetailDescriptions<Api.SystemManage.Menu>(() => [
   {
     key: 'type',
-    label: '菜单类型',
+    label: $t('page.manage.menu.menuType'),
     render: row => {
       const label = $t(menuTypeRecord[row.type]);
       const tagMap: Record<Api.SystemManage.MenuType, NaiveUI.ThemeColor> = {
@@ -265,7 +275,7 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'parentId',
-    label: '上级菜单',
+    label: $t('page.manage.menu.parent'),
     render: row => {
       if (!row.parentI18Key) return null;
       return $t(row.parentI18Key);
@@ -273,15 +283,15 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'title',
-    label: '菜单名称'
+    label: $t('page.manage.menu.title')
   },
   {
     key: 'i18nKey',
-    label: '国际化key'
+    label: $t('page.manage.menu.i18nKey')
   },
   {
     key: 'iconType',
-    label: '图标类型',
+    label: $t('page.manage.menu.iconTypeTitle'),
     hide: (): boolean => {
       return isPermission();
     },
@@ -296,7 +306,7 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'icon',
-    label: '图标',
+    label: $t('page.manage.menu.icon'),
     hide: (): boolean => {
       return isPermission();
     },
@@ -309,35 +319,35 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'path',
-    label: '菜单地址',
+    label: $t('page.manage.menu.routePath'),
     hide: (): boolean => {
       return isPermission();
     }
   },
   {
     key: 'name',
-    label: '路由名称',
+    label: $t('page.manage.menu.routeName'),
     hide: (): boolean => {
       return isPermission();
     }
   },
   {
     key: 'component',
-    label: '组件地址',
+    label: $t('page.manage.menu.component'),
     hide: (): boolean => {
       return isPermission() || hideComponent();
     }
   },
   {
     key: 'permission',
-    label: '权限标识',
+    label: $t('page.manage.menu.permission'),
     hide: () => {
       return !isPermission();
     }
   },
   {
     key: 'keepAlive',
-    label: '是否缓存',
+    label: $t('page.manage.menu.keepAlive'),
     hide: (): boolean => {
       return isPermission();
     },
@@ -347,7 +357,7 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'hideInMenu',
-    label: '是否隐藏',
+    label: $t('page.manage.menu.hideInMenu'),
     hide: (): boolean => {
       return isPermission();
     },
@@ -357,14 +367,14 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'activeMenu',
-    label: '激活菜单',
+    label: $t('page.manage.menu.activeMenu'),
     hide: (row): boolean => {
       return !row.hideInMenu;
     }
   },
   {
     key: 'isExt',
-    label: '是否外链',
+    label: $t('page.manage.menu.isExt'),
     hide: (row): boolean => {
       return Boolean(row.hideInMenu) || isPermission();
     },
@@ -374,24 +384,24 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'extOpenMode',
-    label: '外链方式',
+    label: '',
     hide: (row): boolean => {
       return !row.isExt;
     },
     render: row => {
-      return row.extOpenMode === 0 ? '内嵌页打开' : '新窗口打开';
+      return row.extOpenMode === 0 ? $t('page.manage.menu.inner') : $t('page.manage.menu.black');
     }
   },
   {
     key: 'href',
-    label: '外链地址',
+    label: $t('page.manage.menu.href'),
     hide: (row): boolean => {
       return !row.isExt;
     }
   },
   {
     key: 'multiTab',
-    label: '多页签',
+    label: $t('page.manage.menu.multiTab'),
     hide: (row): boolean => {
       return isPermission() || row.extOpenMode === 1;
     },
@@ -401,14 +411,14 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
   },
   {
     key: 'fixedIndexInTab',
-    label: '固定页签的序号',
+    label: $t('page.manage.menu.fixedIndexInTab'),
     hide: (row): boolean => {
       return isPermission() || row.extOpenMode === 1;
     }
   },
   {
     key: 'order',
-    label: '排序'
+    label: $t('page.manage.menu.order')
   },
   {
     key: 'status',
@@ -423,7 +433,7 @@ const detailColumns: DetailsDescriptionsType<Api.SystemManage.Menu> = [
       return <NTag type={tagMap[row.status]}>{label}</NTag>;
     }
   }
-];
+]);
 
 const {
   drawerVisible,
@@ -494,8 +504,7 @@ async function handleDelete(id: string) {
           :tree-table="isTreeTable"
           @add="handleAdd"
           @refresh="getData"
-          @expand="setExpand"
-          @fold="setFold"
+          @toggle-expand="toggleExpand"
         />
         <NDataTable
           v-model:expanded-row-keys="expandedRowKeys"
@@ -519,7 +528,7 @@ async function handleDelete(id: string) {
     />
     <DetailsDescriptions
       v-model:visible="modelVisible"
-      title="菜单详情"
+      :title="$t('page.manage.menu.detail')"
       class="!w-[60%]"
       :fields="detailColumns"
       :data="detailData"

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import type { TreeOption } from 'naive-ui';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchCreateRole, fetchGetMenuTree, fetchUpdateRole } from '@/service/api';
-import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form';
+import type { Option } from '@/components/advanced/config-form';
 import { flatTreeData } from '@/utils/common';
+import { useConfigForm } from '@/hooks/common/config-form';
 
 defineOptions({
   name: 'RoleOperateDrawer'
@@ -34,8 +35,8 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.role.addRole'),
-    edit: $t('page.manage.role.editRole')
+    add: $t('page.manage.role.add'),
+    edit: $t('page.manage.role.edit')
   };
   return titles[props.operateType];
 });
@@ -44,50 +45,50 @@ type Model = Partial<Api.SystemManage.Role>;
 
 const model = ref(createDefaultModel());
 
-const roleConfigForm: ConfigFormArrayType = reactive([
-  {
+const roleConfigForm = useConfigForm<Model>(() => ({
+  name: {
     key: 'name',
-    label: '角色名称',
+    label: $t('page.manage.role.name'),
     type: 'Input',
     required: true,
     props: {
       maxlength: 20,
       'show-count': true,
-      placeholder: '请输入角色名称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.role.name')
     }
   },
-  {
+  value: {
     key: 'value',
-    label: '角色标识',
+    label: $t('page.manage.role.value'),
     type: 'Input',
     required: true,
     props: {
       maxlength: 20,
       'show-count': true,
-      placeholder: '请输入角色标识'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.role.value')
     },
     rules: [
       {
         required: true,
-        message: '请输入角色标识',
-        validator: (_, value) => {
+        message: $t('common.pleaseInput') + $t('page.manage.role.value'),
+        validator: (_: any, value: any) => {
           return Boolean(value);
         },
         trigger: 'blur'
       },
       {
         required: true,
-        message: '角色表示仅仅能包含英文字母、数字、下划线、横线',
-        validator: (_, value) => {
+        message: $t('page.manage.role.valueErrorMessage'),
+        validator: (_: any, value: string) => {
           return /^[a-zA-Z0-9_-]+$/.test(value);
         },
         trigger: 'blur'
       }
     ]
   },
-  {
+  status: {
     key: 'status',
-    label: '状态',
+    label: $t('page.manage.role.status'),
     type: 'Radio',
     options: [
       {
@@ -100,28 +101,28 @@ const roleConfigForm: ConfigFormArrayType = reactive([
       }
     ]
   },
-  {
+  default: {
     key: 'default',
-    label: '默认角色',
+    label: $t('page.manage.role.default'),
     type: 'Switch',
     props: {
       'checked-value': 1,
       'unchecked-value': 0
     }
   },
-  {
+  description: {
     key: 'description',
-    label: '描述',
+    label: $t('page.manage.role.desc'),
     type: 'Input',
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: '请输入描述'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.role.desc')
     }
   },
-  {
+  menuIds: {
     key: 'menuIds',
-    label: '菜单权限',
+    label: $t('page.manage.role.menus'),
     type: 'TreeSelect',
     span: 24,
     slot: 'menu',
@@ -129,7 +130,7 @@ const roleConfigForm: ConfigFormArrayType = reactive([
       options: []
     }
   }
-]);
+}));
 
 function createDefaultModel(): Model {
   return {
@@ -154,7 +155,7 @@ function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
   return tree.map(item => {
     const { children } = item;
     return {
-      label: item.title,
+      label: item.i18nKey ? $t(item.i18nKey) : item.title,
       value: item.id,
       key: item.id,
       isLeaf: !children || children.length === 0,
@@ -166,7 +167,7 @@ function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
 async function getMenuTree() {
   const { data, error } = await fetchGetMenuTree();
   if (!error) {
-    roleConfigForm[roleConfigForm.length - 1]!.props!.options = mapTree(data);
+    roleConfigForm.value.menuIds!.props!.options = mapTree(data);
   }
 }
 

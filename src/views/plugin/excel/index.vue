@@ -82,7 +82,7 @@ const { columns, data, loading } = useTable({
     },
     {
       key: 'status',
-      title: $t('page.manage.user.status'),
+      title: $t('common.status'),
       align: 'center',
       width: 100,
       render: row => {

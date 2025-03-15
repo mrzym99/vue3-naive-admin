@@ -4,42 +4,52 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteRole, fetchGetRoleInfo, fetchGetRoleList, fetchSetRoleDefault } from '@/service/api';
 import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
-import { enableStatusOptions, enableStatusRecord } from '@/constants/business';
+import { enableStatusRecord } from '@/constants/business';
 import { useAuth } from '@/hooks/business/auth';
-import type { DetailsDescriptionsType } from '@/components/advanced/details-descriptions';
+import { useSearchForm } from '@/hooks/common/search-form';
+import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
+import { StatusEnum } from '@/constants/enum';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
-const roleSearchForm: SearchFormType<Api.SystemManage.RoleSearchParams> = [
+const roleSearchForm = useSearchForm<Api.SystemManage.RoleSearchParams>(() => [
   {
     key: 'name',
-    label: '角色名称',
+    label: $t('page.manage.role.name'),
     type: 'Input',
     props: {
-      placeholder: '请输入角色名称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.role.name')
     }
   },
   {
     key: 'value',
-    label: '角色值',
+    label: $t('page.manage.role.value'),
     type: 'Input',
     props: {
-      placeholder: '请输入角色值'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.role.value')
     }
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Select',
     props: {
-      placeholder: '请选择状态',
-      options: enableStatusOptions
+      placeholder: $t('common.pleaseSelect') + $t('common.status'),
+      options: [
+        {
+          label: $t('common.enable'),
+          value: StatusEnum.ENABLE
+        },
+        {
+          label: $t('common.disable'),
+          value: StatusEnum.DISABLE
+        }
+      ]
     }
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -55,7 +65,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     columns: () => [
       {
         key: 'name',
-        title: '角色名称', // $t('page.manage.role.role'),
+        title: $t('page.manage.role.name'),
         align: 'left',
         width: 200,
         render: row => {
@@ -68,7 +78,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'value',
-        title: '角色值', // $t('page.manage.role.role'),
+        title: $t('page.manage.role.value'),
         width: 120,
         align: 'center'
       },
@@ -94,20 +104,20 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'default',
-        title: '默认角色',
+        title: $t('page.manage.role.default'),
         align: 'center',
-        width: 80,
+        width: 120,
         render: row => {
           if (!row.default) {
             return null;
           }
 
-          return <NTag type={'primary'}>是</NTag>;
+          return <NTag type={'primary'}>{$t('common.yesOrNo.yes')}</NTag>;
         }
       },
       {
         key: 'description',
-        title: '描述', // $t('page.manage.role.role'),
+        title: $t('page.manage.role.desc'),
         width: 200,
         ellipsis: {
           tooltip: true
@@ -115,7 +125,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'createdAt',
-        title: '创建时间',
+        title: $t('common.createdAt'),
         width: 180,
         render: row => {
           return <NTime time={new Date(row.createdAt)} />;
@@ -123,7 +133,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'updatedAt',
-        title: '更新时间',
+        title: $t('common.updatedAt'),
         width: 180,
         render: row => {
           return <NTime time={new Date(row.updatedAt)} />;
@@ -176,40 +186,48 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const detailColumns: DetailsDescriptionsType = [
+const detailColumns = useDetailDescriptions<Partial<Api.SystemManage.Role>>(() => [
   {
     key: 'name',
-    label: '名称'
+    label: $t('page.manage.role.name')
   },
   {
     key: 'value',
-    label: '角色标识'
+    label: $t('page.manage.role.value')
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     render: row => {
-      return <NTag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</NTag>;
+      return (
+        <NTag type={row.status === 1 ? 'success' : 'error'}>
+          {row.status === 1 ? $t('common.enable') : $t('common.disable')}
+        </NTag>
+      );
     }
   },
   {
     key: 'default',
-    label: '默认角色',
+    label: $t('page.manage.role.default'),
     render: row => {
-      return <NTag type={row.default ? 'success' : 'info'}>{row.default ? '是' : '否'}</NTag>;
+      return (
+        <NTag type={row.default ? 'success' : 'info'}>
+          {row.default ? $t('common.yesOrNo.yes') : $t('common.yesOrNo.no')}
+        </NTag>
+      );
     }
   },
   {
     key: 'description',
-    label: '描述',
+    label: $t('page.manage.role.desc'),
     span: 2
   },
   {
     key: 'createdAt',
-    label: '创建时间',
+    label: $t('common.createdAt'),
     span: 2,
     render: row => {
-      if (row.createdAt === null) {
+      if (!row.createdAt) {
         return null;
       }
       return <NTime time={new Date(row.createdAt)} />;
@@ -217,16 +235,16 @@ const detailColumns: DetailsDescriptionsType = [
   },
   {
     key: 'updatedAt',
-    label: '更新时间',
+    label: $t('common.updatedAt'),
     span: 2,
     render: row => {
-      if (row.updatedAt === null) {
+      if (!row.updatedAt) {
         return null;
       }
       return <NTime time={new Date(row.updatedAt)} />;
     }
   }
-];
+]);
 
 const {
   drawerVisible,
@@ -266,7 +284,7 @@ async function handleDelete(id: string) {
 async function handleSetDefault(id: string) {
   const { error } = await fetchSetRoleDefault(id);
   if (!error) {
-    window.$message?.success('设置成功');
+    window.$message?.success($t('common.setDefault') + $t('common.successOrFailRecord.success'));
     getDataByPage();
   }
 }
@@ -311,7 +329,7 @@ async function handleSetDefault(id: string) {
     />
     <DetailsDescriptions
       v-model:visible="modelVisible"
-      title="角色详情"
+      :title="$t('page.manage.role.detail')"
       class="!w-[50%]"
       :fields="detailColumns"
       :data="detailData"

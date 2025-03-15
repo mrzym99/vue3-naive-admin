@@ -4,23 +4,23 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteDept, fetchGetDeptList, fetchSetDeptDefault } from '@/service/api';
 import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
 import { useAuth } from '@/hooks/business/auth';
+import { useSearchForm } from '@/hooks/common/search-form';
 import DeptOperateDrawer from './modules/dept-operate-drawer.vue';
 
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
-const deptSearchForm: SearchFormType<Api.SystemManage.DeptSearchParams> = [
+const deptSearchForm = useSearchForm<Api.SystemManage.DeptSearchParams>(() => [
   {
     key: 'name',
-    label: '部门名称',
+    label: $t('page.manage.dept.name'),
     type: 'Input',
     props: {
-      placeholder: '请输入部门名称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.dept.name')
     }
   }
-];
+]);
 
 const {
   columns,
@@ -31,8 +31,7 @@ const {
   getData,
   searchParams,
   resetSearchParams,
-  setExpand,
-  setFold,
+  toggleExpand,
   expandedRowKeys,
   isTreeTable
 } = useTable({
@@ -48,20 +47,20 @@ const {
   columns: () => [
     {
       key: 'name',
-      title: '部门名称', // $t('page.manage.dept.role'),
+      title: $t('page.manage.dept.name'),
       align: 'left',
       minWidth: 100,
       tree: true
     },
     {
       key: 'order',
-      title: '排序',
+      title: $t('page.manage.common.order'),
       align: 'center',
       width: 100
     },
     {
       key: 'default',
-      title: '默认部门',
+      title: $t('page.manage.dept.default'),
       align: 'center',
       width: 120,
       render: row => {
@@ -69,7 +68,7 @@ const {
           return null;
         }
 
-        return <NTag type={'primary'}>是</NTag>;
+        return <NTag type={'primary'}>{$t('common.yesOrNo.yes')}</NTag>;
       }
     },
 
@@ -105,10 +104,10 @@ const {
           ) : (
             <NPopconfirm onPositiveClick={() => handleSetDefault(row.id)}>
               {{
-                default: () => '设置为默认',
+                default: () => $t('common.setDefault'),
                 trigger: () => (
                   <NButton disabled={!hasAuth('system:dept:update')} type={'tertiary'} ghost size="small">
-                    设为默认
+                    {$t('common.setDefault')}
                   </NButton>
                 )
               }}
@@ -136,7 +135,7 @@ async function handleDelete(id: string) {
 async function handleSetDefault(id: string) {
   const { error } = await fetchSetDeptDefault(id);
   if (!error) {
-    window.$message?.success('设为默认成功');
+    window.$message?.success($t('common.operateSuccess'));
     getDataByPage();
   }
 }
@@ -160,8 +159,7 @@ async function handleSetDefault(id: string) {
           :tree-table="isTreeTable"
           @add="handleAdd"
           @refresh="getData"
-          @expand="setExpand"
-          @fold="setFold"
+          @toggle-expand="toggleExpand"
         />
         <NDataTable
           v-model:expanded-row-keys="expandedRowKeys"

@@ -1,3 +1,3 @@
-import type { ConfigFormArrayType as SearchFormType } from '../config-form';
+import type { Recordable, SearchFormArrayType, SearchFormType } from './search-form-type';
 export { default as SearchForm } from './search-form.vue';
-export { SearchFormType };
+export type { SearchFormType, SearchFormArrayType, Recordable };

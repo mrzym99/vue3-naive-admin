@@ -23,8 +23,7 @@ interface Emits {
   (e: 'add'): void;
   (e: 'delete'): void;
   (e: 'refresh'): void;
-  (e: 'expand'): void;
-  (e: 'fold'): void;
+  (e: 'toggleExpand'): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -47,29 +46,19 @@ function refresh() {
   emit('refresh');
 }
 
-function expand() {
-  emit('expand');
-}
-
-function fold() {
-  emit('fold');
+function toggleExpand() {
+  emit('toggleExpand');
 }
 </script>
 
 <template>
   <NSpace :align="itemAlign" wrap justify="space-between" class="pb-8px lt-sm:w-200px">
     <NSpace v-show="treeTable" :align="itemAlign" wrap justify="start">
-      <NButton size="small" @click="expand">
+      <NButton size="small" @click="toggleExpand">
         <template #icon>
           <icon-ic-twotone-unfold-more class="text-icon" />
         </template>
-        {{ $t('common.expand') }}
-      </NButton>
-      <NButton size="small" @click="fold">
-        <template #icon>
-          <icon-ic-twotone-unfold-less class="text-icon" />
-        </template>
-        {{ $t('common.fold') }}
+        {{ `${$t('common.expand')}/${$t('common.fold')}` }}
       </NButton>
     </NSpace>
     <NSpace :align="itemAlign" wrap justify="end">

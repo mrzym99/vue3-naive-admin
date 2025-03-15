@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
-import { $t } from '@/locales';
+import { $t, getLocale } from '@/locales';
 import { useNaiveForm } from '@/hooks/common/form';
-import type { ConfigFormArrayType } from '../config-form/config-form-type';
+import type { SearchFormArrayType, SearchFormType } from './search-form-type';
 
 defineOptions({
   name: 'SearchForm'
 });
 
 interface Props {
-  fields: ConfigFormArrayType;
+  fields: SearchFormType;
   labelWidth?: number;
   labelPlacement?: 'left' | 'top';
 }
@@ -21,7 +21,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  labelWidth: 80,
+  labelWidth: 0,
   labelPlacement: 'left'
 });
 
@@ -33,7 +33,7 @@ const activeBreakpoint = useBreakpoints(breakpointsTailwind).active();
 const model = defineModel<Record<string, any>>('model', { default: () => ({}), type: Object });
 
 const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
-  return props.fields.reduce(
+  return generateFieldArr().reduce(
     (acc, field) => {
       if (field.required) {
         acc[field.key] = [
@@ -69,12 +69,18 @@ const span = (breakpoints: string) => {
   }
 };
 
-const finalFields = computed<ConfigFormArrayType>(() => {
+const finalFields = computed(() => {
   if (isCllapse.value) {
-    return props.fields.slice(0, 24 / span(activeBreakpoint.value) - 1);
+    return generateFieldArr().slice(0, 24 / span(activeBreakpoint.value) - 1);
   }
-  return props.fields;
+  return generateFieldArr();
 });
+
+// 根据传入的 fields 生成 fields 数组
+function generateFieldArr(): SearchFormArrayType {
+  const fields = typeof props.fields === 'function' ? props.fields() : props.fields;
+  return fields;
+}
 
 const collapseSpan = (breakpoints: string) => {
   const currentSpan = span(breakpoints);
@@ -95,6 +101,14 @@ async function search() {
   await validate();
   emit('search');
 }
+
+const computedLabelWidth = computed(() => {
+  if (props.labelWidth) return props.labelWidth;
+  if (getLocale.value === 'zh-CN') {
+    return 80;
+  }
+  return 120;
+});
 </script>
 
 <template>
@@ -103,7 +117,7 @@ async function search() {
     :model="model"
     :rules="rules"
     v-bind="$attrs"
-    :label-width="labelWidth"
+    :label-width="computedLabelWidth"
     :label-placement="labelPlacement"
   >
     <NGrid responsive="screen" item-responsive :x-gap="16">

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
-import type { ConfigFormArrayType, Option } from '@/components/advanced/config-form';
-import { enableStatusOptions, userGenderOptions } from '@/constants/business';
+import type { Option } from '@/components/advanced/config-form';
+import { useConfigForm } from '@/hooks/common/config-form';
+import { GenderEnum, StatusEnum } from '@/constants/enum';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -43,136 +44,148 @@ type Model = Partial<Api.SystemManage.User>;
 
 const model = ref(createDefaultModel());
 
-const userConfigForm = reactive<ConfigFormArrayType>([
-  {
+const userConfigForm = useConfigForm<Model>(() => ({
+  avatar: {
     key: 'avatar',
-    label: '头像',
+    label: $t('page.manage.user.avatar'),
     type: 'Upload',
     required: true,
     span: 24,
     props: {
       cropper: true,
-      placeholder: '请上传头像',
       'list-type': 'image-card',
       max: 1
     }
   },
-  {
+  deptId: {
     key: 'deptId',
-    label: '所属部门',
+    label: $t('page.manage.user.dept'),
     type: 'TreeSelect',
     required: true,
     props: {
-      placeholder: '请选择所属部门',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.user.dept'),
       options: []
     }
   },
-  {
+  roleIds: {
     key: 'roleIds',
-    label: '所属角色',
+    label: $t('page.manage.user.role'),
     type: 'Select',
     required: true,
     props: {
       multiple: true,
-      placeholder: '请选择角色',
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.user.role'),
       options: []
     }
   },
-  {
+  username: {
     key: 'username',
-    label: '用户名',
+    label: $t('page.manage.user.username'),
     type: 'Input',
     disabled: true,
     props: {
-      placeholder: '请输入用户名'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.username')
     }
   },
-  {
+  nickName: {
     key: 'nickName',
-    label: '昵称',
+    label: $t('page.manage.user.nickName'),
     type: 'Input',
     required: true,
     props: {
-      placeholder: '请输入昵称'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.nickName')
     }
   },
-  {
+  gender: {
     key: 'gender',
-    label: '性别',
+    label: $t('page.manage.user.userGender'),
     type: 'Radio',
     required: true,
-    options: userGenderOptions,
-    props: {
-      placeholder: '请选择性别'
-    }
+    options: [
+      {
+        label: $t('page.manage.user.gender.male'),
+        value: GenderEnum.MALE
+      },
+      {
+        label: $t('page.manage.user.gender.female'),
+        value: GenderEnum.FEMALE
+      }
+    ]
   },
-
-  {
+  email: {
     key: 'email',
-    label: '邮箱',
+    label: $t('page.manage.user.email'),
     type: 'Input',
     required: true,
     props: {
-      placeholder: '请输入邮箱'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.email')
     }
   },
-  {
+  phone: {
     key: 'phone',
-    label: '手机号码',
+    label: $t('page.manage.user.phone'),
     type: 'Input',
     props: {
-      placeholder: '请输入手机号码'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.phone')
     }
   },
-
-  {
+  address: {
     key: 'address',
-    label: '地址',
+    label: $t('page.manage.user.address'),
     type: 'Input',
     props: {
-      placeholder: '请输入地址'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.address')
     }
   },
-  {
+  birthDate: {
     key: 'birthDate',
-    label: '出生日期',
+    label: $t('page.manage.user.birthDate'),
     type: 'DatePicker',
     props: {
       type: 'date',
-      placeholder: '请选择出生日期'
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.user.birthDate')
     }
   },
-  {
+  status: {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Radio',
     required: true,
     props: {
-      placeholder: '请选择状态'
+      placeholder: $t('common.pleaseSelect') + $t('common.status')
     },
-    options: enableStatusOptions
+    options: [
+      {
+        label: $t('common.enable'),
+        value: StatusEnum.ENABLE
+      },
+      {
+        label: $t('common.disable'),
+        value: StatusEnum.DISABLE
+      }
+    ]
   },
-  {
+  signature: {
     key: 'signature',
-    label: '个性签名',
+    label: $t('page.manage.user.signature'),
     type: 'Input',
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: '请输入个性签名'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.signature')
     }
   },
-  {
+  introduction: {
     key: 'introduction',
-    label: '简介',
+    label: $t('page.manage.user.introduction'),
     type: 'Input',
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: '请输入简介'
+      placeholder: $t('common.pleaseInput') + $t('page.manage.user.introduction')
     }
   }
-]);
+}));
 
 function createDefaultModel(): Model {
   return {
@@ -203,7 +216,7 @@ async function getRoleOptions() {
         }))
       : [];
 
-    userConfigForm[2]!.props!.options = options;
+    userConfigForm.value.roleIds!.props!.options = options;
   }
 }
 
@@ -223,7 +236,7 @@ function mapTree(tree: Api.SystemManage.DeptTree): Option[] {
 async function getDeptTree() {
   const { data, error } = await fetchGetDeptTree();
   if (!error) {
-    userConfigForm[1]!.props!.options = mapTree(data);
+    userConfigForm.value.deptId!.props!.options = mapTree(data);
   }
 }
 

@@ -34,8 +34,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     searchParams,
     updateSearchParams,
     resetSearchParams,
-    setExpand,
-    setFold,
+    toggleExpand,
     expandedRowKeys
   } = useHookTable<A, GetTableData<A>, TableColumn<NaiveUI.TableDataWithIndex<GetTableData<A>>>>({
     apiFn,
@@ -212,8 +211,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     searchParams,
     updateSearchParams,
     resetSearchParams,
-    setFold,
-    setExpand,
+    toggleExpand,
     expandedRowKeys,
     isTreeTable,
     expandAll

@@ -3,7 +3,7 @@ import type { VNode } from 'vue';
 type Recordable<T = any> = Record<string, T>;
 type RenderFn<T> = (row: T) => VNode | Array<VNode> | string | null;
 type BooleanPredicate<T> = (value: T) => boolean;
-type BooleanProp<T> = BooleanPredicate<T> | boolean;
+export type BooleanProp<T> = BooleanPredicate<T> | boolean;
 
 export type DetailsDescriptionsProps<T extends Recordable = any> = {
   data: T;

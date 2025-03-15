@@ -8,6 +8,11 @@ export enum TaskTypeEnum {
   INTERVAL = 1
 }
 
+export enum GenderEnum {
+  MALE = 1,
+  FEMALE = 0
+}
+
 export enum ProviderEnum {
   SMS = 'sms',
   EMAIL = 'email',
@@ -20,4 +25,9 @@ export enum MenuTypeEnum {
   MENU = 1,
   // 权限
   PERMISSION = 2
+}
+
+export enum MenuIconTypeEnum {
+  ICONIFY = 0,
+  LOCAL = 1
 }
