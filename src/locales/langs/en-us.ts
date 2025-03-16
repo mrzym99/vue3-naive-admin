@@ -350,7 +350,6 @@ const local: App.I18n.Schema = {
         title: 'Dept',
         name: 'Dept Name',
         default: 'Default Dept',
-        form: null,
         add: 'Add Dept',
         edit: 'Edit Dept',
         parent: 'Parent Dept',

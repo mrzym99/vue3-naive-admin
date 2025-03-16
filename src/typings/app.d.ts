@@ -533,7 +533,6 @@ declare namespace App {
             title: string;
             name: string;
             default: string;
-            form: null;
             add: string;
             edit: string;
             parent: string;

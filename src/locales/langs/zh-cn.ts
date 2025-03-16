@@ -348,7 +348,6 @@ const local: App.I18n.Schema = {
         title: '部门',
         name: '部门名称',
         default: '默认部门',
-        form: null,
         add: '新增部门',
         edit: '编辑部门',
         parent: '上级部门',
