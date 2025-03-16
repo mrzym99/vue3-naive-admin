@@ -23,7 +23,7 @@ const userSearchForm = useSearchForm<Api.SystemManage.UserSearchParams>(() => [
     label: $t('page.manage.user.username'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.username')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.username')
     }
   },
   {
@@ -31,7 +31,7 @@ const userSearchForm = useSearchForm<Api.SystemManage.UserSearchParams>(() => [
     label: $t('page.manage.user.nickName'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.nickName')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.nickName')
     }
   },
   {
@@ -39,7 +39,7 @@ const userSearchForm = useSearchForm<Api.SystemManage.UserSearchParams>(() => [
     label: $t('page.manage.user.email'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.email')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.email')
     }
   },
   {
@@ -174,8 +174,8 @@ const detailColumns = useDetailDescriptions<Api.SystemManage.User>(() => [
     label: $t('common.status'),
     render: row => {
       return (
-        <NTag type={row.status === 1 ? 'success' : 'error'}>
-          {row.status === 1 ? $t('common.enable') : $t('common.disable')}
+        <NTag type={row.status === StatusEnum.ENABLE ? 'success' : 'error'}>
+          {row.status === StatusEnum.ENABLE ? $t('common.enable') : $t('common.disable')}
         </NTag>
       );
     }

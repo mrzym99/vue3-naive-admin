@@ -4,39 +4,38 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteStorageLocal, fetchGetStorageLocalList } from '@/service/api';
 import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
 import { useAuth } from '@/hooks/business/auth';
+import { useSearchForm } from '@/hooks/common/search-form';
 const { hasAuth } = useAuth();
 
 const appStore = useAppStore();
 
-const storageLocalSearchForm: SearchFormType<Api.ToolsManage.StorageLocalSearchParams> = [
+const storageLocalSearchForm = useSearchForm<Api.ToolsManage.StorageLocalSearchParams>(() => [
   {
     key: 'name',
-    label: '文件名',
+    label: $t('page.tools.storage.fileName'),
     type: 'Input',
     props: {
-      placeholder: '请输入文件名'
+      placeholder: $t('common.pleaseEnter') + $t('page.tools.storage.fileName')
     }
   },
   {
     key: 'username',
-    label: '上传者',
+    label: $t('page.tools.storage.uploadBy'),
     type: 'Input',
     props: {
-      placeholder: '请输入上传者'
+      placeholder: $t('common.pleaseEnter') + $t('page.tools.storage.uploadBy')
     }
   },
   {
     key: 'time',
-    label: '上传时间',
+    label: $t('page.tools.storage.uploadTime'),
     type: 'DatePicker',
     props: {
-      type: 'daterange',
-      placeholder: '请选择上传时间'
+      type: 'daterange'
     }
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -60,7 +59,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'name',
-        title: '文件名',
+        title: $t('page.tools.storage.fileName'),
         align: 'left',
         width: 200,
         ellipsis: {
@@ -69,13 +68,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'extName',
-        title: '文件扩展名',
+        title: $t('page.tools.storage.fileExt'),
         align: 'center',
         width: 100
       },
       {
         key: 'type',
-        title: '文件类型',
+        title: $t('page.tools.storage.fileType'),
         align: 'center',
         width: 120,
         render: row => {
@@ -85,7 +84,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'path',
-        title: '文件预览',
+        title: $t('page.tools.storage.preview'),
         align: 'center',
         width: 120,
         render: row => {
@@ -95,22 +94,23 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'size',
-        title: '文件大小',
+        title: $t('page.tools.storage.size'),
         align: 'center',
         width: 100
       },
       {
         key: 'createdAt',
-        title: '上传时间',
+        title: $t('page.tools.storage.uploadTime'),
         align: 'center',
         minWidth: 100,
         render: row => {
+          if (!row.createdAt) return null;
           return <NTime time={new Date(row.createdAt)} />;
         }
       },
       {
         key: 'username',
-        title: '上传者',
+        title: $t('page.tools.storage.uploadBy'),
         align: 'center',
         minWidth: 100
       },
@@ -124,10 +124,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
           <div class="flex-center gap-8px">
             <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
-                default: () => `删除文件 - ${row.name} ？`,
+                default: () => `${$t('common.delete')} - ${row.name} ？`,
                 trigger: () => (
                   <NButton disabled={!hasAuth('tool:storage:delete')} type={'error'} ghost size="small">
-                    删除
+                    {$t('common.delete')}
                   </NButton>
                 )
               }}
@@ -143,7 +143,7 @@ const { checkedRowKeys } = useTableOperate(data, getData);
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteStorageLocal([id]);
   if (!error) {
-    window.$message?.success('删除');
+    window.$message?.success($t('common.deleteSuccess'));
     getDataByPage();
   }
 }
@@ -151,7 +151,7 @@ async function handleDelete(id: string) {
 async function handleBatchDelete() {
   const { error } = await fetchDeleteStorageLocal(checkedRowKeys.value as string[]);
   if (!error) {
-    window.$message?.success('删除');
+    window.$message?.success($t('common.deleteSuccess'));
     getDataByPage();
   }
 }

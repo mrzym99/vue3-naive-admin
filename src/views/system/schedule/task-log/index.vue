@@ -6,25 +6,35 @@ import { fetchBatchDeleteTaskLog, fetchGetTaskLogList } from '@/service/api';
 import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { successOrFailRecord } from '@/constants/common';
+import { StatusEnum } from '@/constants/enum';
 
 const appStore = useAppStore();
 
 const taskLogSearchForm: SearchFormType<Api.SystemManage.TaskLogSearchParams> = [
   {
     key: 'name',
-    label: '任务名称',
+    label: $t('page.manage.taskLog.name'),
     type: 'Input',
     props: {
-      placeholder: '请输入任务名称'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.taskLog.name')
     }
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Select',
     props: {
-      options: [],
-      placeholder: '请选择任务状态'
+      placeholder: $t('common.pleaseSelect') + $t('common.status'),
+      options: [
+        {
+          label: $t('common.enable'),
+          value: StatusEnum.ENABLE
+        },
+        {
+          label: $t('common.disable'),
+          value: StatusEnum.DISABLE
+        }
+      ]
     }
   }
 ];
@@ -47,7 +57,7 @@ const { columns, columnChecks, data, getData, loading, pagination, getDataByPage
       },
       {
         key: 'taskId',
-        title: '任务id', // $t('page.manage.taskLog.taskLog'),
+        title: $t('page.manage.taskLog.id'),
         align: 'left',
         width: 120,
         ellipsis: {
@@ -56,7 +66,7 @@ const { columns, columnChecks, data, getData, loading, pagination, getDataByPage
       },
       {
         key: 'name',
-        title: '任务名称', // $t('page.manage.taskLog.taskLog'),
+        title: $t('page.manage.taskLog.name'),
         width: 150,
         ellipsis: {
           tooltip: true
@@ -84,14 +94,13 @@ const { columns, columnChecks, data, getData, loading, pagination, getDataByPage
       },
       {
         key: 'consumeTime',
-        title: '耗时',
+        title: $t('page.manage.taskLog.consume'),
         align: 'center',
         width: 100
       },
-
       {
         key: 'detail',
-        title: '失败详情',
+        title: $t('page.manage.taskLog.failDetail'),
         width: 220,
         ellipsis: {
           tooltip: true
@@ -99,7 +108,7 @@ const { columns, columnChecks, data, getData, loading, pagination, getDataByPage
       },
       {
         key: 'createdAt',
-        title: '任务发起时间',
+        title: $t('page.manage.taskLog.startTime'),
         width: 200,
         render: row => {
           if (!row.createdAt) return null;

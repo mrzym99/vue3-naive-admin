@@ -2,46 +2,46 @@
 import { NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import type { SearchFormType } from '@/components/advanced/search-form';
 import { fetchBatchDeleteLoginLog, fetchGetLoginLogList } from '@/service/api';
+import { $t } from '@/locales';
+import { useSearchForm } from '@/hooks/common/search-form';
 
 const appStore = useAppStore();
 
-const userSearchForm: SearchFormType<Api.SystemManage.LoginLogSearchParams> = [
+const userSearchForm = useSearchForm<Api.SystemManage.LoginLogSearchParams>(() => [
   {
     key: 'username',
-    label: '用户名',
+    label: $t('page.manage.user.username'),
     type: 'Input',
     props: {
-      placeholder: '请输入用户名'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.username')
     }
   },
   {
     key: 'ip',
-    label: 'IP',
+    label: $t('page.manage.online.ip'),
     type: 'Input',
     props: {
-      placeholder: '请输入IP'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.online.ip')
     }
   },
   {
     key: 'address',
-    label: '登录地点',
+    label: $t('page.manage.loginLog.address'),
     type: 'Input',
     props: {
-      placeholder: '请输入登录地点'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.loginLog.address')
     }
   },
   {
     key: 'time',
-    label: '登录时间',
+    label: $t('page.manage.loginLog.loginTime'),
     type: 'DatePicker',
     props: {
-      type: 'daterange',
-      placeholder: '请输入选择登录时间范围'
+      type: 'daterange'
     }
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -65,7 +65,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'username',
-        title: '用户名',
+        title: $t('page.manage.user.username'),
         align: 'left',
         width: 150,
         ellipsis: {
@@ -74,7 +74,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'nickName',
-        title: '昵称',
+        title: $t('page.manage.user.nickName'),
         align: 'center',
         width: 150,
         ellipsis: {
@@ -83,7 +83,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'ip',
-        title: 'IP',
+        title: $t('page.manage.online.ip'),
         align: 'center',
         width: 200,
         ellipsis: {
@@ -92,13 +92,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'address',
-        title: '登录地点', // $t('page.manage.user.userGender'),
+        title: $t('page.manage.loginLog.address'),
         align: 'center',
         width: 280
       },
       {
         key: 'time',
-        title: '登录时间',
+        title: $t('page.manage.loginLog.loginTime'),
         width: 200,
         render: row => {
           if (row.time === null) return null;
@@ -107,13 +107,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'os',
-        title: '操作系统',
+        title: $t('page.manage.loginLog.os'),
         align: 'center',
         width: 120
       },
       {
         key: 'browser',
-        title: '浏览器', // $t('page.manage.user.role'),
+        title: $t('page.manage.loginLog.browser'),
         align: 'center',
         width: 200
       }

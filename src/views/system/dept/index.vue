@@ -17,7 +17,7 @@ const deptSearchForm = useSearchForm<Api.SystemManage.DeptSearchParams>(() => [
     label: $t('page.manage.dept.name'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.dept.name')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.dept.name')
     }
   }
 ]);
@@ -128,6 +128,7 @@ function edit(id: string) {
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteDept(id);
   if (!error) {
+    window.$message?.success($t('common.deleteSuccess'));
     onDeleted();
   }
 }

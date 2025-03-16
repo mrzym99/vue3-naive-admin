@@ -36,8 +36,8 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.task.addTask'),
-    edit: $t('page.manage.task.editTask')
+    add: $t('page.manage.task.add'),
+    edit: $t('page.manage.task.edit')
   };
   return titles[props.operateType];
 });
@@ -49,103 +49,106 @@ const model = ref(createDefaultModel());
 const taskConfigForm: ConfigFormObjectType<Api.SystemManage.TaskSearchParams> = reactive({
   type: {
     key: 'type',
-    label: '类型',
+    label: $t('page.manage.task.taskType'),
     type: 'Radio',
     span: 24,
     required: true,
     options: [
       {
-        label: 'Cron',
+        label: $t('page.manage.task.cron'),
         value: TaskTypeEnum.CRON
       },
       {
-        label: '时间间隔',
+        label: $t('page.manage.task.interval'),
         value: TaskTypeEnum.INTERVAL
       }
     ]
   },
   name: {
     key: 'name',
-    label: '任务名称',
+    label: $t('page.manage.task.name'),
     type: 'Input',
     span: 24,
     required: true,
     props: {
-      placeholder: '请输入任务名称'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.task.name')
     }
   },
   service: {
     key: 'service',
-    label: '服务路径',
+    label: $t('page.manage.task.service'),
     type: 'Input',
     span: 24,
     required: true,
     props: {
-      placeholder: '请输入服务路径'
+      placeholder: $t('page.manage.task.service')
     }
-  },
-  data: {
-    key: 'data',
-    label: '任务参数',
-    type: 'Input',
-    span: 24,
-    slot: 'data'
   },
   limit: {
     key: 'limit',
-    label: '执行次数',
+    label: $t('page.manage.task.limit'),
     type: 'InputNumber',
     props: {
       min: -1,
-      placeholder: '请输入执行次数'
+      placeholder: $t('page.manage.task.limit')
     }
   },
   cron: {
     key: 'cron',
-    label: 'Cron 表达式',
+    label: $t('page.manage.task.cron'),
     type: 'Input',
     span: 24,
     hide: () => {
       return model.value.type !== TaskTypeEnum.CRON;
     },
     props: {
-      type: 'textarea',
-      placeholder: '请输入Cron 表达式'
+      placeholder: $t('page.manage.task.cron')
     }
   },
   every: {
     key: 'every',
-    label: '执行间隔',
+    label: $t('page.manage.task.interval'),
     type: 'InputNumber',
     hide: () => {
       return model.value.type === TaskTypeEnum.CRON;
     },
     props: {
       min: 100,
-      placeholder: '请输入执行间隔'
+      placeholder: $t('page.manage.task.interval')
     }
   },
   startTime: {
     key: 'startTime',
-    label: '开始时间',
+    label: $t('page.manage.task.startTime'),
     type: 'DatePicker',
     hide: () => {
       return model.value.type === TaskTypeEnum.CRON;
     },
-    props: {}
+    props: {
+      type: 'datetime'
+    }
   },
   endTime: {
     key: 'endTime',
-    label: '结束时间',
+    label: $t('page.manage.task.endTime'),
     type: 'DatePicker',
     hide: () => {
       return model.value.type === TaskTypeEnum.CRON;
     },
-    props: {}
+    props: {
+      type: 'datetime'
+    }
+  },
+  data: {
+    key: 'data',
+    label: $t('page.manage.task.params'),
+    type: 'Input',
+    span: 24,
+    slot: 'data'
   },
   status: {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Radio',
     options: [
       {
@@ -160,12 +163,12 @@ const taskConfigForm: ConfigFormObjectType<Api.SystemManage.TaskSearchParams> = 
   },
   remark: {
     key: 'remark',
-    label: '备注',
+    label: $t('page.manage.common.remark'),
     type: 'Input',
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: '请输入备注'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.common.remark')
     }
   }
 });

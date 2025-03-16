@@ -60,7 +60,7 @@ const local: App.I18n.Schema = {
     },
     setDefault: '设为默认',
     noPermission: '非常抱歉，您没有权限！',
-    pleaseInput: '请输入',
+    pleaseEnter: '请输入',
     pleaseSelect: '请选择',
     createdAt: '创建时间',
     updatedAt: '更新时间',
@@ -341,7 +341,8 @@ const local: App.I18n.Schema = {
           disable: '禁用'
         },
         order: '排序',
-        default: '默认'
+        default: '默认',
+        remark: '备注'
       },
       dept: {
         title: '部门',
@@ -375,8 +376,8 @@ const local: App.I18n.Schema = {
         phone: '手机号码',
         email: '邮箱',
         role: ' 用户角色',
-        addUser: '新增用户',
-        editUser: '编辑用户',
+        add: '新增用户',
+        edit: '编辑用户',
         resetPassword: '重置密码',
         dept: '所属部门',
         address: '地址',
@@ -433,22 +434,89 @@ const local: App.I18n.Schema = {
           local: '本地图标'
         }
       },
+      online: {
+        ip: 'IP',
+        sessionId: '会话编号',
+        browser: '浏览器',
+        os: '操作系统',
+        loginTime: '登录时间',
+        offline: '下线',
+        address: '登录地址'
+      },
+      loginLog: {
+        browser: '浏览器',
+        os: '操作系统',
+        loginTime: '登录时间',
+        address: '登录地址'
+      },
+      captchaLog: {
+        captcha: '验证码',
+        provider: '验证码提供商',
+        sendTime: '发送时间',
+        account: '账户'
+      },
+      os: {
+        runtime: {
+          title: '运行环境',
+          os: '操作系统',
+          arch: '系统架构',
+          nodeVersion: 'Node 版本',
+          npmVersion: 'Npm 版本'
+        },
+        disk: {
+          title: '磁盘',
+          total: '总空间',
+          used: '已用空间',
+          available: '可用空间'
+        },
+        cpu: {
+          title: 'Cpu',
+          details: '详细',
+          cores: '核心',
+          coresLoad: '负载'
+        },
+        memory: {
+          title: '内存',
+          total: '总内存',
+          available: '可用内存',
+          active: '已用内存'
+        }
+      },
       parameter: {
-        addParameter: '新增参数',
-        editParameter: '编辑参数'
+        name: '参数名称',
+        key: '参数键',
+        value: '参数值',
+        add: '新增参数',
+        edit: '编辑参数'
       },
       task: {
-        addTask: '新增任务',
-        editTask: '修编辑任务',
-        startTask: '启动',
-        stopTask: '停止',
-        onceTask: '启动一次',
-        deleteTask: '删除',
-        taskInfo: '任务信息',
+        name: '任务名称',
+        service: '调用服务',
+        params: '执行参数',
+        cron: 'Cron 表达式',
+        interval: '间隔时间',
+        limit: '执行次数',
+        startTime: '开始时间',
+        endTime: '结束时间',
+        add: '新增任务',
+        edit: '修编辑任务',
+        start: '启动',
+        stop: '停止',
+        once: '启动一次',
+        delete: '删除',
+        detail: '任务详情',
+        taskType: '类型',
         type: {
           cron: 'Cron',
           interval: '间隔'
         }
+      },
+      taskLog: {
+        id: '任务ID',
+        name: '任务名称',
+        consume: '耗时',
+        failDetail: '失败详情',
+        startTime: '任务发起时间'
       },
       captcha: {
         provider: {
@@ -456,6 +524,30 @@ const local: App.I18n.Schema = {
           sms: '短信',
           captcha: 'Captcha'
         }
+      }
+    },
+    tools: {
+      mail: {
+        subject: '邮件主题',
+        email: '邮箱',
+        content: '正文',
+        sendSuccess: '发送成功',
+        pleaseEnterCorrectEmail: '请输入正确的邮箱地址',
+        to: '收件人',
+        toPlaceholder: '请输入收件人邮箱地址',
+        subjectPlaceholder: '请输入邮件主题',
+        send: '发送'
+      },
+      storage: {
+        fileName: '文件名',
+        fileExt: '文件扩展名',
+        fileType: '文件类型',
+        preview: '缩略图',
+        size: '文件大小',
+        uploadTime: '上传时间',
+        uploadBy: '上传者',
+        lastModified: '最近更新时间',
+        path: '访问路径'
       }
     }
   },

@@ -54,7 +54,7 @@ const roleConfigForm = useConfigForm<Model>(() => ({
     props: {
       maxlength: 20,
       'show-count': true,
-      placeholder: $t('common.pleaseInput') + $t('page.manage.role.name')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.role.name')
     }
   },
   value: {
@@ -65,12 +65,12 @@ const roleConfigForm = useConfigForm<Model>(() => ({
     props: {
       maxlength: 20,
       'show-count': true,
-      placeholder: $t('common.pleaseInput') + $t('page.manage.role.value')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.role.value')
     },
     rules: [
       {
         required: true,
-        message: $t('common.pleaseInput') + $t('page.manage.role.value'),
+        message: $t('common.pleaseEnter') + $t('page.manage.role.value'),
         validator: (_: any, value: any) => {
           return Boolean(value);
         },
@@ -117,7 +117,7 @@ const roleConfigForm = useConfigForm<Model>(() => ({
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: $t('common.pleaseInput') + $t('page.manage.role.desc')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.role.desc')
     }
   },
   menuIds: {

@@ -4,23 +4,23 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteParameter, fetchGetParameterInfo, fetchGetParameterList } from '@/service/api';
 import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
 import { useAuth } from '@/hooks/business/auth';
+import { useSearchForm } from '@/hooks/common/search-form';
 import ParameterOperateDrawer from './modules/parameter-operate-drawer.vue';
 
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
-const parameterSearchForm: SearchFormType<Api.SystemManage.ParameterSearchParams> = [
+const parameterSearchForm = useSearchForm<Api.SystemManage.ParameterSearchParams>(() => [
   {
     key: 'name',
-    label: '参数名称',
+    label: $t('page.manage.parameter.name'),
     type: 'Input',
     props: {
-      placeholder: '请输入参数名称'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.parameter.name')
     }
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -34,25 +34,25 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     columns: () => [
       {
         key: 'name',
-        title: '参数名称', // $t('page.manage.parameter.parameter'),
+        title: $t('page.manage.parameter.name'),
         align: 'left',
         width: 200
       },
       {
         key: 'key',
-        title: 'Key', // $t('page.manage.parameter.parameter'),
+        title: $t('page.manage.parameter.key'),
         align: 'center',
         width: 200
       },
       {
         key: 'value',
-        title: '参数值', // $t('page.manage.parameter.parameter'),
+        title: $t('page.manage.parameter.value'),
         width: 120,
         align: 'center'
       },
       {
         key: 'remark',
-        title: '备注', // $t('page.manage.parameter.parameter'),
+        title: $t('page.manage.common.remark'),
         width: 200,
         ellipsis: {
           tooltip: true
@@ -60,7 +60,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'updatedAt',
-        title: '更新时间',
+        title: $t('common.updatedAt'),
         width: 180,
         render: row => {
           return <NTime time={new Date(row.updatedAt)} />;
@@ -112,6 +112,7 @@ async function edit(id: string) {
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteParameter(id);
   if (!error) {
+    window.$message?.success($t('common.deleteSuccess'));
     onDeleted();
   }
 }

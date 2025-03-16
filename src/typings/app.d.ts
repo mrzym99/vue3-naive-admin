@@ -348,7 +348,7 @@ declare namespace App {
         };
         setDefault: string;
         noPermission: string;
-        pleaseInput: string;
+        pleaseEnter: string;
         pleaseSelect: string;
         createdAt: string;
         updatedAt: string;
@@ -527,6 +527,7 @@ declare namespace App {
             };
             order: string;
             default: string;
+            remark: string;
           };
           dept: {
             title: string;
@@ -560,8 +561,8 @@ declare namespace App {
             phone: string;
             email: string;
             role: string;
-            addUser: string;
-            editUser: string;
+            add: string;
+            edit: string;
             resetPassword: string;
             dept: string;
             address: string;
@@ -618,22 +619,89 @@ declare namespace App {
               local: string;
             };
           };
+          online: {
+            ip: string;
+            sessionId: string;
+            browser: string;
+            os: string;
+            loginTime: string;
+            offline: string;
+            address: string;
+          };
+          loginLog: {
+            browser: string;
+            os: string;
+            loginTime: string;
+            address: string;
+          };
+          captchaLog: {
+            captcha: string;
+            provider: string;
+            sendTime: string;
+            account: string;
+          };
+          os: {
+            runtime: {
+              title: string;
+              os: string;
+              arch: string;
+              nodeVersion: string;
+              npmVersion: string;
+            };
+            disk: {
+              title: string;
+              total: string;
+              used: string;
+              available: string;
+            };
+            cpu: {
+              title: string;
+              details: string;
+              cores: string;
+              coresLoad: string;
+            };
+            memory: {
+              title: string;
+              total: string;
+              available: string;
+              active: string;
+            };
+          };
           parameter: {
-            addParameter: string;
-            editParameter: string;
+            name: string;
+            key: string;
+            value: string;
+            add: string;
+            edit: string;
           };
           task: {
-            addTask: string;
-            editTask: string;
-            startTask: string;
-            stopTask: string;
-            onceTask: string;
-            deleteTask: string;
-            taskInfo: string;
+            name: string;
+            service: string;
+            params: string;
+            cron: string;
+            interval: string;
+            limit: string;
+            startTime: string;
+            endTime: string;
+            add: string;
+            edit: string;
+            start: string;
+            stop: string;
+            once: string;
+            delete: string;
+            detail: string;
+            taskType: string;
             type: {
               cron: string;
               interval: string;
             };
+          };
+          taskLog: {
+            id: string;
+            name: string;
+            consume: string;
+            failDetail: string;
+            startTime: string;
           };
           captcha: {
             provider: {
@@ -641,6 +709,30 @@ declare namespace App {
               sms: string;
               captcha: string;
             };
+          };
+        };
+        tools: {
+          mail: {
+            subject: string;
+            email: string;
+            content: string;
+            sendSuccess: string;
+            pleaseEnterCorrectEmail: string;
+            to: string;
+            toPlaceholder: string;
+            subjectPlaceholder: string;
+            send: string;
+          };
+          storage: {
+            fileName: string;
+            fileExt: string;
+            fileType: string;
+            preview: string;
+            size: string;
+            uploadTime: string;
+            uploadBy: string;
+            lastModified: string;
+            path: string;
           };
         };
       };

@@ -24,7 +24,7 @@ const menuSearchForm = useSearchForm<Api.SystemManage.MenuSearchParams>(() => [
     label: $t('page.manage.menu.menuName'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.menuName')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.menuName')
     }
   },
   {
@@ -32,7 +32,7 @@ const menuSearchForm = useSearchForm<Api.SystemManage.MenuSearchParams>(() => [
     label: $t('page.manage.menu.routePath'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.routePath')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.routePath')
     }
   },
   {
@@ -456,7 +456,7 @@ function hideComponent() {
   return detailData.value?.extOpenMode === 1;
 }
 async function detail({ id, parentId }: Api.SystemManage.Menu) {
-  if (hasAuth('system:user:read')) {
+  if (hasAuth('system:menu:read')) {
     const parentMenu = flatTreeData(data.value).find(item => item.id === parentId);
     handleDetail(id, {
       parentTitle: parentMenu?.title,
@@ -481,6 +481,7 @@ function edit(id: string) {
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteMenu(id);
   if (!error) {
+    window.$message?.success($t('common.deleteSuccess'));
     onDeleted();
   }
 }

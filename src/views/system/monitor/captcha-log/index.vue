@@ -2,34 +2,47 @@
 import { NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import type { SearchFormType } from '@/components/advanced/search-form';
 import { fetchBatchDeleteCaptchaLog, fetchGetCaptchaLogList } from '@/service/api';
 import { ProviderRecord } from '@/constants/business';
 import { ProviderEnum } from '@/constants/enum';
 import { $t } from '@/locales';
+import { useSearchForm } from '@/hooks/common/search-form';
 
 const appStore = useAppStore();
 
-const userSearchForm: SearchFormType<Api.SystemManage.CaptchaLogSearchParams> = [
+const userSearchForm = useSearchForm<Api.SystemManage.CaptchaLogSearchParams>(() => [
   {
     key: 'provider',
-    label: '验证码提供商',
+    label: $t('page.manage.captchaLog.provider'),
     type: 'Select',
     span: 8,
     props: {
-      placeholder: '请选择服务验证码提供商',
-      options: []
+      placeholder: $t('common.pleaseSelect') + $t('page.manage.captchaLog.provider'),
+      options: [
+        {
+          label: $t(ProviderRecord.captcha),
+          value: ProviderEnum.CAPTCHA
+        },
+        {
+          label: $t(ProviderRecord.email),
+          value: ProviderEnum.EMAIL
+        },
+        {
+          label: $t(ProviderRecord.sms),
+          value: ProviderEnum.SMS
+        }
+      ]
     }
   },
   {
     key: 'account',
-    label: '账户',
+    label: $t('page.manage.captchaLog.account'),
     type: 'Input',
     props: {
-      placeholder: '请输入账户'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.captchaLog.account')
     }
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -51,13 +64,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'code',
-        title: '验证码',
+        title: $t('page.manage.captchaLog.captcha'),
         align: 'left',
         width: 100
       },
       {
         key: 'provider',
-        title: '验证码提供商', // $t('page.manage.user.userGender'),
+        title: $t('page.manage.captchaLog.provider'),
         align: 'center',
         width: 200,
         render: row => {
@@ -75,7 +88,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'createdAt',
-        title: '发送时间',
+        title: $t('common.createdAt'),
         width: 200,
         render: row => {
           if (row.createdAt === null) return null;
@@ -84,7 +97,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'account',
-        title: '账户',
+        title: $t('page.manage.captchaLog.account'),
         width: 150
       }
     ]

@@ -20,7 +20,7 @@ const roleSearchForm = useSearchForm<Api.SystemManage.RoleSearchParams>(() => [
     label: $t('page.manage.role.name'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.role.name')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.role.name')
     }
   },
   {
@@ -28,7 +28,7 @@ const roleSearchForm = useSearchForm<Api.SystemManage.RoleSearchParams>(() => [
     label: $t('page.manage.role.value'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.role.value')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.role.value')
     }
   },
   {
@@ -200,8 +200,8 @@ const detailColumns = useDetailDescriptions<Partial<Api.SystemManage.Role>>(() =
     label: $t('common.status'),
     render: row => {
       return (
-        <NTag type={row.status === 1 ? 'success' : 'error'}>
-          {row.status === 1 ? $t('common.enable') : $t('common.disable')}
+        <NTag type={row.status === StatusEnum.ENABLE ? 'success' : 'error'}>
+          {row.status === StatusEnum.ENABLE ? $t('common.enable') : $t('common.disable')}
         </NTag>
       );
     }
@@ -277,6 +277,7 @@ async function edit(id: string) {
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteRole(id);
   if (!error) {
+    window.$message?.success($t('common.deleteSuccess'));
     onDeleted();
   }
 }

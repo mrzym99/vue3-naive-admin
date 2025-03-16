@@ -3,19 +3,20 @@ import { NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { fetchGetStorageOssList } from '@/service/api';
-import type { SearchFormType } from '@/components/advanced/search-form';
+import { $t } from '@/locales';
+import { useSearchForm } from '@/hooks/common/search-form';
 const appStore = useAppStore();
 
-const storageOssSearchForm: SearchFormType<Api.ToolsManage.StorageOssSearchParams> = [
+const storageOssSearchForm = useSearchForm<Api.ToolsManage.StorageOssSearchParams>(() => [
   {
     key: 'name',
-    label: '文件名',
+    label: $t('page.tools.storage.fileName'),
     type: 'Input',
     props: {
-      placeholder: '请输入文件名'
+      placeholder: $t('common.pleaseEnter') + $t('page.tools.storage.fileName')
     }
   }
-];
+]);
 
 const { columns, columnChecks, searchParams, data, loading, pagination, getData, getDataByPage, resetSearchParams } =
   useTable({
@@ -31,7 +32,7 @@ const { columns, columnChecks, searchParams, data, loading, pagination, getData,
     columns: () => [
       {
         key: 'name',
-        title: '文件名',
+        title: $t('page.tools.storage.fileName'),
         align: 'left',
         width: 200,
         ellipsis: {
@@ -40,13 +41,13 @@ const { columns, columnChecks, searchParams, data, loading, pagination, getData,
       },
       {
         key: 'extName',
-        title: '文件扩展名',
+        title: $t('page.tools.storage.fileExt'),
         align: 'center',
         width: 100
       },
       {
         key: 'type',
-        title: '文件类型',
+        title: $t('page.tools.storage.fileType'),
         align: 'center',
         width: 120,
         render: row => {
@@ -56,13 +57,13 @@ const { columns, columnChecks, searchParams, data, loading, pagination, getData,
       },
       {
         key: 'size',
-        title: '文件大小',
+        title: $t('page.tools.storage.size'),
         align: 'center',
         width: 100
       },
       {
         key: 'lastModified',
-        title: '最近修改时间',
+        title: $t('page.tools.storage.lastModified'),
         align: 'center',
         minWidth: 100,
         render: row => {
@@ -71,7 +72,7 @@ const { columns, columnChecks, searchParams, data, loading, pagination, getData,
       },
       {
         key: 'url',
-        title: '访问路径',
+        title: $t('page.tools.storage.path'),
         align: 'center',
         ellipsis: {
           tooltip: true

@@ -35,8 +35,8 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.parameter.addParameter'),
-    edit: $t('page.manage.parameter.editParameter')
+    add: $t('page.manage.parameter.add'),
+    edit: $t('page.manage.parameter.edit')
   };
   return titles[props.operateType];
 });
@@ -48,25 +48,25 @@ const model = ref(createDefaultModel());
 const parameterConfigForm = useConfigForm<Model>(() => ({
   name: {
     key: 'name',
-    label: '参数名称',
+    label: $t('page.manage.parameter.name'),
     type: 'Input',
     required: true,
     props: {
-      placeholder: '请输入参数名称'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.parameter.name')
     }
   },
   key: {
     key: 'key',
-    label: 'Key',
+    label: $t('page.manage.parameter.key'),
     type: 'Input',
     required: true,
     props: {
-      placeholder: '请输入Key'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.parameter.key')
     }
   },
   value: {
     key: 'value',
-    label: '参数值',
+    label: $t('page.manage.parameter.value'),
     span: 24,
     type: 'Input',
     slot: 'value',
@@ -74,12 +74,12 @@ const parameterConfigForm = useConfigForm<Model>(() => ({
   },
   remark: {
     key: 'remark',
-    label: '备注',
+    label: $t('page.manage.common.remark'),
     type: 'Input',
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: '请输入备注'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.common.remark')
     }
   }
 }));

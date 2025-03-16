@@ -52,7 +52,7 @@ const formFields = useConfigForm<Model>(() => ({
     props: {
       maxlength: 20,
       'show-count': true,
-      placeholder: $t('common.pleaseInput') + $t('page.manage.dept.name')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.dept.name')
     }
   },
   order: {
@@ -62,7 +62,7 @@ const formFields = useConfigForm<Model>(() => ({
     props: {
       min: 1,
       max: 9999,
-      placeholder: $t('common.pleaseInput') + $t('page.manage.common.order')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.common.order')
     }
   },
   parentId: {

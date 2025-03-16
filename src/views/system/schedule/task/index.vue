@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { NButton, NPopconfirm, NTag } from 'naive-ui';
+import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import {
@@ -11,42 +11,52 @@ import {
   fetchStopTask
 } from '@/service/api';
 import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
 import { TaskTypeRecord, enableStatusRecord } from '@/constants/business';
 import { useAuth } from '@/hooks/business/auth';
-import type { DetailsDescriptionsType } from '@/components/advanced/details-descriptions';
+import { useSearchForm } from '@/hooks/common/search-form';
+import { StatusEnum, TaskTypeEnum } from '@/constants/enum';
+import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import TaskOperateDrawer from './modules/task-operate-drawer.vue';
 
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
-const taskSearchForm: SearchFormType<Api.SystemManage.TaskSearchParams> = [
+const taskSearchForm = useSearchForm<Api.SystemManage.TaskSearchParams>(() => [
   {
     key: 'name',
-    label: '任务名称',
+    label: $t('page.manage.task.name'),
     type: 'Input',
     props: {
-      placeholder: '请输入任务名称'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.task.name')
     }
   },
   {
     key: 'service',
-    label: '调用服务',
+    label: $t('page.manage.task.service'),
     type: 'Input',
     props: {
-      placeholder: '请输入调用服务'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.task.service')
     }
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     type: 'Select',
     props: {
-      placeholder: '请选择状态',
-      options: []
+      placeholder: $t('common.pleaseSelect') + $t('common.status'),
+      options: [
+        {
+          label: $t('common.enable'),
+          value: StatusEnum.ENABLE
+        },
+        {
+          label: $t('common.disable'),
+          value: StatusEnum.DISABLE
+        }
+      ]
     }
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -62,7 +72,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     columns: () => [
       {
         key: 'name',
-        title: '任务名称', // $t('page.manage.task.task'),
+        title: $t('page.manage.task.name'),
         align: 'left',
         width: 150,
         ellipsis: {
@@ -98,7 +108,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'type',
-        title: '类型',
+        title: $t('page.manage.task.taskType'),
         align: 'center',
         width: 80,
         render: row => {
@@ -114,7 +124,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'service',
-        title: '调用服务', // $t('page.manage.task.task'),
+        title: $t('page.manage.task.service'), // $t('page.manage.task.task'),
         width: 200,
         ellipsis: {
           tooltip: true
@@ -122,7 +132,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'data',
-        title: '执行参数',
+        title: $t('page.manage.task.params'),
         width: 220,
         ellipsis: {
           tooltip: true
@@ -130,7 +140,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'remark',
-        title: '备注',
+        title: $t('page.manage.common.remark'),
         width: 200,
         ellipsis: {
           tooltip: true
@@ -157,10 +167,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             {!row.status ? (
               <NPopconfirm onPositiveClick={() => handleStart(row.id)}>
                 {{
-                  default: () => `${$t('page.manage.task.startTask')}?`,
+                  default: () => `${$t('page.manage.task.start')}?`,
                   trigger: () => (
                     <NButton disabled={!hasAuth('system:task:start')} type="primary" ghost size="small">
-                      {$t('page.manage.task.startTask')}
+                      {$t('page.manage.task.start')}
                     </NButton>
                   )
                 }}
@@ -170,10 +180,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             )}
             <NPopconfirm onPositiveClick={() => handleOnce(row.id)}>
               {{
-                default: () => `${$t('page.manage.task.onceTask')}?`,
+                default: () => `${$t('page.manage.task.once')}?`,
                 trigger: () => (
                   <NButton disabled={!hasAuth('system:task:once')} type="primary" ghost size="small">
-                    {$t('page.manage.task.onceTask')}
+                    {$t('page.manage.task.once')}
                   </NButton>
                 )
               }}
@@ -181,10 +191,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             {row.status ? (
               <NPopconfirm onPositiveClick={() => handleStop(row.id)}>
                 {{
-                  default: () => `${$t('page.manage.task.stopTask')}?`,
+                  default: () => `${$t('page.manage.task.stop')}?`,
                   trigger: () => (
                     <NButton disabled={!hasAuth('system:task:stop')} type="error" ghost size="small">
-                      {$t('page.manage.task.stopTask')}
+                      {$t('page.manage.task.stop')}
                     </NButton>
                   )
                 }}
@@ -208,40 +218,82 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const detailColumns: DetailsDescriptionsType<Api.SystemManage.Task> = [
+const detailColumns = useDetailDescriptions<Api.SystemManage.Task>(() => [
   {
     key: 'name',
-    label: '名称'
+    label: $t('page.manage.task.name')
   },
   {
     key: 'type',
-    label: '类型',
+    label: $t('page.manage.task.taskType'),
     render: row => {
-      return <NTag type={row.type === 0 ? 'success' : 'primary'}>{row.type === 0 ? 'Corn' : '时间间隔'}</NTag>;
+      return (
+        <NTag type={row.type === 0 ? 'success' : 'primary'}>
+          {row.type === TaskTypeEnum.CRON ? $t('page.manage.task.cron') : $t('page.manage.task.interval')}
+        </NTag>
+      );
+    }
+  },
+  {
+    key: 'limit',
+    label: $t('page.manage.task.limit')
+  },
+  {
+    key: 'cron',
+    label: $t('page.manage.task.cron'),
+    hide: row => row.type === TaskTypeEnum.INTERVAL
+  },
+  {
+    key: 'every',
+    label: $t('page.manage.task.interval'),
+    hide: row => row.type === TaskTypeEnum.CRON
+  },
+  {
+    key: 'startTime',
+    label: $t('page.manage.task.startTime'),
+    hide: row => row.type === TaskTypeEnum.CRON,
+    render: row => {
+      if (!row.startTime) return '';
+
+      return <NTime time={new Date(row.startTime)} />;
+    }
+  },
+  {
+    key: 'endTime',
+    label: $t('page.manage.task.endTime'),
+    hide: row => row.type === TaskTypeEnum.CRON,
+    render: row => {
+      if (!row.endTime) return '';
+
+      return <NTime time={new Date(row.endTime)} />;
     }
   },
   {
     key: 'status',
-    label: '状态',
+    label: $t('common.status'),
     render: row => {
-      return <NTag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</NTag>;
+      return (
+        <NTag type={row.status === StatusEnum.ENABLE ? 'success' : 'error'}>
+          {row.status === StatusEnum.ENABLE ? $t('common.enable') : $t('common.disable')}
+        </NTag>
+      );
     }
   },
   {
     key: 'service',
-    label: '调用服务'
+    label: $t('page.manage.task.service')
   },
   {
     key: 'data',
-    label: '执行参数',
+    label: $t('page.manage.task.params'),
     span: 2
   },
   {
     key: 'remark',
-    label: '备注',
+    label: $t('page.manage.common.remark'),
     span: 2
   }
-];
+]);
 
 const {
   drawerVisible,
@@ -257,7 +309,7 @@ const {
 } = useTableOperate(data, getData);
 
 async function detail(id: string) {
-  if (hasAuth('system:role:read')) {
+  if (hasAuth('system:task:read')) {
     handleDetail(id);
   } else {
     window.$message?.error($t('common.noPermission'));
@@ -275,6 +327,7 @@ async function edit(id: string) {
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteTask(id);
   if (!error) {
+    window.$message?.success($t('common.deleteSuccess'));
     onDeleted();
   }
 }
@@ -346,8 +399,8 @@ async function handleStop(id: string) {
     />
     <DetailsDescriptions
       v-model:visible="modelVisible"
-      title="任务详情"
-      class="!w-[50%]"
+      :title="$t('page.manage.role.detail')"
+      class="!w-[60%]"
       :fields="detailColumns"
       :data="detailData"
     />

@@ -6,31 +6,31 @@ import { useSSEStore } from '@/store/modules/sse';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetOnlineUserList, fetchKickOnlineUser } from '@/service/api';
 import { $t } from '@/locales';
-import type { SearchFormType } from '@/components/advanced/search-form';
 import { useAuth } from '@/hooks/business/auth';
+import { useSearchForm } from '@/hooks/common/search-form';
 
 const appStore = useAppStore();
 const sseStore = useSSEStore();
 const { hasAuth } = useAuth();
 
-const userSearchForm: SearchFormType<Api.SystemManage.OnlineUserSearchParams> = [
+const userSearchForm = useSearchForm<Api.SystemManage.OnlineUserSearchParams>(() => [
   {
     key: 'username',
-    label: '用户名',
+    label: $t('page.manage.user.username'),
     type: 'Input',
     props: {
-      placeholder: '请输入用户名'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.username')
     }
   },
   {
     key: 'nickName',
-    label: '昵称',
+    label: $t('page.manage.user.nickName'),
     type: 'Input',
     props: {
-      placeholder: '请输入昵称'
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.nickName')
     }
   }
-];
+]);
 
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
@@ -47,9 +47,9 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     columns: () => [
       {
         key: 'tokenId',
-        title: '会话编号',
+        title: $t('page.manage.online.sessionId'),
         align: 'left',
-        width: 200,
+        width: 150,
         ellipsis: {
           tooltip: true
         }
@@ -76,13 +76,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'nickName',
-        title: '昵称',
+        title: $t('page.manage.user.nickName'),
         align: 'center',
         minWidth: 100
       },
       {
         key: 'deptName',
-        title: '部门名称', // $t('page.manage.user.userGender'),
+        title: $t('page.manage.user.dept'),
         align: 'center',
         width: 100,
         render: row => {
@@ -92,7 +92,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'ip',
-        title: '登录ip',
+        title: $t('page.manage.online.ip'),
         align: 'center',
         width: 200,
         ellipsis: {
@@ -101,25 +101,25 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       },
       {
         key: 'address',
-        title: '登录地址', // $t('page.manage.user.role'),
+        title: $t('page.manage.online.address'),
         align: 'center',
-        minWidth: 100
+        minWidth: 150
       },
       {
         key: 'browser',
-        title: '浏览器', // $t('page.manage.user.role'),
+        title: $t('page.manage.online.browser'),
         align: 'center',
         minWidth: 100
       },
       {
         key: 'os',
-        title: '操作系统',
+        title: $t('page.manage.online.os'),
         align: 'center',
         width: 120
       },
       {
         key: 'time',
-        title: '登录时间',
+        title: $t('page.manage.online.loginTime'),
         width: 200,
         render: row => {
           return <NTime time={new Date(row.time)} />;
@@ -135,10 +135,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
           <div class="flex-center gap-8px">
             <NPopconfirm onPositiveClick={() => handleKick(row.tokenId)}>
               {{
-                default: () => `下线用户 - ${row.username} ？`,
+                default: () => `${$t('page.manage.online.offline')} - ${row.username} ？`,
                 trigger: () => (
-                  <NButton disabled={!hasAuth('system:online:kick')} type={'error'} ghost size="small">
-                    {'下线'}
+                  <NButton disabled={!hasAuth('system:online:kick') || row.disabled} type={'error'} ghost size="small">
+                    {$t('page.manage.online.offline')}
                   </NButton>
                 )
               }}
@@ -156,7 +156,7 @@ async function handleKick(tokenId: string) {
     tokenId
   });
   if (!error) {
-    window.$message?.success('操作成功');
+    window.$message?.success($t('common.operateSuccess'));
     getDataByPage();
   }
 }

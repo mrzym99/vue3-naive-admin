@@ -4,7 +4,7 @@ import { fetchGetServeStat } from '@/service/api';
 import { formatSizeUnits } from '@/utils/common';
 import { themeVars } from '@/theme/vars';
 
-const cardData = reactive<any>({
+const cardData = reactive<OS.OS>({
   runtime: {
     os: '',
     arch: '',
@@ -81,42 +81,42 @@ onMounted(async () => {
     <NSpin :show="loading">
       <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" title="运行环境">
+          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.runtime.title')">
             <NDescriptions size="small" label-placement="left" bordered :column="1">
               <NDescriptionsItem>
-                <template #label>操作系统</template>
+                <template #label>{{ $t('page.manage.os.runtime.os') }}</template>
                 {{ cardData.runtime.os }}
               </NDescriptionsItem>
               <NDescriptionsItem>
-                <template #label>系统架构</template>
+                <template #label>{{ $t('page.manage.os.runtime.arch') }}</template>
                 {{ cardData.runtime.arch }}
               </NDescriptionsItem>
               <NDescriptionsItem>
-                <template #label>Node版本</template>
+                <template #label>{{ $t('page.manage.os.runtime.nodeVersion') }}</template>
                 {{ cardData.runtime.nodeVersion }}
               </NDescriptionsItem>
               <NDescriptionsItem>
-                <template #label>Npm版本</template>
+                <template #label>{{ $t('page.manage.os.runtime.npmVersion') }}</template>
                 {{ cardData.runtime.npmVersion }}
               </NDescriptionsItem>
             </NDescriptions>
           </NCard>
         </NGridItem>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" title="磁盘">
+          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.disk.title')">
             <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
               <NGridItem span="24 m:12">
                 <NDescriptions size="small" label-placement="left" bordered :column="1">
                   <NDescriptionsItem>
-                    <template #label>总空间</template>
+                    <template #label>{{ $t('page.manage.os.disk.total') }}</template>
                     {{ formatSizeUnits(cardData.disk.size) }}
                   </NDescriptionsItem>
                   <NDescriptionsItem>
-                    <template #label>已用空间</template>
+                    <template #label>{{ $t('page.manage.os.disk.used') }}</template>
                     {{ formatSizeUnits(cardData.disk.used) }}
                   </NDescriptionsItem>
                   <NDescriptionsItem>
-                    <template #label>可用空间</template>
+                    <template #label>{{ $t('page.manage.os.disk.available') }}</template>
                     {{ formatSizeUnits(cardData.disk.available) }}
                   </NDescriptionsItem>
                 </NDescriptions>
@@ -133,18 +133,20 @@ onMounted(async () => {
           </NCard>
         </NGridItem>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" title="CPU">
+          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.cpu.title')">
             <NDescriptions size="small" label-placement="left" bordered :column="1">
               <NDescriptionsItem>
-                <template #label>详细</template>
+                <template #label>{{ $t('page.manage.os.cpu.details') }}</template>
                 {{ parseCpuInfo }}
               </NDescriptionsItem>
               <NDescriptionsItem>
-                <template #label>负载</template>
+                <template #label>{{ $t('page.manage.os.cpu.coresLoad') }}</template>
                 {{ formatSizeUnits(cardData.disk.used) }}
               </NDescriptionsItem>
               <NDescriptionsItem v-for="(item, index) in cardData.cpu.coresLoad" :key="index">
-                <template #label>{{ `核心${index + 1} 负载` }}</template>
+                <template #label>
+                  {{ `${$t('page.manage.os.cpu.cores')}${index + 1} ${$t('page.manage.os.cpu.coresLoad')}` }}
+                </template>
                 <NProgress
                   :percentage="formatPercentage(item.rawLoad, item.rawLoad + item.rawLoadIdle)"
                   :color="progressColor(formatPercentage(item.rawLoad, item.rawLoad + item.rawLoadIdle))"
@@ -154,20 +156,20 @@ onMounted(async () => {
           </NCard>
         </NGridItem>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" title="memory">
+          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.memory.title')">
             <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
               <NGridItem span="24 m:12">
                 <NDescriptions size="small" label-placement="left" bordered :column="1">
                   <NDescriptionsItem>
-                    <template #label>总内存</template>
+                    <template #label>{{ $t('page.manage.os.memory.total') }}</template>
                     {{ formatSizeUnits(cardData.memory.total) }}
                   </NDescriptionsItem>
                   <NDescriptionsItem>
-                    <template #label>已用内存</template>
+                    <template #label>{{ $t('page.manage.os.memory.active') }}</template>
                     {{ formatSizeUnits(cardData.memory.active) }}
                   </NDescriptionsItem>
                   <NDescriptionsItem>
-                    <template #label>可用内存</template>
+                    <template #label>{{ $t('page.manage.os.memory.available') }}</template>
                     {{ formatSizeUnits(cardData.memory.available) }}
                   </NDescriptionsItem>
                 </NDescriptions>

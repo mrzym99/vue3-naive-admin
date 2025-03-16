@@ -7,6 +7,7 @@ import { fetchSendEmail } from '@/service/api';
 import { useNaiveForm } from '@/hooks/common/form';
 import { REG_EMAIL } from '@/constants/reg';
 import { useAuth } from '@/hooks/business/auth';
+import { $t } from '@/locales';
 
 const { hasAuth } = useAuth();
 const createDefaultModel = () => {
@@ -24,20 +25,20 @@ const rules = reactive<FormRules>({
   subject: {
     type: 'string',
     required: true,
-    message: '请输入邮件主题',
+    message: $t('common.pleaseEnter') + $t('page.tools.mail.subject'),
     trigger: 'blur'
   },
   to: {
     type: 'string',
     required: true,
     pattern: REG_EMAIL,
-    message: '请输入正确的收件人邮箱',
+    message: $t('page.tools.mail.pleaseEnterCorrectEmail'),
     trigger: 'blur'
   },
   content: {
     type: 'string',
     required: true,
-    message: '请输入邮件内容',
+    message: $t('common.pleaseEnter') + $t('page.tools.mail.content'),
     trigger: 'blur'
   }
 });
@@ -54,7 +55,7 @@ async function handleSend() {
   const { error } = await fetchSendEmail(model.value);
   loading.value = false;
   if (!error) {
-    window.$message?.success('发送成功');
+    window.$message?.success($t('page.tools.mail.sendSuccess'));
     resetModel();
   }
 }
@@ -64,14 +65,18 @@ async function handleSend() {
   <div class="min-h-500px flex-col-stretch gap-16px overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1-auto card-wrapper">
       <NSpin :show="loading">
-        <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" label-align="left" label-width="80">
-          <NFormItem key="to" path="to" label="收件人">
-            <NInput v-model:value="model.to" :disabled="loading" placeholder="请输入收件人" />
+        <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" label-align="left" label-width="100">
+          <NFormItem key="to" path="to" :label="$t('page.tools.mail.to')">
+            <NInput v-model:value="model.to" :disabled="loading" :placeholder="$t('page.tools.mail.toPlaceholder')" />
           </NFormItem>
-          <NFormItem key="subject" path="subject" label="邮件主题">
-            <NInput v-model:value="model.subject" :disabled="loading" placeholder="请输入邮件主题" />
+          <NFormItem key="subject" path="subject" :label="$t('page.tools.mail.subject')">
+            <NInput
+              v-model:value="model.subject"
+              :disabled="loading"
+              :placeholder="$t('page.tools.mail.subjectPlaceholder')"
+            />
           </NFormItem>
-          <NFormItem key="content" path="content" label="正文">
+          <NFormItem key="content" path="content" :label="$t('page.tools.mail.content')">
             <TinymceEditor
               v-model:value="model.content"
               :init="{
@@ -83,8 +88,8 @@ async function handleSend() {
         </NForm>
       </NSpin>
       <NSpace class="w-full" justify="end">
-        <NButton :disabled="hasAuth('tool:mail:send')" type="primary" :loading="loading" @click="handleSend">
-          发送邮件
+        <NButton :disabled="!hasAuth('tool:mail:send')" type="primary" :loading="loading" @click="handleSend">
+          {{ $t('common.send') }}
         </NButton>
       </NSpace>
     </NCard>

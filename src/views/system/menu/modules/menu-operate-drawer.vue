@@ -101,7 +101,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     type: 'Input',
     required: true,
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.menuName')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.menuName')
     }
   },
   i18nKey: {
@@ -109,7 +109,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     label: $t('page.manage.menu.i18nKey'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.i18nKey')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.i18nKey')
     }
   },
   iconType: {
@@ -159,7 +159,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     props: {
       filterable: true,
       tag: true,
-      placeholder: `${$t('common.pleaseInput')}/${$t('common.pleaseSelect')}${$t('page.manage.menu.routePath')}`,
+      placeholder: `${$t('common.pleaseEnter')}/${$t('common.pleaseSelect')}${$t('page.manage.menu.routePath')}`,
       options: [],
       'onUpdate:value': onPathSelectChange
     }
@@ -172,7 +172,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
       return isPermission();
     },
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.routeName')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.routeName')
     }
   },
   component: {
@@ -183,7 +183,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
       return isPermission() || hideComponent();
     },
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.component')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.component')
     }
   },
   permission: {
@@ -301,7 +301,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     props: {
       min: 1,
       max: 9999,
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.fixedIndexInTab')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.fixedIndexInTab')
     }
   },
   order: {
@@ -311,7 +311,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     props: {
       min: 1,
       max: 9999,
-      placeholder: $t('common.pleaseInput') + $t('page.manage.menu.order')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.order')
     }
   },
   status: {

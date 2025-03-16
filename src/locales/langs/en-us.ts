@@ -60,7 +60,7 @@ const local: App.I18n.Schema = {
     },
     setDefault: 'SetDefault',
     noPermission: 'Sorry, you do not have permission!',
-    pleaseInput: 'Please input the ',
+    pleaseEnter: 'Please enter the ',
     pleaseSelect: 'Please select the ',
     createdAt: 'CreateTime',
     updatedAt: 'UpdateTime',
@@ -343,7 +343,8 @@ const local: App.I18n.Schema = {
           disable: 'Disable'
         },
         order: 'Order',
-        default: 'Default'
+        default: 'Default',
+        remark: 'Remark'
       },
       dept: {
         title: 'Dept',
@@ -378,8 +379,8 @@ const local: App.I18n.Schema = {
         phone: 'Phone',
         email: 'Email',
         role: 'User Roles',
-        addUser: 'Add User',
-        editUser: 'Edit User',
+        add: 'Add User',
+        edit: 'Edit User',
         resetPassword: 'Reset Password',
         dept: 'Department',
         address: 'Address',
@@ -436,22 +437,89 @@ const local: App.I18n.Schema = {
           local: 'Local Icon'
         }
       },
+      online: {
+        ip: 'IP',
+        sessionId: 'Session Id',
+        browser: 'Browser',
+        os: 'OS',
+        loginTime: 'Login Time',
+        offline: 'Offline',
+        address: 'Login Address'
+      },
+      loginLog: {
+        browser: 'Browser',
+        os: 'OS',
+        loginTime: 'Login Time',
+        address: 'Login Address'
+      },
+      captchaLog: {
+        captcha: 'Captcha',
+        provider: 'Provider',
+        sendTime: 'Send Time',
+        account: 'Account'
+      },
+      os: {
+        runtime: {
+          title: 'Runtime',
+          os: 'OS',
+          arch: 'Arch',
+          nodeVersion: 'Node Version',
+          npmVersion: 'Npm Version'
+        },
+        disk: {
+          title: 'Disk',
+          total: 'Total Space',
+          used: 'Used Space',
+          available: 'Available Space'
+        },
+        cpu: {
+          title: 'Cpu',
+          details: 'Details',
+          cores: 'Cores',
+          coresLoad: 'Cores Load'
+        },
+        memory: {
+          title: 'Memory',
+          total: 'Total Memory',
+          available: 'Available Memory',
+          active: 'Used Memory'
+        }
+      },
       parameter: {
-        addParameter: 'Add Parameter',
-        editParameter: 'Edit Parameter'
+        name: 'Parameter Name',
+        key: 'Parameter Key',
+        value: 'Parameter Value',
+        add: 'Add Parameter',
+        edit: 'Edit Parameter'
       },
       task: {
-        addTask: 'Add Task',
-        editTask: 'Edit Task',
-        startTask: 'Start',
-        stopTask: 'Stop',
-        onceTask: 'Once',
-        deleteTask: 'Delete',
-        taskInfo: 'Task Info',
+        name: 'task Name',
+        service: 'service',
+        params: 'params',
+        cron: 'Cron',
+        interval: 'Interval',
+        limit: 'Limit',
+        startTime: 'Start Time',
+        endTime: 'End Time',
+        add: 'Add Task',
+        edit: 'Edit Task',
+        start: 'Start',
+        stop: 'Stop',
+        once: 'Once',
+        delete: 'Delete',
+        detail: 'Task Details',
+        taskType: 'Type',
         type: {
           cron: 'Cron',
           interval: 'Interval'
         }
+      },
+      taskLog: {
+        id: 'Task ID',
+        name: 'Task Name',
+        consume: 'Consume Time',
+        failDetail: 'Fail Detail',
+        startTime: 'Start Time'
       },
       captcha: {
         provider: {
@@ -459,6 +527,30 @@ const local: App.I18n.Schema = {
           sms: 'Sms',
           captcha: 'Captcha'
         }
+      }
+    },
+    tools: {
+      mail: {
+        subject: 'Subject',
+        email: 'Email',
+        content: 'Content',
+        sendSuccess: 'Send Success',
+        pleaseEnterCorrectEmail: 'Please enter the correct email',
+        to: 'Receiver',
+        toPlaceholder: 'Please enter the recipient email',
+        subjectPlaceholder: 'Please enter the subject',
+        send: 'Send'
+      },
+      storage: {
+        fileName: 'File Name',
+        fileExt: 'File Ext',
+        fileType: 'File Type',
+        preview: 'Preview',
+        size: 'Size',
+        uploadTime: 'Upload Time',
+        uploadBy: 'UploadBy',
+        lastModified: 'last Modified',
+        path: 'Path'
       }
     }
   },

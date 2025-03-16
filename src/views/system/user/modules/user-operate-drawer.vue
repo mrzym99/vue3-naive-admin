@@ -34,8 +34,8 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.user.addUser'),
-    edit: $t('page.manage.user.editUser')
+    add: $t('page.manage.user.add'),
+    edit: $t('page.manage.user.edit')
   };
   return titles[props.operateType];
 });
@@ -84,7 +84,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
     type: 'Input',
     disabled: true,
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.username')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.username')
     }
   },
   nickName: {
@@ -93,7 +93,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
     type: 'Input',
     required: true,
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.nickName')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.nickName')
     }
   },
   gender: {
@@ -118,7 +118,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
     type: 'Input',
     required: true,
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.email')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.email')
     }
   },
   phone: {
@@ -126,7 +126,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
     label: $t('page.manage.user.phone'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.phone')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.phone')
     }
   },
   address: {
@@ -134,7 +134,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
     label: $t('page.manage.user.address'),
     type: 'Input',
     props: {
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.address')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.address')
     }
   },
   birthDate: {
@@ -172,7 +172,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.signature')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.signature')
     }
   },
   introduction: {
@@ -182,7 +182,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
     span: 24,
     props: {
       type: 'textarea',
-      placeholder: $t('common.pleaseInput') + $t('page.manage.user.introduction')
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.user.introduction')
     }
   }
 }));
