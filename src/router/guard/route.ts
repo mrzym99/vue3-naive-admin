@@ -36,6 +36,7 @@ export function createRouteGuard(router: Router) {
     // const routeRoles = to.meta.roles || [];
 
     // const hasRole = authStore.userInfo.roles.some(role => routeRoles.includes(role));
+    // 如果路由模式是 dynamic 则路由是由后端返回的 这里直接放行就ok 后端没返回的路由根本访问不了
     const hasAuth = true; // authStore.isStaticSuper || !routeRoles.length || hasRole;
 
     // if it is login route when logged in, then switch to the root page

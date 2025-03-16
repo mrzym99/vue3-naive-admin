@@ -19,7 +19,9 @@ export function setupElegantRouter() {
         'document_vite',
         'document_unocss',
         'document_naive',
-        'document_antd'
+        'document_antd',
+        'blog_zym',
+        'blog_zym-href'
       ]
     },
     routePathTransformer(routeName, routePath) {

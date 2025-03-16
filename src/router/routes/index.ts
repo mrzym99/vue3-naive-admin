@@ -117,6 +117,49 @@ const customRoutes: CustomRoute[] = [
         }
       }
     ]
+  },
+  // How to add Custom route https://github.com/soybeanjs/elegant-router?tab=readme-ov-file#custom-route
+  // You can search ElegantVueRouter globally
+  // 我只是为了练习一下，所以才加的这个路由 其实我只需要添加这个路由的国际化key就好了，目前我是存在了数据库里面的
+  // 不需要的话可以删掉
+  {
+    name: 'blog',
+    path: '/blog',
+    meta: {
+      title: 'blog',
+      i18nKey: 'route.blog',
+      order: 3,
+      icon: 'mdi:book-heart-outline',
+      hideInMenu: true
+    },
+    component: 'layout.base',
+    children: [
+      {
+        name: 'blog_zym',
+        path: '/blog/zym',
+        component: 'view.iframe-page',
+        props: {
+          url: 'http://mezym.top/'
+        },
+        meta: {
+          title: 'blog_zym',
+          i18nKey: 'route.blog_zym',
+          order: 1,
+          icon: 'mdi:book-open-variant-outline'
+        }
+      },
+      {
+        name: 'blog_zym-href',
+        path: '/blog/zym-href',
+        meta: {
+          title: 'blog_zym',
+          i18nKey: 'route.blog_zym',
+          order: 1,
+          icon: 'mdi:book-open-page-variant-outline',
+          href: 'http://mezym.top/'
+        }
+      }
+    ]
   }
 ];
 

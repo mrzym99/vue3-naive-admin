@@ -29,6 +29,9 @@ declare module "@elegant-router/types" {
     "document_unocss": "/document/unocss";
     "document_naive": "/document/naive";
     "document_antd": "/document/antd";
+    "blog": "/blog";
+    "blog_zym": "/blog/zym";
+    "blog_zym-href": "/blog/zym-href";
     "403": "/403";
     "404": "/404";
     "500": "/500";
@@ -111,6 +114,9 @@ declare module "@elegant-router/types" {
     | "document_unocss"
     | "document_naive"
     | "document_antd"
+    | "blog"
+    | "blog_zym"
+    | "blog_zym-href"
   >;
 
   /**
@@ -145,6 +151,7 @@ declare module "@elegant-router/types" {
     | "not-found"
     | "exception"
     | "document"
+    | "blog"
   >;
 
   /**
@@ -212,6 +219,8 @@ declare module "@elegant-router/types" {
     | "document_unocss"
     | "document_naive"
     | "document_antd"
+    | "blog_zym"
+    | "blog_zym-href"
   >;
 
   /**
