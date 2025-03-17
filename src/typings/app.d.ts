@@ -326,6 +326,7 @@ declare namespace App {
         lookForward: string;
         modify: string;
         modifySuccess: string;
+        confirmModify: string;
         noData: string;
         operate: string;
         pleaseCheckValue: string;
@@ -354,6 +355,9 @@ declare namespace App {
         updatedAt: string;
         operateSuccess: string;
         resetSuccess: string;
+        save: string;
+        saveSuccess: string;
+        confirmSave: string;
       };
       request: {
         logout: string;
@@ -733,6 +737,18 @@ declare namespace App {
             lastModified: string;
             path: string;
           };
+        };
+        userCenter: {
+          details: string;
+          editInfo: string;
+          editPwd: string;
+        };
+        password: {
+          oldPwd: string;
+          newPwd: string;
+          confirmNewPwd: string;
+          pleaseTwice: string;
+          confirmPwd: FormMsg;
         };
       };
       form: {

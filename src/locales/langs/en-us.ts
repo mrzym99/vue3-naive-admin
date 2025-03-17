@@ -38,6 +38,7 @@ const local: App.I18n.Schema = {
     lookForward: 'Coming soon',
     modify: 'Modify',
     modifySuccess: 'Modify Success',
+    confirmModify: 'Are you sure you want to modify?',
     noData: 'No Data',
     operate: 'Operate',
     pleaseCheckValue: 'Please check whether the value is valid',
@@ -65,7 +66,10 @@ const local: App.I18n.Schema = {
     createdAt: 'CreateTime',
     updatedAt: 'UpdateTime',
     operateSuccess: 'Operate Success',
-    resetSuccess: 'Reset Success'
+    resetSuccess: 'Reset Success',
+    save: 'Save',
+    saveSuccess: 'Save Success',
+    confirmSave: 'Are sure you want to save?'
   },
   request: {
     logout: 'Logout user after request failed',
@@ -553,6 +557,21 @@ const local: App.I18n.Schema = {
         uploadBy: 'UploadBy',
         lastModified: 'last Modified',
         path: 'Path'
+      }
+    },
+    userCenter: {
+      details: 'Personal Information ',
+      editInfo: 'Edit Personal Information',
+      editPwd: 'Edit Password'
+    },
+    password: {
+      oldPwd: 'Old Password',
+      newPwd: 'New Password',
+      confirmNewPwd: 'Confirm New Password',
+      pleaseTwice: 'Please enter the new password again',
+      confirmPwd: {
+        required: 'Please enter new password again',
+        invalid: 'The two passwords are inconsistent'
       }
     }
   },

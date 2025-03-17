@@ -38,6 +38,7 @@ const local: App.I18n.Schema = {
     lookForward: '敬请期待',
     modify: '修改',
     modifySuccess: '修改成功',
+    confirmModify: '确认修改吗？',
     noData: '无数据',
     operate: '操作',
     pleaseCheckValue: '请检查输入的值是否合法',
@@ -65,7 +66,10 @@ const local: App.I18n.Schema = {
     createdAt: '创建时间',
     updatedAt: '更新时间',
     operateSuccess: '操作成功',
-    resetSuccess: '重置成功'
+    resetSuccess: '重置成功',
+    save: '保存',
+    saveSuccess: '保存成功',
+    confirmSave: '确认保存?'
   },
   request: {
     logout: '请求失败后登出用户',
@@ -550,6 +554,21 @@ const local: App.I18n.Schema = {
         uploadBy: '上传者',
         lastModified: '最近更新时间',
         path: '访问路径'
+      }
+    },
+    userCenter: {
+      details: '个人信息',
+      editInfo: ' 修改个人信息',
+      editPwd: '修改密码'
+    },
+    password: {
+      oldPwd: '旧密码',
+      newPwd: '新密码',
+      confirmNewPwd: '确认新密码',
+      pleaseTwice: '请再次输入新密码',
+      confirmPwd: {
+        required: '请输入新密码',
+        invalid: '两次输入密码不一致'
       }
     }
   },

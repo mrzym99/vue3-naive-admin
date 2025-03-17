@@ -516,6 +516,7 @@ async function handleDelete(id: string) {
           :loading="loading"
           remote
           :row-key="row => row.id"
+          virtual-scroll
           class="sm:h-full"
         />
       </div>

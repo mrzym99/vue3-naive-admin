@@ -87,6 +87,12 @@ declare namespace Api {
       roles: string[];
       permissions: string[];
     }
+
+    interface updatePasswordDto {
+      oldPassword: string;
+      newPassword: string;
+      confirmPassword: string;
+    }
   }
 
   /**
@@ -183,6 +189,7 @@ declare namespace Api {
       /** user profile */
       /** user role */
       roles: Role[];
+      rolesName: string[];
       /** user dept */
       dept: Dept;
       /** roleIds */

@@ -69,6 +69,24 @@ export function useFormRules() {
     return confirmPwdRule;
   }
 
+  /** create a rule for confirming the password */
+  function createConfirmNewPwdRule(pwd: string | Ref<string> | ComputedRef<string>) {
+    const confirmPwdRule: App.Global.FormRule[] = [
+      { required: true, message: $t('page.password.confirmPwd.required') },
+      {
+        asyncValidator: (rule, value) => {
+          if (value.trim() !== '' && value !== toValue(pwd)) {
+            return Promise.reject(rule.message);
+          }
+          return Promise.resolve();
+        },
+        message: $t('page.password.confirmPwd.invalid'),
+        trigger: 'input'
+      }
+    ];
+    return confirmPwdRule;
+  }
+
   /** 自定义校验函数，校验用户名或邮箱 */
   function createValidateUsername() {
     const usernameRule: App.Global.FormRule[] = [
@@ -93,7 +111,8 @@ export function useFormRules() {
     defaultRequiredRule,
     createRequiredRule,
     createConfirmPwdRule,
-    createValidateUsername
+    createValidateUsername,
+    createConfirmNewPwdRule
   };
 }
 

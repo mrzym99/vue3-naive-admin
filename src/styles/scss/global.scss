@@ -4,3 +4,27 @@
   color: rgb(var(--primary-color));
   cursor: pointer;
 }
+
+/* 定义更生动的游泳动画 */
+@keyframes swim {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(10px) translateY(-5px) rotate(5deg);
+  }
+  50% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateX(-10px) translateY(-5px) rotate(-5deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+/* 应用动画到图片 */
+.swim {
+  animation: swim 3s infinite ease-in-out;
+}
