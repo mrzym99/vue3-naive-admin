@@ -52,7 +52,7 @@ function toggleExpand() {
 </script>
 
 <template>
-  <NSpace :align="itemAlign" wrap justify="space-between" class="pb-8px lt-sm:w-200px">
+  <NSpace :align="itemAlign" wrap justify="space-between" class="w-full pb-8px">
     <NSpace v-show="treeTable" :align="itemAlign" wrap justify="start">
       <NButton size="small" @click="toggleExpand">
         <template #icon>

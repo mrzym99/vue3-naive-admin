@@ -1,7 +1,6 @@
 <script setup lang="tsx">
 import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
 import { onMounted } from 'vue';
-import { useAppStore } from '@/store/modules/app';
 import { useSSEStore } from '@/store/modules/sse';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchGetOnlineUserList, fetchKickOnlineUser } from '@/service/api';
@@ -9,7 +8,6 @@ import { $t } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
 import { useSearchForm } from '@/hooks/common/search-form';
 
-const appStore = useAppStore();
 const sseStore = useSSEStore();
 const { hasAuth } = useAuth();
 
@@ -126,7 +124,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         }
       },
       {
-        fixed: 'right',
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
@@ -169,8 +166,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
@@ -191,12 +188,12 @@ onMounted(async () => {
           :columns="columns"
           :data="data"
           size="small"
-          :flex-height="!appStore.isMobile"
+          flex-height
           :loading="loading"
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="sm:h-full"
+          class="flex-1"
         />
       </div>
     </NCard>

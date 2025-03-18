@@ -51,9 +51,9 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
   );
 });
 
-const isCllapse = ref(false);
+const isFold = ref(true);
 const collapse = () => {
-  isCllapse.value = !isCllapse.value;
+  isFold.value = !isFold.value;
 };
 
 const span = (breakpoints: string) => {
@@ -64,13 +64,17 @@ const span = (breakpoints: string) => {
       return 12;
     case 'lg':
       return 8;
-    default:
+    case 'xl':
+    case '2xl':
+    case '3xl':
       return 6;
+    default:
+      return 24;
   }
 };
 
 const finalFields = computed(() => {
-  if (isCllapse.value) {
+  if (isFold.value) {
     return generateFieldArr().slice(0, 24 / span(activeBreakpoint.value) - 1);
   }
   return generateFieldArr();
@@ -147,7 +151,7 @@ const computedLabelWidth = computed(() => {
           <div v-if="showCollapse(activeBreakpoint)" class="grid h-full place-items-center">
             <icon-ic-outline-keyboard-arrow-down
               class="cursor-pointer text-icon transition-500 !text-2xl"
-              :class="[isCllapse ? '' : 'rotate-x-180']"
+              :class="[isFold ? '' : 'rotate-x-180']"
               @click="collapse"
             />
           </div>

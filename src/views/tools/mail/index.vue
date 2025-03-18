@@ -63,9 +63,9 @@ async function handleSend() {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1-auto card-wrapper">
+    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <NSpin :show="loading">
-        <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" label-align="left" label-width="100">
+        <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" label-align="left" label-width="80">
           <NFormItem key="to" path="to" :label="$t('page.tools.mail.to')">
             <NInput v-model:value="model.to" :disabled="loading" :placeholder="$t('page.tools.mail.toPlaceholder')" />
           </NFormItem>
@@ -89,7 +89,7 @@ async function handleSend() {
       </NSpin>
       <NSpace class="w-full" justify="end">
         <NButton :disabled="!hasAuth('tool:mail:send')" type="primary" :loading="loading" @click="handleSend">
-          {{ $t('common.send') }}
+          {{ $t('page.tools.mail.send') }}
         </NButton>
       </NSpace>
     </NCard>

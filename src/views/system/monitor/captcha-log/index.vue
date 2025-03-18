@@ -1,14 +1,11 @@
 <script setup lang="tsx">
 import { NTag, NTime } from 'naive-ui';
-import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchBatchDeleteCaptchaLog, fetchGetCaptchaLogList } from '@/service/api';
 import { ProviderRecord } from '@/constants/business';
 import { ProviderEnum } from '@/constants/enum';
 import { $t } from '@/locales';
 import { useSearchForm } from '@/hooks/common/search-form';
-
-const appStore = useAppStore();
 
 const userSearchForm = useSearchForm<Api.SystemManage.CaptchaLogSearchParams>(() => [
   {
@@ -59,7 +56,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     columns: () => [
       {
         type: 'selection',
-        fixed: 'left',
         width: 48
       },
       {
@@ -113,8 +109,8 @@ async function batchDelete() {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
@@ -137,12 +133,12 @@ async function batchDelete() {
           :columns="columns"
           :data="data"
           size="small"
-          :flex-height="!appStore.isMobile"
+          flex-height
           :loading="loading"
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="sm:h-full"
+          class="flex-1"
         />
       </div>
     </NCard>

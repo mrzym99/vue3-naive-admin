@@ -212,7 +212,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
-        fixed: 'left',
         type: 'selection',
         align: 'center',
         width: 48
@@ -336,7 +335,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         }
       },
       {
-        fixed: 'right',
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
@@ -458,9 +456,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
-      <NSplit class="h-full" direction="horizontal" :default-size="0.2" :max="0.9" :min="0.1">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
+      <NSplit v-if="!appStore.isMobile" class="h-full" direction="horizontal" :default-size="0.2" :max="0.9" :min="0.1">
         <template #1>
           <DeptTree v-model:value="searchParams.deptIds" @change="change" />
         </template>
@@ -499,16 +497,58 @@ onMounted(() => {
               :columns="columns"
               :data="data"
               size="small"
-              :flex-height="!appStore.isMobile"
+              flex-height
               :loading="loading"
               :pagination="pagination"
               remote
               :row-key="row => row.id"
-              class="sm:h-full"
+              class="flex-1"
             />
           </div>
         </template>
       </NSplit>
+      <div v-else class="h-full flex-col-stretch">
+        <SearchForm
+          v-model:model="searchParams"
+          :fields="userSearchForm"
+          @search="getDataByPage"
+          @reset="resetSearchParams"
+        />
+        <TableHeaderOperation
+          v-model:columns="columnChecks"
+          prefix="system:user"
+          :hide-delete="true"
+          :hide-add="true"
+          :disabled-delete="checkedRowKeys.length === 0"
+          :loading="loading"
+          @add="handleAdd"
+          @refresh="getData"
+        >
+          <NPopconfirm
+            v-if="hasAuth(generatePrefix('system:user', 'update'))"
+            @positive-click="handleBatchDChangeStatus"
+          >
+            <template #trigger>
+              <NButton type="error" ghost size="small" :disabled="checkedRowKeys.length === 0">
+                {{ $t('common.batchDisable') }}
+              </NButton>
+            </template>
+            {{ `${$t('common.batchDisable')}?` }}
+          </NPopconfirm>
+        </TableHeaderOperation>
+        <NDataTable
+          v-model:checked-row-keys="checkedRowKeys"
+          :columns="columns"
+          :data="data"
+          size="small"
+          flex-height
+          :loading="loading"
+          :pagination="pagination"
+          remote
+          :row-key="row => row.id"
+          class="flex-1"
+        />
+      </div>
     </NCard>
     <UserOperateDrawer
       v-model:visible="drawerVisible"
@@ -519,7 +559,7 @@ onMounted(() => {
     <DetailsDescriptions
       v-model:visible="modelVisible"
       title="用户详情"
-      class="!w-[50%]"
+      width="60%"
       :fields="detailColumns"
       :data="detailData"
     />

@@ -1,7 +1,6 @@
 <script setup lang="tsx">
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { Icon } from '@iconify/vue';
-import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteMenu, fetchGetMenuList } from '@/service/api';
 import { $t, getLocale } from '@/locales';
@@ -14,7 +13,6 @@ import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import { StatusEnum } from '@/constants/enum';
 import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
 
-const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
 // 使用箭头函数可以保持 label的国际化响应式
@@ -81,12 +79,12 @@ const {
   },
   columns: () => [
     {
+      fixed: 'left',
       key: 'title',
       title: $t('page.manage.menu.title'), // $t('page.manage.Menu.role'),
       align: 'left',
-      minWidth: 180,
+      minWidth: 150,
       tree: true,
-      fixed: 'left',
       render: row => {
         return (
           <span class={'detail-link'} onClick={() => detail(row)}>
@@ -205,7 +203,6 @@ const {
       }
     },
     {
-      fixed: 'right',
       key: 'operate',
       title: $t('common.operate'),
       align: 'center',
@@ -488,8 +485,8 @@ async function handleDelete(id: string) {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
@@ -512,12 +509,11 @@ async function handleDelete(id: string) {
           :columns="columns"
           :data="data"
           size="small"
-          :flex-height="!appStore.isMobile"
           :loading="loading"
           remote
+          flex-height
           :row-key="row => row.id"
-          virtual-scroll
-          class="sm:h-full"
+          class="flex-1"
         />
       </div>
     </NCard>
@@ -531,7 +527,7 @@ async function handleDelete(id: string) {
     <DetailsDescriptions
       v-model:visible="modelVisible"
       :title="$t('page.manage.menu.detail')"
-      class="!w-[60%]"
+      width="60%"
       :fields="detailColumns"
       :data="detailData"
     />

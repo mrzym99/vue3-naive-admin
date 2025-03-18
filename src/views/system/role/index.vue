@@ -1,6 +1,5 @@
 <script setup lang="tsx">
 import { NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
-import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { fetchDeleteRole, fetchGetRoleInfo, fetchGetRoleList, fetchSetRoleDefault } from '@/service/api';
 import { $t } from '@/locales';
@@ -11,7 +10,6 @@ import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import { StatusEnum } from '@/constants/enum';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 
-const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
 const roleSearchForm = useSearchForm<Api.SystemManage.RoleSearchParams>(() => [
@@ -118,7 +116,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       {
         key: 'description',
         title: $t('page.manage.role.desc'),
-        width: 200,
+        minWidth: 200,
         ellipsis: {
           tooltip: true
         }
@@ -140,7 +138,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         }
       },
       {
-        fixed: 'right',
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
@@ -292,8 +289,8 @@ async function handleSetDefault(id: string) {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
@@ -313,12 +310,12 @@ async function handleSetDefault(id: string) {
           :columns="columns"
           :data="data"
           size="small"
-          :flex-height="!appStore.isMobile"
           :loading="loading"
+          flex-height
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="sm:h-full"
+          class="flex-1"
         />
       </div>
     </NCard>
@@ -331,7 +328,7 @@ async function handleSetDefault(id: string) {
     <DetailsDescriptions
       v-model:visible="modelVisible"
       :title="$t('page.manage.role.detail')"
-      class="!w-[50%]"
+      width="60%"
       :fields="detailColumns"
       :data="detailData"
     />

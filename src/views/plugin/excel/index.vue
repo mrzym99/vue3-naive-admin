@@ -1,20 +1,17 @@
 <script setup lang="tsx">
 import { NButton, NTag } from 'naive-ui';
 import { utils, writeFile } from 'xlsx';
-import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
-
-const appStore = useAppStore();
 
 const { columns, data, loading } = useTable({
   apiFn: fetchGetUserList,
   showTotal: true,
   apiParams: {
     currentPage: 1,
-    pageSize: 999,
+    pageSize: 10,
     // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
     // the value can not be undefined, otherwise the property in Form will not be reactive
     status: null,
@@ -166,8 +163,8 @@ function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is Nai
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard title="Excel导出" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+    <NCard title="Excel导出" :bordered="false" size="small" class="flex-1 card-wrapper">
       <template #header-extra>
         <NSpace align="end" wrap justify="end" class="lt-sm:w-200px">
           <NButton size="small" ghost type="primary" @click="exportExcel">
@@ -183,14 +180,13 @@ function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is Nai
         :columns="columns"
         :data="data"
         size="small"
-        :flex-height="!appStore.isMobile"
-        :scroll-x="962"
+        flex-height
         :loading="loading"
         remote
         :row-key="row => row.id"
         :pagination="false"
         :virtual-scroll="true"
-        class="sm:h-full"
+        class="h-full"
       />
     </NCard>
   </div>
