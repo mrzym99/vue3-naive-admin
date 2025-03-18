@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'NestAdminAvatar'
+  name: 'Vue3NaiveAdminAvatar'
 });
 </script>
 

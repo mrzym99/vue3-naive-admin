@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AdminAvatar: typeof import('./../components/custom/admin-avatar.vue')['default']
     AppProvider: typeof import('./../components/common/app-provider.vue')['default']
     BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
     ButtonIcon: typeof import('./../components/custom/button-icon.vue')['default']
@@ -75,7 +76,6 @@ declare module 'vue' {
     NDrawerContent: typeof import('naive-ui')['NDrawerContent']
     NDropdown: typeof import('naive-ui')['NDropdown']
     NEmpty: typeof import('naive-ui')['NEmpty']
-    NestAdminAvatar: typeof import('./../components/custom/nest-admin-avatar.vue')['default']
     NFlex: typeof import('naive-ui')['NFlex']
     NForm: typeof import('naive-ui')['NForm']
     NFormItem: typeof import('naive-ui')['NFormItem']
@@ -128,6 +128,7 @@ declare module 'vue' {
     TableHeaderOperation: typeof import('./../components/advanced/table-header-operation.vue')['default']
     ThemeSchemaSwitch: typeof import('./../components/common/theme-schema-switch.vue')['default']
     Tinymce: typeof import('./../components/common/tinymce/index.vue')['default']
+    Vue3NaiveAdminAvatar: typeof import('./../components/custom/nest-admin-avatar.vue')['default']
     WaveBg: typeof import('./../components/custom/wave-bg.vue')['default']
     WebSiteLink: typeof import('./../components/custom/web-site-link.vue')['default']
   }

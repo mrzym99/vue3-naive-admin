@@ -10,7 +10,7 @@ const domRef3 = ref<HTMLElement | null>(null);
 function renderHtml() {
   if (!domRef.value || !domRef2.value || !domRef3.value) return;
 
-  const text = 'NestAdmin是一个清新优雅、高颜值且功能强大的后台管理模板';
+  const text = 'Vue3NaiveAdmin是一个清新优雅、高颜值且功能强大的后台管理模板';
 
   const code = domPurify.sanitize(html(text));
   const code2 = domPurify.sanitize(html(text, { toneType: 'none' }));

@@ -55,7 +55,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   },
   watermark: {
     visible: false,
-    text: 'NestAdmin'
+    text: 'Vue3NaiveAdmin'
   },
   tokens: {
     light: {

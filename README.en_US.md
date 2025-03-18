@@ -1,10 +1,10 @@
-以下是翻译后的 `Nest-vue3-admin` 项目介绍：
+以下是翻译后的 `Vue3NaiveAdmin` 项目介绍：
 
 ---
 
 <div align="center">
-  <img src="./public/favicon.svg" width="160" />
-  <h1>Nest-vue3-admin</h1>
+  <img src="./public/favicon.svg" width="100" />
+  <h1>Vue3NaiveAdmin</h1>
   <span>English | <a href="./README.zh_CN.md">中文</a></span>
 </div>
 
@@ -16,7 +16,7 @@
 [![gitee stars](https://gitee.com/mrzym/stable-version-of-blog/badge/star.svg)](https://gitee.com/mrzym/naive-vue3-admin)
 
 > [!NOTE]
-> `Nest-vue3-admin` is developed based on [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). If you find `SoybeanAdmin` or `Nest-vue3-admin` helpful, or if you like our project, please give us a ⭐️ on GitHub/Gitee. Your support is the driving force for us to continuously improve and add new features! Thank you for your support!
+> `Vue3NaiveAdmin` is developed based on [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). If you find `SoybeanAdmin` or `Vue3NaiveAdmin` helpful, or if you like our project, please give us a ⭐️ on GitHub/Gitee. Your support is the driving force for us to continuously improve and add new features! Thank you for your support!
 
 > [!NOTE]
 > Special thanks to the [SoybeanJS](https://github.com/soybeanjs) team for their contributions! Let's work together to contribute more high-quality open-source projects to the open-source community.
@@ -25,7 +25,7 @@
 
 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) is a clean, elegant, beautiful, and powerful admin template based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia, and UnoCSS. It comes with rich theme configurations and components, strictly follows coding standards, and implements an automated file routing system. `SoybeanAdmin` provides a one-stop solution for admin management, ready to use out of the box, and is also an excellent practice for quickly learning cutting-edge technologies.
 
-[Nest-vue3-admin](https://gitee.com/mrzym/naive-vue3-admin) follows the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retains all the features of [SoybeanAdmin](https://docs.soybeanjs.cn/zh/), and adds some advanced components. For usage of other framework features, please refer to the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html). The backend is supported by [Nest-admin-server](https://gitee.com/mrzym/nest-admin-server).
+[Vue3NaiveAdmin](https://gitee.com/mrzym/naive-vue3-admin) follows the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retains all the features of [SoybeanAdmin](https://docs.soybeanjs.cn/zh/), and adds some advanced components. For usage of other framework features, please refer to the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html). The backend is supported by [Nest-Admin](https://gitee.com/mrzym/Nest-Admin).
 
 ## Features
 
@@ -45,18 +45,18 @@
 ## Documentation
 
 - [SoybeanAdmin Documentation](https://docs.soybeanjs.cn)
-- [Nest-vue3-admin Documentation (Coming Soon)]()
+- [Vue3NaiveAdmin Documentation (Coming Soon)]()
 
 ## Collaboration Opportunities
 
-Thank you for your support of `Nest-vue3-admin`.
+Thank you for your support of `Vue3NaiveAdmin`.
 
 ### 1. Customized Management Backend Development
 
-For developers with specific business needs, I offer customized management backend development services based on `Nest-vue3-admin`. With extensive industry experience, I can quickly understand and implement your requirements to create efficient, flexible, and secure customized solutions (I admit I'm a bit boastful here).
+For developers with specific business needs, I offer customized management backend development services based on `Vue3NaiveAdmin`. With extensive industry experience, I can quickly understand and implement your requirements to create efficient, flexible, and secure customized solutions (I admit I'm a bit boastful here).
 
 - **Custom Development**: We will provide comprehensive services from requirement analysis, UI design to feature implementation to ensure efficient project delivery.
-- **Feature Expansion**: Based on `Nest-vue3-admin`, we can expand specific feature modules to enhance the functionality and user experience of the management backend.
+- **Feature Expansion**: Based on `Vue3NaiveAdmin`, we can expand specific feature modules to enhance the functionality and user experience of the management backend.
 
 ### 3. Contact Information
 
@@ -66,7 +66,7 @@ For collaboration inquiries or project consultations, please contact us through 
 - **GitHub Issues**: Feel free to reach out through [GitEE Issues](https://gitee.com/mrzym/naive-vue3-admin/issues/new) for initial discussions.
 - **Business WeChat**: M2715158815
 
-We look forward to collaborating with you to drive the success of the `Nest-vue3-admin` project in more areas!
+We look forward to collaborating with you to drive the success of the `Vue3NaiveAdmin` project in more areas!
 
 ## Sample Screenshots
 
@@ -120,7 +120,7 @@ pnpm build
 
 ### Code Synchronization
 
-1. Add the `Nest-vue3-admin` git address to your repository:
+1. Add the `Vue3NaiveAdmin` git address to your repository:
    ```bash
    git remote add otherOrigin https://gitee.com/mrzym/naive-vue3-admin.git
    ```
