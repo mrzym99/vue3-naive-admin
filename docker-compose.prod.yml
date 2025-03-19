@@ -6,4 +6,4 @@ services:
       dockerfile: Dockerfile
     image: vue3-naive-admin:latest
     ports:
-      - '3333:80'
+      - '80:80'
