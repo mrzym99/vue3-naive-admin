@@ -83,7 +83,7 @@ const {
       key: 'title',
       title: $t('page.manage.menu.title'), // $t('page.manage.Menu.role'),
       align: 'left',
-      minWidth: 150,
+      width: 150,
       tree: true,
       render: row => {
         return (
@@ -485,7 +485,7 @@ async function handleDelete(id: string) {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
@@ -512,8 +512,9 @@ async function handleDelete(id: string) {
           :loading="loading"
           remote
           flex-height
+          virtual-scroll
           :row-key="row => row.id"
-          class="flex-1"
+          class="min-h-300px flex-1"
         />
       </div>
     </NCard>

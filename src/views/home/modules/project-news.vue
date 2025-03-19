@@ -30,7 +30,7 @@ const newses = computed<NewsItem[]>(() => [
     <NList>
       <NListItem v-for="item in newses" :key="item.id">
         <template #prefix>
-          <Vue3NaiveAdminAvatar class="size-48px!" />
+          <AdminAvatar class="size-48px!" />
         </template>
         <NThing :title="item.content" :description="item.time" />
       </NListItem>

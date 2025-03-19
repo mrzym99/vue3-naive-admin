@@ -48,6 +48,7 @@ const { columns, columnChecks, data, getData, loading, pagination, getDataByPage
     },
     columns: () => [
       {
+        fixed: 'left',
         type: 'selection',
         width: 48
       },

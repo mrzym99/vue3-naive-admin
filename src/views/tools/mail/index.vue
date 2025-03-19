@@ -8,8 +8,10 @@ import { useNaiveForm } from '@/hooks/common/form';
 import { REG_EMAIL } from '@/constants/reg';
 import { useAuth } from '@/hooks/business/auth';
 import { $t } from '@/locales';
+import { useAppStore } from '@/store/modules/app';
 
 const { hasAuth } = useAuth();
+const appStore = useAppStore();
 const createDefaultModel = () => {
   return {
     subject: '',
@@ -77,7 +79,15 @@ async function handleSend() {
             />
           </NFormItem>
           <NFormItem key="content" path="content" :label="$t('page.tools.mail.content')">
+            <NInput
+              v-if="appStore.isMobile"
+              v-model:value="model.content"
+              type="textarea"
+              show-count
+              :rows="6"
+            ></NInput>
             <TinymceEditor
+              v-else
               v-model:value="model.content"
               :init="{
                 width: '100%',

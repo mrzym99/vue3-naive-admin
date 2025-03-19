@@ -55,6 +55,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
+        fixed: 'left',
         type: 'selection',
         width: 48
       },
@@ -109,7 +110,7 @@ async function batchDelete() {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
@@ -138,7 +139,7 @@ async function batchDelete() {
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="flex-1"
+          class="min-h-300px flex-1"
         />
       </div>
     </NCard>

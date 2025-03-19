@@ -49,6 +49,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
+        fixed: 'left',
         type: 'selection',
         align: 'center',
         width: 48
@@ -98,7 +99,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'createdAt',
         title: $t('page.tools.storage.uploadTime'),
         align: 'center',
-        minWidth: 100,
+        width: 200,
         render: row => {
           if (!row.createdAt) return null;
           return <NTime time={new Date(row.createdAt)} />;
@@ -108,7 +109,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'username',
         title: $t('page.tools.storage.uploadBy'),
         align: 'center',
-        minWidth: 100
+        width: 200
       },
       {
         key: 'operate',
@@ -153,7 +154,7 @@ async function handleBatchDelete() {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
@@ -181,7 +182,7 @@ async function handleBatchDelete() {
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="flex-1"
+          class="min-h-300px flex-1"
         />
       </div>
     </NCard>

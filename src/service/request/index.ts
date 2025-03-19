@@ -7,14 +7,13 @@ import { addTimestamp, getAuthorization, handleExpiredRequest, showErrorMsg, use
 import type { RequestInstanceState } from './type';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
+const timeout = import.meta.env.VITE_HTTP_TIMEOUT ?? 10000;
 const { baseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 
 export const request = createFlatRequest<App.Service.Response, RequestInstanceState>(
   {
-    baseURL
-    // headers: {
-    //   apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
-    // }
+    baseURL,
+    timeout
   },
   {
     async onRequest(config) {

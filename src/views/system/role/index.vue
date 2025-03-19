@@ -62,10 +62,11 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
+        fixed: 'left',
         key: 'name',
         title: $t('page.manage.role.name'),
         align: 'left',
-        width: 200,
+        width: 180,
         render: row => {
           return (
             <span class={'detail-link'} onClick={() => detail(row.id)}>
@@ -289,7 +290,7 @@ async function handleSetDefault(id: string) {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
@@ -315,7 +316,7 @@ async function handleSetDefault(id: string) {
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="flex-1"
+          class="min-h-300px flex-1"
         />
       </div>
     </NCard>

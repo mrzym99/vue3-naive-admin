@@ -63,7 +63,7 @@ const { columns, columnChecks, searchParams, data, loading, pagination, getData,
         key: 'lastModified',
         title: $t('page.tools.storage.lastModified'),
         align: 'center',
-        minWidth: 200,
+        width: 200,
         ellipsis: {
           tooltip: true
         },
@@ -75,7 +75,7 @@ const { columns, columnChecks, searchParams, data, loading, pagination, getData,
         key: 'url',
         title: $t('page.tools.storage.path'),
         align: 'center',
-        minWidth: 200,
+        width: 200,
         ellipsis: {
           tooltip: true
         }

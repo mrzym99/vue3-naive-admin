@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useSlots, watch } from 'vue';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { useNaiveForm } from '@/hooks/common/form';
 import { getLocale } from '@/locales';
 import type { ConfigFormArrayType, ConfigFormType } from './config-form-type';
@@ -23,6 +24,8 @@ const props = withDefaults(defineProps<Props>(), {
   requireMarkPlacement: 'right'
 });
 
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const isMobile = () => breakpoints.smaller('sm');
 const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const model = defineModel<Record<string, any>>('model', { default: () => ({}), type: Object });
@@ -86,6 +89,14 @@ const computedLabelWidth = computed(() => {
   return 150;
 });
 
+const returnResponsiveSpan = (span: number | undefined) => {
+  if (isMobile().value) {
+    return 24;
+  }
+
+  return span || props.span;
+};
+
 defineExpose({
   validate,
   restoreValidation
@@ -103,11 +114,11 @@ defineExpose({
     :label-width="computedLabelWidth"
     :require-mark-placement="requireMarkPlacement"
   >
-    <NGrid responsive="screen" item-responsive :x-gap="16">
+    <NGrid responsive="screen" item-responsive>
       <NFormItemGi
         v-for="field in finalFields"
         :key="field.key"
-        :span="field.span || span"
+        :span="returnResponsiveSpan(field.span)"
         :label="field.label"
         :path="field.key"
       >

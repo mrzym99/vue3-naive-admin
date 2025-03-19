@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'Vue3NaiveAdminAvatar'
+  name: 'AdminAvatar'
 });
 </script>
 

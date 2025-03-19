@@ -76,7 +76,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'nickName',
         title: $t('page.manage.user.nickName'),
         align: 'center',
-        minWidth: 100
+        width: 100,
+        ellipsis: {
+          tooltip: true
+        }
       },
       {
         key: 'deptName',
@@ -101,13 +104,13 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'address',
         title: $t('page.manage.online.address'),
         align: 'center',
-        minWidth: 150
+        width: 150
       },
       {
         key: 'browser',
         title: $t('page.manage.online.browser'),
         align: 'center',
-        minWidth: 100
+        width: 120
       },
       {
         key: 'os',
@@ -166,7 +169,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
@@ -193,7 +196,7 @@ onMounted(async () => {
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="flex-1"
+          class="min-h-300px flex-1"
         />
       </div>
     </NCard>

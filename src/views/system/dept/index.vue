@@ -44,23 +44,27 @@ const {
   },
   columns: () => [
     {
+      fixed: 'left',
       key: 'name',
       title: $t('page.manage.dept.name'),
       align: 'left',
-      minWidth: 100,
-      tree: true
+      width: 180,
+      tree: true,
+      ellipsis: {
+        tooltip: true
+      }
     },
     {
       key: 'order',
       title: $t('page.manage.common.order'),
       align: 'center',
-      width: 100
+      width: 180
     },
     {
       key: 'default',
       title: $t('page.manage.dept.default'),
       align: 'center',
-      width: 120,
+      width: 180,
       render: row => {
         if (!row.default) {
           return null;
@@ -69,7 +73,6 @@ const {
         return <NTag type={'primary'}>{$t('common.yesOrNo.yes')}</NTag>;
       }
     },
-
     {
       key: 'operate',
       title: $t('common.operate'),

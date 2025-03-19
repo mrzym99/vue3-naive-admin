@@ -212,22 +212,20 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
+        fixed: 'left',
         type: 'selection',
         align: 'center',
         width: 48
       },
       {
-        key: 'index',
-        title: $t('common.index'),
-        align: 'center',
-        width: 64,
-        tree: true
-      },
-      {
+        fixed: 'left',
         key: 'username',
         title: $t('page.manage.user.username'),
         align: 'center',
-        minWidth: 100,
+        width: 100,
+        ellipsis: {
+          tooltip: true
+        },
         render: row => {
           return (
             <span class={'detail-link'} onClick={() => detail(row.id)}>
@@ -253,13 +251,16 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'nickName',
         title: $t('page.manage.user.nickName'),
         align: 'center',
-        minWidth: 100
+        width: 100,
+        ellipsis: {
+          tooltip: true
+        }
       },
       {
         key: 'dept',
         title: $t('page.manage.user.dept'),
         align: 'center',
-        minWidth: 100,
+        width: 120,
         render: row => {
           if (row.dept === null) return null;
           return <NTag>{row.dept.name}</NTag>;
@@ -456,7 +457,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <NSplit v-if="!appStore.isMobile" class="h-full" direction="horizontal" :default-size="0.2" :max="0.9" :min="0.1">
         <template #1>
@@ -546,7 +547,7 @@ onMounted(() => {
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="flex-1"
+          class="min-h-300px flex-1"
         />
       </div>
     </NCard>

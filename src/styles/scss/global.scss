@@ -5,6 +5,10 @@
   cursor: pointer;
 }
 
+.n-dialog.n-modal {
+  max-width: 100% !important;
+}
+
 /* 定义更生动的游泳动画 */
 @keyframes swim {
   0% {

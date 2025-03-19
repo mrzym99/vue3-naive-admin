@@ -31,27 +31,28 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
+        fixed: 'left',
         key: 'name',
         title: $t('page.manage.parameter.name'),
         align: 'left',
-        width: 200
+        width: 120
       },
       {
         key: 'key',
         title: $t('page.manage.parameter.key'),
         align: 'center',
-        width: 200
+        width: 150
       },
       {
         key: 'value',
         title: $t('page.manage.parameter.value'),
-        width: 120,
+        width: 180,
         align: 'center'
       },
       {
         key: 'remark',
         title: $t('page.manage.common.remark'),
-        width: 200,
+        width: 220,
         ellipsis: {
           tooltip: true
         }

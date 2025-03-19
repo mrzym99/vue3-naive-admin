@@ -124,7 +124,7 @@ const computedLabelWidth = computed(() => {
     :label-width="computedLabelWidth"
     :label-placement="labelPlacement"
   >
-    <NGrid responsive="screen" item-responsive :x-gap="16">
+    <NGrid responsive="screen" item-responsive>
       <NFormItemGi
         v-for="field in finalFields"
         :key="field.key"

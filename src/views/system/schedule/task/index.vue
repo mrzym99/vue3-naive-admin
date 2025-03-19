@@ -69,10 +69,11 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     },
     columns: () => [
       {
+        fixed: 'left',
         key: 'name',
         title: $t('page.manage.task.name'),
         align: 'left',
-        width: 150,
+        width: 120,
         ellipsis: {
           tooltip: true
         },
@@ -88,7 +89,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'status',
         title: $t('common.status'),
         align: 'center',
-        width: 60,
+        width: 80,
         render: row => {
           if (row.status === null) {
             return null;
@@ -131,7 +132,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       {
         key: 'data',
         title: $t('page.manage.task.params'),
-        width: 220,
+        width: 260,
         ellipsis: {
           tooltip: true
         }
@@ -139,7 +140,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       {
         key: 'remark',
         title: $t('page.manage.common.remark'),
-        width: 200,
+        width: 240,
         ellipsis: {
           tooltip: true
         }
@@ -358,7 +359,7 @@ async function handleStop(id: string) {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
@@ -384,7 +385,7 @@ async function handleStop(id: string) {
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="flex-1"
+          class="min-h-300px flex-1"
         />
       </div>
     </NCard>
