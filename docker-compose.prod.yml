@@ -3,7 +3,7 @@ services:
     # 从当前路径构建镜像
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     image: vue3-naive-admin:latest
     ports:
       - '80:80'
