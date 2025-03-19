@@ -15,10 +15,8 @@
 [![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin) -->
 [![gitee stars](https://gitee.com/mrzym/stable-version-of-blog/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
 
-> [!NOTE]
 > `Vue3NaiveAdmin` is developed based on [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). If you find `SoybeanAdmin` or `Vue3NaiveAdmin` helpful, or if you like our project, please give us a ⭐️ on GitHub/Gitee. Your support is the driving force for us to continuously improve and add new features! Thank you for your support!
 
-> [!NOTE]
 > Special thanks to the [SoybeanJS](https://github.com/soybeanjs) team for their contributions! Let's work together to contribute more high-quality open-source projects to the open-source community.
 
 ## Introduction

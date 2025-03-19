@@ -12,10 +12,8 @@
 [![gitee stars](https://gitee.com/mrzym/stable-version-of-blog/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
 
 
-> [!NOTE]
 > [Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) 基于 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 二次开发而来。如果您觉得 `SoybeanAdmin` | `Vue3NaiveAdmin` 对您有所帮助，或者您喜欢我们的项目，请在 GitHub/Gitee 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
 
-> [!NOTE]
 > 非常感谢 [SoybeanJS](https://github.com/soybeanjs) 团队的贡献！让我们一起为开源社区贡献更多优质开源项目。
 
 
@@ -62,7 +60,8 @@
 
 ## 示例图片
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
+TODO 等我慢慢添加
+<!-- ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-02.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-03.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-04.png)
@@ -72,7 +71,7 @@
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-08.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
 ![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png) -->
 
 
 ## 使用
@@ -130,6 +129,28 @@ git cherry-pick [commit id]
 git cherry-pick --continue
 ```
 
+## Docker 构建
+
+本项目使用了 Docker 来构建和运行项目。您可以通过以下步骤来构建和运行项目：
+
+**环境要求** 
+您的环境必须满足以下要求：
+含有稳定版本的 Docker 和 Docker Compose。
+
+**注意事项**
+docker-compose.yml 对应开发环境 dev，docker-compose.prod.yml对应生产环境 prod
+如果服务器比较差，可以使用docker-compose.prod.yml构建镜像，需要用户在本地打包把代码推送到服务器，docker-compose.prod.yml只有复制打包好的代码到指定文件夹和启动nginx反向代理的操作。
+
+如果你的服务器性能还不错，那么直接使用 docker-compose.yml 即可。
+
+```
+docker-compose up -d 即可构建和运行项目。(使用 -f [filename] 参数可以指定不同的 compose 文件)
+docker-compose down 来停止和删除容器。
+```
+[docker compose 命令大全](https://www.cnblogs.com/xyh9039/p/18540766)
+
+如果遇到构建失败的情况，可能是因为您的Docker 环境存在问题。可以切换自己的Docker源地址，这里推荐 [阿里云镜像加速](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
+
 
 ## 如何贡献
 我热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://gitee.com/mrzym/vue3-naive-admin/pulls) 或创建 GitEE [issue](https://gitee.com/mrzym/vue3-naive-admin/issues/new) 来分享。
@@ -162,7 +183,7 @@ git cherry-pick --continue
 
   <div>
     <p>QQ交流群</p>
-    <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" style="width:200px" />
+    <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" style="width:200px;aspect-ratio: 2 / 3;" />
   </div>
 
 <!-- ## Star 趋势
@@ -171,4 +192,4 @@ git cherry-pick --continue
 
 ## 开源协议
 
-项目基于 [MIT © 2025 Peerless-man](./LICENSE) 协议，仅供学习参考，商业使用请保留作者版权信息，作者不保证也不承担任何软件的使用风险。
+项目基于 [MIT © 2025 Xiao Zhang](./LICENSE) 协议，仅供学习参考，商业使用请保留作者版权信息，作者不保证也不承担任何软件的使用风险。
