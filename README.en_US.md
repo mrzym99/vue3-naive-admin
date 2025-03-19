@@ -13,6 +13,7 @@
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![gitee stars](https://gitee.com/mrzym/vue3-naive-admin/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
 
+
 > [Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) is a secondary development based on [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). If you find `SoybeanAdmin` or `Vue3NaiveAdmin` helpful, or you like our projects, please give us a ⭐️ on GitHub/Gitee. Your support is the driving force for our continuous improvement and addition of new features! Thank you for your support!
 
 > Special thanks to the [SoybeanJS](https://github.com/soybeanjs) team for their contributions! Let's work together to contribute more high-quality open-source projects to the community.
@@ -50,7 +51,7 @@
 If you are interested in collaboration or have project inquiries, please contact me through the following methods:
 
 - **Email**: [2715158815@qq.com](mailto:2715158815@qq.com)
-- **GitHub Issues**: Feel free to contact me through [GitEE Issues](https://gitee.com/mrzym/vue3-naive-admin/issues/new) for preliminary discussions.
+<!-- - **GitHub Issues**: Feel free to contact me through [GitEE Issues](https://gitee.com/mrzym/vue3-naive-admin/issues/new) for preliminary discussions. -->
 - **Business WeChat**: M2715158815
 
 We look forward to working with you to promote the successful application of Vue3NaiveAdmin in more fields!
