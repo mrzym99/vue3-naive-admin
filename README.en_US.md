@@ -13,7 +13,7 @@
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 <!-- [![github stars](https://img.shields.io/github/stars/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
 [![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin) -->
-[![gitee stars](https://gitee.com/mrzym/stable-version-of-blog/badge/star.svg)](https://gitee.com/mrzym/naive-vue3-admin)
+[![gitee stars](https://gitee.com/mrzym/stable-version-of-blog/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
 
 > [!NOTE]
 > `Vue3NaiveAdmin` is developed based on [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). If you find `SoybeanAdmin` or `Vue3NaiveAdmin` helpful, or if you like our project, please give us a ⭐️ on GitHub/Gitee. Your support is the driving force for us to continuously improve and add new features! Thank you for your support!
@@ -25,7 +25,7 @@
 
 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) is a clean, elegant, beautiful, and powerful admin template based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia, and UnoCSS. It comes with rich theme configurations and components, strictly follows coding standards, and implements an automated file routing system. `SoybeanAdmin` provides a one-stop solution for admin management, ready to use out of the box, and is also an excellent practice for quickly learning cutting-edge technologies.
 
-[Vue3NaiveAdmin](https://gitee.com/mrzym/naive-vue3-admin) follows the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retains all the features of [SoybeanAdmin](https://docs.soybeanjs.cn/zh/), and adds some advanced components. For usage of other framework features, please refer to the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html). The backend is supported by [Nest-Admin](https://gitee.com/mrzym/Nest-Admin).
+[Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) follows the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retains all the features of [SoybeanAdmin](https://docs.soybeanjs.cn/zh/), and adds some advanced components. For usage of other framework features, please refer to the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html). The backend is supported by [Nest-Admin](https://gitee.com/mrzym/Nest-Admin).
 
 ## Features
 
@@ -63,7 +63,7 @@ For developers with specific business needs, I offer customized management backe
 For collaboration inquiries or project consultations, please contact us through the following methods:
 
 - **Email**: [2715158815@qq.com](mailto:2715158815@qq.com)
-- **GitHub Issues**: Feel free to reach out through [GitEE Issues](https://gitee.com/mrzym/naive-vue3-admin/issues/new) for initial discussions.
+- **GitHub Issues**: Feel free to reach out through [GitEE Issues](https://gitee.com/mrzym/vue3-naive-admin/issues/new) for initial discussions.
 - **Business WeChat**: M2715158815
 
 We look forward to collaborating with you to drive the success of the `Vue3NaiveAdmin` project in more areas!
@@ -95,7 +95,7 @@ Ensure your environment meets the following requirements:
 ### Clone the Project
 
 ```bash
-git clone https://gitee.com/mrzym/naive-vue3-admin
+git clone https://gitee.com/mrzym/vue3-naive-admin
 ```
 
 ### Install Dependencies
@@ -122,7 +122,7 @@ pnpm build
 
 1. Add the `Vue3NaiveAdmin` git address to your repository:
    ```bash
-   git remote add otherOrigin https://gitee.com/mrzym/naive-vue3-admin.git
+   git remote add otherOrigin https://gitee.com/mrzym/vue3-naive-admin.git
    ```
 
 2. Fetch the code:
