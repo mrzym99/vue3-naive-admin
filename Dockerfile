@@ -1,16 +1,32 @@
-# 使用 Alpine 版本的 Nginx 作为基础镜像
-FROM nginx:alpine
 
-# 删除默认的 Nginx 配置文件
-RUN rm /etc/nginx/conf.d/default.conf
+ARG PROJECT_DIR=/vue3-naive-admin
 
-# 复制构建产物
-COPY  /dist /usr/share/nginx/html
+FROM node:21.7.3 as builder
+ARG PROJECT_DIR
+WORKDIR $PROJECT_DIR
 
-# 将自定义的 Nginx 配置文件复制到镜像中
-COPY nginx.conf /etc/nginx/nginx.conf
+# 安装pnpm
+RUN npm install -g pnpm
 
-# 暴露 80 端口
+COPY . ./
+
+# 安装依赖
+# 若网络不通，可以使用淘宝源
+# RUN pnpm config set registry https://registry.npmmirror.com
+RUN rm -rf node_modules
+RUN pnpm install
+
+# 构建项目
+ENV VITE_BASE_URL=/
+RUN NODE_OPTIONS="--max-old-space-size=4096" pnpm build
+
+
+FROM nginx:alpine as production
+ARG PROJECT_DIR
+
+COPY --from=builder $PROJECT_DIR/dist/ /usr/share/nginx/html
+COPY --from=builder $PROJECT_DIR/nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80
 
 # 启动 Nginx
