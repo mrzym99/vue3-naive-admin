@@ -13,7 +13,7 @@
 
 
 > [!NOTE]
-> `Vue3NaiveAdmin` 基于 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 二次开发而来。如果您觉得 `SoybeanAdmin` | `Vue3NaiveAdmin` 对您有所帮助，或者您喜欢我们的项目，请在 GitHub/Gitee 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
+> [Vue3NaiveAdmin](https://gitee.com/mrzym/naive-vue3-admin-dev) 基于 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 二次开发而来。如果您觉得 `SoybeanAdmin` | `Vue3NaiveAdmin` 对您有所帮助，或者您喜欢我们的项目，请在 GitHub/Gitee 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
 
 > [!NOTE]
 > 非常感谢 [SoybeanJS](https://github.com/soybeanjs) 团队的贡献！让我们一起为开源社区贡献更多优质开源项目。
@@ -23,7 +23,7 @@
 
 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。`SoybeanAdmin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
 
-[Vue3NaiveAdmin](https://gitee.com/mrzym/naive-vue3-admin) 遵循 [SoybeanAdmin 开发规范](https://docs.soybeanjs.cn/zh/standard/)，保留了  [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 的所有功能。增加了部分高级组件。其他的框架自带功能使用方式可以在 [SoybeanAdmin 官方文档](https://docs.soybeanjs.cn/zh/guide/intro.html)上查阅。后端由 [Nest-Admin](https://gitee.com/mrzym/Nest-Admin) 支持。
+[Vue3NaiveAdmin](https://gitee.com/mrzym/naive-vue3-admin) 遵循 [SoybeanAdmin 开发规范](https://docs.soybeanjs.cn/zh/standard/)，保留了  [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 的所有功能。增加了部分高级组件(使用方式详见组件内README)。框架自带功能使用方式可以在 [SoybeanAdmin 官方文档](https://docs.soybeanjs.cn/zh/guide/intro.html)上查阅。后端由 [Nest-Admin](https://gitee.com/mrzym/Nest-Admin) 支持。
 
 ## 特性
 
@@ -38,7 +38,7 @@
 - **丰富的页面组件**：内置多样页面和组件，包括403、404、500页面，以及布局组件、标签组件、主题配置组件等。
 - **命令行工具**：内置高效的命令行工具，git提交、删除文件、发布等。
 - **移动端适配**：完美支持移动端，实现自适应布局。
-- **高级组件**：内置表格、表单、详情等高级组件，光速开发您的页面。
+- **高级组件**：内置表格、表单、详情等高级组件，光速开发您的页面(小张写的，没有经验，轻喷)。
 
 
 ## 文档
@@ -49,18 +49,9 @@
 
 ## 合作事项
 
-非常感谢大家对 [`Vue3NaiveAdmin`](https://gitee.com/mrzym/naive-vue3-admin) 的支持
+### 联系方式
 
-##### 1、定制化管理后台开发
-
-针对开发者的特定业务需求，我提供基于 [`Vue3NaiveAdmin`](https://gitee.com/mrzym/naive-vue3-admin) 的定制化管理后台开发服务。我具备丰富的行业经验，能够迅速理解并实现您的需求，打造高效、灵活且安全的定制化解决方案（我承认我有点吹牛了）。
-
-- **定制开发**：我们将根据您的具体需求，提供从需求分析、UI设计到功能实现的全方位服务，确保项目高效交付。
-- **功能扩展**：在 [`Vue3NaiveAdmin`](https://gitee.com/mrzym/naive-vue3-admin) 基础上，扩展您所需的特定功能模块，提升管理后台的功能和用户体验。
-
-##### 3、联系方式
-
-如有合作意向或项目咨询，请通过以下方式与我们联系：
+如有合作意向或项目咨询，请通过以下方式与我联系：
 
 - **Email**: [2715158815@qq.com](2715158815@qq.com)
 - **GitHub Issues**: 欢迎通过 [GitEE Issues](https://gitee.com/mrzym/naive-vue3-admin/issues/new) 联系我，进行初步的合作洽谈。
@@ -141,7 +132,6 @@ git cherry-pick --continue
 
 
 ## 如何贡献
-(我不是很会 平时没有这方面放入经验 如果有好的代码 我可以学习 并且接受)
 我热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://gitee.com/mrzym/naive-vue3-admin/pulls) 或创建 GitEE [issue](https://gitee.com/mrzym/naive-vue3-admin/issues/new) 来分享。
 
 ## Git 提交规范
@@ -170,10 +160,10 @@ git cherry-pick --continue
 
 `Vue3NaiveAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
 
-  <!-- <div>
+  <div>
     <p>QQ交流群</p>
-    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-3.jpg" style="width:200px" />
-  </div> -->
+    <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" style="width:200px" />
+  </div>
 
 <!-- ## Star 趋势
 

@@ -1,8 +1,6 @@
-<!-- # Changelog
+# Changelog
 
 
-## [v1.3.11](https://github.com/soybeanjs/soybean-admin/compare/v1.3.10...v1.3.11) (2025-01-19)
+## [v1.0.0](https://gitee.com/mrzym/naive-vue3-admin-dev) (2025-03-19)
 
-### &nbsp;&nbsp;&nbsp;🚀 Features
-
-- **projects**: multi language buttons support hiding. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin/issues/683 [<samp>(d7aeb)</samp>](https://github.com/soybeanjs/soybean-admin/commit/d7aebb7) -->
+### &nbsp;&nbsp;&nbsp;🚀 vue3-naive-admin is now live!
