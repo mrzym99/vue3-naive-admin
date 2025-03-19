@@ -9,7 +9,7 @@
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 <!-- [![github stars](https://img.shields.io/github/stars/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
 [![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin) -->
-[![gitee stars](https://gitee.com/mrzym/stable-version-of-blog/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
+[![gitee stars](https://gitee.com/mrzym/vue3-naive-admin/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
 
 
 > [Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) 基于 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 二次开发而来。如果您觉得 `SoybeanAdmin` | `Vue3NaiveAdmin` 对您有所帮助，或者您喜欢我们的项目，请在 GitHub/Gitee 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
