@@ -166,9 +166,9 @@ Thank you to all the contributors. If you would like to contribute to this proje
 
 `Vue3NaiveAdmin` is a completely open-source and free project aimed at helping developers more easily build medium and large management systems. We also provide WeChat and QQ groups for communication. Feel free to ask questions in the groups.
 
-<div style="width: 300px; overflow: hidden;">
+<div>
   <p>QQ Group</p>
-  <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" style="width:200px;aspect-ratio: 2 / 3;" />
+  <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" height="300" width="200" />
 </div>
 
 ## Open Source License
