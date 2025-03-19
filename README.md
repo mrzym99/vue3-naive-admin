@@ -181,7 +181,7 @@ docker-compose down 来停止和删除容器。
 
 `Vue3NaiveAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
 
-  <div>
+  <div style="width: 300px; overflow: hidden;">
     <p>QQ交流群</p>
     <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" style="width:200px;aspect-ratio: 2 / 3;" />
   </div>
