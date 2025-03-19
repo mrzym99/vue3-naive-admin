@@ -116,28 +116,33 @@ git cherry-pick --continue
 
 ## Docker Build
 
-This project uses Docker to build and run. You can follow these steps to build and run the project:
+This project uses Docker to build and run the application. You can follow the steps below to build and run the project:
 
 **Environment Requirements**
 
 Your environment must meet the following requirements:
-
-- Stable versions of Docker and Docker Compose.
+- A stable version of Docker and Docker Compose must be installed.
 
 **Notes**
 
-- `docker-compose.yml` corresponds to the development environment (dev), while `docker-compose.prod.yml` corresponds to the production environment (prod).
-- If your server is underpowered, you can use `docker-compose.prod.yml` to build the image. This requires you to locally package the code and push it to the server. `docker-compose.prod.yml` only copies the packaged code to the specified folder and starts the nginx reverse proxy.
-- If your server has sufficient performance, you can directly use `docker-compose.yml`.
+`docker-compose.yml` corresponds to the development environment (dev).
+`docker-compose.prod.yml` corresponds to the production environment (prod).
+
+1.Build and Run the Project
 
 ```bash
-docker-compose up -d # to build and run the project (use the -f [filename] parameter to specify a different compose file)
-docker-compose down # to stop and remove the containers
+docker-compose up -d // (Use the -f [filename] parameter to specify a different compose file)
 ```
 
-[Docker Compose Command List](https://www.cnblogs.com/xyh9039/p/18540766)
+2.Stop and Remove
 
-If you encounter build failures, it may be due to issues with your Docker environment. You can switch to a different Docker source, such as the [Alibaba Cloud Mirror Acceleration](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors).
+```bash
+docker-compose down // to stop and remove the containers.
+```
+
+For a comprehensive list of Docker Compose commands, please refer to the [Docker Compose Command Reference](https://www.cnblogs.com/xyh9039/p/18540766).
+
+If you encounter build failures, it may be due to issues with your Docker environment. You can try switching to a different Docker registry. Here, we recommend using the [Alibaba Cloud Container Registry](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) for faster image downloads.
 
 ## Contributing
 

@@ -135,17 +135,21 @@ git cherry-pick --continue
 本项目使用了 Docker 来构建和运行项目。您可以通过以下步骤来构建和运行项目：
 
 **环境要求** 
+
 您的环境必须满足以下要求：
-含有稳定版本的 Docker 和 Docker Compose。
+- 含有稳定版本的 Docker 和 Docker Compose。
 
 **注意事项**
+
 docker-compose.yml 对应开发环境 dev，docker-compose.prod.yml对应生产环境 prod
-如果服务器比较差，可以使用docker-compose.prod.yml构建镜像，需要用户在本地打包把代码推送到服务器，docker-compose.prod.yml只有复制打包好的代码到指定文件夹和启动nginx反向代理的操作。
 
-如果你的服务器性能还不错，那么直接使用 docker-compose.yml 即可。
-
+1、构建和运行项目
 ```
-docker-compose up -d 即可构建和运行项目。(使用 -f [filename] 参数可以指定不同的 compose 文件)
+docker-compose up -d // (使用 -f [filename] 参数可以指定不同的 compose 文件)
+```
+
+2、停止和移除
+```
 docker-compose down 来停止和删除容器。
 ```
 [docker compose 命令大全](https://www.cnblogs.com/xyh9039/p/18540766)
