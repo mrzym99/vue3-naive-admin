@@ -143,18 +143,24 @@ git cherry-pick --continue
 
 docker-compose.yml 对应开发环境 dev，docker-compose.prod.yml对应生产环境 prod
 
-1、构建和运行项目
+1、构建项目
 ```
-docker-compose up -d // (使用 -f [filename] 参数可以指定不同的 compose 文件)
+docker-compose build
 ```
 
-2、停止和移除
+2、运行项目
 ```
-docker-compose down 来停止和删除容器。
+docker-compose up -d // (使用 -f [filename] 参数可以指定不同的 compose 文件 -d 表示后台运行，适用于服务器上构建后运行项目，退出终端容器不会停止运行)
+```
+
+3、停止和移除
+```
+docker-compose down 来停止和删除容器(删除容器数据请使用 -v 参数)。
 ```
 [docker compose 命令大全](https://www.cnblogs.com/xyh9039/p/18540766)
 
 如果遇到构建失败的情况，可能是因为您的Docker 环境存在问题。可以切换自己的Docker源地址，这里推荐 [阿里云镜像加速](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
+
 
 
 ## 如何贡献

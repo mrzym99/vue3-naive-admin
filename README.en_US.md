@@ -118,31 +118,37 @@ git cherry-pick --continue
 
 This project uses Docker to build and run the application. You can follow the steps below to build and run the project:
 
-**Environment Requirements**
+### Environment Requirements
 
 Your environment must meet the following requirements:
-- A stable version of Docker and Docker Compose must be installed.
 
-**Notes**
+- Stable versions of Docker and Docker Compose are required.
 
-`docker-compose.yml` corresponds to the development environment (dev).
-`docker-compose.prod.yml` corresponds to the production environment (prod).
+### Notes
 
-1.Build and Run the Project
+- `docker-compose.yml` corresponds to the development environment (`dev`), while `docker-compose.prod.yml` corresponds to the production environment (`prod`).
 
-```bash
-docker-compose up -d // (Use the -f [filename] parameter to specify a different compose file)
-```
-
-2.Stop and Remove
+1. Build the project:
 
 ```bash
-docker-compose down // to stop and remove the containers.
+docker-compose build
 ```
 
-For a comprehensive list of Docker Compose commands, please refer to the [Docker Compose Command Reference](https://www.cnblogs.com/xyh9039/p/18540766).
+2. Run the project:
 
-If you encounter build failures, it may be due to issues with your Docker environment. You can try switching to a different Docker registry. Here, we recommend using the [Alibaba Cloud Container Registry](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) for faster image downloads.
+```bash
+docker-compose up -d // (-f [filename] can specify a different compose file; `-d` runs in the background, suitable for running on a server. Exiting the terminal will not stop the containers)
+```
+
+3. Stop and remove:
+
+```bash
+docker-compose down // (use `-v` to delete container data)
+```
+
+For a comprehensive list of Docker Compose commands, refer to [Docker Compose Command List](https://www.cnblogs.com/xyh9039/p/18540766).
+
+If you encounter build failures, it may be due to issues with your Docker environment. You can switch to a different Docker source. Here, we recommend [Alibaba Cloud Mirror Acceleration](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors).
 
 ## Contributing
 
