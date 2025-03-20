@@ -123,6 +123,7 @@ onMounted(async () => {
 <template>
   <NForm
     ref="formRef"
+    class="p-10px"
     :model="model"
     :rules="rules"
     v-bind="$attrs"
@@ -130,16 +131,6 @@ onMounted(async () => {
     :label-width="computedLabelWidth"
     require-mark-placement="right"
   >
-    <div v-if="!isSuperAdmin" class="absolute right-20px top-80px z-3001">
-      <NPopconfirm @positive-click="handleSubmit">
-        <template #trigger>
-          <NButton type="primary" :loading="loading">
-            {{ $t('common.modify') }}
-          </NButton>
-        </template>
-        {{ $t('common.confirmModify') }}
-      </NPopconfirm>
-    </div>
     <NSpin :delay="0" :show="getDataLoading">
       <NGrid responsive="screen" item-responsive :x-gap="16">
         <NFormItemGi :span="24" :label="$t('page.manage.user.avatar')" path="avatar">
@@ -186,6 +177,11 @@ onMounted(async () => {
           />
         </NFormItemGi>
       </NGrid>
+      <NSpace v-if="!isSuperAdmin" justify="end">
+        <NButton type="primary" :loading="loading" @click="handleSubmit">
+          {{ $t('common.modify') }}
+        </NButton>
+      </NSpace>
     </NSpin>
   </NForm>
 </template>
