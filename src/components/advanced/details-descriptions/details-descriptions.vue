@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<DetailsDescriptionsProps>(), {
 const descriptionItems = computed<DescriptionItem[]>(() => {
   const items: DescriptionItem[] = [];
   props.fields.forEach(item => {
-    const { key, label, type, span, render, hide } = item;
+    const { key, label, span, render, hide } = item;
     const itemValue = props.data[key];
 
     const isHide = typeof hide === 'function' ? hide(props.data) : hide;
@@ -31,7 +31,6 @@ const descriptionItems = computed<DescriptionItem[]>(() => {
       items.push({
         key,
         label,
-        type,
         span,
         render,
         value: itemValue

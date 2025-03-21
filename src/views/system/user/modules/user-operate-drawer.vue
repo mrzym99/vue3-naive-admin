@@ -6,6 +6,7 @@ import { fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/ap
 import type { Option } from '@/components/advanced/config-form';
 import { useConfigForm } from '@/hooks/common/config-form';
 import { GenderEnum, StatusEnum } from '@/constants/enum';
+import { REG_EMAIL, REG_PHONE } from '@/constants/reg';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -119,7 +120,13 @@ const userConfigForm = useConfigForm<Model>(() => ({
     required: true,
     props: {
       placeholder: $t('common.pleaseEnter') + $t('page.manage.user.email')
-    }
+    },
+    rules: [
+      {
+        pattern: REG_EMAIL,
+        message: $t('page.tools.mail.pleaseEnterCorrectEmail')
+      }
+    ]
   },
   phone: {
     key: 'phone',
@@ -127,7 +134,14 @@ const userConfigForm = useConfigForm<Model>(() => ({
     type: 'Input',
     props: {
       placeholder: $t('common.pleaseEnter') + $t('page.manage.user.phone')
-    }
+    },
+    rules: [
+      {
+        pattern: REG_PHONE,
+        message: $t('form.phone.invalid'),
+        trigger: 'change'
+      }
+    ]
   },
   address: {
     key: 'address',

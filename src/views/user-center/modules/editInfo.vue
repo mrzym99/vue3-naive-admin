@@ -3,7 +3,7 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import type { FormInst } from 'naive-ui';
 import { $t, getLocale } from '@/locales';
 import { GenderEnum } from '@/constants/enum';
-import { REG_PHONE } from '@/constants/reg';
+import { REG_EMAIL, REG_PHONE } from '@/constants/reg';
 import { fetchGetAccountInfo, fetchUpdateAccount } from '@/service/api';
 import { useAuthStore } from '@/store/modules/auth';
 
@@ -56,6 +56,11 @@ const rules = reactive({
     {
       required: true,
       message: `${$t('page.manage.user.email')}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`,
+      trigger: 'blur'
+    },
+    {
+      pattern: REG_EMAIL,
+      message: $t('page.tools.mail.pleaseEnterCorrectEmail'),
       trigger: 'blur'
     }
   ],

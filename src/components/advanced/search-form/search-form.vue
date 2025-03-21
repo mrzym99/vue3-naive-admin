@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, useSlots } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { $t, getLocale } from '@/locales';
 import { useNaiveForm } from '@/hooks/common/form';
@@ -56,6 +56,9 @@ const collapse = () => {
   isFold.value = !isFold.value;
 };
 
+const slots = computed(() => {
+  return useSlots();
+});
 const span = (breakpoints: string) => {
   switch (breakpoints) {
     case 'sm':
@@ -132,7 +135,11 @@ const computedLabelWidth = computed(() => {
         :label="field.label"
         :path="field.key"
       >
-        <ConfigFormItem v-model:value="model[field.key]" :field="field" :model="model" />
+        <ConfigFormItem v-model:value="model[field.key]" :field="field" :model="model">
+          <template v-for="name of Object.keys(slots)" #[name]="slotProps">
+            <slot :name="name" v-bind="slotProps"></slot>
+          </template>
+        </ConfigFormItem>
       </NFormItemGi>
       <NFormItemGi :span="collapseSpan(activeBreakpoint)">
         <NSpace class="w-full" justify="end" :wrap="false">

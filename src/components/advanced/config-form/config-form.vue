@@ -40,12 +40,16 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
           {
             required: true,
             message: `${message}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`
+            // trigger: field.type === 'Input' ? 'blur' : 'change'
           }
         ];
+      } else {
+        acc[field.key] = [];
       }
       if (field.rules) {
-        Object.assign(acc[field.key], field.rules);
+        acc[field.key] = [...acc[field.key], ...field.rules];
       }
+
       return acc;
     },
     {} as Record<string, App.Global.FormRule[]>

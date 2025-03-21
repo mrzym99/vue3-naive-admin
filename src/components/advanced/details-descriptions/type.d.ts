@@ -19,7 +19,6 @@ export interface DescriptionItem<T extends Recordable = any> {
   span?: number;
   hide?: BooleanProp<T>;
   render?: RenderFn<T>;
-  type?: string;
   value?: any;
 }
 

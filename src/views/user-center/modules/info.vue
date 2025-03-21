@@ -117,13 +117,12 @@ const descriptionItems = computed<DescriptionItem[]>(() => {
   if (!details.id) return [];
   const items: DescriptionItem[] = [];
   columns.value.forEach(item => {
-    const { key, label, type, span, render } = item;
+    const { key, label, span, render } = item;
     const itemValue = details[key];
 
     items.push({
       key,
       label,
-      type,
       span,
       render,
       value: itemValue
