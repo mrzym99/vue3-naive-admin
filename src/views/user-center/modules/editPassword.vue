@@ -93,15 +93,10 @@ const isSuperAdmin = computed(() => {
         />
       </NFormItemGi>
     </NGrid>
-    <div v-if="!isSuperAdmin" class="w-full flex justify-end">
-      <NPopconfirm @positive-click="handleSubmit">
-        <template #trigger>
-          <NButton type="primary" :loading="loading">
-            {{ $t('common.modify') }}
-          </NButton>
-        </template>
+    <NSpace v-if="!isSuperAdmin" justify="end">
+      <NButton type="primary" :loading="loading" @click="handleSubmit">
         {{ $t('common.modify') }}
-      </NPopconfirm>
-    </div>
+      </NButton>
+    </NSpace>
   </NForm>
 </template>
