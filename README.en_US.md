@@ -58,21 +58,21 @@ We look forward to working with you to promote the successful application of Vue
 
 ## Example Images
 
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/login.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/register.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/home.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/dark-home.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/config.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/user.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/menu.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/task.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/log.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/service.png)
+![](http://mrzym.top/nest-admin/login.png)
+![](http://mrzym.top/nest-admin/register.png)
+![](http://mrzym.top/nest-admin/home.png)
+![](http://mrzym.top/nest-admin/dark-home.png)
+![](http://mrzym.top/nest-admin/config.png)
+![](http://mrzym.top/nest-admin/user.png)
+![](http://mrzym.top/nest-admin/menu.png)
+![](http://mrzym.top/nest-admin/task.png)
+![](http://mrzym.top/nest-admin/log.png)
+![](http://mrzym.top/nest-admin/service.png)
 
 mobile
 
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/home-mobile.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/menu-mobile.png)
+![](http://mrzym.top/nest-admin/home-mobile.png)
+![](http://mrzym.top/nest-admin/menu-mobile.png)
 
 
 ## Usage
@@ -195,7 +195,7 @@ Thank you to all the contributors. If you would like to contribute to this proje
 
 <div>
   <p>QQ Group</p>
-  <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg" height="300" width="200" />
+  <img src="http://mrzym.top/nest-admin/qrcode.png" height="300" width="200" />
 </div>
 
 ## Open Source License

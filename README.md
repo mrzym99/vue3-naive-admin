@@ -61,21 +61,21 @@
 
 ## 示例图片
 
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/login.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/register.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/home.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/dark-home.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/config.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/user.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/menu.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/task.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/log.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/service.png)
+![](http://mrzym.top/nest-admin/login.png)
+![](http://mrzym.top/nest-admin/register.png)
+![](http://mrzym.top/nest-admin/home.png)
+![](http://mrzym.top/nest-admin/dark-home.png)
+![](http://mrzym.top/nest-admin/config.png)
+![](http://mrzym.top/nest-admin/user.png)
+![](http://mrzym.top/nest-admin/menu.png)
+![](http://mrzym.top/nest-admin/task.png)
+![](http://mrzym.top/nest-admin/log.png)
+![](http://mrzym.top/nest-admin/service.png)
 
 适配移动端
 
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/home-mobile.png)
-![](https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/menu-mobile.png)
+![](http://mrzym.top/nest-admin/home-mobile.png)
+![](http://mrzym.top/nest-admin/menu-mobile.png)
 
 
 ## 使用
@@ -197,7 +197,7 @@ docker-compose down 来停止和删除容器(删除容器数据请使用 -v 参�
 
   <div>
     <p>QQ交流群</p>
-    <img src="https://nest-admin-1308002460.cos.ap-chengdu.myqcloud.com/static/9DE8D440D62FFC00BC9B476D7942C9AE_compressed.jpg"  height="300" width="200" />
+    <img src="http://mrzym.top/nest-admin/qrcode.jpg"  height="300" width="200" />
   </div>
 
 <!-- ## Star 趋势
