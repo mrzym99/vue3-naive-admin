@@ -61,21 +61,21 @@
 
 ## 示例图片
 
-![](http://mrzym.top/nest-admin/login.png)
-![](http://mrzym.top/nest-admin/register.png)
-![](http://mrzym.top/nest-admin/home.png)
-![](http://mrzym.top/nest-admin/dark-home.png)
-![](http://mrzym.top/nest-admin/config.png)
-![](http://mrzym.top/nest-admin/user.png)
-![](http://mrzym.top/nest-admin/menu.png)
-![](http://mrzym.top/nest-admin/task.png)
-![](http://mrzym.top/nest-admin/log.png)
-![](http://mrzym.top/nest-admin/service.png)
+![](https://nest-image.mrzym.top/login.png)
+![](https://nest-image.mrzym.top/register.png)
+![](https://nest-image.mrzym.top/home.png)
+![](https://nest-image.mrzym.top/dark-home.png)
+![](https://nest-image.mrzym.top/config.png)
+![](https://nest-image.mrzym.top/user.png)
+![](https://nest-image.mrzym.top/menu.png)
+![](https://nest-image.mrzym.top/task.png)
+![](https://nest-image.mrzym.top/log.png)
+![](https://nest-image.mrzym.top/service.png)
 
 适配移动端
 
-![](http://mrzym.top/nest-admin/home-mobile.png)
-![](http://mrzym.top/nest-admin/menu-mobile.png)
+![](https://nest-image.mrzym.top/home-mobile.png)
+![](https://nest-image.mrzym.top/menu-mobile.png)
 
 
 ## 使用
@@ -197,7 +197,7 @@ docker-compose down 来停止和删除容器(删除容器数据请使用 -v 参�
 
   <div>
     <p>QQ交流群</p>
-    <img src="http://mrzym.top/nest-admin/qrcode.jpg"  height="300" width="200" />
+    <img src="https://nest-image.mrzym.top/qrcode.jpg"  height="300" width="200" />
   </div>
 
 <!-- ## Star 趋势
