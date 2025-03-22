@@ -14,6 +14,8 @@ export * from './system/parameter';
 export * from './system/task';
 export * from './system/task-log';
 export * from './system/captcha-log';
+export * from './system/dict-type';
+export * from './system/dict-item';
 
 export * from './tool/storage-local';
 export * from './tool/storage-oss';

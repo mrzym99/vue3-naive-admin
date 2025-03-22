@@ -42,6 +42,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   plugin_typeit: () => import("@/views/plugin/typeit/index.vue"),
   plugin_video: () => import("@/views/plugin/video/index.vue"),
   system_dept: () => import("@/views/system/dept/index.vue"),
+  system_dict: () => import("@/views/system/dict/index.vue"),
   system_menu: () => import("@/views/system/menu/index.vue"),
   "system_monitor_captcha-log": () => import("@/views/system/monitor/captcha-log/index.vue"),
   "system_monitor_login-log": () => import("@/views/system/monitor/login-log/index.vue"),

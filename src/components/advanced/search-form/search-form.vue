@@ -91,8 +91,10 @@ function generateFieldArr(): SearchFormArrayType {
 
 const collapseSpan = (breakpoints: string) => {
   const currentSpan = span(breakpoints);
-  const rowNumber = 24 / currentSpan;
-  const finalSpan = 24 - (finalFields.value.length % rowNumber) * currentSpan;
+  const sumSpan = finalFields.value.reduce((acc, cur) => {
+    return cur.span ? acc + cur.span : acc + currentSpan;
+  }, 0);
+  const finalSpan = 24 - (sumSpan % 24);
   return finalSpan;
 };
 
@@ -131,7 +133,7 @@ const computedLabelWidth = computed(() => {
       <NFormItemGi
         v-for="field in finalFields"
         :key="field.key"
-        :span="span(activeBreakpoint)"
+        :span="field.span || span(activeBreakpoint)"
         :label="field.label"
         :path="field.key"
       >

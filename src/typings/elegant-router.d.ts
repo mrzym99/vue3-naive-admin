@@ -65,6 +65,7 @@ declare module "@elegant-router/types" {
     "plugin_video": "/plugin/video";
     "system": "/system";
     "system_dept": "/system/dept";
+    "system_dict": "/system/dict";
     "system_menu": "/system/menu";
     "system_monitor": "/system/monitor";
     "system_monitor_captcha-log": "/system/monitor/captcha-log";
@@ -186,6 +187,7 @@ declare module "@elegant-router/types" {
     | "plugin_typeit"
     | "plugin_video"
     | "system_dept"
+    | "system_dict"
     | "system_menu"
     | "system_monitor_captcha-log"
     | "system_monitor_login-log"

@@ -283,6 +283,7 @@ async function handleSubmit() {
   await validate();
   const { avatar, ...values } = model.value;
   const avatarUrl = Array.isArray(avatar) ? avatar[0].url : avatar;
+  // 暂时没写创建用户 用户都是在登录的时候创建的
   const { error } = await fetchUpdateUser(props.rowData!.id, {
     avatar: avatarUrl,
     ...values

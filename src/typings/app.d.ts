@@ -713,6 +713,22 @@ declare namespace App {
               captcha: string;
             };
           };
+          dict: {
+            name: string;
+            code: string;
+            label: string;
+            value: string;
+            dictItem: {
+              currentTypeName: string;
+              add: string;
+              edit: string;
+            };
+            dictType: {
+              title: string;
+              add: string;
+              edit: string;
+            };
+          };
         };
         tools: {
           mail: {

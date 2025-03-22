@@ -22,6 +22,7 @@ export const iconifyIconList: string[] = [
   'mdi:book-heart-outline',
   'mdi:book-open-page-variant-outline',
   'mdi:book-open-variant-outline',
+  'mdi:format-list-numbered',
   'ic:outline-reduce-capacity',
   'ic:outline-other-houses'
 ];

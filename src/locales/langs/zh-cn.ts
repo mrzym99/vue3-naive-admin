@@ -212,6 +212,7 @@ const local: App.I18n.Schema = {
     system_monitor_online: '在线用户',
     'system_monitor_login-log': '登录日志',
     system_monitor_serve: '服务监控',
+    system_dict: '字典管理',
     tools: '系统工具',
     tools_storage: '存储管理',
     tools_storage_local: '本地存储',
@@ -505,7 +506,7 @@ const local: App.I18n.Schema = {
         startTime: '开始时间',
         endTime: '结束时间',
         add: '新增任务',
-        edit: '修编辑任务',
+        edit: '编辑任务',
         start: '启动',
         stop: '停止',
         once: '启动一次',
@@ -529,6 +530,22 @@ const local: App.I18n.Schema = {
           email: '邮件',
           sms: '短信',
           captcha: 'Captcha'
+        }
+      },
+      dict: {
+        name: '名称',
+        code: '编码',
+        label: '名称',
+        value: '值',
+        dictItem: {
+          currentTypeName: '当前类型名称',
+          add: '新增字典项',
+          edit: '编辑字典项'
+        },
+        dictType: {
+          title: '字典类型',
+          add: '新增字典类型',
+          edit: '编辑字典类型'
         }
       }
     },

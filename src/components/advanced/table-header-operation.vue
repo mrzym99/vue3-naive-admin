@@ -63,38 +63,37 @@ function toggleExpand() {
     </NSpace>
     <NSpace :align="itemAlign" wrap justify="end">
       <slot name="prefix"></slot>
-      <slot name="default">
-        <!-- 把 prefix 和 :create 拼接起来 就可以和后端的权限对应 -->
-        <NButton
-          v-if="!hideAdd"
-          :disabled="!hasAuth(generatePrefix(prefix, 'create'))"
-          size="small"
-          ghost
-          type="primary"
-          @click="add"
-        >
-          <template #icon>
-            <icon-ic-round-plus class="text-icon" />
-          </template>
-          {{ $t('common.add') }}
-        </NButton>
-        <NPopconfirm v-if="!hideDelete" @positive-click="batchDelete">
-          <template #trigger>
-            <NButton
-              size="small"
-              ghost
-              type="error"
-              :disabled="disabledDelete || !hasAuth(generatePrefix(prefix, 'delete'))"
-            >
-              <template #icon>
-                <icon-ic-round-delete class="text-icon" />
-              </template>
-              {{ $t('common.batchDelete') }}
-            </NButton>
-          </template>
-          {{ $t('common.confirmDelete') }}
-        </NPopconfirm>
-      </slot>
+      <!-- 把 prefix 和 :create 拼接起来 就可以和后端的权限对应 -->
+      <NButton
+        v-if="!hideAdd"
+        :disabled="!hasAuth(generatePrefix(prefix, 'create'))"
+        size="small"
+        ghost
+        type="primary"
+        @click="add"
+      >
+        <template #icon>
+          <icon-ic-round-plus class="text-icon" />
+        </template>
+        {{ $t('common.add') }}
+      </NButton>
+      <NPopconfirm v-if="!hideDelete" @positive-click="batchDelete">
+        <template #trigger>
+          <NButton
+            size="small"
+            ghost
+            type="error"
+            :disabled="disabledDelete || !hasAuth(generatePrefix(prefix, 'delete'))"
+          >
+            <template #icon>
+              <icon-ic-round-delete class="text-icon" />
+            </template>
+            {{ $t('common.batchDelete') }}
+          </NButton>
+        </template>
+        {{ $t('common.confirmDelete') }}
+      </NPopconfirm>
+      <slot name="default"></slot>
       <NButton size="small" @click="refresh">
         <template #icon>
           <icon-mdi-refresh class="text-icon" :class="{ 'animate-spin': loading }" />

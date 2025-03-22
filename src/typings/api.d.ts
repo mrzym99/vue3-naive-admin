@@ -286,6 +286,7 @@ declare namespace Api {
       title: string;
       pId: string;
       type: number;
+      name: string;
       i18nKey?: App.I18n.I18nKey;
       children?: MenuTreeItem[];
     };
@@ -468,6 +469,45 @@ declare namespace Api {
     >;
 
     type CaptchaLogList = Common.PaginatingQueryRecord<CaptchaLog>;
+
+    /** DictType type */
+    type DictType = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** code */
+      code: string;
+      /** status */
+      status: number;
+      /** remark */
+      remark: string;
+    }>;
+
+    type DictTypeSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.DictType, 'name' | 'code'> & CommonSearchParams
+    >;
+
+    type DictTypeList = Common.PaginatingQueryRecord<DictType>;
+
+    /** DictItem type */
+    type DictItem = Common.CommonRecord<{
+      typeId: string;
+      /** name */
+      label: string;
+      /** code */
+      value: string;
+      /** order */
+      order: number;
+      /** status */
+      status: number;
+      /** remark */
+      remark: string;
+    }>;
+
+    type DictItemSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.DictItem, 'label' | 'value'> & CommonSearchParams & { typeId: string }
+    >;
+
+    type DictItemList = Common.PaginatingQueryRecord<DictItem>;
   }
 
   /** tools manage */

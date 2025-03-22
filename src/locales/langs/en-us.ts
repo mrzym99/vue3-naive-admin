@@ -212,6 +212,7 @@ const local: App.I18n.Schema = {
     system_monitor_online: 'Online User',
     'system_monitor_login-log': 'LoginLog Manage',
     system_monitor_serve: 'Serve Monitor',
+    system_dict: 'Dictionary Manage',
     tools: 'Tools',
     tools_storage: 'Storage Manage',
     tools_storage_local: 'Local Storage',
@@ -532,6 +533,22 @@ const local: App.I18n.Schema = {
           email: 'Email',
           sms: 'Sms',
           captcha: 'Captcha'
+        }
+      },
+      dict: {
+        name: 'Name',
+        code: 'Code',
+        label: 'Label',
+        value: 'Value',
+        dictItem: {
+          currentTypeName: 'Current Type Name',
+          add: 'Add DictItem',
+          edit: 'Edit DictItem'
+        },
+        dictType: {
+          title: 'DictType',
+          add: 'Add DictType',
+          edit: 'Edit DictType'
         }
       }
     },

@@ -211,6 +211,7 @@ const routeMap: RouteMap = {
   "plugin_video": "/plugin/video",
   "system": "/system",
   "system_dept": "/system/dept",
+  "system_dict": "/system/dict",
   "system_menu": "/system/menu",
   "system_monitor": "/system/monitor",
   "system_monitor_captcha-log": "/system/monitor/captcha-log",
