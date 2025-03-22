@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
-import type { FormInst } from 'naive-ui';
+import { type FormInst, useDialog } from 'naive-ui';
 import { $t, getLocale } from '@/locales';
 import { GenderEnum } from '@/constants/enum';
 import { REG_EMAIL, REG_PHONE } from '@/constants/reg';
@@ -14,6 +14,7 @@ const model = ref<Model>(createDefaultModel());
 const loading = ref(false);
 const getDataLoading = ref(false);
 const formRef = ref<FormInst | null>(null);
+const dialog = useDialog();
 function createDefaultModel(): Model {
   return {
     id: '',
@@ -31,6 +32,19 @@ function createDefaultModel(): Model {
 }
 
 const rules = reactive({
+  avatar: [
+    {
+      required: true,
+      trigger: 'blur',
+      validator(_rule: any, value: number | string | Array<any>) {
+        const message = `${$t('page.manage.user.avatar')}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`;
+        if (Array.isArray(value) && value.length === 0) {
+          return new Error(message);
+        }
+        return true;
+      }
+    }
+  ],
   username: [
     {
       required: true,
@@ -48,8 +62,14 @@ const rules = reactive({
   gender: [
     {
       required: true,
-      message: `${$t('page.manage.user.userGender')}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`,
-      trigger: 'blur'
+      trigger: 'change',
+      validator(_rule: any, value: number | string | Array<any>) {
+        const message = `${$t('page.manage.user.userGender')}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`;
+        if (typeof value === 'number' && String(value).length === 0) {
+          return new Error(message);
+        }
+        return true;
+      }
     }
   ],
   email: [
@@ -81,7 +101,6 @@ const computedLabelWidth = computed(() => {
 });
 
 const handleSubmit = async () => {
-  await formRef.value?.validate();
   loading.value = true;
   const { avatar, ...rest } = model.value;
   const { error } = await fetchUpdateAccount({
@@ -93,6 +112,19 @@ const handleSubmit = async () => {
     window.$message?.success($t('common.modifySuccess'));
     getProfile();
   }
+};
+
+const handleConfirm = async () => {
+  await formRef.value?.validate();
+  dialog.info({
+    title: $t('common.tip'),
+    content: $t('common.confirmModify'),
+    positiveText: $t('common.confirm'),
+    negativeText: $t('common.cancel'),
+    onPositiveClick: () => {
+      handleSubmit();
+    }
+  });
 };
 
 const isSuperAdmin = computed(() => {
@@ -156,7 +188,7 @@ onMounted(async () => {
             :placeholder="$t('common.pleaseEnter') + $t('page.manage.user.nickName')"
           />
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.userGender')" path="userGender">
+        <NFormItemGi :span="12" :label="$t('page.manage.user.userGender')" path="gender">
           <NRadioGroup v-model:value="model.gender">
             <NSpace>
               <NRadio :value="GenderEnum.MALE">
@@ -216,7 +248,7 @@ onMounted(async () => {
         </NFormItemGi>
       </NGrid>
       <NSpace v-if="!isSuperAdmin" justify="end">
-        <NButton type="primary" :loading="loading" @click="handleSubmit">
+        <NButton type="primary" :loading="loading" @click="handleConfirm">
           {{ $t('common.modify') }}
         </NButton>
       </NSpace>

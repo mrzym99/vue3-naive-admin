@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useSlots, watch } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import type { FormItemRule } from 'naive-ui';
 import { useNaiveForm } from '@/hooks/common/form';
 import { getLocale } from '@/locales';
 import type { ConfigFormArrayType, ConfigFormType } from './config-form-type';
@@ -35,12 +36,25 @@ const rules = computed<Record<string, App.Global.FormRule[]>>(() => {
     (acc, field) => {
       const required = typeof field.required === 'function' ? field.required(model) : field.required;
       if (required) {
-        const message = field.label;
+        const message = `${field.label}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`;
         acc[field.key] = [
           {
             required: true,
-            message: `${message}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`
-            // trigger: field.type === 'Input' ? 'blur' : 'change'
+            trigger: field.type === 'Input' ? 'blur' : 'change',
+            validator(_rule: FormItemRule, value: number | string | Array<any>) {
+              if (typeof value === 'number' && String(value).length === 0) {
+                return new Error(message);
+              }
+              if (value === null || value === '' || value === undefined) {
+                return new Error(message);
+              }
+
+              if (Array.isArray(value) && !value.length) {
+                return new Error(message);
+              }
+
+              return true;
+            }
           }
         ];
       } else {

@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { computed, reactive, ref } from 'vue';
-import type { FormInst } from 'naive-ui';
+import { type FormInst, useDialog } from 'naive-ui';
 import { $t, getLocale } from '@/locales';
 import { fetchUpdateAccountPassword } from '@/service/api';
 import { useAuthStore } from '@/store/modules/auth';
@@ -16,6 +16,7 @@ const { userInfo } = useAuthStore();
 const model = reactive<PasswordModel>(createDefaultModel());
 const loading = ref(false);
 const formRef = ref<FormInst | null>(null);
+const dialog = useDialog();
 function createDefaultModel(): PasswordModel {
   return {
     oldPassword: '',
@@ -42,13 +43,25 @@ const computedLabelWidth = computed(() => {
 });
 
 const handleSubmit = async () => {
-  await formRef.value?.validate();
   loading.value = true;
   const { error } = await fetchUpdateAccountPassword(model);
   loading.value = false;
   if (!error) {
     window.$message?.success($t('common.modifySuccess'));
   }
+};
+
+const handleConfirm = async () => {
+  await formRef.value?.validate();
+  dialog.info({
+    title: $t('common.tip'),
+    content: $t('common.confirmModify'),
+    positiveText: $t('common.confirm'),
+    negativeText: $t('common.cancel'),
+    onPositiveClick: () => {
+      handleSubmit();
+    }
+  });
 };
 
 const isSuperAdmin = computed(() => {
@@ -94,7 +107,7 @@ const isSuperAdmin = computed(() => {
       </NFormItemGi>
     </NGrid>
     <NSpace v-if="!isSuperAdmin" justify="end">
-      <NButton type="primary" :loading="loading" @click="handleSubmit">
+      <NButton type="primary" :loading="loading" @click="handleConfirm">
         {{ $t('common.modify') }}
       </NButton>
     </NSpace>
