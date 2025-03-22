@@ -224,11 +224,13 @@ watch(visible, () => {
         <template #menu="{ formModel, key, field }">
           <NCard>
             <NTree
+              v-if="visible"
               v-model:checked-keys="formModel[key]"
               :data="field.props.options"
               block-line
               expand-on-click
               checkable
+              :default-expand-all="true"
               @update:checked-keys="updateCheckdKeys"
             />
           </NCard>

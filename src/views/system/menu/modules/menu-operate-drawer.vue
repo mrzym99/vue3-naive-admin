@@ -89,7 +89,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     label: $t('page.manage.menu.parent'),
     type: 'TreeSelect',
     props: {
-      treeData: [],
+      options: [],
       treeNodeFilterProp: 'title',
       placeholder: $t('common.pleaseSelect') + $t('page.manage.menu.parent'),
       filterable: true
@@ -220,6 +220,8 @@ const menuConfigForm = useConfigForm<Model>(() => ({
       'onUpdate:value': (val: boolean) => {
         if (val) {
           model.value.isExt = false;
+        } else {
+          model.value.activeMenu = null;
         }
       }
     }
@@ -233,7 +235,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     },
     props: {
       placeholder: $t('common.pleaseSelect') + $t('page.manage.menu.activeMenu'),
-      treeData: []
+      options: []
     }
   },
   isExt: {
@@ -401,18 +403,18 @@ async function handleSubmit() {
   }
 }
 
-function mapTree(tree: Api.SystemManage.MenuTree): Option[] {
+function mapTree(tree: Api.SystemManage.MenuTree, isParentMenuOptions: boolean = true): Option[] {
   return tree
     .map(item => {
       const { children } = item;
       return {
         label: item.title,
-        value: item.id,
-        key: item.id,
+        value: isParentMenuOptions ? item.id : item.name,
+        key: isParentMenuOptions ? item.id : item.name,
         type: item.type,
         disabled: props.operateType === 'edit' && (item.id === model.value.parentId || item.id === model.value.id),
         isLeaf: !children || children.length === 0 || children.every(child => child.type === 2),
-        children: children ? mapTree(children) : []
+        children: children ? mapTree(children, isParentMenuOptions) : []
       };
     })
     .filter(item => item.type !== 2);
@@ -422,7 +424,7 @@ async function getMenuTree() {
   const { data, error } = await fetchGetMenuTree();
   if (!error) {
     menuConfigForm.value.parentId!.props!.options = mapTree(data);
-    menuConfigForm.value.activeMenu!.props!.options = mapTree(data);
+    menuConfigForm.value.activeMenu!.props!.options = mapTree(data, false);
   }
 }
 

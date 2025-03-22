@@ -83,7 +83,7 @@ const {
       key: 'title',
       title: $t('page.manage.menu.title'), // $t('page.manage.Menu.role'),
       align: 'left',
-      width: 150,
+      width: 180,
       tree: true,
       render: row => {
         return (
@@ -157,7 +157,10 @@ const {
       key: 'permission',
       title: $t('page.manage.menu.permission'),
       align: 'center',
-      width: 120,
+      width: 150,
+      ellipsis: {
+        tooltip: true
+      },
       render: row => {
         if (!row.permission) {
           return null;
