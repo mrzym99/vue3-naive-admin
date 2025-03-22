@@ -6,15 +6,15 @@
   "author": {
     "name": "XiaoZhang",
     "email": "2715158815@qq.com",
-    "url": "https://gitee.com/mrzym/vue3-naive-admin"
+    "url": "https://github.com/mrzym99/vue3-naive-admin"
   },
   "license": "MIT",
-  "homepage": "https://gitee.com/mrzym/vue3-naive-admin",
+  "homepage": "https://github.com/mrzym99/vue3-naive-admin",
   "repository": {
-    "url": "https://gitee.com/mrzym/vue3-naive-admin.git"
+    "url": "https://github.com/mrzym99/vue3-naive-admin.git"
   },
   "bugs": {
-    "url": "https://gitee.com/mrzym/vue3-naive-admin/issues"
+    "url": "https://github.com/mrzym99/vue3-naive-admin/issues"
   },
   "keywords": [
     "Vue3 admin ",

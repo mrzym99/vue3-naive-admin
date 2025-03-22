@@ -7,13 +7,16 @@
 ---
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![gitee stars](https://gitee.com/mrzym/vue3-naive-admin/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
-<!-- [![github stars](https://img.shields.io/github/stars/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
-[![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin) -->
+[![gitee stars](https://gitee.com/mrzym/vue3-naive-admin/badge/star.svg)](https://github.com/mrzym99/vue3-naive-admin)
+[![github stars](https://img.shields.io/github/stars/mrzym99/vue3-naive-admin)](https://github.com/mrzym99/vue3-naive-admin)
+[![github forks](https://img.shields.io/github/forks/mrzym99/vue3-naive-admin)](https://github.com/mrzym99/vue3-naive-admin)
+
+> [Gitee地址](https://gitee.com/mrzym/vue3-naive-admin): https://gitee.com/mrzym/vue3-naive-admin
+
+> [Github地址](https://github.com/mrzym99/vue3-naive-admin): https://github.com/mrzym99/vue3-naive-admin
 
 
-
-> [Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) 基于 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 二次开发而来。如果您觉得 `SoybeanAdmin` | `Vue3NaiveAdmin` 对您有所帮助，或者您喜欢我们的项目，请在 GitHub/Gitee 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
+> [Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) 基于 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 二次开发而来。如果您觉得 `SoybeanAdmin` | `Vue3NaiveAdmin` 对您有所帮助，或者您喜欢我们的项目，请在 GitHub/Gitee 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
 
 > 非常感谢 [SoybeanJS](https://github.com/soybeanjs) 团队的贡献！让我们一起为开源社区贡献更多优质开源项目。
 
@@ -22,7 +25,7 @@
 
 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。`SoybeanAdmin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
 
-[Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) 遵循 [SoybeanAdmin 开发规范](https://docs.soybeanjs.cn/zh/standard/)，保留了  [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 的所有功能。增加了部分高级组件(使用方式详见组件内README)。框架自带功能使用方式可以在 [SoybeanAdmin 官方文档](https://docs.soybeanjs.cn/zh/guide/intro.html)上查阅。后端由 [Nest-Admin](https://gitee.com/mrzym/Nest-Admin) 支持。
+[Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) 遵循 [SoybeanAdmin 开发规范](https://docs.soybeanjs.cn/zh/standard/)，保留了  [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 的所有功能。增加了部分高级组件(使用方式详见组件内README)。框架自带功能使用方式可以在 [SoybeanAdmin 官方文档](https://docs.soybeanjs.cn/zh/guide/intro.html)上查阅。后端由 [Nest-Admin](https://gitee.com/mrzym/Nest-Admin) 支持。
 
 ## 特性
 
@@ -53,7 +56,7 @@
 如有合作意向或项目咨询，请通过以下方式与我联系：
 
 - **Email**: [2715158815@qq.com](2715158815@qq.com)
-<!-- - **GitHub Issues**: 欢迎通过 [GitHub Issues](https://gitee.com/mrzym/vue3-naive-admin/issues/new) 联系我，进行初步的合作洽谈。 -->
+<!-- - **GitHub Issues**: 欢迎通过 [GitHub Issues](https://github.com/mrzym99/vue3-naive-admin/issues/new) 联系我，进行初步的合作洽谈。 -->
 - **商务合作微信**:  M2715158815
 
 期待与您开展深入合作，共同推动 Vue3NaiveAdmin 项目及其在更多领域的成功应用！
@@ -91,7 +94,7 @@
 **克隆项目**
 
 ```bash
-git clone https://gitee.com/mrzym/vue3-naive-admin
+git clone https://github.com/mrzym99/vue3-naive-admin
 ```
 
 **安装依赖**
@@ -117,7 +120,7 @@ pnpm build
 
 1、在自己的仓库里面新增 Vue3NaiveAdmin的git地址
 ```
-git remote add otherOrigin https://gitee.com/mrzym/vue3-naive-admin.git
+git remote add otherOrigin https://github.com/mrzym99/vue3-naive-admin.git
 ```
 2、拉取代码
 ```
@@ -167,7 +170,7 @@ docker-compose down 来停止和删除容器(删除容器数据请使用 -v 参�
 
 
 ## 如何贡献
-我热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://gitee.com/mrzym/vue3-naive-admin/pulls) 或创建 GitEE [issue](https://gitee.com/mrzym/vue3-naive-admin/issues/new) 来分享。
+我热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/mrzym99/vue3-naive-admin/pulls) 或创建 GitEE [issue](https://github.com/mrzym99/vue3-naive-admin/issues/new) 来分享。
 
 ## Git 提交规范
 

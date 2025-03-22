@@ -1,60 +1,66 @@
-以下是翻译后的内容：
-
----
+# Vue3NaiveAdmin
 
 <div align="center">
   <img src="./public/favicon.svg" width="100" />
   <h1>Vue3NaiveAdmin</h1>
-  <span>Chinese | <a href="./README.en_US.md">English</a></span>
+  <span>中文 | <a href="./README.en_US.md">English</a></span>
 </div>
 
 ---
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![gitee stars](https://gitee.com/mrzym/vue3-naive-admin/badge/star.svg)](https://gitee.com/mrzym/vue3-naive-admin)
+[![gitee stars](https://gitee.com/mrzym/vue3-naive-admin/badge/star.svg)](https://github.com/mrzym99/vue3-naive-admin)
+[![github stars](https://img.shields.io/github/stars/mrzym99/vue3-naive-admin)](https://github.com/mrzym99/vue3-naive-admin)
+[![github forks](https://img.shields.io/github/forks/mrzym99/vue3-naive-admin)](https://github.com/mrzym99/vue3-naive-admin)
+
+> [Gitee address](https://gitee.com/mrzym/vue3-naive-admin): https://gitee.com/mrzym/vue3-naive-admin
+
+> [Github address](https://github.com/mrzym99/vue3-naive-admin): https://github.com/mrzym99/vue3-naive-admin
 
 
-> [Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) is a secondary development based on [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). If you find `SoybeanAdmin` or `Vue3NaiveAdmin` helpful, or you like our projects, please give us a ⭐️ on GitHub/Gitee. Your support is the driving force for our continuous improvement and addition of new features! Thank you for your support!
+> [Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) is developed based on [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). If you find `SoybeanAdmin` or `Vue3NaiveAdmin` useful, please give us a ⭐️ on GitHub/Gitee. Your support encourages us to keep improving and adding features! Thank you!
 
-> Special thanks to the [SoybeanJS](https://github.com/soybeanjs) team for their contributions! Let's work together to contribute more high-quality open-source projects to the community.
+> Special thanks to the [SoybeanJS](https://github.com/soybeanjs) team for their contributions. Let's work together to create more high-quality open-source projects for the community.
+
 
 ## Introduction
 
-[SoybeanAdmin](https://docs.soybeanjs.cn/zh/) is a clean, elegant, beautiful, and powerful backend management template based on the latest frontend technology stack, including Vue3, Vite5, TypeScript, Pinia, and UnoCSS. It comes with a rich set of theme configurations and components, follows strict coding standards, and implements an automated file routing system. `SoybeanAdmin` provides a one-stop solution for backend management, ready to use out of the box. It is also an excellent practice for quickly learning cutting-edge technologies.
+[SoybeanAdmin](https://docs.soybeanjs.cn/zh/) is a clean, elegant, and feature-rich admin template based on the latest front-end tech stack, including Vue3, Vite5, TypeScript, Pinia, and UnoCSS. It offers built-in themes, strict code standards, and an automated file routing system. `SoybeanAdmin` provides an all-in-one solution for admin management, requiring no extra setup. It's also a great way to learn modern front-end technologies.
 
-[Vue3NaiveAdmin](https://gitee.com/mrzym/vue3-naive-admin) adheres to the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retaining all the features of [SoybeanAdmin](https://docs.soybeanjs.cn/zh/). It adds some advanced components (please refer to the README within the components for usage). The built-in features of the framework can be found in the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html). The backend is supported by [Nest-Admin](https://gitee.com/mrzym/Nest-Admin).
+[Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) follows the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retaining all its features while adding advanced components (details in component READMEs). The framework's built-in functionality can be explored in the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html), with backend support from [Nest-Admin](https://gitee.com/mrzym/Nest-Admin).
 
 ## Features
 
-- **Cutting-edge technology stack**: Utilizes the latest popular technologies such as Vue3, Vite5, TypeScript, Pinia, and UnoCSS.
-- **Clear project architecture**: Uses a pnpm monorepo structure, which is clear, elegant, and easy to understand.
-- **Strict coding standards**: Follows the [SoybeanJS standards](https://docs.soybeanjs.cn/zh/standard), integrating eslint, prettier, and simple-git-hooks to ensure code quality.
-- **TypeScript support**: Provides strict type checking to enhance code maintainability.
-- **Rich theme configurations**: Offers a variety of themes perfectly integrated with UnoCSS.
-- **Built-in internationalization**: Easily supports multiple languages.
-- **Automated file routing system**: Automatically generates route imports, declarations, and types. For more details, see [Elegant Router](https://github.com/soybeanjs/elegant-router).
-- **Flexible permission routing**: Supports both frontend static routes and backend dynamic routes.
-- **Rich page components**: Includes a variety of pages and components, such as 403, 404, 500 error pages, layout components, tab components, theme configuration components, etc.
-- **Command-line tools**: Built-in efficient command-line tools for git commits, file deletion, and publishing.
-- **Mobile adaptation**: Perfectly supports mobile devices with responsive layout.
-- **Advanced components**: Built-in advanced components for tables, forms, and details to speed up your page development (written by Xiao Zhang, inexperienced, please be gentle).
+- **Modern Tech Stack**: Utilizes Vue3, Vite5, TypeScript, Pinia, and UnoCSS.
+- **Clear Architecture**: Uses pnpm monorepo for a well-structured and elegant project.
+- **Strict Code Standards**: Follows [SoybeanJS standards](https://docs.soybeanjs.cn/zh/standard), with eslint, prettier, and simple-git-hooks for code quality.
+- **TypeScript Support**: Ensures strict type checking for better maintainability.
+- **Rich Theme Configurations**: Offers diverse themes integrated with UnoCSS.
+- **Built-in Internationalization**: Simplifies multi-language support.
+- **Automated File Routing**: Generates route imports, declarations, and types automatically. See [Elegant Router](https://github.com/soybeanjs/elegant-router) for details.
+- **Flexible Route Permissions**: Supports both front-end static and back-end dynamic routes.
+- **Abundant Page Components**: Includes components for 403, 404, 500 pages, layout, tags, theme settings, etc.
+- **Command-line Tools**: Built-in efficient tools for git commits, file deletion, publishing, etc.
+- **Mobile Adaptation**: Fully supports mobile devices with responsive layouts.
+- **Advanced Components**: Built-in tables, forms, details components for rapid page development.
+
 
 ## Documentation
 
 - [SoybeanAdmin Documentation](https://docs.soybeanjs.cn)
 - [Vue3NaiveAdmin Documentation (coming soon)]()
 
-## Collaboration
 
-### Contact Information
+## Cooperation
 
-If you are interested in collaboration or have project inquiries, please contact me through the following methods:
+### Contact
 
-- **Email**: [2715158815@qq.com](mailto:2715158815@qq.com)
-<!-- - **GitHub Issues**: Feel free to contact me through [GitEE Issues](https://gitee.com/mrzym/vue3-naive-admin/issues/new) for preliminary discussions. -->
-- **Business WeChat**: M2715158815
+For cooperation or project inquiries, reach out through:
 
-We look forward to working with you to promote the successful application of Vue3NaiveAdmin in more fields!
+- **Email**: [2715158815@qq.com](2715158815@qq.com)
+- **Business Cooperation WeChat**: M2715158815
+
+Looking forward to collaborating to advance Vue3NaiveAdmin and its applications!
 
 ## Example Images
 
@@ -69,7 +75,7 @@ We look forward to working with you to promote the successful application of Vue
 ![](https://nest-image.mrzym.top/log.png)
 ![](https://nest-image.mrzym.top/service.png)
 
-mobile
+Mobile Adaptation
 
 ![](https://nest-image.mrzym.top/home-mobile.png)
 ![](https://nest-image.mrzym.top/menu-mobile.png)
@@ -79,16 +85,16 @@ mobile
 
 **Environment Preparation**
 
-Ensure your environment meets the following requirements:
+Ensure your environment meets these requirements:
 
-- **git**: Required for cloning and managing project versions.
-- **NodeJS**: >=18.12.0, recommended version 18.19.0 or higher.
-- **pnpm**: >=8.7.0, recommended version 8.14.0 or higher.
+- **git**: For cloning and managing project versions.
+- **NodeJS**: >=18.12.0, recommend 18.19.0 or higher.
+- **pnpm**: >= 8.7.0, recommend 8.14.0 or higher.
 
-**Clone the Project**
+**Clone Project**
 
 ```bash
-git clone https://gitee.com/mrzym/vue3-naive-admin
+git clone https://github.com/mrzym99/vue3-naive-admin
 ```
 
 **Install Dependencies**
@@ -96,15 +102,15 @@ git clone https://gitee.com/mrzym/vue3-naive-admin
 ```bash
 pnpm i
 ```
-> Since this project uses a pnpm monorepo management approach, please do not use npm or yarn to install dependencies.
+> This project uses pnpm monorepo management. Do not use npm or yarn to install dependencies.
 
-**Start the Project**
+**Start Project**
 
 ```bash
 pnpm dev
 ```
 
-**Build the Project**
+**Build Project**
 
 ```bash
 pnpm build
@@ -112,78 +118,75 @@ pnpm build
 
 **Code Synchronization**
 
-1. Add the Vue3NaiveAdmin git address to your repository:
-```bash
-git remote add otherOrigin https://gitee.com/mrzym/vue3-naive-admin.git
+1. Add Vue3NaiveAdmin's git address to your repository
 ```
-2. Fetch the code:
-```bash
+git remote add otherOrigin https://github.com/mrzym99/vue3-naive-admin.git
+```
+2. Fetch the code
+```
 git fetch otherOrigin
 ```
-3. Use `cherry-pick` to select the git commits you need to update:
-```bash
+
+3. Use `cherry-pick` to select the git commits you need to update
+```
 git cherry-pick [commit id]
 ```
-4. If there are conflicts, resolve them first, then run the following command and save with vim:
-```bash
+4. Resolve conflicts if any, then continue with:
+```
 git cherry-pick --continue
 ```
 
 ## Docker Build
 
-This project uses Docker to build and run the application. You can follow the steps below to build and run the project:
+This project uses Docker for building and running. Follow these steps:
 
-### Environment Requirements
+**Environment Requirements** 
 
-Your environment must meet the following requirements:
+Your environment must have:
+- Stable Docker and Docker Compose.
 
-- Stable versions of Docker and Docker Compose are required.
+**Notes**
 
-### Notes
+- docker-compose.yml is for development (dev).
+- docker-compose.prod.yml is for production (prod).
 
-- `docker-compose.yml` corresponds to the development environment (`dev`), while `docker-compose.prod.yml` corresponds to the production environment (`prod`).
-
-1. Build the project:
-
-```bash
+1. Build the project
+```
 docker-compose build
 ```
 
-2. Run the project:
-
-```bash
-docker-compose up -d // (-f [filename] can specify a different compose file; `-d` runs in the background, suitable for running on a server. Exiting the terminal will not stop the containers)
+2. Run the project
+```
+docker-compose up -d // (-f [filename] to specify a different compose file. -d runs in background, suitable for servers. Exiting terminal won't stop containers.)
 ```
 
-3. Stop and remove:
-
-```bash
-docker-compose down // (use `-v` to delete container data)
+3. Stop and remove
 ```
+docker-compose down (use -v to delete container data).
+```
+[Docker Compose Commands](https://www.cnblogs.com/xyh9039/p/18540766)
 
-For a comprehensive list of Docker Compose commands, refer to [Docker Compose Command List](https://www.cnblogs.com/xyh9039/p/18540766).
+If build fails, check your Docker environment. Consider using [Alibaba Cloud Mirror Acceleration](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors).
 
-If you encounter build failures, it may be due to issues with your Docker environment. You can switch to a different Docker source. Here, we recommend [Alibaba Cloud Mirror Acceleration](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors).
+## How to Contribute
+All forms of contributions are welcome. Share your ideas or suggestions via [pull requests](https://github.com/mrzym99/vue3-naive-admin/pulls) or create a GitEE [issue](https://github.com/mrzym99/vue3-naive-admin/issues/new).
 
-## Contributing
+## Git Commit Specifications
 
-We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, feel free to submit [pull requests](https://gitee.com/mrzym/vue3-naive-admin/pulls) or create a GitEE [issue](https://gitee.com/mrzym/vue3-naive-admin/issues/new).
-
-## Git Commit Standards
-
-This project has a built-in `commit` command. You can run `pnpm commit` to generate commit messages that comply with the [Conventional Commits](https://www.conventionalcommits.org/) standards. When submitting a PR, please use the `commit` command to ensure the message is standardized.
+This project has built-in `commit` commands. Generate commit messages compliant with [Conventional Commits](https://www.conventionalcommits.org/) by running `pnpm commit`. Ensure you use this command when submitting PRs for message compliance.
 
 ## Browser Support
 
-We recommend using the latest version of Chrome for development to ensure the best experience.
+For the best development experience, use the latest Chrome.
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) |
-| --- | --- | --- | --- | --- |
-| not supported | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/ ) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/ ) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/ ) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/ ) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/ ) |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| not support                                                                                                                                                                                                                              | last 2 versions                                                                                                                                                                                | last 2 versions                                                                                                                                                                                        | last 2 versions                                                                                                                                                                                     | last 2 versions                                                                                                                                                                                     |
+
 
 ## Contributors
 
-Thank you to all the contributors. If you would like to contribute to this project, please refer to [How to Contribute](#how-to-contribute).
+Thank you to the contributors. To contribute, see [How to Contribute](#how-to-contribute).
 
 <a href="https://github.com/Peerless-man/vue3-blog/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Peerless-man/vue3-blog" />
@@ -191,13 +194,13 @@ Thank you to all the contributors. If you would like to contribute to this proje
 
 ## Communication
 
-`Vue3NaiveAdmin` is a completely open-source and free project aimed at helping developers more easily build medium and large management systems. We also provide WeChat and QQ groups for communication. Feel free to ask questions in the groups.
+`Vue3NaiveAdmin` is open-source and free, aiding developers in building management systems. Join our WeChat and QQ groups for discussions and feel free to ask questions.
 
-<div>
-  <p>QQ Group</p>
-  <img src="https://nest-image.mrzym.top/qrcode.png" height="300" width="200" />
-</div>
+  <div>
+    <p>QQ Group</p>
+    <img src="https://nest-image.mrzym.top/qrcode.jpg"  height="300" width="200" />
+  </div>
 
 ## Open Source License
 
-This project is licensed under the [MIT © 2025 Xiao Zhang](./LICENSE) license. It is intended for learning and reference only. For commercial use, please retain the author's copyright information. The author does not guarantee nor assume any liability for the use of this software.
+This project is licensed under [MIT © 2025 Xiao Zhang](./LICENSE). It's for learning and reference. For commercial use, retain the author's copyright. The author isn't liable for software risks.
