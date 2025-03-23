@@ -15,6 +15,8 @@
 
 > [Github地址](https://github.com/mrzym99/vue3-naive-admin): https://github.com/mrzym99/vue3-naive-admin
 
+> [在线体验 vue3-naive-admin](https://nest.mrzym.top)
+
 
 > [Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) 基于 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 二次开发而来。如果您觉得 `SoybeanAdmin` | `Vue3NaiveAdmin` 对您有所帮助，或者您喜欢我们的项目，请在 GitHub/Gitee 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
 
@@ -25,7 +27,7 @@
 
 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。`SoybeanAdmin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
 
-[Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) 遵循 [SoybeanAdmin 开发规范](https://docs.soybeanjs.cn/zh/standard/)，保留了  [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 的所有功能。增加了部分高级组件(使用方式详见组件内README)。框架自带功能使用方式可以在 [SoybeanAdmin 官方文档](https://docs.soybeanjs.cn/zh/guide/intro.html)上查阅。后端由 [Nest-Admin](https://gitee.com/mrzym/Nest-Admin) 支持。
+[Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) 遵循 [SoybeanAdmin 开发规范](https://docs.soybeanjs.cn/zh/standard/)，保留了  [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) 的所有功能。增加了部分高级组件(使用方式详见组件内README)。框架自带功能使用方式可以在 [SoybeanAdmin 官方文档](https://docs.soybeanjs.cn/zh/guide/intro.html)上查阅。后端由 [Nest-Admin](https://github.com/mrzym99/nest-admin) 支持。
 
 ## 特性
 
