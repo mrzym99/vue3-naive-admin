@@ -139,7 +139,7 @@ const customRoutes: CustomRoute[] = [
         path: '/blog/zym',
         component: 'view.iframe-page',
         props: {
-          url: 'http://mezym.top/'
+          url: 'http://mrzym.top/'
         },
         meta: {
           title: 'blog_zym',
@@ -156,7 +156,7 @@ const customRoutes: CustomRoute[] = [
           i18nKey: 'route.blog_zym',
           order: 1,
           icon: 'mdi:book-open-page-variant-outline',
-          href: 'http://mezym.top/'
+          href: 'http://mrzym.top/'
         }
       }
     ]

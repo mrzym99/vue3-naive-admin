@@ -141,5 +141,5 @@
   "lint-staged": {
     "*": "eslint --fix"
   },
-  "website": "http://nest.mrzym.top"
+  "website": "https://nest.mrzym.top"
 }
