@@ -134,21 +134,19 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { checkedRowKeys } = useTableOperate(data, getData);
+const { checkedRowKeys, onBatchDeleted, onDeleted } = useTableOperate(data, getData);
 
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteStorageLocal([id]);
   if (!error) {
-    window.$message?.success($t('common.deleteSuccess'));
-    getDataByPage();
+    onDeleted();
   }
 }
 
-async function handleBatchDelete() {
+async function batchDelete() {
   const { error } = await fetchDeleteStorageLocal(checkedRowKeys.value as string[]);
   if (!error) {
-    window.$message?.success($t('common.deleteSuccess'));
-    getDataByPage();
+    onBatchDeleted();
   }
 }
 </script>
@@ -169,7 +167,7 @@ async function handleBatchDelete() {
           :hide-add="true"
           :loading="loading"
           :disabled-delete="checkedRowKeys.length === 0"
-          @delete="handleBatchDelete"
+          @delete="batchDelete"
           @refresh="getData"
         />
         <NDataTable

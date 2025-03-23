@@ -127,7 +127,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit } = useTableOperate(
+const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(
   data,
   getData
 );
@@ -171,8 +171,7 @@ async function handleBatchDChangeStatus() {
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteDictType(id);
   if (!error) {
-    window.$message?.success($t('common.deleteSuccess'));
-    getDataByPage();
+    onDeleted();
   }
 }
 

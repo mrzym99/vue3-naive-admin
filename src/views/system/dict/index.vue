@@ -158,10 +158,8 @@ const beforeResetSearchParams = () => {
   });
 };
 
-const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit } = useTableOperate(
-  data,
-  getData
-);
+const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit, onBatchDeleted } =
+  useTableOperate(data, getData);
 
 function edit(id: string) {
   handleEdit(id);
@@ -179,11 +177,10 @@ async function handleChangeStatus(id: string, status: number | null) {
   getDataByPage();
 }
 
-async function handleBatchDelete() {
+async function batchDelete() {
   const { error } = await fetchDeleteDictItem(checkedRowKeys.value as string[]);
   if (!error) {
-    window.$message?.success($t('common.deleteSuccess'));
-    getDataByPage();
+    onBatchDeleted();
   }
 }
 
@@ -231,7 +228,7 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
               prefix="system:user"
               :disabled-delete="checkedRowKeys.length === 0"
               :loading="loading"
-              @delete="handleBatchDelete"
+              @delete="batchDelete"
               @add="handleAdd"
               @refresh="getData"
             >
@@ -283,7 +280,7 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
               prefix="system:user"
               :disabled-delete="checkedRowKeys.length === 0"
               :loading="loading"
-              @delete="handleBatchDelete"
+              @delete="batchDelete"
               @add="handleAdd"
               @refresh="getData"
             >

@@ -110,7 +110,6 @@ async function edit(id: string) {
 async function handleDelete(id: string) {
   const { error } = await fetchDeleteParameter(id);
   if (!error) {
-    window.$message?.success($t('common.deleteSuccess'));
     onDeleted();
   }
 }
