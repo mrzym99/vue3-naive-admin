@@ -169,11 +169,11 @@ onMounted(async () => {
     require-mark-placement="right"
   >
     <NSpin :delay="0" :show="getDataLoading">
-      <NGrid responsive="screen" item-responsive :x-gap="16">
+      <NGrid responsive="screen" item-responsive>
         <NFormItemGi :span="24" :label="$t('page.manage.user.avatar')" path="avatar">
           <FileUpload v-model:value="model.avatar" :max="1" :cropper="true" list-type="image-card" />
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.username')" path="username">
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.username')" path="username">
           <NInput
             v-model:value="model.username"
             disabled
@@ -181,14 +181,14 @@ onMounted(async () => {
             :placeholder="$t('common.pleaseEnter') + $t('page.manage.user.username')"
           />
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.nickName')" path="nickName">
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.nickName')" path="nickName">
           <NInput
             v-model:value="model.nickName"
             clearable
             :placeholder="$t('common.pleaseEnter') + $t('page.manage.user.nickName')"
           />
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.userGender')" path="gender">
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.userGender')" path="gender">
           <NRadioGroup v-model:value="model.gender">
             <NSpace>
               <NRadio :value="GenderEnum.MALE">
@@ -200,7 +200,7 @@ onMounted(async () => {
             </NSpace>
           </NRadioGroup>
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.email')" path="email">
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.email')" path="email">
           <NInput
             v-model:value="model.email"
             disabled
@@ -208,21 +208,21 @@ onMounted(async () => {
             :placeholder="$t('common.pleaseEnter') + $t('page.manage.user.email')"
           />
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.phone')" path="phone">
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.phone')" path="phone">
           <NInput
             v-model:value="model.phone"
             clearable
             :placeholder="$t('common.pleaseEnter') + $t('page.manage.user.phone')"
           />
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.address')" path="address">
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.address')" path="address">
           <NInput
             v-model:value="model.address"
             clearable
             :placeholder="$t('common.pleaseEnter') + $t('page.manage.user.address')"
           />
         </NFormItemGi>
-        <NFormItemGi :span="12" :label="$t('page.manage.user.birthDate')" path="birthDate">
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.birthDate')" path="birthDate">
           <NDatePicker
             v-model:value="model.birthDate"
             clearable

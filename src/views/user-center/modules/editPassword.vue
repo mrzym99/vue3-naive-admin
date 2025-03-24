@@ -72,7 +72,7 @@ const isSuperAdmin = computed(() => {
 <template>
   <NForm
     ref="formRef"
-    class="w-60%"
+    class="w-60% lt-sm:w-100%"
     :model="model"
     :rules="rules"
     v-bind="$attrs"
@@ -80,7 +80,7 @@ const isSuperAdmin = computed(() => {
     :label-width="computedLabelWidth"
     require-mark-placement="right"
   >
-    <NGrid responsive="screen" item-responsive :x-gap="16">
+    <NGrid responsive="screen" item-responsive>
       <NFormItemGi :span="24" :label="$t('page.password.oldPwd')" path="oldPassword">
         <NInput
           v-model:value="model.oldPassword"

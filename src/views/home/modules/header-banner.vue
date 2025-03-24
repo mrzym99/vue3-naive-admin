@@ -48,7 +48,7 @@ const statisticData = computed<StatisticData[]>(() => [
               <SvgIcon icon="ph:user-circle" class="h-72px w-72px" />
             </template>
           </NAvatar>
-          <div class="pl-12px">
+          <div class="flex-1 pl-12px">
             <h3 class="text-18px font-semibold">
               {{ $t('page.home.greeting', { nickName: authStore.userInfo.nickName }) }}
             </h3>

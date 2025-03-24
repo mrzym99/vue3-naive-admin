@@ -6,9 +6,11 @@ import { $t, getLocale } from '@/locales';
 import { userGenderRecord } from '@/constants/business';
 import { fetchGetUserInfo } from '@/service/api';
 import type { DescriptionItem } from '@/components/advanced/details-descriptions/type';
+import { useAppStore } from '@/store/modules/app';
 
 type RenderFn<T> = (row: T) => VNode | Array<VNode> | string | null;
 
+const appStore = useAppStore();
 const columns = useDetailDescriptions<Api.SystemManage.User>(() => [
   {
     key: 'avatar',
@@ -148,7 +150,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <NDescriptions size="small" label-placement="left" :column="2" :bordered="true" :content-style="{ padding: '16px' }">
+  <NDescriptions
+    size="small"
+    label-placement="left"
+    :column="appStore.isMobile ? 1 : 2"
+    :bordered="true"
+    :content-style="{ padding: '16px' }"
+  >
     <NDescriptionsItem
       v-for="item in descriptionItems"
       :key="item.key"
