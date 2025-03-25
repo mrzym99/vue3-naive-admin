@@ -143,10 +143,12 @@ async function blobUrlToBlob(blobUrl: string): Promise<Blob | null> {
 }
 
 function handleChange(res: CropperResult) {
-  const { image } = res;
-  const blobUrl = image!.src;
+  const { canvas } = res;
+  // 转为 image/webp 图片大小更小
+  const blobUrl = canvas?.toDataURL('image/webp');
 
   if (!blobUrl) return;
+
   // 将 Blob URL 转换为 Blob 对象
   blobUrlToBlob(blobUrl).then(blob => {
     if (blob) {
