@@ -163,8 +163,12 @@ async function handleConfirmCropper() {
   }
 
   if (!currentCropperFile.value || !currentBlob.value) return false;
-  const file = new File([currentBlob.value], currentCropperFile.value.name, {
-    type: currentCropperFile.value.type as string
+  const originalName = currentCropperFile.value.name;
+  const fileName = `${originalName.substring(0, originalName.lastIndexOf('.'))}.webp`;
+
+  // 改格式
+  const file = new File([currentBlob.value], fileName, {
+    type: currentBlob.value.type as string
   });
 
   if (!verifySize(file)) return false;

@@ -8,6 +8,10 @@ import { fetchGetUserInfo } from '@/service/api';
 import type { DescriptionItem } from '@/components/advanced/details-descriptions/type';
 import { useAppStore } from '@/store/modules/app';
 
+defineOptions({
+  name: 'UserInfoCenter'
+});
+
 type RenderFn<T> = (row: T) => VNode | Array<VNode> | string | null;
 
 const appStore = useAppStore();
@@ -141,11 +145,19 @@ const renderContent = (render: RenderFn<typeof details>): Array<VNode | string> 
   return vNode ? [vNode] : [];
 };
 
-onMounted(async () => {
+async function init() {
   const { data, error } = await fetchGetUserInfo();
   if (!error) {
     Object.assign(details, data);
   }
+}
+
+onMounted(async () => {
+  init();
+});
+
+defineExpose({
+  init
 });
 </script>
 

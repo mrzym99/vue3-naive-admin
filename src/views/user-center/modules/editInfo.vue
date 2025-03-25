@@ -4,10 +4,12 @@ import { type FormInst, useDialog } from 'naive-ui';
 import { $t, getLocale } from '@/locales';
 import { GenderEnum } from '@/constants/enum';
 import { REG_EMAIL, REG_PHONE } from '@/constants/reg';
-import { fetchGetAccountInfo, fetchUpdateAccount } from '@/service/api';
+import { deleteFiles, fetchGetAccountInfo, fetchUpdateAccount } from '@/service/api';
 import { useAuthStore } from '@/store/modules/auth';
 
 type Model = Partial<Api.SystemManage.User> & { avatar: Api.SystemManage.FileInfo[] };
+
+const emit = defineEmits(['change']);
 
 const { userInfo } = useAuthStore();
 const model = ref<Model>(createDefaultModel());
@@ -15,6 +17,7 @@ const loading = ref(false);
 const getDataLoading = ref(false);
 const formRef = ref<FormInst | null>(null);
 const dialog = useDialog();
+const originalAvatar = ref('');
 function createDefaultModel(): Model {
   return {
     id: '',
@@ -107,9 +110,13 @@ const handleSubmit = async () => {
     ...rest,
     avatar: avatar[0].url
   });
+  if (originalAvatar.value !== avatar[0].url) {
+    deleteFiles([originalAvatar.value]);
+  }
   loading.value = false;
   if (!error) {
     window.$message?.success($t('common.modifySuccess'));
+    emit('change');
     getProfile();
   }
 };
@@ -148,6 +155,7 @@ async function getProfile() {
       ],
       birthDate: timeStamp
     };
+    originalAvatar.value = data.avatar as string;
     getDataLoading.value = false;
   }
 }

@@ -11,3 +11,15 @@ export function upload(file: File) {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
 }
+
+export function deleteFiles(filePaths: string[]) {
+  const fileNames = filePaths.map(filePath => filePath.split('/').pop());
+
+  return request({
+    url: '/tools/upload/delete',
+    method: 'delete',
+    data: {
+      fileNames
+    }
+  });
+}

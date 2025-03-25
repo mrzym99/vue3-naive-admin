@@ -2,7 +2,7 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
+import { deleteFiles, fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
 import type { Option } from '@/components/advanced/config-form';
 import { useConfigForm } from '@/hooks/common/config-form';
 import { GenderEnum, StatusEnum } from '@/constants/enum';
@@ -288,6 +288,9 @@ async function handleSubmit() {
     avatar: avatarUrl,
     ...values
   } as any);
+  if (props.rowData?.avatar !== avatarUrl) {
+    deleteFiles([props.rowData?.avatar as string]);
+  }
   if (!error) {
     const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
     window.$message?.success(message);

@@ -4,6 +4,7 @@ import { type FormInst, useDialog } from 'naive-ui';
 import { $t, getLocale } from '@/locales';
 import { fetchUpdateAccountPassword } from '@/service/api';
 import { useAuthStore } from '@/store/modules/auth';
+import { useLogout } from '@/service/request/shared';
 import { useFormRules } from '@/hooks/common/form';
 
 type PasswordModel = {
@@ -12,6 +13,7 @@ type PasswordModel = {
   confirmPassword: string;
 };
 
+const { logoutAndCleanup } = useLogout();
 const { userInfo } = useAuthStore();
 const model = reactive<PasswordModel>(createDefaultModel());
 const loading = ref(false);
@@ -48,6 +50,19 @@ const handleSubmit = async () => {
   loading.value = false;
   if (!error) {
     window.$message?.success($t('common.modifySuccess'));
+    window.$dialog?.error({
+      title: $t('common.error'),
+      content: $t('request.logoutWithModalMsg'),
+      positiveText: $t('common.confirm'),
+      maskClosable: false,
+      closeOnEsc: false,
+      onPositiveClick() {
+        logoutAndCleanup();
+      },
+      onClose() {
+        logoutAndCleanup();
+      }
+    });
   }
 };
 
