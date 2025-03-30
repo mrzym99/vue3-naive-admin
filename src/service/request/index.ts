@@ -68,7 +68,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       const logoutCodes = VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
       if (logoutCodes.includes(backendErrorCode)) {
         handleLogout();
-        showErrorMsg(request.state, message);
+        showErrorMsg(request.state, $t('request.logoutMsg'));
         return;
       }
 
@@ -78,6 +78,13 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
         modelLogOut(message, handleLogout, logoutAndCleanup);
         return;
       }
+
+      const { VITE_SERVICE_EXPIRED_TOKEN_CODES } = import.meta.env;
+      const expiredTokenCodes = VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
+      if (expiredTokenCodes.includes(backendErrorCode)) {
+        return;
+      }
+
       showErrorMsg(request.state, message);
     }
   }
