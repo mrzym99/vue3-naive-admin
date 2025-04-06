@@ -68,7 +68,7 @@ declare namespace Api {
     interface LoginDto {
       username: string;
       password: string;
-      code: string;
+      code?: string;
       type?: string;
       captchaId?: string;
     }

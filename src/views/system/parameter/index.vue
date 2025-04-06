@@ -46,8 +46,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
       {
         key: 'value',
         title: $t('page.manage.parameter.value'),
-        width: 180,
-        align: 'center'
+        width: 180
       },
       {
         key: 'remark',

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { $t } from '@/locales';
 import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
-import { fetchGetCaptchaImg, fetchParameterByKey } from '@/service/api';
 
 defineOptions({
   name: 'PwdLogin'
@@ -15,20 +14,15 @@ const authStore = useAuthStore();
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
 const captchaId = ref<string>('');
-const captchaImg = ref<string>('');
-const captchaLoading = ref<boolean>(false);
-const showCaptcha = ref<boolean>(false);
 
 interface FormModel {
   username: string;
   password: string;
-  code: string;
 }
 
 const model: FormModel = reactive({
   username: '',
-  password: '',
-  code: ''
+  password: ''
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
@@ -37,8 +31,7 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
   return {
     username: formRules.username,
-    password: formRules.pwd,
-    code: formRules.code
+    password: formRules.pwd
   };
 });
 
@@ -51,33 +44,6 @@ async function handleSubmit() {
   };
   await authStore.login(loginData);
 }
-
-async function getCaptcha() {
-  captchaLoading.value = true;
-  const { data, error } = await fetchGetCaptchaImg(120, 40);
-  captchaLoading.value = false;
-  if (error) {
-    return;
-  }
-  const { img, id } = data;
-  captchaImg.value = img;
-  captchaId.value = id;
-}
-
-async function getShowCaptcha() {
-  const { data, error } = await fetchParameterByKey('login.captcha.enable');
-  if (error) {
-    return;
-  }
-  showCaptcha.value = data === 'true';
-  if (showCaptcha.value) {
-    getCaptcha();
-  }
-}
-
-onMounted(() => {
-  getShowCaptcha();
-});
 </script>
 
 <template>
@@ -92,27 +58,6 @@ onMounted(() => {
         show-password-on="click"
         :placeholder="$t('page.login.common.passwordPlaceholder')"
       />
-    </NFormItem>
-    <NFormItem v-if="showCaptcha" path="code">
-      <div class="w-full flex items-center justify-between">
-        <NInput v-model:value="model.code" :placeholder="$t('page.login.codeLogin.imageCodePlaceholder')" />
-        <NSpin class="ml-10px h-40px w-120px" :show="captchaLoading">
-          <NImage
-            class="cursur-pointer h-40px max-w-120px w-120px rounded-sm"
-            :src="captchaImg"
-            alt="Captcha"
-            preview-disabled
-            @click="getCaptcha"
-          >
-            <template #error>
-              <div class="h-40px w-120px flex-center text-#666">
-                <icon-mdi-image-off-outline class="text-icon" />
-                Captcha Error
-              </div>
-            </template>
-          </NImage>
-        </NSpin>
-      </div>
     </NFormItem>
     <NSpace vertical :size="24">
       <NButton type="primary" size="large" round block :loading="authStore.loginLoading" @click="handleSubmit">
