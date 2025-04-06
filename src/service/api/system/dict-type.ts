@@ -9,7 +9,7 @@ export function fetchGetDictTypeList(params?: Api.SystemManage.DictTypeSearchPar
 }
 
 export function fetchGetDictItemListByCode(code: string) {
-  return request<Api.SystemManage.DictTypeList>({
+  return request<Api.SystemManage.DictItem[]>({
     url: `/system/dict-type/dictItemList/${code}`,
     method: 'get'
   });

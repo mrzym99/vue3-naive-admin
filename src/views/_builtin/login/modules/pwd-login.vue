@@ -5,7 +5,7 @@ import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
-import { fetchGetCaptchaImg } from '@/service/api';
+import { fetchGetCaptchaImg, fetchParameterByKey } from '@/service/api';
 
 defineOptions({
   name: 'PwdLogin'
@@ -17,6 +17,7 @@ const { formRef, validate } = useNaiveForm();
 const captchaId = ref<string>('');
 const captchaImg = ref<string>('');
 const captchaLoading = ref<boolean>(false);
+const showCaptcha = ref<boolean>(false);
 
 interface FormModel {
   username: string;
@@ -102,8 +103,19 @@ async function getCaptcha() {
   captchaId.value = id;
 }
 
+async function getShowCaptcha() {
+  const { data, error } = await fetchParameterByKey('login.captcha.enable');
+  if (error) {
+    return;
+  }
+  showCaptcha.value = data === 'true';
+  if (showCaptcha.value) {
+    getCaptcha();
+  }
+}
+
 onMounted(() => {
-  getCaptcha();
+  getShowCaptcha();
 });
 </script>
 
@@ -120,7 +132,7 @@ onMounted(() => {
         :placeholder="$t('page.login.common.passwordPlaceholder')"
       />
     </NFormItem>
-    <NFormItem path="code">
+    <NFormItem v-if="showCaptcha" path="code">
       <div class="w-full flex items-center justify-between">
         <NInput v-model:value="model.code" :placeholder="$t('page.login.codeLogin.imageCodePlaceholder')" />
         <NSpin class="ml-10px h-40px w-120px" :show="captchaLoading">

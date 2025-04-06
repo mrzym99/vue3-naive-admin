@@ -127,24 +127,6 @@ const {
       }
     },
     {
-      key: 'path',
-      title: $t('page.manage.menu.routePath'),
-      align: 'center',
-      width: 150,
-      ellipsis: {
-        tooltip: true
-      }
-    },
-    {
-      key: 'name',
-      title: $t('page.manage.menu.routeName'),
-      align: 'center',
-      width: 150,
-      ellipsis: {
-        tooltip: true
-      }
-    },
-    {
       key: 'component',
       title: $t('page.manage.menu.component'),
       align: 'center',
@@ -173,17 +155,6 @@ const {
       title: $t('page.manage.menu.order'),
       align: 'center',
       width: 100
-    },
-    {
-      key: 'keepAlive',
-      title: $t('page.manage.menu.keepAlive'),
-      align: 'center',
-      width: 100,
-      render: row => {
-        const type = row.keepAlive ? 'success' : 'warning';
-        const label = row.keepAlive ? $t('common.yesOrNo.yes') : $t('common.yesOrNo.no');
-        return <NTag type={type}>{label}</NTag>;
-      }
     },
     {
       key: 'status',

@@ -329,9 +329,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             1: 'success',
             0: 'error'
           };
-
           const label = $t(enableStatusRecord[row.status]);
-
           return <NTag type={tagMap[row.status]}>{label}</NTag>;
         }
       },
@@ -451,7 +449,7 @@ async function getAllRoles() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   getAllRoles();
 });
 </script>

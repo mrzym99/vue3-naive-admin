@@ -129,7 +129,7 @@ watch(visible, () => {
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" class="lt-sm:!w-100%" width="40%">
+  <NDrawer v-model:show="visible" display-directive="show" class="lt-sm:!w-100%" width="60%">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <ConfigForm ref="formRef" v-model:model="model" :fields="parameterConfigForm">
         <template #value="{ formModel, key }">
