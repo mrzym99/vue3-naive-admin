@@ -753,6 +753,17 @@ declare namespace App {
             lastModified: string;
             path: string;
           };
+          sql: {
+            export: string;
+            import: string;
+            importSuccess: string;
+            importFile: string;
+            importFilePlaceholder: string;
+            importFileTypeTip: string;
+            exportTip: string;
+            importWarningTip: string;
+            importDangerTip: string;
+          };
         };
         userCenter: {
           details: string;

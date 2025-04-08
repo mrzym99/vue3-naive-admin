@@ -218,6 +218,7 @@ const local: App.I18n.Schema = {
     tools_storage_local: '本地存储',
     tools_storage_oss: 'Oss存储',
     tools_mail: '发送邮件',
+    tools_sql: '数据库管理',
     exception: '异常页',
     exception_403: '403',
     exception_404: '404',
@@ -571,6 +572,17 @@ const local: App.I18n.Schema = {
         uploadBy: '上传者',
         lastModified: '最近更新时间',
         path: '访问路径'
+      },
+      sql: {
+        export: '导出 Sql 文件',
+        import: '导入 Sql 文件',
+        importSuccess: '导入成功',
+        importFile: '导入文件',
+        importFileTypeTip: '仅支持上传Sql文件',
+        importFilePlaceholder: '请选择要导入的Sql文件',
+        exportTip: '当你在服务器上不方便导出项目的SQL文件时，可以使用此方式导出SQL文件',
+        importWarningTip: '当你在服务器上不方便导入SQL文件时，可以使用此方式导入SQL文件',
+        importDangerTip: '导入表或结构你必须清楚你在做什么，此种方式比较暴力，更推荐使用 Migration'
       }
     },
     userCenter: {

@@ -497,6 +497,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'tools_sql',
+        path: '/tools/sql',
+        component: 'view.tools_sql',
+        meta: {
+          title: 'tools_sql',
+          i18nKey: 'route.tools_sql'
+        }
+      },
+      {
         name: 'tools_storage',
         path: '/tools/storage',
         meta: {

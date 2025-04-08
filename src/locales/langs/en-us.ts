@@ -218,6 +218,7 @@ const local: App.I18n.Schema = {
     tools_storage_local: 'Local Storage',
     tools_storage_oss: 'Oss Storage',
     tools_mail: 'Send Email',
+    tools_sql: 'Database Manage',
     exception: 'Exception',
     exception_403: '403',
     exception_404: '404',
@@ -574,6 +575,20 @@ const local: App.I18n.Schema = {
         uploadBy: 'UploadBy',
         lastModified: 'last Modified',
         path: 'Path'
+      },
+      sql: {
+        export: 'Export Sql File',
+        import: 'Import Sql File',
+        importSuccess: 'Import Success',
+        importFileTypeTip: 'Only support .sql file',
+        importFile: 'Import File',
+        importFilePlaceholder: 'Please select the Sql file',
+        exportTip:
+          'When it is inconvenient for you to export the SQL file of the project on the server, you can use this method to export the SQL file',
+        importWarningTip:
+          'When it is inconvenient for you to import SQL files on the server, you can use this method to import SQL files',
+        importDangerTip:
+          'You must be clear about what you are doing when importing tables or structures. This method is more aggressive and it is recommended to use Migration'
       }
     },
     userCenter: {
