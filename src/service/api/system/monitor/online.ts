@@ -1,4 +1,4 @@
-import { request } from '../../request';
+import { request } from '@/service/request';
 
 /** get online list */
 export function fetchGetOnlineUserList(params?: Api.SystemManage.OnlineUserSearchParams) {

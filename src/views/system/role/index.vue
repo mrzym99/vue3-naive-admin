@@ -123,14 +123,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         }
       },
       {
-        key: 'createdAt',
-        title: $t('common.createdAt'),
-        width: 180,
-        render: row => {
-          return <NTime time={new Date(row.createdAt)} />;
-        }
-      },
-      {
         key: 'updatedAt',
         title: $t('common.updatedAt'),
         width: 180,

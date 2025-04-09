@@ -68,6 +68,7 @@ declare module "@elegant-router/types" {
     "system_dict": "/system/dict";
     "system_menu": "/system/menu";
     "system_monitor": "/system/monitor";
+    "system_monitor_cache": "/system/monitor/cache";
     "system_monitor_captcha-log": "/system/monitor/captcha-log";
     "system_monitor_login-log": "/system/monitor/login-log";
     "system_monitor_online": "/system/monitor/online";
@@ -190,6 +191,7 @@ declare module "@elegant-router/types" {
     | "system_dept"
     | "system_dict"
     | "system_menu"
+    | "system_monitor_cache"
     | "system_monitor_captcha-log"
     | "system_monitor_login-log"
     | "system_monitor_online"

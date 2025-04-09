@@ -382,6 +382,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         },
         children: [
           {
+            name: 'system_monitor_cache',
+            path: '/system/monitor/cache',
+            component: 'view.system_monitor_cache',
+            meta: {
+              title: 'system_monitor_cache',
+              i18nKey: 'route.system_monitor_cache'
+            }
+          },
+          {
             name: 'system_monitor_captcha-log',
             path: '/system/monitor/captcha-log',
             component: 'view.system_monitor_captcha-log',

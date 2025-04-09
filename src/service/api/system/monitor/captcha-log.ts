@@ -1,4 +1,4 @@
-import { request } from '../../request';
+import { request } from '@/service/request';
 
 /** get captcha list */
 export function fetchGetCaptchaLogList(params?: Api.SystemManage.CaptchaLogSearchParams) {

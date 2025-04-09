@@ -508,6 +508,14 @@ declare namespace Api {
     >;
 
     type DictItemList = Common.PaginatingQueryRecord<DictItem>;
+
+    /** DictItem type */
+    type CachePrefix = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** key */
+      prefix: string;
+    }>;
   }
 
   /** tools manage */

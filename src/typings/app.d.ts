@@ -729,6 +729,15 @@ declare namespace App {
               edit: string;
             };
           };
+          cache: {
+            list: string;
+            keyList: string;
+            content: string;
+            prefix: string;
+            name: string;
+            key: string;
+            value: string;
+          };
         };
         tools: {
           mail: {

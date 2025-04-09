@@ -212,6 +212,7 @@ const local: App.I18n.Schema = {
     system_monitor_online: 'Online User',
     'system_monitor_login-log': 'LoginLog Manage',
     system_monitor_serve: 'Serve Monitor',
+    system_monitor_cache: 'Cache Monitor',
     system_dict: 'Dictionary Manage',
     tools: 'Tools',
     tools_storage: 'Storage Manage',
@@ -551,6 +552,15 @@ const local: App.I18n.Schema = {
           add: 'Add DictType',
           edit: 'Edit DictType'
         }
+      },
+      cache: {
+        list: 'Cache List',
+        keyList: 'Cache Key List',
+        content: 'Cache Content',
+        prefix: 'Cache Prefix',
+        name: 'Cache Name',
+        key: 'Cache Key',
+        value: 'Cache Value'
       }
     },
     tools: {

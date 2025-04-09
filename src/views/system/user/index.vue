@@ -304,18 +304,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         }
       },
       {
-        key: 'email',
-        title: $t('page.manage.user.email'),
-        align: 'center',
-        width: 200
-      },
-      {
-        key: 'phone',
-        title: $t('page.manage.user.phone'),
-        align: 'center',
-        width: 120
-      },
-      {
         key: 'status',
         title: $t('common.status'),
         align: 'center',

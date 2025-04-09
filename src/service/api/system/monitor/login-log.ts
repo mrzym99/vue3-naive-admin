@@ -1,4 +1,4 @@
-import { request } from '../../request';
+import { request } from '@/service/request';
 
 /** get LoginLog list */
 export function fetchGetLoginLogList(params?: Api.SystemManage.LoginLogSearchParams) {

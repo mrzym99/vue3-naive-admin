@@ -1,4 +1,4 @@
-import { request } from '../../request';
+import { request } from '@/service/request';
 
 /** get TaskLog list */
 export function fetchGetTaskLogList(params?: Api.SystemManage.TaskLogSearchParams) {

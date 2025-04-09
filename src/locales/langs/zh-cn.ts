@@ -212,6 +212,7 @@ const local: App.I18n.Schema = {
     system_monitor_online: '在线用户',
     'system_monitor_login-log': '登录日志',
     system_monitor_serve: '服务监控',
+    system_monitor_cache: '缓存监控',
     system_dict: '字典管理',
     tools: '系统工具',
     tools_storage: '存储管理',
@@ -548,6 +549,15 @@ const local: App.I18n.Schema = {
           add: '新增字典类型',
           edit: '编辑字典类型'
         }
+      },
+      cache: {
+        list: '缓存列表',
+        keyList: '键名列表',
+        content: '缓存内容',
+        prefix: '缓存前缀',
+        name: '缓存名称',
+        key: '缓存键名',
+        value: '缓存值'
       }
     },
     tools: {
