@@ -40,7 +40,7 @@ export function fetchUpdatedMenuStatus(params: Api.SystemManage.StatusDto) {
   });
 }
 
-export function fetchDeleteMenu(id?: string) {
+export function fetchDeleteMenu(id?: number) {
   return request({
     url: `/system/menu/${id}`,
     method: 'delete'

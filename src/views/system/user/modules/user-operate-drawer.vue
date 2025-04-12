@@ -203,7 +203,7 @@ const userConfigForm = useConfigForm<Model>(() => ({
 
 function createDefaultModel(): Model {
   return {
-    id: '',
+    id: undefined,
     roleIds: [],
     deptId: '',
     username: '',

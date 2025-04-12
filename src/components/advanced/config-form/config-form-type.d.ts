@@ -6,11 +6,11 @@ type BooleanPredicate<T> = (value: T) => boolean;
 // 定义一个通用的布尔类型或函数类型
 type BooleanProp<T> = BooleanPredicate<T> | boolean;
 
-export type Option<K = string> = {
+export type Option<K = number | string> = {
   value: K;
   label: string;
   disabled?: boolean;
-  key?: string;
+  key?: number | string;
   isLeaf?: boolean;
   children?: Option<K>[];
 };

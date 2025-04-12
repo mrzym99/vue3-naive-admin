@@ -16,7 +16,7 @@ interface Props {
   /** the edit row data */
   rowData?: Api.SystemManage.DictItem | null;
   /** the drawer visible */
-  typeId?: string | null;
+  typeId?: number;
 }
 
 const props = defineProps<Props>();
@@ -108,8 +108,8 @@ const dictConfigForm = useConfigForm<Model>(() => ({
 
 function createDefaultModel(): Model {
   return {
-    typeId: '',
-    id: '',
+    typeId: undefined,
+    id: undefined,
     label: '',
     value: '',
     order: 1,
@@ -123,7 +123,7 @@ function handleInitModel() {
   if (props.operateType === 'edit' && props.rowData) {
     Object.assign(model.value, props.rowData);
   }
-  model.value.typeId = props.typeId || '';
+  model.value.typeId = props.typeId;
 }
 
 function closeDrawer() {

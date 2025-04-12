@@ -438,18 +438,18 @@ async function detail({ id, parentId }: Api.SystemManage.Menu) {
   }
 }
 
-function add(id: string, type: Api.SystemManage.MenuType) {
+function add(id: number, type: Api.SystemManage.MenuType) {
   handleAdd({
     parentId: id,
     type
   });
 }
 
-function edit(id: string) {
+function edit(id: number) {
   handleEdit(id);
 }
 
-async function handleDelete(id: string) {
+async function handleDelete(id: number) {
   const { error } = await fetchDeleteMenu(id);
   if (!error) {
     onDeleted();

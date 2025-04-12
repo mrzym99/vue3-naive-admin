@@ -55,7 +55,14 @@ const keyListData = ref<KeyItem[]>([]);
 const keyListColumns = [
   {
     title: () => $t('page.manage.cache.key'),
-    key: 'key'
+    key: 'key',
+    ellipsis: {
+      tooltip: {
+        contentStyle: {
+          maxWidth: '300px'
+        }
+      }
+    }
   },
   {
     title: () => $t('common.operate'),

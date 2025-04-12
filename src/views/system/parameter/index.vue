@@ -98,7 +98,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
 
 const { drawerVisible, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(data, getData);
 
-async function edit(id: string) {
+async function edit(id: number) {
   const { error, data: parameterInfo } = await fetchGetParameterInfo(id);
   if (error) {
     return;
@@ -106,7 +106,7 @@ async function edit(id: string) {
   handleEdit(id, parameterInfo as any);
 }
 
-async function handleDelete(id: string) {
+async function handleDelete(id: number) {
   const { error } = await fetchDeleteParameter(id);
   if (!error) {
     onDeleted();

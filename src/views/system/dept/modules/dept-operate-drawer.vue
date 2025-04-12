@@ -93,7 +93,7 @@ function createDefaultModel(): Model {
     name: '',
     order: 1,
     default: 0,
-    parentId: ''
+    parentId: null
   };
 }
 

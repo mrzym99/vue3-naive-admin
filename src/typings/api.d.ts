@@ -34,7 +34,7 @@ declare namespace Api {
     /** common record */
     type CommonRecord<T = any> = {
       /** record id */
-      id: string;
+      id: number;
       /** record creator */
       createBy: string;
       /** record create time */
@@ -80,7 +80,7 @@ declare namespace Api {
     }
 
     interface UserInfo {
-      id: string;
+      id: number | null;
       username: string;
       nickName: string;
       avatar: string;
@@ -104,7 +104,7 @@ declare namespace Api {
     type ElegantConstRoute = import('@elegant-router/types').ElegantConstRoute;
 
     interface MenuRoute extends ElegantConstRoute {
-      id: string;
+      id: number;
     }
 
     interface UserRoute {
@@ -125,7 +125,7 @@ declare namespace Api {
       /** dept name */
       name: string;
       /** dept parent */
-      parentId?: string;
+      parentId?: number | null;
       /** 排序 */
       order?: number | null;
       /** 是否默认 1 是 0 否 */
@@ -142,7 +142,7 @@ declare namespace Api {
 
     /** role */
     type Role = Common.CommonRecord<{
-      id: string;
+      id: number;
       /** role name */
       name: string;
       /** role code */
@@ -218,7 +218,7 @@ declare namespace Api {
     }>;
 
     type StatusDto = {
-      ids: string[];
+      ids: number[];
       status: number;
     };
 
@@ -282,9 +282,9 @@ declare namespace Api {
       Pick<Api.SystemManage.Menu, 'title' | 'name' | 'path' | 'status'> & CommonSearchParams
     >;
     type MenuTreeItem = {
-      id: string;
+      id: number;
       title: string;
-      pId: string;
+      pId: number;
       type: number;
       name: string;
       i18nKey?: App.I18n.I18nKey;
@@ -293,7 +293,7 @@ declare namespace Api {
     type MenuTree = MenuTreeItem[];
     type Menu = Common.CommonRecord<{
       /** parent menu id */
-      parentId: string;
+      parentId: number;
       /** parent menu title */
       parentTitle?: string;
       /** parent menu i18n key */
@@ -327,7 +327,7 @@ declare namespace Api {
       /** dept name */
       deptName: string;
       /** user id */
-      uid: string;
+      uid: number;
       /* username */
       username: string;
       /** is current user */
@@ -490,7 +490,7 @@ declare namespace Api {
 
     /** DictItem type */
     type DictItem = Common.CommonRecord<{
-      typeId: string;
+      typeId: number;
       /** name */
       label: string;
       /** code */
@@ -504,7 +504,7 @@ declare namespace Api {
     }>;
 
     type DictItemSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.DictItem, 'label' | 'value'> & CommonSearchParams & { typeId: string }
+      Pick<Api.SystemManage.DictItem, 'label' | 'value'> & CommonSearchParams & { typeId?: number }
     >;
 
     type DictItemList = Common.PaginatingQueryRecord<DictItem>;

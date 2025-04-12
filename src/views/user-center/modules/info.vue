@@ -104,7 +104,7 @@ const columns = useDetailDescriptions<Api.SystemManage.User>(() => [
 ]);
 
 const details = reactive<Partial<Api.SystemManage.User>>({
-  id: '',
+  id: undefined,
   username: '',
   nickName: '',
   gender: null,

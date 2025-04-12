@@ -8,7 +8,7 @@ export function fetchGetDictItemList(params?: Api.SystemManage.DictItemSearchPar
   });
 }
 
-export function fetchGetDictItemInfo(id?: string) {
+export function fetchGetDictItemInfo(id?: number) {
   return request<Api.SystemManage.DictItem>({
     url: `/system/dict-item/info/${id}`,
     method: 'get'
@@ -39,7 +39,7 @@ export function fetchBatchUpdateDictItemStatus(data: Api.SystemManage.StatusDto)
   });
 }
 
-export function fetchDeleteDictItem(ids?: string[]) {
+export function fetchDeleteDictItem(ids?: number[]) {
   return request({
     url: `/system/dict-item`,
     method: 'delete',

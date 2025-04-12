@@ -121,18 +121,18 @@ const {
 
 const { drawerVisible, operateType, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(data, getData);
 
-function edit(id: string) {
+function edit(id: number) {
   handleEdit(id);
 }
 
-async function handleDelete(id: string) {
+async function handleDelete(id: number) {
   const { error } = await fetchDeleteDept(id);
   if (!error) {
     onDeleted();
   }
 }
 
-async function handleSetDefault(id: string) {
+async function handleSetDefault(id: number) {
   const { error } = await fetchSetDeptDefault(id);
   if (!error) {
     window.$message?.success($t('common.operateSuccess'));

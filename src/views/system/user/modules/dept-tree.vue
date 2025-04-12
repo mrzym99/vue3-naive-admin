@@ -17,7 +17,7 @@ const props = defineProps<{
 const emit = defineEmits<Emits>();
 
 const deptTreeData = ref<TreeOption[]>([]);
-const defaultExpandedKeys = ref<string[]>([]);
+const defaultExpandedKeys = ref<number[]>([]);
 const deptName = ref('');
 const loading = ref(false);
 const defaultExpandAll = ref(false);
@@ -72,7 +72,7 @@ const getTreeData = async () => {
   loading.value = false;
   if (!error) {
     deptTreeData.value = data;
-    const list: string[] = [];
+    const list: number[] = [];
     data.forEach(item => {
       if (item.children && item.children.length) {
         list.push(item.id);

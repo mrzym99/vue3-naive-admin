@@ -381,18 +381,18 @@ const {
   handleDetail
 } = useTableOperate(data, getData);
 
-async function detail(id: string) {
+async function detail(id: number) {
   if (hasAuth('system:user:read')) {
     handleDetail(id);
   } else {
     window.$message?.error($t('common.noPermission'));
   }
 }
-function edit(id: string) {
+function edit(id: number) {
   handleEdit(id);
 }
 
-async function handleChangeStatus(id: string, status: number | null) {
+async function handleChangeStatus(id: number, status: number | null) {
   const { error } = await fetchUpdatedUserStatus({
     ids: [id],
     status: status ? 0 : 1
@@ -404,7 +404,7 @@ async function handleChangeStatus(id: string, status: number | null) {
   getDataByPage();
 }
 
-async function resetPassword(id: string) {
+async function resetPassword(id: number) {
   const { error } = await fetchResetPassword(id);
   if (!error) {
     window.$message?.success($t('common.resetSuccess'));
@@ -413,7 +413,7 @@ async function resetPassword(id: string) {
 
 async function handleBatchDChangeStatus() {
   const { error } = await fetchUpdatedUserStatus({
-    ids: checkedRowKeys.value as string[],
+    ids: checkedRowKeys.value as number[],
     status: 0
   });
   if (!error) {

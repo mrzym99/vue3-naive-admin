@@ -58,7 +58,7 @@ const {
     // the value can not be undefined, otherwise the property in Form will not be reactive
     label: '',
     value: '',
-    typeId: ''
+    typeId: null
   },
   immediate: false,
   columns: () => [
@@ -97,7 +97,7 @@ const {
       key: 'remark',
       title: $t('page.manage.common.remark'),
       align: 'center',
-      width: 180,
+      width: 150,
       ellipsis: {
         tooltip: true
       }
@@ -130,17 +130,12 @@ const {
           >
             {$t('common.edit')}
           </NButton>
-          <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id, row.status)}>
+          <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
             {{
-              default: () => $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
+              default: () => `${$t('common.delete')} - ${row.label} ？`,
               trigger: () => (
-                <NButton
-                  disabled={!hasAuth('system:dict-type:update')}
-                  type={row.status ? 'error' : 'success'}
-                  ghost
-                  size="small"
-                >
-                  {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
+                <NButton disabled={!hasAuth('system:dict-item:delete')} type={'error'} ghost size="small">
+                  {$t('common.delete')}
                 </NButton>
               )
             }}
@@ -161,24 +156,19 @@ const beforeResetSearchParams = () => {
 const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, handleEdit, onBatchDeleted } =
   useTableOperate(data, getData);
 
-function edit(id: string) {
+function edit(id: number) {
   handleEdit(id);
 }
 
-async function handleChangeStatus(id: string, status: number | null) {
-  const { error } = await fetchBatchUpdateDictItemStatus({
-    ids: [id],
-    status: status ? 0 : 1
-  });
+async function handleDelete(id: number) {
+  const { error } = await fetchDeleteDictItem([id]);
   if (!error) {
-    window.$message?.success($t('common.operateSuccess'));
+    onBatchDeleted();
   }
-  // request
-  getDataByPage();
 }
 
 async function batchDelete() {
-  const { error } = await fetchDeleteDictItem(checkedRowKeys.value as string[]);
+  const { error } = await fetchDeleteDictItem(checkedRowKeys.value as number[]);
   if (!error) {
     onBatchDeleted();
   }
@@ -186,7 +176,7 @@ async function batchDelete() {
 
 async function handleBatchDChangeStatus() {
   const { error } = await fetchBatchUpdateDictItemStatus({
-    ids: checkedRowKeys.value as string[],
+    ids: checkedRowKeys.value as number[],
     status: 0
   });
   if (!error) {
@@ -213,8 +203,8 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
         </template>
         <template #2>
           <div class="h-full flex-col-stretch px-10px">
-            <div class="flex items-center">
-              <h3 class="font-bold">{{ $t('page.manage.dict.dictItem.currentTypeName') }} :</h3>
+            <div class="mb-1 flex items-center">
+              <h3 class="mr-2 font-bold">{{ $t('page.manage.dict.dictItem.currentTypeName') }} :</h3>
               {{ currentDictType?.name }}
             </div>
             <SearchForm
@@ -314,7 +304,7 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
     </NCard>
     <DictItemOperateDrawer
       v-model:visible="drawerVisible"
-      :type-id="searchParams.typeId"
+      :type-id="currentDictType?.id"
       :operate-type="operateType"
       :row-data="editingData"
       @submitted="getDataByPage"

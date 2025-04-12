@@ -5,10 +5,11 @@ import mitt from 'mitt';
 import { uniqueSlash } from '@/utils/urlUtils';
 import { useAuthStore } from '../auth';
 import { useRouteStore } from '../route';
+import { getToken } from '../auth/shared';
 
 export type MessageEvent = {
   data?: any;
-  type?: 'ping' | 'close' | 'updatePermsAndMenus' | 'updateOnlineUsers';
+  type?: 'ping' | 'close' | 'logout' | 'updatePermsAndMenus' | 'updateOnlineUsers';
 };
 
 type Events = {
@@ -25,7 +26,7 @@ export const useSSEStore = defineStore('sse', () => {
   const onlineUserCount = ref(0);
 
   watch(serverConnected, val => {
-    if (val && authStore.token) {
+    if (val && getToken()) {
       initServerMsgListener();
     } else {
       closeEventSource();
@@ -35,7 +36,7 @@ export const useSSEStore = defineStore('sse', () => {
   watch(idle, idleValue => {
     if (idleValue) {
       closeEventSource();
-    } else if (authStore.token) {
+    } else if (getToken()) {
       setServerConnectStatus(true);
     }
   });
@@ -53,17 +54,26 @@ export const useSSEStore = defineStore('sse', () => {
     }
     const uid = authStore.userInfo.id;
     if (!uid) return;
-    const sseUrl = uniqueSlash(`${import.meta.env.VITE_SERVICE_BASE_URL}/sse/${uid}?token=${authStore.token}`);
+    const sseUrl = uniqueSlash(`${import.meta.env.VITE_SERVICE_BASE_URL}/sse/${uid}?token=${getToken()}`);
 
     eventSource = new EventSource(sseUrl);
 
     // 处理 SSE 传递的数据
     eventSource.onmessage = event => {
       const { type } = JSON.parse(event.data) as MessageEvent;
+      console.log(type);
 
       // 服务器关闭 SSE 连接
       if (type === 'close') {
         closeEventSource();
+      } else if (type === 'logout') {
+        authStore.resetStore();
+        closeEventSource();
+        window.$dialog?.error({
+          title: '提示',
+          content: '您已被强制下线！',
+          positiveText: '确定'
+        });
       }
       // 当用户的权限及菜单有变更时，重新获取权限及菜单
       else if (type === 'updatePermsAndMenus') {
@@ -74,7 +84,6 @@ export const useSSEStore = defineStore('sse', () => {
         emitter.emit('onlineUser', onlineUserCount.value);
       }
 
-      console.log('sse', type);
       // console.log('eventSource', event.data);
     };
 

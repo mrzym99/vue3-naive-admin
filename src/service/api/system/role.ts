@@ -15,7 +15,7 @@ export function fetchGetAllRole() {
   });
 }
 
-export function fetchGetRoleInfo(id?: string) {
+export function fetchGetRoleInfo(id?: number) {
   return request<Api.SystemManage.Role>({
     url: `/system/role/info/${id}`,
     method: 'get'
@@ -38,13 +38,13 @@ export function fetchUpdateRole(data?: Api.SystemManage.Role) {
   });
 }
 
-export function fetchSetRoleDefault(id?: string) {
+export function fetchSetRoleDefault(id?: number) {
   return request({
     url: `/system/role/default/${id}`,
     method: 'put'
   });
 }
-export function fetchDeleteRole(id?: string) {
+export function fetchDeleteRole(id?: number) {
   return request({
     url: `/system/role/${id}`,
     method: 'delete'

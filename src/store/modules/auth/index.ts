@@ -23,7 +23,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const token = ref(getToken());
 
   const userInfo: Api.Auth.UserInfo = reactive({
-    id: '',
+    id: null,
     username: '',
     nickName: '',
     avatar: '',
@@ -56,7 +56,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     tabStore.cacheTabs();
     routeStore.resetStore();
     sseStore.closeEventSource();
-    console.log('sse 断开');
   }
 
   /**

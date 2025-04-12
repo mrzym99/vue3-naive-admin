@@ -306,7 +306,7 @@ const {
   handleDetail
 } = useTableOperate(data, getData);
 
-async function detail(id: string) {
+async function detail(id: number) {
   if (hasAuth('system:task:read')) {
     handleDetail(id);
   } else {
@@ -314,7 +314,7 @@ async function detail(id: string) {
   }
 }
 
-async function edit(id: string) {
+async function edit(id: number) {
   const { error, data: taskInfo } = await fetchGetTaskInfo(id);
   if (error) {
     return;
@@ -322,14 +322,14 @@ async function edit(id: string) {
   handleEdit(id, taskInfo as any);
 }
 
-async function handleDelete(id: string) {
+async function handleDelete(id: number) {
   const { error } = await fetchDeleteTask(id);
   if (!error) {
     onDeleted();
   }
 }
 
-async function handleOnce(id: string) {
+async function handleOnce(id: number) {
   const { error } = await fetchOnceTask(id);
   if (!error) {
     window.$message?.success('启动成功');
@@ -338,7 +338,7 @@ async function handleOnce(id: string) {
   }
 }
 
-async function handleStart(id: string) {
+async function handleStart(id: number) {
   const { error } = await fetchStartTask(id);
   if (!error) {
     window.$message?.success('启动成功');
@@ -347,7 +347,7 @@ async function handleStart(id: string) {
   }
 }
 
-async function handleStop(id: string) {
+async function handleStop(id: number) {
   const { error } = await fetchStopTask(id);
   if (!error) {
     window.$message?.success('停止成功');

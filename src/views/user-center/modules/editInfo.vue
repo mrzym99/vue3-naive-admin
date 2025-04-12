@@ -20,7 +20,7 @@ const dialog = useDialog();
 const originalAvatar = ref('');
 function createDefaultModel(): Model {
   return {
-    id: '',
+    id: undefined,
     username: '',
     nickName: '',
     gender: null,

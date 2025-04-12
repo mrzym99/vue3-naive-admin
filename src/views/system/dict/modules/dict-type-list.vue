@@ -65,7 +65,10 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'code',
         title: $t('page.manage.dict.code'),
         align: 'center',
-        width: 80
+        width: 80,
+        ellipsis: {
+          tooltip: true
+        }
       },
       {
         key: 'status',
@@ -83,7 +86,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
-        width: getLocale.value === 'zh-CN' ? 180 : 260,
+        width: getLocale.value === 'zh-CN' ? 100 : 160,
         render: row => (
           <div class="flex-center gap-8px">
             <NButton
@@ -95,22 +98,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             >
               {$t('common.edit')}
             </NButton>
-            <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id, row.status)}>
-              {{
-                default: () =>
-                  $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
-                trigger: () => (
-                  <NButton
-                    disabled={!hasAuth('system:dict-type:update')}
-                    type={row.status ? 'error' : 'success'}
-                    ghost
-                    size="small"
-                  >
-                    {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
-                  </NButton>
-                )
-              }}
-            </NPopconfirm>
             <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
                 default: () => `${$t('common.delete')} - ${row.name} ？`,
@@ -132,20 +119,8 @@ const { drawerVisible, checkedRowKeys, operateType, editingData, handleAdd, hand
   getData
 );
 
-function edit(id: string) {
+function edit(id: number) {
   handleEdit(id);
-}
-
-async function handleChangeStatus(id: string, status: number | null) {
-  const { error } = await fetchBatchUpdateDictTypeStatus({
-    ids: [id],
-    status: status ? 0 : 1
-  });
-  if (!error) {
-    window.$message?.success($t('common.operateSuccess'));
-  }
-  // request
-  getDataByPage();
 }
 
 function handleRowClick(row: Api.SystemManage.DictType) {
@@ -158,7 +133,7 @@ function handleRowClick(row: Api.SystemManage.DictType) {
 }
 async function handleBatchDChangeStatus() {
   const { error } = await fetchBatchUpdateDictTypeStatus({
-    ids: checkedRowKeys.value as string[],
+    ids: checkedRowKeys.value as number[],
     status: 0
   });
   if (!error) {
@@ -168,7 +143,7 @@ async function handleBatchDChangeStatus() {
   getDataByPage();
 }
 
-async function handleDelete(id: string) {
+async function handleDelete(id: number) {
   const { error } = await fetchDeleteDictType(id);
   if (!error) {
     onDeleted();
@@ -187,7 +162,7 @@ watch(
 
 <template>
   <div class="h-full flex-col-stretch px-10px lt-sm:h-70vh">
-    <h3 class="font-bold">{{ $t('page.manage.dict.dictType.title') }}</h3>
+    <h3 class="mb-1 font-bold">{{ $t('page.manage.dict.dictType.title') }}</h3>
     <SearchForm
       v-model:model="searchParams"
       :fields="dictTypeSearchForm"

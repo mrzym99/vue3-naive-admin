@@ -9,7 +9,7 @@ export function fetchGetStorageLocalList(params?: Api.ToolsManage.StorageLocalSe
   });
 }
 
-export function fetchDeleteStorageLocal(ids: string[]) {
+export function fetchDeleteStorageLocal(ids: number[]) {
   return request({
     url: '/tools/storage/delete',
     method: 'post',

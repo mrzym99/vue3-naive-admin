@@ -3,6 +3,9 @@ import { ref } from 'vue';
 import type { UploadFileInfo } from 'naive-ui';
 import { downloadSql, importSql } from '@/service/api/tool/sql';
 import { $t } from '@/locales';
+import { useAuth } from '@/hooks/business/auth';
+
+const { hasAuth } = useAuth();
 const show = ref(false);
 const width = ref('600px');
 const fileList = ref<UploadFileInfo[]>([]);
@@ -41,7 +44,9 @@ function handleCancel() {
         <NAlert type="warning">
           {{ $t('page.tools.sql.exportTip') }}
         </NAlert>
-        <NButton class="mt-2" type="success" @click="downloadSql">{{ $t('page.tools.sql.export') }}</NButton>
+        <NButton :disabled="!hasAuth('tool:sql:export')" class="mt-2" type="success" @click="downloadSql">
+          {{ $t('page.tools.sql.export') }}
+        </NButton>
       </div>
       <div class="mt-2rem w-60% lt-sm:w-100%">
         <NAlert type="warning">
@@ -49,7 +54,9 @@ function handleCancel() {
           <br />
           {{ $t('page.tools.sql.importDangerTip') }}
         </NAlert>
-        <NButton class="mt-2" type="warning" @click="show = true">{{ $t('page.tools.sql.import') }}</NButton>
+        <NButton :disabled="!hasAuth('tool:sql:import')" class="mt-2" type="warning" @click="show = true">
+          {{ $t('page.tools.sql.import') }}
+        </NButton>
       </div>
 
       <NModal

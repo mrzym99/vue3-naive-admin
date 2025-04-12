@@ -32,14 +32,14 @@ export function fetchUpdateDept(data?: Api.SystemManage.Dept) {
   });
 }
 
-export function fetchSetDeptDefault(id?: string) {
+export function fetchSetDeptDefault(id?: number) {
   return request({
     url: `/system/dept/default/${id}`,
     method: 'put'
   });
 }
 
-export function fetchDeleteDept(id?: string) {
+export function fetchDeleteDept(id?: number) {
   return request({
     url: `/system/dept/${id}`,
     method: 'delete'

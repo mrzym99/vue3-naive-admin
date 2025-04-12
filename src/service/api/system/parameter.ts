@@ -15,7 +15,7 @@ export function fetchParameterByKey(key: string) {
   });
 }
 
-export function fetchGetParameterInfo(id?: string) {
+export function fetchGetParameterInfo(id?: number) {
   return request<Api.SystemManage.Parameter>({
     url: `/system/parameter/info/${id}`,
     method: 'get'
@@ -38,7 +38,7 @@ export function fetchUpdateParameter(data?: Api.SystemManage.Parameter) {
   });
 }
 
-export function fetchDeleteParameter(id?: string) {
+export function fetchDeleteParameter(id?: number) {
   return request({
     url: `/system/parameter/${id}`,
     method: 'delete'

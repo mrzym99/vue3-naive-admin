@@ -55,7 +55,6 @@ const menuConfigForm = useConfigForm<Model>(() => ({
     key: 'type',
     label: $t('page.manage.menu.menuType'),
     type: 'Radio',
-    disabled: props.operateType === 'edit',
     options: [
       {
         value: MenuTypeEnum.DIRECTORY,
@@ -356,7 +355,7 @@ function onPathSelectChange(path: string) {
 
 function createDefaultModel(): Model {
   return {
-    parentId: '',
+    parentId: undefined,
     type: 0,
     title: '',
     name: '',

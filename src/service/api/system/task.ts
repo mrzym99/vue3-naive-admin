@@ -24,35 +24,35 @@ export function fetchUpdateTask(data?: Api.SystemManage.Task) {
   });
 }
 
-export function fetchDeleteTask(id?: string) {
+export function fetchDeleteTask(id?: number) {
   return request({
     url: `/system/task/${id}`,
     method: 'delete'
   });
 }
 
-export function fetchGetTaskInfo(id?: string) {
+export function fetchGetTaskInfo(id?: number) {
   return request<Api.SystemManage.Task>({
     url: `/system/task/info/${id}`,
     method: 'get'
   });
 }
 
-export function fetchOnceTask(id?: string) {
+export function fetchOnceTask(id?: number) {
   return request({
     url: `/system/task/${id}/once`,
     method: 'put'
   });
 }
 
-export function fetchStopTask(id?: string) {
+export function fetchStopTask(id?: number) {
   return request({
     url: `/system/task/${id}/stop`,
     method: 'put'
   });
 }
 
-export function fetchStartTask(id?: string) {
+export function fetchStartTask(id?: number) {
   return request({
     url: `/system/task/${id}/start`,
     method: 'put'

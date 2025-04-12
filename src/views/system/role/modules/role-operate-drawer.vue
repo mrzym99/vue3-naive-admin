@@ -44,6 +44,7 @@ const title = computed(() => {
 type Model = Partial<Api.SystemManage.Role>;
 
 const model = ref(createDefaultModel());
+const defaultCheckAll = ref(false);
 
 const roleConfigForm = useConfigForm<Model>(() => ({
   name: {
@@ -203,7 +204,26 @@ function updateCheckdKeys(
       // 去重再返回
       model.value.menuIds = Array.from(new Set([...keys, ...allChildren.map(v => v.key as string)]));
     }
+  } else {
+    window?.$dialog?.info({
+      title: $t('common.confirm'),
+      content: '是否取消子节点选中',
+      positiveText: $t('common.confirm'),
+      negativeText: $t('common.cancel'),
+      onPositiveClick: () => {
+        if (node?.children && node.children.length) {
+          const allChildren = flatTreeData<TreeOption>(node.children);
+          const childrenKeys = allChildren.map(v => v.key as string);
+          // 移除 所有子节点的选中状态
+          model.value.menuIds = keys.filter(v => !childrenKeys.includes(v));
+        }
+      }
+    });
   }
+}
+
+function toggleExpand() {
+  defaultCheckAll.value = !defaultCheckAll.value;
 }
 
 watch(visible, () => {
@@ -223,6 +243,15 @@ watch(visible, () => {
       <ConfigForm ref="formRef" v-model:model="model" :fields="roleConfigForm">
         <template #menu="{ formModel, key, field }">
           <NCard>
+            <NSpace justify="end">
+              <NButton size="small" @click="toggleExpand">
+                <template #icon>
+                  <icon-ic-twotone-unfold-more class="text-icon" />
+                </template>
+                {{ `${$t('common.expand')}/${$t('common.fold')}` }}
+              </NButton>
+            </NSpace>
+
             <NTree
               v-if="visible"
               v-model:checked-keys="formModel[key]"
@@ -230,7 +259,7 @@ watch(visible, () => {
               block-line
               expand-on-click
               checkable
-              :default-expand-all="true"
+              :default-expand-all="defaultCheckAll"
               @update:checked-keys="updateCheckdKeys"
             />
           </NCard>

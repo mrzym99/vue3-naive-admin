@@ -248,7 +248,7 @@ const {
   onDeleted
 } = useTableOperate(data, getData);
 
-async function detail(id: string) {
+async function detail(id: number) {
   if (hasAuth('system:role:read')) {
     handleDetail(id);
   } else {
@@ -256,7 +256,7 @@ async function detail(id: string) {
   }
 }
 
-async function edit(id: string) {
+async function edit(id: number) {
   const { error, data: roleInfo } = await fetchGetRoleInfo(id);
   if (error) {
     return;
@@ -264,14 +264,14 @@ async function edit(id: string) {
   handleEdit(id, roleInfo as any);
 }
 
-async function handleDelete(id: string) {
+async function handleDelete(id: number) {
   const { error } = await fetchDeleteRole(id);
   if (!error) {
     onDeleted();
   }
 }
 
-async function handleSetDefault(id: string) {
+async function handleSetDefault(id: number) {
   const { error } = await fetchSetRoleDefault(id);
   if (!error) {
     window.$message?.success($t('common.setDefault') + $t('common.successOrFailRecord.success'));

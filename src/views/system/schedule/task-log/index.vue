@@ -93,7 +93,14 @@ const { columns, columnChecks, data, getData, loading, pagination, getDataByPage
         key: 'consumeTime',
         title: $t('page.manage.taskLog.consume'),
         align: 'center',
-        width: 100
+        width: 100,
+        render: row => {
+          if (row.consumeTime === null) {
+            return null;
+          }
+
+          return <div>{row.consumeTime}ms</div>;
+        }
       },
       {
         key: 'detail',

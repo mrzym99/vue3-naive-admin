@@ -96,7 +96,7 @@ const dictConfigForm = useConfigForm<Model>(() => ({
 
 function createDefaultModel(): Model {
   return {
-    id: '',
+    id: undefined,
     name: '',
     code: '',
     remark: '',

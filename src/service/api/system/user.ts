@@ -9,7 +9,7 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
   });
 }
 
-export function fetchUpdateUser(id: string, data: Api.SystemManage.Profile) {
+export function fetchUpdateUser(id: number, data: Api.SystemManage.Profile) {
   return request({
     url: `/system/user/update/${id}`,
     method: 'put',
@@ -18,7 +18,7 @@ export function fetchUpdateUser(id: string, data: Api.SystemManage.Profile) {
 }
 
 // 这个不可以修改部门、角色 用于用户修改
-export function fetchUpdateUserProfile(id: string, data: Api.SystemManage.Profile) {
+export function fetchUpdateUserProfile(id: number, data: Api.SystemManage.Profile) {
   return request({
     url: `/system/user/updateProfile/${id}`,
     method: 'put',
@@ -35,7 +35,7 @@ export function fetchUpdatedUserStatus(params: Api.SystemManage.StatusDto) {
 }
 
 /** reset password */
-export function fetchResetPassword(id: string) {
+export function fetchResetPassword(id: number) {
   return request({
     url: `/system/user/resetPassword/${id}`,
     method: 'put'

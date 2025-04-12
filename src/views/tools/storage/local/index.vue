@@ -136,7 +136,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
 
 const { checkedRowKeys, onBatchDeleted, onDeleted } = useTableOperate(data, getData);
 
-async function handleDelete(id: string) {
+async function handleDelete(id: number) {
   const { error } = await fetchDeleteStorageLocal([id]);
   if (!error) {
     onDeleted();
@@ -144,7 +144,7 @@ async function handleDelete(id: string) {
 }
 
 async function batchDelete() {
-  const { error } = await fetchDeleteStorageLocal(checkedRowKeys.value as string[]);
+  const { error } = await fetchDeleteStorageLocal(checkedRowKeys.value as number[]);
   if (!error) {
     onBatchDeleted();
   }

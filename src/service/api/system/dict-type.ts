@@ -15,7 +15,7 @@ export function fetchGetDictItemListByCode(code: string) {
   });
 }
 
-export function fetchGetDictTypeInfo(id?: string) {
+export function fetchGetDictTypeInfo(id?: number) {
   return request<Api.SystemManage.DictType>({
     url: `/system/dict-type/info/${id}`,
     method: 'get'
@@ -46,7 +46,7 @@ export function fetchBatchUpdateDictTypeStatus(data: Api.SystemManage.StatusDto)
   });
 }
 
-export function fetchDeleteDictType(id?: string) {
+export function fetchDeleteDictType(id?: number) {
   return request({
     url: `/system/dict-type/${id}`,
     method: 'delete'
