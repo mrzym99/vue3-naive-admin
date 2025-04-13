@@ -516,6 +516,21 @@ declare namespace Api {
       /** key */
       prefix: string;
     }>;
+
+    /** Notice type */
+    type Notice = Common.CommonRecord<{
+      /** name */
+      name: string;
+      /** type */
+      type: number;
+      /* content */
+      content: string;
+    }>;
+    type NoticeSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Notice, 'name' | 'type'> & CommonSearchParams
+    >;
+
+    type NoticeList = Common.PaginatingQueryRecord<Notice>;
   }
 
   /** tools manage */

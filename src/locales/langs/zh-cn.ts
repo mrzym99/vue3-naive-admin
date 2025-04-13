@@ -69,7 +69,8 @@ const local: App.I18n.Schema = {
     resetSuccess: '重置成功',
     save: '保存',
     saveSuccess: '保存成功',
-    confirmSave: '确认保存?'
+    confirmSave: '确认保存?',
+    detail: '详情'
   },
   request: {
     logout: '请求失败后登出用户',
@@ -212,8 +213,10 @@ const local: App.I18n.Schema = {
     system_monitor_online: '在线用户',
     'system_monitor_login-log': '登录日志',
     system_monitor_serve: '服务监控',
-    system_monitor_cache: '缓存监控',
+    system_monitor_cache: '缓存列表',
     system_dict: '字典管理',
+    system_notice: '系统公告',
+    'system_notice_notice-operate': '公告操作',
     tools: '系统工具',
     tools_storage: '存储管理',
     tools_storage_local: '本地存储',
@@ -296,9 +299,6 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: '绑定微信'
-      },
-      superLogin: {
-        title: '超级管理员登录'
       }
     },
     about: {
@@ -315,11 +315,9 @@ const local: App.I18n.Schema = {
       devDep: '开发依赖'
     },
     home: {
-      branchDesc:
-        '为了方便大家开发和更新合并，我们对main分支的代码进行了精简，只保留了首页菜单，其余内容已移至example分支进行维护。预览地址显示的内容即为example分支的内容。',
-      greeting: '早安，{nickName}, 今天又是充满活力的一天!',
-      weatherDesc: '今日多云转晴，20℃ - 25℃!',
-      projectCount: '项目数',
+      greeting: '{nickName}, 今天又是美好的一天!',
+      noticeCount: '公告数',
+      notice: '通知公告',
       todo: '待办',
       message: '消息',
       goods: '商品数量',
@@ -332,16 +330,6 @@ const local: App.I18n.Schema = {
       visitCount: '访问量',
       online: '在线人数',
       dealCount: '成交量',
-      projectNews: {
-        title: '项目动态',
-        moreNews: '更多动态',
-        desc1: '小张在2024年12月24日创建了开源项目 Nest+Vue Admin !',
-        desc2: '小张在2024年12月24日提交了第一个 commit !',
-        desc3: '小张在2025年03月02日 完成了前后端的功能对接 !',
-        desc4: '小张目前正在对项目进行 测试和Bug 修复工作 !',
-        desc5: '截至2025年03月12日 小张优化了菜单和后端的对接，也完成了Docker的部署 !',
-        desc6: '小张后续要需要完善项目的国际化，详情组件、增加websocket、项目README文档编写......'
-      },
       creativity: '创意'
     },
     manage: {
@@ -397,7 +385,8 @@ const local: App.I18n.Schema = {
         gender: {
           male: '男',
           female: '女'
-        }
+        },
+        detail: '用户详情'
       },
       menu: {
         home: '首页',
@@ -559,6 +548,14 @@ const local: App.I18n.Schema = {
         name: '缓存名称',
         key: '缓存键名',
         value: '缓存值'
+      },
+      notice: {
+        name: '公告标题',
+        content: '公告内容',
+        type: '公告类型',
+        add: '新增公告',
+        edit: '编辑公告',
+        detail: '公告详情'
       }
     },
     tools: {

@@ -5,13 +5,11 @@ import { $t, getLocale } from '@/locales';
 import { GenderEnum } from '@/constants/enum';
 import { REG_EMAIL, REG_PHONE } from '@/constants/reg';
 import { deleteFiles, fetchGetAccountInfo, fetchUpdateAccount } from '@/service/api';
-import { useAuthStore } from '@/store/modules/auth';
 
 type Model = Partial<Api.SystemManage.User> & { avatar: Api.SystemManage.FileInfo[] };
 
 const emit = defineEmits(['change']);
 
-const { userInfo } = useAuthStore();
 const model = ref<Model>(createDefaultModel());
 const loading = ref(false);
 const getDataLoading = ref(false);
@@ -134,10 +132,6 @@ const handleConfirm = async () => {
   });
 };
 
-const isSuperAdmin = computed(() => {
-  return userInfo.roles.includes('super-admin');
-});
-
 async function getProfile() {
   getDataLoading.value = true;
   const { data, error } = await fetchGetAccountInfo();
@@ -179,7 +173,12 @@ onMounted(async () => {
     <NSpin :delay="0" :show="getDataLoading">
       <NGrid responsive="screen" item-responsive>
         <NFormItemGi :span="24" :label="$t('page.manage.user.avatar')" path="avatar">
-          <FileUpload v-model:value="model.avatar" :max="1" :cropper="true" list-type="image-card" />
+          <div class="w-full flex justify-between">
+            <FileUpload v-model:value="model.avatar" :max="1" :cropper="true" list-type="image-card" />
+            <NButton type="primary" :loading="loading" @click="handleConfirm">
+              {{ $t('common.modify') }}
+            </NButton>
+          </div>
         </NFormItemGi>
         <NFormItemGi span="24 m:12" :label="$t('page.manage.user.username')" path="username">
           <NInput
@@ -255,8 +254,8 @@ onMounted(async () => {
           />
         </NFormItemGi>
       </NGrid>
-      <NSpace v-if="!isSuperAdmin" justify="end">
-        <NButton type="primary" :loading="loading" @click="handleConfirm">
+      <NSpace justify="end">
+        <NButton type="primary" :loading="loading" @click="handleSubmit">
           {{ $t('common.modify') }}
         </NButton>
       </NSpace>

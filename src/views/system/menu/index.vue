@@ -504,6 +504,7 @@ async function handleDelete(id: number) {
       width="60%"
       :fields="detailColumns"
       :data="detailData"
+      :label-style="{ width: '120px' }"
     />
   </div>
 </template>

@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useAuthStore } from '@/store/modules/auth';
+
+import { fetchGetNoticeCount } from '@/service/api';
 
 defineOptions({
   name: 'HeaderBanner'
@@ -16,26 +18,36 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
 interface StatisticData {
   id: number;
   label: string;
-  value: string;
+  value: number;
 }
 
-const statisticData = computed<StatisticData[]>(() => [
+const statisticData = ref<StatisticData[]>([
   {
     id: 0,
-    label: $t('page.home.projectCount'),
-    value: '3'
-  },
-  {
-    id: 1,
-    label: $t('page.home.todo'),
-    value: '1/3'
-  },
-  {
-    id: 2,
-    label: $t('page.home.message'),
-    value: '8'
+    label: $t('page.home.noticeCount'),
+    value: 0
   }
+  // {
+  //   id: 1,
+  //   label: $t('page.home.todo'),
+  //   value: '1/3'
+  // },
+  // {
+  //   id: 2,
+  //   label: $t('page.home.message'),
+  //   value: '8'
+  // }
 ]);
+
+function getNoticeCount() {
+  fetchGetNoticeCount().then(res => {
+    statisticData.value[0].value = res.data;
+  });
+}
+
+onMounted(() => {
+  getNoticeCount();
+});
 </script>
 
 <template>
@@ -52,7 +64,6 @@ const statisticData = computed<StatisticData[]>(() => [
             <h3 class="text-18px font-semibold">
               {{ $t('page.home.greeting', { nickName: authStore.userInfo.nickName }) }}
             </h3>
-            <p class="text-#999 leading-30px">{{ $t('page.home.weatherDesc') }}</p>
           </div>
         </div>
       </NGi>

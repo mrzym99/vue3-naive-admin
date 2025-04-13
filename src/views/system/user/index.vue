@@ -109,7 +109,7 @@ const detailColumns = useDetailDescriptions<Api.SystemManage.User>(() => [
     render: row => {
       if (row.roles.length === 0) return null;
       const roleMap: Record<any, NaiveUI.ThemeColor> = {
-        admin: 'primary'
+        superAdmin: 'primary'
       };
 
       return row.roles.map((role: { value: string | number; name: any }) => (
@@ -289,7 +289,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         align: 'center',
         width: 80,
         render: row => {
-          if (row.gender === null) {
+          if (row.gender === null || !row.gender) {
             return null;
           }
 
@@ -545,9 +545,10 @@ onMounted(async () => {
     />
     <DetailsDescriptions
       v-model:visible="modelVisible"
-      title="用户详情"
+      :title="$t('page.manage.user.detail')"
       width="60%"
       :fields="detailColumns"
+      :label-style="{ width: '120px' }"
       :data="detailData"
     />
   </div>

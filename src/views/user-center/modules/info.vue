@@ -25,7 +25,7 @@ const columns = useDetailDescriptions<Api.SystemManage.User>(() => [
         return null;
       }
 
-      return <NAvatar src={row.avatar as string} size={64}></NAvatar>;
+      return <NAvatar src={row.avatar as string} size={72}></NAvatar>;
     }
   },
   {
@@ -84,6 +84,7 @@ const columns = useDetailDescriptions<Api.SystemManage.User>(() => [
   {
     key: 'birthDate',
     label: $t('page.manage.user.birthDate'),
+    span: 2,
     render: row => {
       if (!row.birthDate) {
         return null;

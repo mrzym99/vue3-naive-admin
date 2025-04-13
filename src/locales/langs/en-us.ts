@@ -69,7 +69,8 @@ const local: App.I18n.Schema = {
     resetSuccess: 'Reset Success',
     save: 'Save',
     saveSuccess: 'Save Success',
-    confirmSave: 'Are sure you want to save?'
+    confirmSave: 'Are sure you want to save?',
+    detail: 'Details'
   },
   request: {
     logout: 'Logout user after request failed',
@@ -212,8 +213,10 @@ const local: App.I18n.Schema = {
     system_monitor_online: 'Online User',
     'system_monitor_login-log': 'LoginLog Manage',
     system_monitor_serve: 'Serve Monitor',
-    system_monitor_cache: 'Cache Monitor',
+    system_monitor_cache: 'Cache List',
     system_dict: 'Dictionary Manage',
+    system_notice: 'System Notice',
+    'system_notice_notice-operate': 'Notice Operate',
     tools: 'Tools',
     tools_storage: 'Storage Manage',
     tools_storage_local: 'Local Storage',
@@ -296,9 +299,6 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: 'Bind WeChat'
-      },
-      superLogin: {
-        title: 'SuperAdmin Login'
       }
     },
     about: {
@@ -315,11 +315,9 @@ const local: App.I18n.Schema = {
       devDep: 'Development Dependency'
     },
     home: {
-      branchDesc:
-        'For the convenience of everyone in developing and updating the merge, we have streamlined the code of the main branch, only retaining the homepage menu, and the rest of the content has been moved to the example branch for maintenance. The preview address displays the content of the example branch.',
-      greeting: 'Good morning, {nickName}, today is another day full of vitality!',
-      weatherDesc: 'Today is cloudy to clear, 20℃ - 25℃!',
-      projectCount: 'Project Count',
+      greeting: '{nickName}, Today is another beautiful day!',
+      noticeCount: 'Notice Count',
+      notice: 'Notice',
       todo: 'Todo',
       message: 'Message',
       goods: 'Goods Count',
@@ -332,18 +330,6 @@ const local: App.I18n.Schema = {
       visitCount: 'Visit Count',
       online: 'Online',
       dealCount: 'Deal Count',
-      projectNews: {
-        title: 'Project News',
-        moreNews: 'More News',
-        desc1: ' Xiao Zhang created the open-source project Nest+Vue Admin! On December 24, 2024',
-        desc2: ' Xiao Zhang submitted his first commit on December 24, 2024',
-        desc3: ' Xiaozhang completed the front-end and back-end functional integration on March 2, 2025',
-        desc4: ' Xiao Zhang is currently conducting testing and bug fixing work on the project',
-        desc5:
-          ' As of March 12, 2025, Xiaozhang has optimized the integration between the menu and backend, and has also completed the deployment of Docker!',
-        desc6:
-          ' Xiao Zhang needs to improve the internationalization of the project in the future, including adding detailed components, adding websocket, and writing project README documentation'
-      },
       creativity: 'Creativity'
     },
     manage: {
@@ -400,7 +386,8 @@ const local: App.I18n.Schema = {
         gender: {
           male: 'Male',
           female: 'Female'
-        }
+        },
+        detail: 'User Detail'
       },
       menu: {
         home: 'Home',
@@ -562,6 +549,14 @@ const local: App.I18n.Schema = {
         name: 'Cache Name',
         key: 'Cache Key',
         value: 'Cache Value'
+      },
+      notice: {
+        name: 'Notice Title',
+        content: 'Notice Content',
+        type: 'Notice Type',
+        add: 'Add Notice',
+        edit: 'Edit Notice',
+        detail: 'Notice Detail'
       }
     },
     tools: {

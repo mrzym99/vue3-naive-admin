@@ -395,6 +395,7 @@ async function handleStop(id: number) {
       v-model:visible="modelVisible"
       :title="$t('page.manage.role.detail')"
       width="60%"
+      :label-style="{ width: '100px' }"
       :fields="detailColumns"
       :data="detailData"
     />

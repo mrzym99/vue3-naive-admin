@@ -3,7 +3,6 @@ import { computed, reactive, ref } from 'vue';
 import { type FormInst, useDialog } from 'naive-ui';
 import { $t, getLocale } from '@/locales';
 import { fetchUpdateAccountPassword } from '@/service/api';
-import { useAuthStore } from '@/store/modules/auth';
 import { useLogout } from '@/service/request/shared';
 import { useFormRules } from '@/hooks/common/form';
 
@@ -14,7 +13,6 @@ type PasswordModel = {
 };
 
 const { logoutAndCleanup } = useLogout();
-const { userInfo } = useAuthStore();
 const model = reactive<PasswordModel>(createDefaultModel());
 const loading = ref(false);
 const formRef = ref<FormInst | null>(null);
@@ -78,10 +76,6 @@ const handleConfirm = async () => {
     }
   });
 };
-
-const isSuperAdmin = computed(() => {
-  return userInfo.roles.includes('super-admin');
-});
 </script>
 
 <template>
@@ -121,7 +115,7 @@ const isSuperAdmin = computed(() => {
         />
       </NFormItemGi>
     </NGrid>
-    <NSpace v-if="!isSuperAdmin" justify="end">
+    <NSpace justify="end">
       <NButton type="primary" :loading="loading" @click="handleConfirm">
         {{ $t('common.modify') }}
       </NButton>

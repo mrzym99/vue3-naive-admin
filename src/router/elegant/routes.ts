@@ -429,6 +429,26 @@ export const generatedRoutes: GeneratedRoute[] = [
         ]
       },
       {
+        name: 'system_notice',
+        path: '/system/notice',
+        component: 'view.system_notice',
+        meta: {
+          title: 'system_notice',
+          i18nKey: 'route.system_notice'
+        },
+        children: [
+          {
+            name: 'system_notice_notice-operate',
+            path: '/system/notice/notice-operate',
+            component: 'view.system_notice_notice-operate',
+            meta: {
+              title: 'system_notice_notice-operate',
+              i18nKey: 'route.system_notice_notice-operate'
+            }
+          }
+        ]
+      },
+      {
         name: 'system_parameter',
         path: '/system/parameter',
         component: 'view.system_parameter',

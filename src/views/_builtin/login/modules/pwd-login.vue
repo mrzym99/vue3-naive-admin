@@ -169,9 +169,6 @@ onMounted(() => {
           {{ $t(loginModuleRecord['code-login']) }}
         </NButton> 
 -->
-        <NButton class="flex-1" block @click="toggleLoginModule('super-login')">
-          {{ $t(loginModuleRecord['super-login']) }}
-        </NButton>
         <NButton class="flex-1" block @click="toggleLoginModule('register')">
           {{ $t(loginModuleRecord.register) }}
         </NButton>

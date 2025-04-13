@@ -73,6 +73,8 @@ declare module "@elegant-router/types" {
     "system_monitor_login-log": "/system/monitor/login-log";
     "system_monitor_online": "/system/monitor/online";
     "system_monitor_serve": "/system/monitor/serve";
+    "system_notice": "/system/notice";
+    "system_notice_notice-operate": "/system/notice/notice-operate";
     "system_parameter": "/system/parameter";
     "system_role": "/system/role";
     "system_schedule": "/system/schedule";
@@ -196,6 +198,8 @@ declare module "@elegant-router/types" {
     | "system_monitor_login-log"
     | "system_monitor_online"
     | "system_monitor_serve"
+    | "system_notice"
+    | "system_notice_notice-operate"
     | "system_parameter"
     | "system_role"
     | "system_schedule_task-log"

@@ -358,6 +358,7 @@ declare namespace App {
         save: string;
         saveSuccess: string;
         confirmSave: string;
+        detail: string;
       };
       request: {
         logout: string;
@@ -477,9 +478,6 @@ declare namespace App {
           bindWeChat: {
             title: string;
           };
-          superLogin: {
-            title: string;
-          };
         };
         about: {
           title: string;
@@ -495,10 +493,9 @@ declare namespace App {
           devDep: string;
         };
         home: {
-          branchDesc: string;
           greeting: string;
-          weatherDesc: string;
-          projectCount: string;
+          noticeCount: string;
+          notice: string;
           todo: string;
           message: string;
           goods: string;
@@ -511,16 +508,6 @@ declare namespace App {
           visitCount: string;
           online: string;
           dealCount: string;
-          projectNews: {
-            title: string;
-            moreNews: string;
-            desc1: string;
-            desc2: string;
-            desc3: string;
-            desc4: string;
-            desc5: string;
-            desc6: string;
-          };
           creativity: string;
         };
         manage: {
@@ -577,6 +564,7 @@ declare namespace App {
               male: string;
               female: string;
             };
+            detail: string;
           };
           menu: {
             home: string;
@@ -738,6 +726,14 @@ declare namespace App {
             name: string;
             key: string;
             value: string;
+          };
+          notice: {
+            name: string;
+            type: string;
+            content: string;
+            add: string;
+            edit: string;
+            detail: string;
           };
         };
         tools: {

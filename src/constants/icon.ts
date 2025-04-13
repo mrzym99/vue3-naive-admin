@@ -25,7 +25,8 @@ export const iconifyIconList: string[] = [
   'mdi:format-list-numbered',
   'ic:outline-reduce-capacity',
   'ic:outline-other-houses',
-  'ic:outline-cached'
+  'ic:outline-cached',
+  'ic:outline-notifications'
 ];
 
 export const localIconList: string[] = ['custom-icon', 'activity', 'at-sign', 'cast', 'chrome', 'copy', 'wind'];

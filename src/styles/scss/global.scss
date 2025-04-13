@@ -1,4 +1,11 @@
 @forward 'scrollbar';
+@use './tinymce.scss';
+
+.full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: auto;
+}
 
 .detail-link {
   color: rgb(var(--primary-color));

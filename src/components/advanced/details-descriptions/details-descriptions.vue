@@ -3,6 +3,7 @@ import { NDescriptions, NDescriptionsItem, NModal } from 'naive-ui';
 import type { VNode } from 'vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/store/modules/app';
+import { $t } from '@/locales';
 import type { DescriptionItem, DetailsDescriptionsProps, RenderFn } from './type';
 
 defineOptions({
@@ -17,7 +18,7 @@ const visible = defineModel<boolean>('visible', {
 
 const props = withDefaults(defineProps<DetailsDescriptionsProps>(), {
   column: 2,
-  title: '详情'
+  title: $t('common.detail')
 });
 
 const descriptionItems = computed<DescriptionItem[]>(() => {
@@ -64,10 +65,11 @@ const renderContent = (render: RenderFn<typeof props.data>): Array<VNode | strin
       :column="appStore.isMobile ? 1 : column"
       :bordered="true"
       :content-style="{ padding: '16px' }"
+      v-bind="$attrs"
     >
       <NDescriptionsItem v-for="item in descriptionItems" :key="item.key" :span="item.span">
         <template #label>
-          <span class="inline-block min-w-90px" :title="item.label">
+          <span class="mt-5px inline-block" :title="item.label">
             {{ item.label }}
           </span>
         </template>
@@ -86,8 +88,7 @@ const renderContent = (render: RenderFn<typeof props.data>): Array<VNode | strin
 </template>
 
 <style lang="scss" scoped>
-.full-screen {
-  width: 100% !important;
-  height: 100% !important;
+:deep(.n-descriptions-table-header) {
+  vertical-align: top;
 }
 </style>

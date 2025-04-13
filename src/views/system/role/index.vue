@@ -320,6 +320,7 @@ async function handleSetDefault(id: number) {
     <DetailsDescriptions
       v-model:visible="modelVisible"
       :title="$t('page.manage.role.detail')"
+      :label-style="{ width: '100px' }"
       width="60%"
       :fields="detailColumns"
       :data="detailData"
