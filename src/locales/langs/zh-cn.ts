@@ -374,7 +374,8 @@ const local: App.I18n.Schema = {
         default: '默认角色',
         menus: '菜单权限',
         valueErrorMessage: '角色值仅仅能包含英文字母、数字、下划线、横线',
-        detail: '角色详情'
+        detail: '角色详情',
+        checkChildNodeTip: '是否勾选所有子节点'
       },
       user: {
         title: '用户列表',

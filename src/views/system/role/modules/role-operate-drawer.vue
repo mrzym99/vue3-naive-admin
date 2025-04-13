@@ -201,24 +201,23 @@ function updateCheckdKeys(
   if (action === 'check') {
     if (node?.children && node.children.length) {
       const allChildren = flatTreeData<TreeOption>(node.children);
-      // 去重再返回
-      model.value.menuIds = Array.from(new Set([...keys, ...allChildren.map(v => v.key as string)]));
-    }
-  } else {
-    window?.$dialog?.info({
-      title: $t('common.confirm'),
-      content: '是否取消子节点选中',
-      positiveText: $t('common.confirm'),
-      negativeText: $t('common.cancel'),
-      onPositiveClick: () => {
-        if (node?.children && node.children.length) {
-          const allChildren = flatTreeData<TreeOption>(node.children);
-          const childrenKeys = allChildren.map(v => v.key as string);
-          // 移除 所有子节点的选中状态
-          model.value.menuIds = keys.filter(v => !childrenKeys.includes(v));
-        }
+      if (allChildren.length) {
+        window.$dialog?.info({
+          title: $t('common.tip'),
+          content: `${$t('page.manage.role.checkChildNodeTip')}?`,
+          positiveText: $t('common.confirm'),
+          negativeText: $t('common.cancel'),
+          onPositiveClick: () => {
+            model.value.menuIds = Array.from(new Set([...keys, ...allChildren.map(v => v.key as string)]));
+          }
+        });
       }
-    });
+    }
+  } else if (node?.children && node.children.length) {
+    const allChildren = flatTreeData<TreeOption>(node.children);
+    const childrenKeys = allChildren.map(v => v.key as string);
+    // 移除 所有子节点的选中状态
+    model.value.menuIds = keys.filter(v => !childrenKeys.includes(v));
   }
 }
 

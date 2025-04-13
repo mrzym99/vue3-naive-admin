@@ -377,7 +377,8 @@ const local: App.I18n.Schema = {
         menus: 'Menu',
         valueErrorMessage:
           'Character values can only contain English letters, numbers, underscores, and horizontal lines',
-        detail: 'Role Detail'
+        detail: 'Role Detail',
+        checkChildNodeTip: 'Whether or not check all child nodes'
       },
       user: {
         title: 'User List',

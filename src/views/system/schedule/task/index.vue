@@ -74,9 +74,6 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         title: $t('page.manage.task.name'),
         align: 'left',
         width: 120,
-        ellipsis: {
-          tooltip: true
-        },
         render: row => {
           return (
             <span class={'detail-link'} onClick={() => detail(row.id)}>

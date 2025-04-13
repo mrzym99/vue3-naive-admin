@@ -554,6 +554,7 @@ declare namespace App {
             valueErrorMessage: string;
             menus: string;
             detail: string;
+            checkChildNodeTip: string;
           };
           user: {
             title: string;
