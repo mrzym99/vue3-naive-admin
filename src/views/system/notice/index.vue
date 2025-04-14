@@ -162,7 +162,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
     ]
   });
 
-const { handleAdd, onDeleted, modelVisible, detailData, handleDetail } = useTableOperate(data, getData);
+const { onDeleted, modelVisible, detailData, handleDetail } = useTableOperate(data, getData);
 
 async function edit(id: number) {
   router.push({
@@ -170,6 +170,12 @@ async function edit(id: number) {
     query: {
       id
     }
+  });
+}
+
+function add() {
+  router.push({
+    path: '/system/notice/notice-operate'
   });
 }
 
@@ -204,7 +210,7 @@ async function detail(id: number) {
           prefix="system:notice"
           :hide-delete="true"
           :loading="loading"
-          @add="handleAdd"
+          @add="add"
           @refresh="getData"
         />
         <NDataTable
