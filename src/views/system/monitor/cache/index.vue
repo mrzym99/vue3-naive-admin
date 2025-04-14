@@ -94,10 +94,10 @@ const cacheDetail = ref({
 async function getCachePrefixList() {
   cacheLoading.value = true;
   const { error, data } = await fetchGetCacheList();
+  cacheLoading.value = false;
   if (!error) {
     cacheListData.value = data;
   }
-  cacheLoading.value = false;
 }
 
 function handlePrefixRowClick(row: Api.SystemManage.CachePrefix) {
@@ -118,12 +118,12 @@ function handlePrefixRowClick(row: Api.SystemManage.CachePrefix) {
 async function getCacheKeysByPrefix(prefix: string) {
   keyLoading.value = true;
   const { error, data } = await fetchGetKeysByPrefix(prefix);
+  keyLoading.value = false;
   if (!error) {
     keyListData.value = data.map(v => ({
       key: v
     }));
   }
-  keyLoading.value = false;
 }
 
 function handleKeyRowClick(row: KeyItem) {
@@ -198,13 +198,9 @@ onMounted(async () => {
         </NCard>
       </NGridItem>
       <NGridItem span="24 m:8">
-        <NCard
-          :loading="keyLoading"
-          :bordered="false"
-          class="h-full card-wrapper"
-          :title="$t('page.manage.cache.keyList')"
-        >
+        <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.cache.keyList')">
           <NDataTable
+            :loading="keyLoading"
             max-height="calc(100vh - 20rem)"
             :row-props="handleKeyRowClick"
             :columns="keyListColumns"
@@ -214,25 +210,27 @@ onMounted(async () => {
         </NCard>
       </NGridItem>
       <NGridItem span="24 m:8">
-        <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.cache.content')">
-          <NDescriptions :column="1">
-            <NDescriptionsItem :label="$t('page.manage.cache.name')">
-              <div class="min-h-2rem">
-                {{ cacheDetail.name }}
-              </div>
-            </NDescriptionsItem>
-            <NDescriptionsItem :label="$t('page.manage.cache.key')">
-              <div class="min-h-2rem">
-                {{ cacheDetail.key }}
-              </div>
-            </NDescriptionsItem>
-            <NDescriptionsItem :label="$t('page.manage.cache.value')">
-              <div class="max-h-18rem overflow-auto">
-                {{ cacheDetail.value }}
-              </div>
-            </NDescriptionsItem>
-          </NDescriptions>
-        </NCard>
+        <NSpin :show="detailLoading">
+          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.cache.content')">
+            <NDescriptions :column="1">
+              <NDescriptionsItem :label="$t('page.manage.cache.name')">
+                <div class="min-h-2rem">
+                  {{ cacheDetail.name }}
+                </div>
+              </NDescriptionsItem>
+              <NDescriptionsItem :label="$t('page.manage.cache.key')">
+                <div class="min-h-2rem">
+                  {{ cacheDetail.key }}
+                </div>
+              </NDescriptionsItem>
+              <NDescriptionsItem :label="$t('page.manage.cache.value')">
+                <div class="max-h-18rem overflow-auto">
+                  {{ cacheDetail.value }}
+                </div>
+              </NDescriptionsItem>
+            </NDescriptions>
+          </NCard>
+        </NSpin>
       </NGridItem>
     </NGrid>
   </div>
