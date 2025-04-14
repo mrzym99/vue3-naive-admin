@@ -38,7 +38,7 @@ onMounted(() => {
             </NTag>
           </template>
           {{ dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
-          <TinymcePreview :class="index ? '' : 'min-h-60vh'" :content="item.content" />
+          <TinymcePreview :class="index ? '' : 'min-h-50vh'" :content="item.content" />
         </NThing>
       </NListItem>
     </NList>
