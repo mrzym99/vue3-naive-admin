@@ -52,13 +52,12 @@ export function useCaptcha() {
     code.value = '';
     // request
     const { error, data } = await fetchGetCaptchaEmail(email);
+    endLoading();
 
     if (error) return;
     code.value = data;
     window.$message?.success?.($t('page.login.codeLogin.sendCodeSuccess'));
     start();
-
-    endLoading();
   }
 
   return {
