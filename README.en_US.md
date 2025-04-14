@@ -29,7 +29,9 @@
 
 [SoybeanAdmin](https://docs.soybeanjs.cn/zh/) is a clean, elegant, and feature-rich admin template based on the latest front-end tech stack, including Vue3, Vite5, TypeScript, Pinia, and UnoCSS. It offers built-in themes, strict code standards, and an automated file routing system. `SoybeanAdmin` provides an all-in-one solution for admin management, requiring no extra setup. It's also a great way to learn modern front-end technologies.
 
-[Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) follows the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retaining all its features while adding advanced components (details in component READMEs). The framework's built-in functionality can be explored in the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html), with backend support from [Nest-Admin](https://github.com/mrzym99/nest-admin).
+[Vue3NaiveAdmin](https://github.com/mrzym99/vue3-naive-admin) follows the [SoybeanAdmin development standards](https://docs.soybeanjs.cn/zh/standard/), retaining all its features while adding advanced components (details in component READMEs). The framework's built-in functionality can be explored in the [SoybeanAdmin official documentation](https://docs.soybeanjs.cn/zh/guide/intro.html).
+
+With backend support from [Nest-Admin](https://github.com/mrzym99/nest-admin)：https://github.com/mrzym99/nest-admin.
 
 ## Features
 
