@@ -9,7 +9,7 @@ defineOptions({
   name: 'Notice'
 });
 
-const newses = ref<Api.SystemManage.Notice[]>([]);
+const noticeList = ref<Api.SystemManage.Notice[]>([]);
 
 async function getNoticeList() {
   const { error, data } = await fetchGetNoticeList({
@@ -17,7 +17,7 @@ async function getNoticeList() {
     pageSize: 99
   });
   if (!error) {
-    newses.value = data.list;
+    noticeList.value = data.list;
   }
 }
 
@@ -29,7 +29,7 @@ onMounted(() => {
 <template>
   <NCard :title="$t('page.home.notice')" :bordered="false" size="small" segmented class="card-wrapper">
     <NList>
-      <NListItem v-for="(item, index) in newses" :key="item.id">
+      <NListItem v-for="(item, index) in noticeList" :key="item.id">
         <NThing>
           <template #header>
             <span class="detail-link">{{ item.name }}</span>
@@ -38,7 +38,7 @@ onMounted(() => {
             </NTag>
           </template>
           {{ dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
-          <TinymcePreview :class="index ? '' : 'min-h-50vh'" :content="item.content" />
+          <TinymcePreview :class="index < noticeList.length - 1 ? '' : 'min-h-55vh'" :content="item.content" />
         </NThing>
       </NListItem>
     </NList>
