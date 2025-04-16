@@ -21,17 +21,28 @@ const customRoutes: CustomRoute[] = [
     },
     children: [
       {
-        name: 'document_antd',
-        path: '/document/antd',
+        name: 'document_nest-admin',
+        path: '/document/nest-admin',
         component: 'view.iframe-page',
         props: {
-          url: 'https://antdv.com/components/overview-cn'
+          url: 'https://docs.mrzym.top/'
         },
         meta: {
-          title: 'document_antd',
-          i18nKey: 'route.document_antd',
-          order: 7,
-          icon: 'logos:ant-design'
+          title: 'document_nest-admin',
+          i18nKey: 'route.document_nest-admin',
+          order: 0,
+          localIcon: 'logo'
+        }
+      },
+      {
+        name: 'document_nest-admin-link',
+        path: '/document/nest-admin-link',
+        meta: {
+          title: 'document_nest-admin-link',
+          i18nKey: 'route.document_nest-admin-link',
+          order: 1,
+          localIcon: 'logo',
+          href: 'https://docs.mrzym.top/'
         }
       },
       {
@@ -49,28 +60,16 @@ const customRoutes: CustomRoute[] = [
         }
       },
       {
-        name: 'document_project',
-        path: '/document/project',
-        component: 'view.iframe-page',
+        name: 'document_project-link',
+        path: '/document/project-link',
         props: {
           url: 'https://docs.soybeanjs.cn/zh'
         },
         meta: {
-          title: 'document_project',
-          i18nKey: 'route.document_project',
-          order: 1,
-          localIcon: 'logo'
-        }
-      },
-      {
-        name: 'document_project-link',
-        path: '/document/project-link',
-        component: 'view.iframe-page',
-        meta: {
           title: 'document_project-link',
           i18nKey: 'route.document_project-link',
           order: 2,
-          localIcon: 'logo',
+          localIcon: 'old-logo',
           href: 'https://docs.soybeanjs.cn/zh'
         }
       },

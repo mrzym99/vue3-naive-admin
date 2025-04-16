@@ -16,16 +16,7 @@
   "bugs": {
     "url": "https://github.com/mrzym99/vue3-naive-admin/issues"
   },
-  "keywords": [
-    "Vue3 admin ",
-    "vue-admin-template",
-    "Vite5",
-    "TypeScript",
-    "naive-ui",
-    "naive-ui-admin",
-    "ant-design-vue v4",
-    "UnoCSS"
-  ],
+  "keywords": ["Vue3 admin ", "vue-admin-template", "Vite5", "TypeScript", "naive-ui", "naive-ui-admin", "UnoCSS"],
   "engines": {
     "node": ">=18.12.0",
     "pnpm": ">=8.7.0"

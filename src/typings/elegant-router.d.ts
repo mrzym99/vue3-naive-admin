@@ -22,13 +22,13 @@ declare module "@elegant-router/types" {
     "exception_404": "/exception/404";
     "exception_500": "/exception/500";
     "document": "/document";
-    "document_project": "/document/project";
     "document_project-link": "/document/project-link";
     "document_vue": "/document/vue";
     "document_vite": "/document/vite";
     "document_unocss": "/document/unocss";
     "document_naive": "/document/naive";
-    "document_antd": "/document/antd";
+    "document_nest-admin": "/document/nest-admin";
+    "document_nest-admin-link": "/document/nest-admin-link";
     "blog": "/blog";
     "blog_zym": "/blog/zym";
     "blog_zym-href": "/blog/zym-href";
@@ -112,13 +112,13 @@ declare module "@elegant-router/types" {
     | "exception_404"
     | "exception_500"
     | "document"
-    | "document_project"
     | "document_project-link"
     | "document_vue"
     | "document_vite"
     | "document_unocss"
     | "document_naive"
-    | "document_antd"
+    | "document_nest-admin"
+    | "document_nest-admin-link"
     | "blog"
     | "blog_zym"
     | "blog_zym-href"
@@ -222,13 +222,13 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
-    | "document_project"
     | "document_project-link"
     | "document_vue"
     | "document_vite"
     | "document_unocss"
     | "document_naive"
-    | "document_antd"
+    | "document_nest-admin"
+    | "document_nest-admin-link"
     | "blog_zym"
     | "blog_zym-href"
   >;

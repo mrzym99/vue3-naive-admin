@@ -13,13 +13,13 @@ export function setupElegantRouter() {
         'exception_403',
         'exception_404',
         'exception_500',
-        'document_project',
         'document_project-link',
         'document_vue',
         'document_vite',
         'document_unocss',
         'document_naive',
-        'document_antd',
+        'document_nest-admin',
+        'document_nest-admin-link',
         'blog_zym',
         'blog_zym-href'
       ]
