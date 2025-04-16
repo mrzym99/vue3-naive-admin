@@ -21,17 +21,8 @@ declare module "@elegant-router/types" {
     "exception_403": "/exception/403";
     "exception_404": "/exception/404";
     "exception_500": "/exception/500";
-    "document": "/document";
-    "document_project": "/document/project";
-    "document_project-link": "/document/project-link";
-    "document_vue": "/document/vue";
-    "document_vite": "/document/vite";
-    "document_unocss": "/document/unocss";
-    "document_naive": "/document/naive";
-    "document_antd": "/document/antd";
     "blog": "/blog";
     "blog_zym": "/blog/zym";
-    "blog_zym-href": "/blog/zym-href";
     "403": "/403";
     "404": "/404";
     "500": "/500";
@@ -39,30 +30,6 @@ declare module "@elegant-router/types" {
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
-    "plugin": "/plugin";
-    "plugin_barcode": "/plugin/barcode";
-    "plugin_charts": "/plugin/charts";
-    "plugin_charts_antv": "/plugin/charts/antv";
-    "plugin_charts_echarts": "/plugin/charts/echarts";
-    "plugin_charts_vchart": "/plugin/charts/vchart";
-    "plugin_copy": "/plugin/copy";
-    "plugin_editor": "/plugin/editor";
-    "plugin_editor_markdown": "/plugin/editor/markdown";
-    "plugin_editor_quill": "/plugin/editor/quill";
-    "plugin_excel": "/plugin/excel";
-    "plugin_gantt": "/plugin/gantt";
-    "plugin_gantt_dhtmlx": "/plugin/gantt/dhtmlx";
-    "plugin_gantt_vtable": "/plugin/gantt/vtable";
-    "plugin_icon": "/plugin/icon";
-    "plugin_map": "/plugin/map";
-    "plugin_pdf": "/plugin/pdf";
-    "plugin_pinyin": "/plugin/pinyin";
-    "plugin_print": "/plugin/print";
-    "plugin_swiper": "/plugin/swiper";
-    "plugin_tables": "/plugin/tables";
-    "plugin_tables_vtable": "/plugin/tables/vtable";
-    "plugin_typeit": "/plugin/typeit";
-    "plugin_video": "/plugin/video";
     "system": "/system";
     "system_dept": "/system/dept";
     "system_dict": "/system/dict";
@@ -111,17 +78,8 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
-    | "document"
-    | "document_project"
-    | "document_project-link"
-    | "document_vue"
-    | "document_vite"
-    | "document_unocss"
-    | "document_naive"
-    | "document_antd"
     | "blog"
     | "blog_zym"
-    | "blog_zym-href"
   >;
 
   /**
@@ -141,7 +99,6 @@ declare module "@elegant-router/types" {
     | "home"
     | "iframe-page"
     | "login"
-    | "plugin"
     | "system"
     | "tools"
     | "user-center"
@@ -155,7 +112,6 @@ declare module "@elegant-router/types" {
     | "root"
     | "not-found"
     | "exception"
-    | "document"
     | "blog"
   >;
 
@@ -171,25 +127,6 @@ declare module "@elegant-router/types" {
     | "login"
     | "about"
     | "home"
-    | "plugin_barcode"
-    | "plugin_charts_antv"
-    | "plugin_charts_echarts"
-    | "plugin_charts_vchart"
-    | "plugin_copy"
-    | "plugin_editor_markdown"
-    | "plugin_editor_quill"
-    | "plugin_excel"
-    | "plugin_gantt_dhtmlx"
-    | "plugin_gantt_vtable"
-    | "plugin_icon"
-    | "plugin_map"
-    | "plugin_pdf"
-    | "plugin_pinyin"
-    | "plugin_print"
-    | "plugin_swiper"
-    | "plugin_tables_vtable"
-    | "plugin_typeit"
-    | "plugin_video"
     | "system_dept"
     | "system_dict"
     | "system_menu"
@@ -222,15 +159,7 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
-    | "document_project"
-    | "document_project-link"
-    | "document_vue"
-    | "document_vite"
-    | "document_unocss"
-    | "document_naive"
-    | "document_antd"
     | "blog_zym"
-    | "blog_zym-href"
   >;
 
   /**
