@@ -1,9 +1,9 @@
 <script setup lang="tsx">
 import { NAvatar, NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchGetAllRole, fetchGetUserList, fetchResetPassword, fetchUpdatedUserStatus } from '@/service/api';
+import { fetchGetAllRole, fetchGetUserList, fetchUpdatedUserStatus } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t, getLocale } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
@@ -13,7 +13,7 @@ import { StatusEnum } from '@/constants/enum';
 import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import DeptTree from './modules/dept-tree.vue';
-
+import ResetPassword from './modules/reset-password.vue';
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
@@ -192,6 +192,9 @@ const detailColumns = useDetailDescriptions<Api.SystemManage.User>(() => [
   }
 ]);
 
+const showModal = ref<boolean>(false);
+const resetId = ref<number | null>(null);
+
 const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
   useTable({
     apiFn: fetchGetUserList,
@@ -353,16 +356,15 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
                 )
               }}
             </NPopconfirm>
-            <NPopconfirm onPositiveClick={() => resetPassword(row.id)}>
-              {{
-                default: () => $t('page.manage.user.resetPassword'),
-                trigger: () => (
-                  <NButton disabled={!hasAuth('system:user:pass:reset')} type={'error'} ghost size="small">
-                    {$t('page.manage.user.resetPassword')}
-                  </NButton>
-                )
-              }}
-            </NPopconfirm>
+            <NButton
+              onClick={() => resetPasswordEvent(row.id)}
+              disabled={!hasAuth('system:user:pass:reset')}
+              type={'error'}
+              ghost
+              size="small"
+            >
+              {$t('page.manage.user.resetPassword')}
+            </NButton>
           </div>
         )
       }
@@ -404,11 +406,9 @@ async function handleChangeStatus(id: number, status: number | null) {
   getDataByPage();
 }
 
-async function resetPassword(id: number) {
-  const { error } = await fetchResetPassword(id);
-  if (!error) {
-    window.$message?.success($t('common.resetSuccess'));
-  }
+async function resetPasswordEvent(id: number) {
+  showModal.value = true;
+  resetId.value = id;
 }
 
 async function handleBatchDChangeStatus() {
@@ -435,6 +435,11 @@ async function getAllRoles() {
       value: item.id
     }));
   }
+}
+
+function resetChange() {
+  showModal.value = false;
+  resetId.value = null;
 }
 
 onMounted(async () => {
@@ -550,6 +555,13 @@ onMounted(async () => {
       :fields="detailColumns"
       :label-style="{ width: '120px' }"
       :data="detailData"
+    />
+
+    <ResetPassword
+      v-model:show-modal="showModal"
+      :reset-id="resetId"
+      :title="$t('page.manage.user.resetPassword')"
+      @change="resetChange"
     />
   </div>
 </template>
