@@ -35,9 +35,10 @@ export function fetchUpdatedUserStatus(params: Api.SystemManage.StatusDto) {
 }
 
 /** reset password */
-export function fetchResetPassword(id: number) {
+export function fetchResetPassword(id: number | null, data: Api.SystemManage.resetPasswordDto) {
   return request({
     url: `/system/user/resetPassword/${id}`,
-    method: 'put'
+    method: 'put',
+    data
   });
 }

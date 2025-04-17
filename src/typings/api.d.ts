@@ -222,6 +222,10 @@ declare namespace Api {
       status: number;
     };
 
+    type resetPasswordDto = {
+      password: string;
+    };
+
     /** user search params */
     type UserSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.User, 'username' | 'gender' | 'nickName' | 'phone' | 'email' | 'status'> &
