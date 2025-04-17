@@ -7,31 +7,30 @@ import { REG_PWD } from '@/constants/reg';
 
 interface Emits {
   (e: 'change'): void;
-  (e: 'update:showModal', value: boolean): void;
+  (e: 'update:show', value: boolean): void;
 }
 
 const props = defineProps<{
-  showModal: boolean;
+  show: boolean;
   resetId: number | null;
   title: string;
 }>();
 const emit = defineEmits<Emits>();
 const formRef = ref<null | FormInst>(null);
 const formValue = ref({
-  password: ''
+  password: '123456'
 });
-const localShowModal = ref(props.showModal);
+const localShowModal = ref(props.show);
 
 watch(
-  () => props.showModal,
+  () => props.show,
   val => {
     localShowModal.value = val;
   }
 );
 
 watch(localShowModal, val => {
-  emit('update:showModal', val);
-  formValue.value.password = '';
+  emit('update:show', val);
 });
 
 const rules = {
@@ -49,8 +48,7 @@ const rules = {
   }
 };
 
-const handleValidateClick = async (e: MouseEvent) => {
-  e.preventDefault();
+const handleValidateClick = async () => {
   await formRef.value?.validate(async (errors: any) => {
     if (!errors) {
       const { error } = await fetchResetPassword(props.resetId, {
@@ -67,19 +65,27 @@ const handleValidateClick = async (e: MouseEvent) => {
 </script>
 
 <template>
-  <NModal v-model:show="localShowModal" class="w-130!" preset="dialog" :title="title" @close="localShowModal = false">
-    <NForm ref="formRef" inline class="mt5" :model="formValue" :rules="rules" size="small">
+  <NModal
+    v-model:show="localShowModal"
+    class="w-100!"
+    preset="dialog"
+    :title="title"
+    positive-text="确定"
+    negative-text="取消"
+    :on-positive-click="handleValidateClick"
+    :on-close="() => (localShowModal = false)"
+    :on-negative-click="() => (localShowModal = false)"
+  >
+    <NForm ref="formRef" class="mt5" :model="formValue" :rules="rules">
       <NFormItem :label="$t('page.manage.user.resetPassword')" path="password">
         <NInput
           v-model:value="formValue.password"
+          show-password-on="click"
+          auto-focus
+          clearable
           type="password"
           :placeholder="$t('page.login.common.passwordPlaceholder')"
         />
-      </NFormItem>
-      <NFormItem>
-        <NButton attr-type="button" @click="handleValidateClick">
-          {{ title }}
-        </NButton>
       </NFormItem>
     </NForm>
   </NModal>
