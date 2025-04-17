@@ -558,7 +558,7 @@ onMounted(async () => {
     />
 
     <ResetPassword
-      v-model:show-modal="showModal"
+      v-model:show="showModal"
       :reset-id="resetId"
       :title="$t('page.manage.user.resetPassword')"
       @change="resetChange"
