@@ -438,7 +438,6 @@ async function getAllRoles() {
 }
 
 function resetChange() {
-  showModal.value = false;
   resetId.value = null;
 }
 

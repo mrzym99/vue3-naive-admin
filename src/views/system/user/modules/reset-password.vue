@@ -44,6 +44,11 @@ const rules = {
   }
 };
 
+const handleCancelClick = () => {
+  emit('update:show', false);
+  localShowModal.value = false;
+};
+
 const handleValidateClick = async () => {
   await formRef.value?.validate(async (errors: any) => {
     if (!errors) {
@@ -69,9 +74,10 @@ const handleValidateClick = async () => {
     :title="title"
     positive-text="确定"
     negative-text="取消"
-    :on-positive-click="handleValidateClick"
-    :on-close="() => (localShowModal = false)"
-    :on-negative-click="() => (localShowModal = false)"
+    :mask-closable="false"
+    @positive-click="handleValidateClick"
+    @negative-click="handleCancelClick"
+    @after-leave="handleCancelClick"
   >
     <NForm ref="formRef" class="mt5" :model="formValue" :rules="rules">
       <NFormItem :label="$t('page.manage.user.resetPassword')" path="password">
