@@ -29,10 +29,6 @@ watch(
   }
 );
 
-watch(localShowModal, val => {
-  emit('update:show', val);
-});
-
 const rules = {
   password: {
     required: true,
@@ -57,6 +53,7 @@ const handleValidateClick = async () => {
       if (!error) {
         window.$message?.success($t('common.operateSuccess'));
         emit('change');
+        emit('update:show', false);
         localShowModal.value = false;
       }
     }
