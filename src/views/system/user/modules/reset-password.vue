@@ -69,8 +69,12 @@ const handleValidateClick = async (e: MouseEvent) => {
 <template>
   <NModal v-model:show="localShowModal" class="w-130!" preset="dialog" :title="title" @close="localShowModal = false">
     <NForm ref="formRef" inline class="mt5" :model="formValue" :rules="rules" size="small">
-      <NFormItem label="重置密码" path="password">
-        <NInput v-model:value="formValue.password" type="password" placeholder="请输入重置后密码" />
+      <NFormItem :label="$t('page.manage.user.resetPassword')" path="password">
+        <NInput
+          v-model:value="formValue.password"
+          type="password"
+          :placeholder="$t('page.login.common.passwordPlaceholder')"
+        />
       </NFormItem>
       <NFormItem>
         <NButton attr-type="button" @click="handleValidateClick">
