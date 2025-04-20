@@ -379,6 +379,7 @@ async function handleStop(id: number) {
           flex-height
           :loading="loading"
           :pagination="pagination"
+          :scroll-x="1280"
           remote
           :row-key="row => row.id"
           class="min-h-300px flex-1"

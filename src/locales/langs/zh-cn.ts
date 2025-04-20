@@ -566,6 +566,7 @@ const local: App.I18n.Schema = {
       editPwd: '修改密码'
     },
     password: {
+      password: '密码',
       oldPwd: '旧密码',
       newPwd: '新密码',
       confirmNewPwd: '确认新密码',
@@ -580,7 +581,7 @@ const local: App.I18n.Schema = {
     required: '不能为空',
     username: {
       required: '请输入用户名',
-      invalid: '用户名格式不正确'
+      invalid: '用户名格式不正确，邮箱或6-18位字符，包含字母、数字'
     },
     phone: {
       required: '请输入手机号码',

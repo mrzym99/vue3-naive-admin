@@ -3,7 +3,7 @@ import { NAvatar, NButton, NPopconfirm, NTag, NTime } from 'naive-ui';
 import { onMounted, ref } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { fetchGetAllRole, fetchGetUserList, fetchUpdatedUserStatus } from '@/service/api';
+import { fetchDeleteUser, fetchGetAllRole, fetchGetUserList, fetchUpdatedUserStatus } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t, getLocale } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
@@ -109,11 +109,12 @@ const detailColumns = useDetailDescriptions<Api.SystemManage.User>(() => [
     render: row => {
       if (row.roles.length === 0) return null;
       const roleMap: Record<any, NaiveUI.ThemeColor> = {
-        superAdmin: 'primary'
+        superadmin: 'primary',
+        admin: 'success'
       };
 
       return row.roles.map((role: { value: string | number; name: any }) => (
-        <NTag class={'mr-8px'} type={roleMap[role.value] || 'success'}>
+        <NTag class={'mr-8px'} type={roleMap[role.value] || 'info'}>
           {role.name}
         </NTag>
       ));
@@ -277,10 +278,11 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         render: row => {
           if (row.roles.length === 0) return null;
           const roleMap: Record<any, NaiveUI.ThemeColor> = {
-            admin: 'primary'
+            superadmin: 'primary',
+            admin: 'success'
           };
           return row.roles.map(role => (
-            <NTag class={'mr-8px'} type={roleMap[role.value] || 'success'}>
+            <NTag class={'mr-8px'} type={roleMap[role.value] || ''}>
               {role.name}
             </NTag>
           ));
@@ -328,7 +330,7 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
         key: 'operate',
         title: $t('common.operate'),
         align: 'center',
-        width: getLocale.value === 'zh-CN' ? 200 : 260,
+        width: getLocale.value === 'zh-CN' ? 240 : 300,
         render: row => (
           <div class="flex-center gap-8px">
             <NButton
@@ -365,6 +367,16 @@ const { columns, columnChecks, data, loading, pagination, getDataByPage, getData
             >
               {$t('page.manage.user.resetPassword')}
             </NButton>
+            <NPopconfirm onPositiveClick={() => deleteUser(row.id)}>
+              {{
+                default: () => $t('common.confirmDelete'),
+                trigger: () => (
+                  <NButton disabled={!hasAuth('system:user:delete')} type={'error'} ghost size="small">
+                    {$t('common.delete')}
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
           </div>
         )
       }
@@ -392,6 +404,14 @@ async function detail(id: number) {
 }
 function edit(id: number) {
   handleEdit(id);
+}
+
+async function deleteUser(id: number) {
+  const { error } = await fetchDeleteUser(id);
+  if (!error) {
+    getDataByPage();
+    window.$message?.success($t('common.deleteSuccess'));
+  }
 }
 
 async function handleChangeStatus(id: number, status: number | null) {
@@ -467,7 +487,6 @@ onMounted(async () => {
               v-model:columns="columnChecks"
               prefix="system:user"
               :hide-delete="true"
-              :hide-add="true"
               :disabled-delete="checkedRowKeys.length === 0"
               :loading="loading"
               @add="handleAdd"
@@ -493,6 +512,7 @@ onMounted(async () => {
               flex-height
               :loading="loading"
               :pagination="pagination"
+              :scroll-x="1080"
               remote
               :row-key="row => row.id"
               class="flex-1"
@@ -511,7 +531,6 @@ onMounted(async () => {
           v-model:columns="columnChecks"
           prefix="system:user"
           :hide-delete="true"
-          :hide-add="true"
           :disabled-delete="checkedRowKeys.length === 0"
           :loading="loading"
           @add="handleAdd"

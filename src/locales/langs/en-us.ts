@@ -570,6 +570,7 @@ const local: App.I18n.Schema = {
       editPwd: 'Edit Password'
     },
     password: {
+      password: 'Password',
       oldPwd: 'Old Password',
       newPwd: 'New Password',
       confirmNewPwd: 'Confirm New Password',
@@ -584,7 +585,7 @@ const local: App.I18n.Schema = {
     required: 'Cannot be empty',
     username: {
       required: 'Please enter user name',
-      invalid: 'User name format is incorrect'
+      invalid: 'Username format is incorrect, it should be an email or 6-18 characters, including letters and numbers'
     },
     phone: {
       required: 'Please enter phone number',

@@ -2,11 +2,13 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { deleteFiles, fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
+import { deleteFiles, fetchCreateUser, fetchGetAllRole, fetchGetDeptTree, fetchUpdateUser } from '@/service/api';
 import type { Option } from '@/components/advanced/config-form';
 import { useConfigForm } from '@/hooks/common/config-form';
 import { GenderEnum, StatusEnum } from '@/constants/enum';
-import { REG_EMAIL, REG_PHONE } from '@/constants/reg';
+import { REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
+
+const { VITE_SUPER_ADMIN } = import.meta.env;
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -82,11 +84,36 @@ const userConfigForm = useConfigForm<Model>(() => ({
   username: {
     key: 'username',
     label: $t('page.manage.user.username'),
+    required: true,
     type: 'Input',
-    disabled: true,
+    disabled: props.operateType === 'edit',
     props: {
       placeholder: $t('common.pleaseEnter') + $t('page.manage.user.username')
-    }
+    },
+    rules: [
+      {
+        pattern: REG_USER_NAME,
+        message: $t('form.username.invalid'),
+        trigger: 'blur'
+      }
+    ]
+  },
+  password: {
+    key: 'password',
+    label: $t('page.password.password'),
+    type: 'Input',
+    hide: props.operateType === 'edit',
+    required: true,
+    props: {
+      placeholder: $t('common.pleaseEnter') + $t('page.password.password')
+    },
+    rules: [
+      {
+        pattern: REG_PWD,
+        message: $t('form.pwd.invalid'),
+        trigger: 'blur'
+      }
+    ]
   },
   nickName: {
     key: 'nickName',
@@ -124,7 +151,8 @@ const userConfigForm = useConfigForm<Model>(() => ({
     rules: [
       {
         pattern: REG_EMAIL,
-        message: $t('page.tools.mail.pleaseEnterCorrectEmail')
+        message: $t('page.tools.mail.pleaseEnterCorrectEmail'),
+        trigger: 'change'
       }
     ]
   },
@@ -206,9 +234,10 @@ function createDefaultModel(): Model {
     id: undefined,
     roleIds: [],
     deptId: '',
+    password: '',
     username: '',
     nickName: '',
-    gender: null,
+    gender: 1,
     phone: '',
     email: '',
     avatar: [],
@@ -227,7 +256,8 @@ async function getRoleOptions() {
     const options = data
       ? data.map(item => ({
           label: item.name,
-          value: item.id
+          value: item.id,
+          disabled: item.value === VITE_SUPER_ADMIN
         }))
       : [];
 
@@ -281,10 +311,35 @@ function closeDrawer() {
 
 async function handleSubmit() {
   await validate();
+  if (props.operateType === 'add') {
+    await handleCreate();
+  } else {
+    await handleUpdate();
+  }
+}
+
+async function handleUpdate() {
   const { avatar, ...values } = model.value;
   const avatarUrl = Array.isArray(avatar) ? avatar[0].url : avatar;
-  // 暂时没写创建用户 用户都是在登录的时候创建的
   const { error } = await fetchUpdateUser(props.rowData!.id, {
+    avatar: avatarUrl,
+    ...values
+  });
+  if (props.rowData?.avatar !== avatarUrl) {
+    deleteFiles([props.rowData?.avatar as string]);
+  }
+  if (!error) {
+    window.$message?.success($t('common.updateSuccess'));
+    // request
+    closeDrawer();
+    emit('submitted');
+  }
+}
+
+async function handleCreate() {
+  const { avatar, ...values } = model.value;
+  const avatarUrl = Array.isArray(avatar) ? avatar[0].url : avatar;
+  const { error } = await fetchCreateUser({
     avatar: avatarUrl,
     ...values
   } as any);
@@ -292,8 +347,7 @@ async function handleSubmit() {
     deleteFiles([props.rowData?.avatar as string]);
   }
   if (!error) {
-    const message = props.operateType === 'add' ? $t('common.addSuccess') : $t('common.updateSuccess');
-    window.$message?.success(message);
+    window.$message?.success($t('common.addSuccess'));
     // request
     closeDrawer();
     emit('submitted');

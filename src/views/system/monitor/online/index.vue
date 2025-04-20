@@ -193,6 +193,7 @@ onMounted(async () => {
           size="small"
           flex-height
           :loading="loading"
+          :scroll-x="1280"
           :pagination="pagination"
           remote
           :row-key="row => row.id"

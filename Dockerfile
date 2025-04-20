@@ -1,7 +1,7 @@
 
 ARG PROJECT_DIR=/vue3-naive-admin
 
-FROM node:21.7.3 as builder
+FROM node:22.3.0-alpine as builder
 ARG PROJECT_DIR
 WORKDIR $PROJECT_DIR
 
@@ -13,7 +13,6 @@ COPY . ./
 # 安装依赖
 # 若网络不通，可以使用淘宝源
 # RUN pnpm config set registry https://registry.npmmirror.com
-RUN rm -rf node_modules
 RUN pnpm install
 
 # 构建项目
