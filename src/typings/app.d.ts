@@ -777,6 +777,7 @@ declare namespace App {
           editPwd: string;
         };
         password: {
+          password: string;
           oldPwd: string;
           newPwd: string;
           confirmNewPwd: string;

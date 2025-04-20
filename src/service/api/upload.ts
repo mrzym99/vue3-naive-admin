@@ -13,7 +13,7 @@ export function upload(file: File) {
 }
 
 export function deleteFiles(filePaths: string[]) {
-  const fileNames = filePaths.map(filePath => filePath.split('/').pop());
+  const fileNames = filePaths.map(filePath => (filePath ? filePath.split('/').pop() : ''));
 
   return request({
     url: '/tools/upload/delete',

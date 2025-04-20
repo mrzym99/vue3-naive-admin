@@ -196,6 +196,8 @@ declare namespace Api {
       roleIds?: [];
       /** deptId */
       deptId?: string;
+      /** password */
+      password?: string;
     }> &
       Profile;
 
