@@ -186,7 +186,7 @@ onMounted(async () => {
   <div class="min-h-500px flex-col-stretch gap-16px overflow-auto lt-sm:overflow-auto">
     <NGrid class="h-full" x-gap="16" y-gap="16" responsive="screen" item-responsive>
       <NGridItem span="24 m:8">
-        <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.cache.list')">
+        <NCard :bordered="false" class="h-full sm:flex-1-hidden card-wrapper" :title="$t('page.manage.cache.list')">
           <NDataTable
             :loading="cacheLoading"
             :row-props="handlePrefixRowClick"
@@ -198,7 +198,7 @@ onMounted(async () => {
         </NCard>
       </NGridItem>
       <NGridItem span="24 m:8">
-        <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.cache.keyList')">
+        <NCard :bordered="false" class="h-full sm:flex-1-hidden card-wrapper" :title="$t('page.manage.cache.keyList')">
           <NDataTable
             :loading="keyLoading"
             max-height="calc(100vh - 20rem)"
@@ -211,7 +211,11 @@ onMounted(async () => {
       </NGridItem>
       <NGridItem span="24 m:8">
         <NSpin :show="detailLoading">
-          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.cache.content')">
+          <NCard
+            :bordered="false"
+            class="h-full sm:flex-1-hidden card-wrapper"
+            :title="$t('page.manage.cache.content')"
+          >
             <NDescriptions :column="1">
               <NDescriptionsItem :label="$t('page.manage.cache.name')">
                 <div class="min-h-2rem">

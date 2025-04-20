@@ -5,6 +5,10 @@ import { fetchDeleteStorageLocal, fetchGetStorageLocalList } from '@/service/api
 import { $t } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
 import { useSearchForm } from '@/hooks/common/search-form';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
+
+const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
 const storageLocalSearchForm = useSearchForm<Api.ToolsManage.StorageLocalSearchParams>(() => [
@@ -153,8 +157,8 @@ async function batchDelete() {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      <div class="h-full flex-col-stretch">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <template #header>
         <SearchForm
           v-model:model="searchParams"
           :fields="storageLocalSearchForm"
@@ -170,19 +174,20 @@ async function batchDelete() {
           @delete="batchDelete"
           @refresh="getData"
         />
-        <NDataTable
-          v-model:checked-row-keys="checkedRowKeys"
-          :columns="columns"
-          :data="data"
-          size="small"
-          flex-height
-          :loading="loading"
-          :pagination="pagination"
-          remote
-          :row-key="row => row.id"
-          class="min-h-300px flex-1"
-        />
-      </div>
+      </template>
+      <NDataTable
+        v-model:checked-row-keys="checkedRowKeys"
+        :columns="columns"
+        :data="data"
+        size="small"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :pagination="pagination"
+        :scroll-x="getTableScrollX(columns)"
+        remote
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
     </NCard>
   </div>
 </template>

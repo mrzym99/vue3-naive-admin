@@ -81,7 +81,11 @@ onMounted(async () => {
     <NSpin :show="loading">
       <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.runtime.title')">
+          <NCard
+            :bordered="false"
+            class="h-full sm:flex-1-hidden card-wrapper"
+            :title="$t('page.manage.os.runtime.title')"
+          >
             <NDescriptions size="small" label-placement="left" bordered :column="1">
               <NDescriptionsItem>
                 <template #label>{{ $t('page.manage.os.runtime.os') }}</template>
@@ -103,7 +107,11 @@ onMounted(async () => {
           </NCard>
         </NGridItem>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.disk.title')">
+          <NCard
+            :bordered="false"
+            class="h-full sm:flex-1-hidden card-wrapper"
+            :title="$t('page.manage.os.disk.title')"
+          >
             <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
               <NGridItem span="24 m:12">
                 <NDescriptions size="small" label-placement="left" bordered :column="1">
@@ -133,7 +141,7 @@ onMounted(async () => {
           </NCard>
         </NGridItem>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.cpu.title')">
+          <NCard :bordered="false" class="h-full sm:flex-1-hidden card-wrapper" :title="$t('page.manage.os.cpu.title')">
             <NDescriptions size="small" label-placement="left" bordered :column="1">
               <NDescriptionsItem>
                 <template #label>{{ $t('page.manage.os.cpu.details') }}</template>
@@ -156,7 +164,11 @@ onMounted(async () => {
           </NCard>
         </NGridItem>
         <NGridItem span="24 m:12">
-          <NCard :bordered="false" class="h-full card-wrapper" :title="$t('page.manage.os.memory.title')">
+          <NCard
+            :bordered="false"
+            class="h-full sm:flex-1-hidden card-wrapper"
+            :title="$t('page.manage.os.memory.title')"
+          >
             <NGrid x-gap="16" y-gap="16" responsive="screen" item-responsive>
               <NGridItem span="24 m:12">
                 <NDescriptions size="small" label-placement="left" bordered :column="1">

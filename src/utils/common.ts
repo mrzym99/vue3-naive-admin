@@ -123,3 +123,17 @@ export function str2tree(str: string, treeData: CascaderOption[] = [], separator
     return item.children as CascaderOption[];
   }, treeData);
 }
+
+export function getTableScrollX(columns: NaiveUI.TableColumn<any>[]) {
+  const scrollX = columns.reduce((acc, column) => {
+    if (column.width) {
+      return acc + Number(column.width);
+    }
+    if (column.minWidth) {
+      return acc + Number(column.minWidth);
+    }
+    return acc;
+  }, 0);
+
+  return scrollX;
+}

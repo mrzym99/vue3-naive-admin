@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t, getLocale } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
-import { generatePrefix } from '@/utils/common';
+import { generatePrefix, getTableScrollX } from '@/utils/common';
 import { useSearchForm } from '@/hooks/common/search-form';
 import { fetchBatchUpdateDictItemStatus, fetchDeleteDictItem, fetchGetDictItemList } from '@/service/api';
 import { StatusEnum } from '@/constants/enum';
@@ -196,7 +196,7 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <NSplit v-if="!appStore.isMobile" class="h-full" direction="horizontal" :default-size="0.4" :max="0.7" :min="0.3">
         <template #1>
           <DictTypeList @change="handleChangeDictType" />
@@ -239,12 +239,13 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
               :columns="columns"
               :data="data"
               size="small"
-              flex-height
+              :flex-height="!appStore.isMobile"
               :loading="loading"
               :pagination="pagination"
+              :scroll-x="getTableScrollX(columns)"
               remote
               :row-key="row => row.id"
-              class="flex-1"
+              class="sm:h-full"
             />
           </div>
         </template>
@@ -263,7 +264,7 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
               v-model:model="searchParams"
               :fields="dictItemSearchForm"
               @search="getDataByPage"
-              @reset="resetSearchParams"
+              @reset="beforeResetSearchParams"
             />
             <TableHeaderOperation
               v-model:columns="columnChecks"
@@ -291,24 +292,25 @@ function handleChangeDictType(item: Api.SystemManage.DictType) {
               :columns="columns"
               :data="data"
               size="small"
-              flex-height
+              :flex-height="!appStore.isMobile"
               :loading="loading"
               :pagination="pagination"
+              :scroll-x="getTableScrollX(columns)"
               remote
               :row-key="row => row.id"
-              class="flex-1"
+              class="sm:h-full"
             />
           </div>
         </NGridItem>
       </NGrid>
+      <DictItemOperateDrawer
+        v-model:visible="drawerVisible"
+        :type-id="currentDictType?.id"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
     </NCard>
-    <DictItemOperateDrawer
-      v-model:visible="drawerVisible"
-      :type-id="currentDictType?.id"
-      :operate-type="operateType"
-      :row-data="editingData"
-      @submitted="getDataByPage"
-    />
   </div>
 </template>
 

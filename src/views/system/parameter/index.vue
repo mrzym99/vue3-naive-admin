@@ -5,8 +5,11 @@ import { fetchDeleteParameter, fetchGetParameterInfo, fetchGetParameterList } fr
 import { $t } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
 import { useSearchForm } from '@/hooks/common/search-form';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
 import ParameterOperateDrawer from './modules/parameter-operate-drawer.vue';
 
+const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
 const parameterSearchForm = useSearchForm<Api.SystemManage.ParameterSearchParams>(() => [
@@ -116,8 +119,8 @@ async function handleDelete(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      <div class="h-full flex-col-stretch">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <template #header>
         <SearchForm
           v-model:model="searchParams"
           :fields="parameterSearchForm"
@@ -132,25 +135,26 @@ async function handleDelete(id: number) {
           @add="handleAdd"
           @refresh="getData"
         />
-        <NDataTable
-          :columns="columns"
-          :data="data"
-          size="small"
-          flex-height
-          :loading="loading"
-          :pagination="pagination"
-          remote
-          :row-key="row => row.id"
-          class="flex-1"
-        />
-      </div>
+      </template>
+      <NDataTable
+        :columns="columns"
+        :data="data"
+        size="small"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :pagination="pagination"
+        :scroll-x="getTableScrollX(columns)"
+        remote
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
+      <ParameterOperateDrawer
+        v-model:visible="drawerVisible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
     </NCard>
-    <ParameterOperateDrawer
-      v-model:visible="drawerVisible"
-      :operate-type="operateType"
-      :row-data="editingData"
-      @submitted="getDataByPage"
-    />
   </div>
 </template>
 

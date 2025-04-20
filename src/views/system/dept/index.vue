@@ -5,7 +5,11 @@ import { fetchDeleteDept, fetchGetDeptList, fetchSetDeptDefault } from '@/servic
 import { $t } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
 import { useSearchForm } from '@/hooks/common/search-form';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
 import DeptOperateDrawer from './modules/dept-operate-drawer.vue';
+
+const appStore = useAppStore();
 
 const { hasAuth } = useAuth();
 
@@ -143,8 +147,8 @@ async function handleSetDefault(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      <div class="h-full flex-col-stretch">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <template #header>
         <SearchForm
           v-model:model="searchParams"
           :fields="deptSearchForm"
@@ -161,25 +165,26 @@ async function handleSetDefault(id: number) {
           @refresh="getData"
           @toggle-expand="toggleExpand"
         />
-        <NDataTable
-          v-model:expanded-row-keys="expandedRowKeys"
-          :columns="columns"
-          :data="data"
-          size="small"
-          flex-height
-          :loading="loading"
-          remote
-          :row-key="row => row.id"
-          class="flex-1"
-        />
-      </div>
+      </template>
+      <NDataTable
+        v-model:expanded-row-keys="expandedRowKeys"
+        :columns="columns"
+        :data="data"
+        size="small"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :scroll-x="getTableScrollX(columns)"
+        remote
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
+      <DeptOperateDrawer
+        v-model:visible="drawerVisible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
     </NCard>
-    <DeptOperateDrawer
-      v-model:visible="drawerVisible"
-      :operate-type="operateType"
-      :row-data="editingData"
-      @submitted="getDataByPage"
-    />
   </div>
 </template>
 

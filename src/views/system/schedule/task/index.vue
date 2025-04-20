@@ -15,10 +15,12 @@ import { useAuth } from '@/hooks/business/auth';
 import { useSearchForm } from '@/hooks/common/search-form';
 import { StatusEnum, TaskTypeEnum } from '@/constants/enum';
 import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
 import TaskOperateDrawer from './modules/task-operate-drawer.vue';
 
 const { hasAuth } = useAuth();
-
+const appStore = useAppStore();
 const taskSearchForm = useSearchForm<Api.SystemManage.TaskSearchParams>(() => [
   {
     key: 'name',
@@ -356,8 +358,8 @@ async function handleStop(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      <div class="h-full flex-col-stretch">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <template #header>
         <SearchForm
           v-model:model="searchParams"
           :fields="taskSearchForm"
@@ -372,34 +374,34 @@ async function handleStop(id: number) {
           @add="handleAdd"
           @refresh="getData"
         />
-        <NDataTable
-          :columns="columns"
-          :data="data"
-          size="small"
-          flex-height
-          :loading="loading"
-          :pagination="pagination"
-          :scroll-x="1280"
-          remote
-          :row-key="row => row.id"
-          class="min-h-300px flex-1"
-        />
-      </div>
+      </template>
+      <NDataTable
+        :columns="columns"
+        :data="data"
+        size="small"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :pagination="pagination"
+        :scroll-x="getTableScrollX(columns)"
+        remote
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
+      <TaskOperateDrawer
+        v-model:visible="drawerVisible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
+      <DetailsDescriptions
+        v-model:visible="modelVisible"
+        :title="$t('page.manage.role.detail')"
+        width="60%"
+        :label-style="{ width: '100px' }"
+        :fields="detailColumns"
+        :data="detailData"
+      />
     </NCard>
-    <TaskOperateDrawer
-      v-model:visible="drawerVisible"
-      :operate-type="operateType"
-      :row-data="editingData"
-      @submitted="getDataByPage"
-    />
-    <DetailsDescriptions
-      v-model:visible="modelVisible"
-      :title="$t('page.manage.role.detail')"
-      width="60%"
-      :label-style="{ width: '100px' }"
-      :fields="detailColumns"
-      :data="detailData"
-    />
   </div>
 </template>
 

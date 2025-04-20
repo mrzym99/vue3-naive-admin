@@ -6,7 +6,10 @@ import { $t } from '@/locales';
 import type { SearchFormType } from '@/components/advanced/search-form';
 import { successOrFailRecord } from '@/constants/common';
 import { StatusEnum } from '@/constants/enum';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
 
+const appStore = useAppStore();
 const taskLogSearchForm: SearchFormType<Api.SystemManage.TaskLogSearchParams> = [
   {
     key: 'name',
@@ -134,7 +137,7 @@ async function batchDelete() {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
@@ -156,12 +159,13 @@ async function batchDelete() {
           :columns="columns"
           :data="data"
           size="small"
-          flex-height
+          :flex-height="!appStore.isMobile"
+          :scroll-x="getTableScrollX(columns)"
           :loading="loading"
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="flex-1"
+          class="sm:h-full"
         />
       </div>
     </NCard>

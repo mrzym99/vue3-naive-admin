@@ -7,7 +7,10 @@ import { fetchGetOnlineUserList, fetchKickOnlineUser } from '@/service/api';
 import { $t } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
 import { useSearchForm } from '@/hooks/common/search-form';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
 
+const appStore = useAppStore();
 const sseStore = useSSEStore();
 const { hasAuth } = useAuth();
 
@@ -170,7 +173,7 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
@@ -191,13 +194,13 @@ onMounted(async () => {
           :columns="columns"
           :data="data"
           size="small"
-          flex-height
+          :flex-height="!appStore.isMobile"
           :loading="loading"
-          :scroll-x="1280"
+          :scroll-x="getTableScrollX(columns)"
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="min-h-300px flex-1"
+          class="sm:h-full"
         />
       </div>
     </NCard>

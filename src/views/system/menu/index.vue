@@ -7,11 +7,14 @@ import { $t, getLocale } from '@/locales';
 import { enableStatusRecord, menuIconTypeRecord, menuTypeRecord } from '@/constants/business';
 import { useAuth } from '@/hooks/business/auth';
 import SvgIcon from '@/components/custom/svg-icon.vue';
-import { flatTreeData } from '@/utils/common';
+import { flatTreeData, getTableScrollX } from '@/utils/common';
 import { useSearchForm } from '@/hooks/common/search-form';
 import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import { StatusEnum } from '@/constants/enum';
+import { useAppStore } from '@/store/modules/app';
 import MenuOperateDrawer from './modules/menu-operate-drawer.vue';
+
+const appStore = useAppStore();
 
 const { hasAuth } = useAuth();
 
@@ -459,8 +462,8 @@ async function handleDelete(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      <div class="h-full flex-col-stretch">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <template #header>
         <SearchForm
           v-model:model="searchParams"
           :fields="menuSearchForm"
@@ -469,7 +472,7 @@ async function handleDelete(id: number) {
         />
         <TableHeaderOperation
           v-model:columns="columnChecks"
-          prefix="system:Menu"
+          prefix="system:menu"
           :hide-delete="true"
           :loading="loading"
           :tree-table="isTreeTable"
@@ -477,35 +480,36 @@ async function handleDelete(id: number) {
           @refresh="getData"
           @toggle-expand="toggleExpand"
         />
-        <NDataTable
-          v-model:expanded-row-keys="expandedRowKeys"
-          :columns="columns"
-          :data="data"
-          size="small"
-          :loading="loading"
-          remote
-          flex-height
-          virtual-scroll
-          :row-key="row => row.id"
-          class="min-h-300px flex-1"
-        />
-      </div>
+      </template>
+      <NDataTable
+        v-model:expanded-row-keys="expandedRowKeys"
+        :columns="columns"
+        :data="data"
+        size="small"
+        :loading="loading"
+        remote
+        :flex-height="!appStore.isMobile"
+        :scroll-x="getTableScrollX(columns)"
+        virtual-scroll
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
+      <MenuOperateDrawer
+        v-model:visible="drawerVisible"
+        :operate-type="operateType"
+        :add-data="addingData"
+        :edit-data="editingData"
+        @submitted="getDataByPage"
+      />
+      <DetailsDescriptions
+        v-model:visible="modelVisible"
+        :title="$t('page.manage.menu.detail')"
+        width="60%"
+        :fields="detailColumns"
+        :data="detailData"
+        :label-style="{ width: '120px' }"
+      />
     </NCard>
-    <MenuOperateDrawer
-      v-model:visible="drawerVisible"
-      :operate-type="operateType"
-      :add-data="addingData"
-      :edit-data="editingData"
-      @submitted="getDataByPage"
-    />
-    <DetailsDescriptions
-      v-model:visible="modelVisible"
-      :title="$t('page.manage.menu.detail')"
-      width="60%"
-      :fields="detailColumns"
-      :data="detailData"
-      :label-style="{ width: '120px' }"
-    />
   </div>
 </template>
 

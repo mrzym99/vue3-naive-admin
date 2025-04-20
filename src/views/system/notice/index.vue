@@ -10,8 +10,12 @@ import { enableStatusRecord } from '@/constants/business';
 import { useDicts } from '@/hooks/common/dict';
 import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import { StatusEnum } from '@/constants/enum';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
 import DetailsDescriptions from '@/components/advanced/details-descriptions/details-descriptions.vue';
 import TinymcePreview from '@/components/common/tinymce/tinymce-preview.vue';
+
+const appStore = useAppStore();
 
 const { hasAuth } = useAuth();
 const { getDictNameByValue } = useDicts(['notice_type']);
@@ -197,8 +201,8 @@ async function detail(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      <div class="h-full flex-col-stretch">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <template #header>
         <SearchForm
           v-model:model="searchParams"
           :fields="noticeSearchForm"
@@ -213,28 +217,29 @@ async function detail(id: number) {
           @add="add"
           @refresh="getData"
         />
-        <NDataTable
-          :columns="columns"
-          :data="data"
-          size="small"
-          flex-height
-          :loading="loading"
-          :pagination="pagination"
-          remote
-          :row-key="row => row.id"
-          class="flex-1"
-        />
-      </div>
+      </template>
+      <NDataTable
+        :columns="columns"
+        :data="data"
+        size="small"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :pagination="pagination"
+        :scroll-x="getTableScrollX(columns)"
+        remote
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
+      <DetailsDescriptions
+        v-model:visible="modelVisible"
+        :title="$t('page.manage.notice.detail')"
+        width="60%"
+        :column="3"
+        :label-style="{ width: '100px' }"
+        :fields="detailColumns"
+        :data="detailData"
+      ></DetailsDescriptions>
     </NCard>
-    <DetailsDescriptions
-      v-model:visible="modelVisible"
-      :title="$t('page.manage.notice.detail')"
-      width="60%"
-      :column="3"
-      :label-style="{ width: '100px' }"
-      :fields="detailColumns"
-      :data="detailData"
-    ></DetailsDescriptions>
   </div>
 </template>
 

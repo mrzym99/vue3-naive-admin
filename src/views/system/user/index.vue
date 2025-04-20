@@ -7,13 +7,14 @@ import { fetchDeleteUser, fetchGetAllRole, fetchGetUserList, fetchUpdatedUserSta
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t, getLocale } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
-import { generatePrefix } from '@/utils/common';
+import { generatePrefix, getTableScrollX } from '@/utils/common';
 import { useSearchForm } from '@/hooks/common/search-form';
 import { StatusEnum } from '@/constants/enum';
 import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import DeptTree from './modules/dept-tree.vue';
 import ResetPassword from './modules/reset-password.vue';
+
 const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
@@ -468,7 +469,7 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <NSplit v-if="!appStore.isMobile" class="h-full" direction="horizontal" :default-size="0.2" :max="0.9" :min="0.1">
         <template #1>
           <DeptTree v-model:value="searchParams.deptIds" @change="change" />
@@ -507,13 +508,13 @@ onMounted(async () => {
               :columns="columns"
               :data="data"
               size="small"
-              flex-height
+              :flex-height="!appStore.isMobile"
               :loading="loading"
               :pagination="pagination"
-              :scroll-x="1080"
+              :scroll-x="getTableScrollX(columns)"
               remote
               :row-key="row => row.id"
-              class="flex-1"
+              class="sm:h-full"
             />
           </div>
         </template>
@@ -551,36 +552,37 @@ onMounted(async () => {
           :columns="columns"
           :data="data"
           size="small"
-          flex-height
+          :flex-height="!appStore.isMobile"
           :loading="loading"
           :pagination="pagination"
+          :scroll-x="getTableScrollX(columns)"
           remote
           :row-key="row => row.id"
-          class="min-h-300px flex-1"
+          class="sm:h-full"
         />
       </div>
-    </NCard>
-    <UserOperateDrawer
-      v-model:visible="drawerVisible"
-      :operate-type="operateType"
-      :row-data="editingData"
-      @submitted="getDataByPage"
-    />
-    <DetailsDescriptions
-      v-model:visible="modelVisible"
-      :title="$t('page.manage.user.detail')"
-      width="60%"
-      :fields="detailColumns"
-      :label-style="{ width: '120px' }"
-      :data="detailData"
-    />
+      <UserOperateDrawer
+        v-model:visible="drawerVisible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
+      <DetailsDescriptions
+        v-model:visible="modelVisible"
+        :title="$t('page.manage.user.detail')"
+        width="60%"
+        :fields="detailColumns"
+        :label-style="{ width: '120px' }"
+        :data="detailData"
+      />
 
-    <ResetPassword
-      v-model:show="showModal"
-      :reset-id="resetId"
-      :title="$t('page.manage.user.resetPassword')"
-      @change="resetChange"
-    />
+      <ResetPassword
+        v-model:show="showModal"
+        :reset-id="resetId"
+        :title="$t('page.manage.user.resetPassword')"
+        @change="resetChange"
+      />
+    </NCard>
   </div>
 </template>
 

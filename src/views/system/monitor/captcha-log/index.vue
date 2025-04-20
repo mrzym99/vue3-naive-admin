@@ -6,6 +6,10 @@ import { ProviderRecord } from '@/constants/business';
 import { ProviderEnum } from '@/constants/enum';
 import { $t } from '@/locales';
 import { useSearchForm } from '@/hooks/common/search-form';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
+
+const appStore = useAppStore();
 
 const userSearchForm = useSearchForm<Api.SystemManage.CaptchaLogSearchParams>(() => [
   {
@@ -111,7 +115,7 @@ async function batchDelete() {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <div class="h-full flex-col-stretch">
         <SearchForm
           v-model:model="searchParams"
@@ -134,12 +138,13 @@ async function batchDelete() {
           :columns="columns"
           :data="data"
           size="small"
-          flex-height
+          :flex-height="!appStore.isMobile"
           :loading="loading"
           :pagination="pagination"
           remote
           :row-key="row => row.id"
-          class="min-h-300px flex-1"
+          :scroll-x="getTableScrollX(columns)"
+          class="sm:h-full"
         />
       </div>
     </NCard>

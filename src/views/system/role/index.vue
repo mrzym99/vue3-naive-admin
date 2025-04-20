@@ -8,8 +8,10 @@ import { useAuth } from '@/hooks/business/auth';
 import { useSearchForm } from '@/hooks/common/search-form';
 import { useDetailDescriptions } from '@/hooks/common/detail-descriptions';
 import { StatusEnum } from '@/constants/enum';
+import { useAppStore } from '@/store/modules/app';
+import { getTableScrollX } from '@/utils/common';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
-
+const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
 const roleSearchForm = useSearchForm<Api.SystemManage.RoleSearchParams>(() => [
@@ -282,8 +284,8 @@ async function handleSetDefault(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      <div class="h-full flex-col-stretch">
+    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <template #header>
         <SearchForm
           v-model:model="searchParams"
           :fields="roleSearchForm"
@@ -298,33 +300,34 @@ async function handleSetDefault(id: number) {
           @add="handleAdd"
           @refresh="getData"
         />
-        <NDataTable
-          :columns="columns"
-          :data="data"
-          size="small"
-          :loading="loading"
-          flex-height
-          :pagination="pagination"
-          remote
-          :row-key="row => row.id"
-          class="min-h-300px flex-1"
-        />
-      </div>
+      </template>
+      <NDataTable
+        :columns="columns"
+        :data="data"
+        size="small"
+        :loading="loading"
+        :flex-height="!appStore.isMobile"
+        :pagination="pagination"
+        remote
+        :scroll-x="getTableScrollX(columns)"
+        :row-key="row => row.id"
+        class="sm:h-full"
+      />
+      <RoleOperateDrawer
+        v-model:visible="drawerVisible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
+      <DetailsDescriptions
+        v-model:visible="modelVisible"
+        :title="$t('page.manage.role.detail')"
+        :label-style="{ width: '100px' }"
+        width="60%"
+        :fields="detailColumns"
+        :data="detailData"
+      />
     </NCard>
-    <RoleOperateDrawer
-      v-model:visible="drawerVisible"
-      :operate-type="operateType"
-      :row-data="editingData"
-      @submitted="getDataByPage"
-    />
-    <DetailsDescriptions
-      v-model:visible="modelVisible"
-      :title="$t('page.manage.role.detail')"
-      :label-style="{ width: '100px' }"
-      width="60%"
-      :fields="detailColumns"
-      :data="detailData"
-    />
   </div>
 </template>
 

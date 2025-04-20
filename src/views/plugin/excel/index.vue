@@ -5,6 +5,10 @@ import { useTable } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
+import { getTableScrollX } from '@/utils/common';
+import { useAppStore } from '@/store/modules/app';
+
+const appStore = useAppStore();
 
 const { columns, data, loading } = useTable({
   apiFn: fetchGetUserList,
@@ -164,7 +168,7 @@ function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is Nai
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden">
-    <NCard title="Excel导出" :bordered="false" size="small" class="flex-1 card-wrapper">
+    <NCard title="Excel导出" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
         <NSpace align="end" wrap justify="end" class="lt-sm:w-200px">
           <NButton size="small" ghost type="primary" @click="exportExcel">
@@ -180,13 +184,14 @@ function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is Nai
         :columns="columns"
         :data="data"
         size="small"
-        flex-height
+        :flex-height="!appStore.isMobile"
         :loading="loading"
         remote
         :row-key="row => row.id"
         :pagination="false"
         :virtual-scroll="true"
-        class="h-full"
+        :scroll-x="getTableScrollX(columns)"
+        class="sm:h-full"
       />
     </NCard>
   </div>

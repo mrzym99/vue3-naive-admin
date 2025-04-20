@@ -4,7 +4,7 @@ import { watch } from 'vue';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t, getLocale } from '@/locales';
 import { useAuth } from '@/hooks/business/auth';
-import { generatePrefix } from '@/utils/common';
+import { generatePrefix, getTableScrollX } from '@/utils/common';
 import { useSearchForm } from '@/hooks/common/search-form';
 import { fetchBatchUpdateDictTypeStatus, fetchDeleteDictType, fetchGetDictTypeList } from '@/service/api';
 import { StatusEnum } from '@/constants/enum';
@@ -25,9 +25,18 @@ const dictTypeSearchForm = useSearchForm<Api.SystemManage.DictTypeSearchParams>(
     key: 'name',
     label: $t('page.manage.dict.name'),
     type: 'Input',
-    span: appStore.isMobile ? 24 : 12,
+    span: appStore.isMobile ? 24 : 8,
     props: {
       placeholder: $t('common.pleaseEnter') + $t('page.manage.dict.name')
+    }
+  },
+  {
+    key: 'code',
+    label: $t('page.manage.dict.code'),
+    type: 'Input',
+    span: appStore.isMobile ? 24 : 8,
+    props: {
+      placeholder: $t('common.pleaseEnter') + $t('page.manage.dict.value')
     }
   }
 ]);
@@ -194,12 +203,13 @@ watch(
       :columns="columns"
       :data="data"
       size="small"
-      flex-height
+      :flex-height="!appStore.isMobile"
       :loading="loading"
       :pagination="pagination"
       remote
+      :scroll-x="getTableScrollX(columns)"
       :row-key="row => row.id"
-      class="flex-1"
+      class="sm:h-full"
       :row-props="handleRowClick"
     />
     <DictTypeOperateDrawer
