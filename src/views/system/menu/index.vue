@@ -469,7 +469,7 @@ async function handleDelete(id: number) {
         />
         <TableHeaderOperation
           v-model:columns="columnChecks"
-          prefix="system:Menu"
+          prefix="system:menu"
           :hide-delete="true"
           :loading="loading"
           :tree-table="isTreeTable"
