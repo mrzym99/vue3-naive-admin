@@ -15,6 +15,10 @@ export function upload(file: File) {
 export function deleteFiles(filePaths: string[]) {
   const fileNames = filePaths.map(filePath => (filePath ? filePath.split('/').pop() : ''));
 
+  if (!fileNames.length) {
+    return Promise.resolve();
+  }
+
   return request({
     url: '/tools/upload/delete',
     method: 'delete',
