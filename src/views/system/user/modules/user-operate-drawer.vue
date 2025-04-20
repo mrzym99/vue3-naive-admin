@@ -325,7 +325,7 @@ async function handleUpdate() {
     avatar: avatarUrl,
     ...values
   });
-  if (props.rowData?.avatar !== avatarUrl && props.rowData?.avatar) {
+  if (props.operateType === 'edit' && props.rowData?.avatar !== avatarUrl) {
     deleteFiles([props.rowData?.avatar as string]);
   }
   if (!error) {
