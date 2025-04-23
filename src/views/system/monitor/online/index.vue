@@ -30,124 +30,134 @@ const userSearchForm = useSearchForm<Api.SystemManage.OnlineUserSearchParams>(()
   }
 ]);
 
-const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
-  useTable({
-    apiFn: fetchGetOnlineUserList,
-    showTotal: true,
-    apiParams: {
-      currentPage: 1,
-      pageSize: 10,
-      // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
-      // the value can not be undefined, otherwise the property in Form will not be reactive
-      username: null,
-      nickName: null
-    },
-    columns: () => [
-      {
-        key: 'tokenId',
-        title: $t('page.manage.online.sessionId'),
-        align: 'left',
-        width: 150,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'username',
-        title: $t('page.manage.user.username'),
-        align: 'center',
-        width: 150,
-        render: row => {
-          if (row.username === null) return null;
-
-          if (row.isCurrentUser) {
-            return (
-              <div>
-                {row.username}
-                <NTag type="success">Me</NTag>{' '}
-              </div>
-            );
-          }
-
-          return row.username;
-        }
-      },
-      {
-        key: 'nickName',
-        title: $t('page.manage.user.nickName'),
-        align: 'center',
-        width: 100,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'deptName',
-        title: $t('page.manage.user.dept'),
-        align: 'center',
-        width: 100,
-        render: row => {
-          if (row.deptName === null) return null;
-          return <NTag>{row.deptName}</NTag>;
-        }
-      },
-      {
-        key: 'ip',
-        title: $t('page.manage.online.ip'),
-        align: 'center',
-        width: 200,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'address',
-        title: $t('page.manage.online.address'),
-        align: 'center',
-        width: 150
-      },
-      {
-        key: 'browser',
-        title: $t('page.manage.online.browser'),
-        align: 'center',
-        width: 120
-      },
-      {
-        key: 'os',
-        title: $t('page.manage.online.os'),
-        align: 'center',
-        width: 120
-      },
-      {
-        key: 'time',
-        title: $t('page.manage.online.loginTime'),
-        width: 200,
-        render: row => {
-          return <NTime time={new Date(row.time)} />;
-        }
-      },
-      {
-        key: 'operate',
-        title: $t('common.operate'),
-        align: 'center',
-        width: 130,
-        render: row => (
-          <div class="flex-center gap-8px">
-            <NPopconfirm onPositiveClick={() => handleKick(row.tokenId)}>
-              {{
-                default: () => `${$t('page.manage.online.offline')} - ${row.username} ？`,
-                trigger: () => (
-                  <NButton disabled={!hasAuth('system:online:kick') || row.disabled} type={'error'} ghost size="small">
-                    {$t('page.manage.online.offline')}
-                  </NButton>
-                )
-              }}
-            </NPopconfirm>
-          </div>
-        )
+const {
+  columns,
+  columnChecks,
+  data,
+  loading,
+  pagination,
+  getDataByPage,
+  getData,
+  searchParams,
+  resetSearchParams,
+  scrollX
+} = useTable({
+  apiFn: fetchGetOnlineUserList,
+  showTotal: true,
+  apiParams: {
+    currentPage: 1,
+    pageSize: 10,
+    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
+    // the value can not be undefined, otherwise the property in Form will not be reactive
+    username: null,
+    nickName: null
+  },
+  columns: () => [
+    {
+      key: 'tokenId',
+      title: $t('page.manage.online.sessionId'),
+      align: 'left',
+      width: 150,
+      ellipsis: {
+        tooltip: true
       }
-    ]
-  });
+    },
+    {
+      key: 'username',
+      title: $t('page.manage.user.username'),
+      align: 'center',
+      width: 150,
+      render: row => {
+        if (row.username === null) return null;
+
+        if (row.isCurrentUser) {
+          return (
+            <div>
+              {row.username}
+              <NTag type="success">Me</NTag>{' '}
+            </div>
+          );
+        }
+
+        return row.username;
+      }
+    },
+    {
+      key: 'nickName',
+      title: $t('page.manage.user.nickName'),
+      align: 'center',
+      width: 100,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
+      key: 'deptName',
+      title: $t('page.manage.user.dept'),
+      align: 'center',
+      width: 100,
+      render: row => {
+        if (row.deptName === null) return null;
+        return <NTag>{row.deptName}</NTag>;
+      }
+    },
+    {
+      key: 'ip',
+      title: $t('page.manage.online.ip'),
+      align: 'center',
+      width: 200,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
+      key: 'address',
+      title: $t('page.manage.online.address'),
+      align: 'center',
+      width: 150
+    },
+    {
+      key: 'browser',
+      title: $t('page.manage.online.browser'),
+      align: 'center',
+      width: 120
+    },
+    {
+      key: 'os',
+      title: $t('page.manage.online.os'),
+      align: 'center',
+      width: 120
+    },
+    {
+      key: 'time',
+      title: $t('page.manage.online.loginTime'),
+      width: 200,
+      render: row => {
+        return <NTime time={new Date(row.time)} />;
+      }
+    },
+    {
+      key: 'operate',
+      title: $t('common.operate'),
+      align: 'center',
+      width: 130,
+      render: row => (
+        <div class="flex-center gap-8px">
+          <NPopconfirm onPositiveClick={() => handleKick(row.tokenId)}>
+            {{
+              default: () => `${$t('page.manage.online.offline')} - ${row.username} ？`,
+              trigger: () => (
+                <NButton disabled={!hasAuth('system:online:kick') || row.disabled} type={'error'} ghost size="small">
+                  {$t('page.manage.online.offline')}
+                </NButton>
+              )
+            }}
+          </NPopconfirm>
+        </div>
+      )
+    }
+  ]
+});
 
 const { checkedRowKeys } = useTableOperate(data, getData);
 
@@ -193,7 +203,7 @@ onMounted(async () => {
           size="small"
           flex-height
           :loading="loading"
-          :scroll-x="1280"
+          :scroll-x="scrollX"
           :pagination="pagination"
           remote
           :row-key="row => row.id"
