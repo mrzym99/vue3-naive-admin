@@ -16,6 +16,7 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
   const appStore = useAppStore();
 
   const isMobile = computed(() => appStore.isMobile);
+  const scrollX = ref(0);
 
   const { apiFn, apiParams, immediate, showTotal, isTreeTable, expandAll = false } = config;
 
@@ -196,6 +197,20 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     scope.stop();
   });
 
+  scrollX.value = getScrollX(columns.value);
+
+  function getScrollX(arr: NaiveUI.TableColumn<any>[]) {
+    return arr.reduce((acc, column) => {
+      if (column.width) {
+        return acc + Number(column.width);
+      }
+      if (column.minWidth) {
+        return acc + Number(column.minWidth);
+      }
+      return acc;
+    }, 0);
+  }
+
   return {
     loading,
     empty,
@@ -214,7 +229,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
     toggleExpand,
     expandedRowKeys,
     isTreeTable,
-    expandAll
+    expandAll,
+    scrollX
   };
 }
 
