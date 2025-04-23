@@ -96,6 +96,7 @@
     "xlsx": "0.18.5"
   },
   "devDependencies": {
+    "@admin-pkg/vite-plugin-tinymce-resource": "workspace:*",
     "@amap/amap-jsapi-types": "0.0.15",
     "@elegant-router/vue": "0.3.8",
     "@iconify/json": "2.2.297",

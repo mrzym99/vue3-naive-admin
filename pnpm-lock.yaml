@@ -159,6 +159,9 @@ importers:
         specifier: 0.18.5
         version: 0.18.5
     devDependencies:
+      '@admin-pkg/vite-plugin-tinymce-resource':
+        specifier: workspace:*
+        version: link:packages/vite-plugin-tinymce-resource
       '@amap/amap-jsapi-types':
         specifier: 0.0.15
         version: 0.0.15
@@ -386,6 +389,8 @@ importers:
       '@types/crypto-js':
         specifier: 4.2.2
         version: 4.2.2
+
+  packages/vite-plugin-tinymce-resource: {}
 
 packages:
 

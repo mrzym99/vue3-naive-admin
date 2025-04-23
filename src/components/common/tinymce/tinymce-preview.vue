@@ -23,8 +23,8 @@ const iframeUrl = computed(() => {
           <head>
             <style>
               /* 引入 TinyMCE 默认样式 */
-              @import '${baseUrl}/tinymce/skins/ui/oxide/content.min.css';
-              @import '${baseUrl}/tinymce/skins/content/default/content.min.css';
+              @import '${baseUrl}/skins/ui/oxide/content.css';
+              @import '${baseUrl}/skins/content/default/content.css';
             </style>
           </head>
           <body>
