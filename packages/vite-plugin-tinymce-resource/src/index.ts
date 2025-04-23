@@ -32,6 +32,7 @@ export default (options: Options): PluginOption => {
       base = config.base;
     },
     configureServer(server) {
+      // eslint-disable-next-line consistent-return
       server.middlewares.use(async (req, res, next) => {
         const urlPrefix = `${base}/${baseUrl}`.replace(/\/{2,}/, '/');
         if (!req.url?.startsWith(urlPrefix)) {
@@ -42,12 +43,10 @@ export default (options: Options): PluginOption => {
           const content = await readFile(url);
           res.setHeader('Content-Type', 'text/css');
           res.end(content);
-          return next();
         } catch (error: any) {
           console.error(error);
           res.statusCode = 500;
           res.end(error.toString());
-          return next();
         }
       });
     },
