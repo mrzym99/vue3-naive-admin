@@ -196,192 +196,201 @@ const detailColumns = useDetailDescriptions<Api.SystemManage.User>(() => [
 const showModal = ref<boolean>(false);
 const resetId = ref<number | null>(null);
 
-const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
-  useTable({
-    apiFn: fetchGetUserList,
-    showTotal: true,
-    apiParams: {
-      currentPage: 1,
-      pageSize: 10,
-      // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
-      // the value can not be undefined, otherwise the property in Form will not be reactive
-      status: null,
-      username: null,
-      gender: null,
-      nickName: null,
-      phone: null,
-      email: null,
-      deptIds: null,
-      roleId: null
+const {
+  columns,
+  columnChecks,
+  data,
+  loading,
+  pagination,
+  getDataByPage,
+  getData,
+  searchParams,
+  resetSearchParams,
+  scrollX
+} = useTable({
+  apiFn: fetchGetUserList,
+  showTotal: true,
+  apiParams: {
+    currentPage: 1,
+    pageSize: 10,
+    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
+    // the value can not be undefined, otherwise the property in Form will not be reactive
+    status: null,
+    username: null,
+    gender: null,
+    nickName: null,
+    phone: null,
+    email: null,
+    deptIds: null,
+    roleId: null
+  },
+  columns: () => [
+    {
+      fixed: 'left',
+      type: 'selection',
+      align: 'center',
+      width: 48
     },
-    columns: () => [
-      {
-        fixed: 'left',
-        type: 'selection',
-        align: 'center',
-        width: 48
+    {
+      fixed: 'left',
+      key: 'username',
+      title: $t('page.manage.user.username'),
+      align: 'center',
+      width: 100,
+      ellipsis: {
+        tooltip: true
       },
-      {
-        fixed: 'left',
-        key: 'username',
-        title: $t('page.manage.user.username'),
-        align: 'center',
-        width: 100,
-        ellipsis: {
-          tooltip: true
-        },
-        render: row => {
-          return (
-            <span class={'detail-link'} onClick={() => detail(row.id)}>
-              {row.username}
-            </span>
-          );
-        }
-      },
-      {
-        key: 'avatar',
-        title: $t('page.manage.user.avatar'), // $t('page.manage.user.userGender'),
-        align: 'center',
-        width: 60,
-        render: row => {
-          if (row.avatar === null) {
-            return null;
-          }
-
-          return <NAvatar src={row.avatar as string} round size="medium"></NAvatar>;
-        }
-      },
-      {
-        key: 'nickName',
-        title: $t('page.manage.user.nickName'),
-        align: 'center',
-        width: 100,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'dept',
-        title: $t('page.manage.user.dept'),
-        align: 'center',
-        width: 120,
-        render: row => {
-          if (row.dept === null) return null;
-          return <NTag>{row.dept.name}</NTag>;
-        }
-      },
-      {
-        key: 'roles',
-        title: $t('page.manage.user.role'),
-        align: 'left',
-        width: 160,
-        render: row => {
-          if (row.roles.length === 0) return null;
-          const roleMap: Record<any, NaiveUI.ThemeColor> = {
-            superadmin: 'primary',
-            admin: 'success'
-          };
-          return row.roles.map(role => (
-            <NTag class={'mr-8px'} type={roleMap[role.value] || ''}>
-              {role.name}
-            </NTag>
-          ));
-        }
-      },
-      {
-        key: 'gender',
-        title: $t('page.manage.user.userGender'),
-        align: 'center',
-        width: 80,
-        render: row => {
-          if (row.gender === null || !row.gender) {
-            return null;
-          }
-
-          const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
-            1: 'primary',
-            0: 'error'
-          };
-
-          const label = $t(userGenderRecord[row.gender]);
-
-          return <NTag type={tagMap[row.gender]}>{label}</NTag>;
-        }
-      },
-      {
-        key: 'status',
-        title: $t('common.status'),
-        align: 'center',
-        width: 100,
-        render: row => {
-          if (row.status === null) {
-            return null;
-          }
-
-          const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
-            1: 'success',
-            0: 'error'
-          };
-          const label = $t(enableStatusRecord[row.status]);
-          return <NTag type={tagMap[row.status]}>{label}</NTag>;
-        }
-      },
-      {
-        key: 'operate',
-        title: $t('common.operate'),
-        align: 'center',
-        width: getLocale.value === 'zh-CN' ? 240 : 300,
-        render: row => (
-          <div class="flex-center gap-8px">
-            <NButton
-              disabled={!hasAuth('system:user:update')}
-              type="primary"
-              ghost
-              size="small"
-              onClick={() => edit(row.id)}
-            >
-              {$t('common.edit')}
-            </NButton>
-            <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id, row.status)}>
-              {{
-                default: () =>
-                  $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
-                trigger: () => (
-                  <NButton
-                    disabled={!hasAuth('system:user:update')}
-                    type={row.status ? 'error' : 'success'}
-                    ghost
-                    size="small"
-                  >
-                    {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
-                  </NButton>
-                )
-              }}
-            </NPopconfirm>
-            <NButton
-              onClick={() => resetPasswordEvent(row.id)}
-              disabled={!hasAuth('system:user:pass:reset')}
-              type={'error'}
-              ghost
-              size="small"
-            >
-              {$t('page.manage.user.resetPassword')}
-            </NButton>
-            <NPopconfirm onPositiveClick={() => deleteUser(row.id)}>
-              {{
-                default: () => $t('common.confirmDelete'),
-                trigger: () => (
-                  <NButton disabled={!hasAuth('system:user:delete')} type={'error'} ghost size="small">
-                    {$t('common.delete')}
-                  </NButton>
-                )
-              }}
-            </NPopconfirm>
-          </div>
-        )
+      render: row => {
+        return (
+          <span class={'detail-link'} onClick={() => detail(row.id)}>
+            {row.username}
+          </span>
+        );
       }
-    ]
-  });
+    },
+    {
+      key: 'avatar',
+      title: $t('page.manage.user.avatar'), // $t('page.manage.user.userGender'),
+      align: 'center',
+      width: 60,
+      render: row => {
+        if (row.avatar === null) {
+          return null;
+        }
+
+        return <NAvatar src={row.avatar as string} round size="medium"></NAvatar>;
+      }
+    },
+    {
+      key: 'nickName',
+      title: $t('page.manage.user.nickName'),
+      align: 'center',
+      width: 100,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
+      key: 'dept',
+      title: $t('page.manage.user.dept'),
+      align: 'center',
+      width: 120,
+      render: row => {
+        if (row.dept === null) return null;
+        return <NTag>{row.dept.name}</NTag>;
+      }
+    },
+    {
+      key: 'roles',
+      title: $t('page.manage.user.role'),
+      align: 'left',
+      width: 160,
+      render: row => {
+        if (row.roles.length === 0) return null;
+        const roleMap: Record<any, NaiveUI.ThemeColor> = {
+          superadmin: 'primary',
+          admin: 'success'
+        };
+        return row.roles.map(role => (
+          <NTag class={'mr-8px'} type={roleMap[role.value] || ''}>
+            {role.name}
+          </NTag>
+        ));
+      }
+    },
+    {
+      key: 'gender',
+      title: $t('page.manage.user.userGender'),
+      align: 'center',
+      width: 80,
+      render: row => {
+        if (row.gender === null || !row.gender) {
+          return null;
+        }
+
+        const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
+          1: 'primary',
+          0: 'error'
+        };
+
+        const label = $t(userGenderRecord[row.gender]);
+
+        return <NTag type={tagMap[row.gender]}>{label}</NTag>;
+      }
+    },
+    {
+      key: 'status',
+      title: $t('common.status'),
+      align: 'center',
+      width: 100,
+      render: row => {
+        if (row.status === null) {
+          return null;
+        }
+
+        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
+          1: 'success',
+          0: 'error'
+        };
+        const label = $t(enableStatusRecord[row.status]);
+        return <NTag type={tagMap[row.status]}>{label}</NTag>;
+      }
+    },
+    {
+      key: 'operate',
+      title: $t('common.operate'),
+      align: 'center',
+      width: getLocale.value === 'zh-CN' ? 240 : 300,
+      render: row => (
+        <div class="flex-center gap-8px">
+          <NButton
+            disabled={!hasAuth('system:user:update')}
+            type="primary"
+            ghost
+            size="small"
+            onClick={() => edit(row.id)}
+          >
+            {$t('common.edit')}
+          </NButton>
+          <NPopconfirm onPositiveClick={() => handleChangeStatus(row.id, row.status)}>
+            {{
+              default: () => $t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable'),
+              trigger: () => (
+                <NButton
+                  disabled={!hasAuth('system:user:update')}
+                  type={row.status ? 'error' : 'success'}
+                  ghost
+                  size="small"
+                >
+                  {$t(row.status ? 'page.manage.common.status.disable' : 'page.manage.common.status.enable')}
+                </NButton>
+              )
+            }}
+          </NPopconfirm>
+          <NButton
+            onClick={() => resetPasswordEvent(row.id)}
+            disabled={!hasAuth('system:user:pass:reset')}
+            type={'error'}
+            ghost
+            size="small"
+          >
+            {$t('page.manage.user.resetPassword')}
+          </NButton>
+          <NPopconfirm onPositiveClick={() => deleteUser(row.id)}>
+            {{
+              default: () => $t('common.confirmDelete'),
+              trigger: () => (
+                <NButton disabled={!hasAuth('system:user:delete')} type={'error'} ghost size="small">
+                  {$t('common.delete')}
+                </NButton>
+              )
+            }}
+          </NPopconfirm>
+        </div>
+      )
+    }
+  ]
+});
 
 const {
   drawerVisible,
@@ -510,7 +519,7 @@ onMounted(async () => {
               flex-height
               :loading="loading"
               :pagination="pagination"
-              :scroll-x="1080"
+              :scroll-x="scrollX"
               remote
               :row-key="row => row.id"
               class="flex-1"

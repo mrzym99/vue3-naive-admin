@@ -56,162 +56,172 @@ const taskSearchForm = useSearchForm<Api.SystemManage.TaskSearchParams>(() => [
   }
 ]);
 
-const { columns, columnChecks, data, loading, pagination, getDataByPage, getData, searchParams, resetSearchParams } =
-  useTable({
-    apiFn: fetchGetTaskList,
-    showTotal: true,
-    apiParams: {
-      currentPage: 1,
-      pageSize: 10,
-      name: '',
-      status: null,
-      service: ''
-    },
-    columns: () => [
-      {
-        fixed: 'left',
-        key: 'name',
-        title: $t('page.manage.task.name'),
-        align: 'left',
-        width: 120,
-        render: row => {
-          return (
-            <span class={'detail-link'} onClick={() => detail(row.id)}>
-              {row.name}
-            </span>
-          );
-        }
-      },
-      {
-        key: 'status',
-        title: $t('common.status'),
-        align: 'center',
-        width: 80,
-        render: row => {
-          if (row.status === null) {
-            return null;
-          }
-
-          const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
-            1: 'success',
-            0: 'error'
-          };
-
-          const label = $t(enableStatusRecord[row.status]);
-
-          return <NTag type={tagMap[row.status]}>{label}</NTag>;
-        }
-      },
-      {
-        key: 'type',
-        title: $t('page.manage.task.taskType'),
-        align: 'center',
-        width: 80,
-        render: row => {
-          const taskMap: Record<Api.SystemManage.TaskType, NaiveUI.ThemeColor> = {
-            0: 'success',
-            1: 'primary'
-          };
-
-          const label = $t(TaskTypeRecord[row.type]);
-
-          return <NTag type={taskMap[row.type]}>{label}</NTag>;
-        }
-      },
-      {
-        key: 'service',
-        title: $t('page.manage.task.service'), // $t('page.manage.task.task'),
-        width: 200,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'data',
-        title: $t('page.manage.task.params'),
-        width: 260,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'remark',
-        title: $t('page.manage.common.remark'),
-        width: 240,
-        ellipsis: {
-          tooltip: true
-        }
-      },
-      {
-        key: 'operate',
-        title: $t('common.operate'),
-        align: 'center',
-        width: 260,
-        render: row => (
-          <div class="flex justify-items-start gap-8px">
-            <NButton
-              disabled={!hasAuth('system:task:update')}
-              type="primary"
-              ghost
-              size="small"
-              onClick={() => edit(row.id)}
-            >
-              {$t('common.edit')}
-            </NButton>
-
-            {!row.status ? (
-              <NPopconfirm onPositiveClick={() => handleStart(row.id)}>
-                {{
-                  default: () => `${$t('page.manage.task.start')}?`,
-                  trigger: () => (
-                    <NButton disabled={!hasAuth('system:task:start')} type="primary" ghost size="small">
-                      {$t('page.manage.task.start')}
-                    </NButton>
-                  )
-                }}
-              </NPopconfirm>
-            ) : (
-              ''
-            )}
-            <NPopconfirm onPositiveClick={() => handleOnce(row.id)}>
-              {{
-                default: () => `${$t('page.manage.task.once')}?`,
-                trigger: () => (
-                  <NButton disabled={!hasAuth('system:task:once')} type="primary" ghost size="small">
-                    {$t('page.manage.task.once')}
-                  </NButton>
-                )
-              }}
-            </NPopconfirm>
-            {row.status ? (
-              <NPopconfirm onPositiveClick={() => handleStop(row.id)}>
-                {{
-                  default: () => `${$t('page.manage.task.stop')}?`,
-                  trigger: () => (
-                    <NButton disabled={!hasAuth('system:task:stop')} type="error" ghost size="small">
-                      {$t('page.manage.task.stop')}
-                    </NButton>
-                  )
-                }}
-              </NPopconfirm>
-            ) : (
-              ''
-            )}
-            <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
-              {{
-                default: () => $t('common.confirmDelete'),
-                trigger: () => (
-                  <NButton disabled={!hasAuth('system:task:delete')} type="error" ghost size="small">
-                    {$t('common.delete')}
-                  </NButton>
-                )
-              }}
-            </NPopconfirm>
-          </div>
-        )
+const {
+  columns,
+  columnChecks,
+  data,
+  loading,
+  pagination,
+  getDataByPage,
+  getData,
+  searchParams,
+  resetSearchParams,
+  scrollX
+} = useTable({
+  apiFn: fetchGetTaskList,
+  showTotal: true,
+  apiParams: {
+    currentPage: 1,
+    pageSize: 10,
+    name: '',
+    status: null,
+    service: ''
+  },
+  columns: () => [
+    {
+      fixed: 'left',
+      key: 'name',
+      title: $t('page.manage.task.name'),
+      align: 'left',
+      width: 120,
+      render: row => {
+        return (
+          <span class={'detail-link'} onClick={() => detail(row.id)}>
+            {row.name}
+          </span>
+        );
       }
-    ]
-  });
+    },
+    {
+      key: 'status',
+      title: $t('common.status'),
+      align: 'center',
+      width: 80,
+      render: row => {
+        if (row.status === null) {
+          return null;
+        }
+
+        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
+          1: 'success',
+          0: 'error'
+        };
+
+        const label = $t(enableStatusRecord[row.status]);
+
+        return <NTag type={tagMap[row.status]}>{label}</NTag>;
+      }
+    },
+    {
+      key: 'type',
+      title: $t('page.manage.task.taskType'),
+      align: 'center',
+      width: 80,
+      render: row => {
+        const taskMap: Record<Api.SystemManage.TaskType, NaiveUI.ThemeColor> = {
+          0: 'success',
+          1: 'primary'
+        };
+
+        const label = $t(TaskTypeRecord[row.type]);
+
+        return <NTag type={taskMap[row.type]}>{label}</NTag>;
+      }
+    },
+    {
+      key: 'service',
+      title: $t('page.manage.task.service'), // $t('page.manage.task.task'),
+      width: 200,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
+      key: 'data',
+      title: $t('page.manage.task.params'),
+      width: 260,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
+      key: 'remark',
+      title: $t('page.manage.common.remark'),
+      width: 240,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
+      key: 'operate',
+      title: $t('common.operate'),
+      align: 'center',
+      width: 260,
+      render: row => (
+        <div class="flex justify-items-start gap-8px">
+          <NButton
+            disabled={!hasAuth('system:task:update')}
+            type="primary"
+            ghost
+            size="small"
+            onClick={() => edit(row.id)}
+          >
+            {$t('common.edit')}
+          </NButton>
+
+          {!row.status ? (
+            <NPopconfirm onPositiveClick={() => handleStart(row.id)}>
+              {{
+                default: () => `${$t('page.manage.task.start')}?`,
+                trigger: () => (
+                  <NButton disabled={!hasAuth('system:task:start')} type="primary" ghost size="small">
+                    {$t('page.manage.task.start')}
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
+          ) : (
+            ''
+          )}
+          <NPopconfirm onPositiveClick={() => handleOnce(row.id)}>
+            {{
+              default: () => `${$t('page.manage.task.once')}?`,
+              trigger: () => (
+                <NButton disabled={!hasAuth('system:task:once')} type="primary" ghost size="small">
+                  {$t('page.manage.task.once')}
+                </NButton>
+              )
+            }}
+          </NPopconfirm>
+          {row.status ? (
+            <NPopconfirm onPositiveClick={() => handleStop(row.id)}>
+              {{
+                default: () => `${$t('page.manage.task.stop')}?`,
+                trigger: () => (
+                  <NButton disabled={!hasAuth('system:task:stop')} type="error" ghost size="small">
+                    {$t('page.manage.task.stop')}
+                  </NButton>
+                )
+              }}
+            </NPopconfirm>
+          ) : (
+            ''
+          )}
+          <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
+            {{
+              default: () => $t('common.confirmDelete'),
+              trigger: () => (
+                <NButton disabled={!hasAuth('system:task:delete')} type="error" ghost size="small">
+                  {$t('common.delete')}
+                </NButton>
+              )
+            }}
+          </NPopconfirm>
+        </div>
+      )
+    }
+  ]
+});
 
 const detailColumns = useDetailDescriptions<Api.SystemManage.Task>(() => [
   {
@@ -379,7 +389,7 @@ async function handleStop(id: number) {
           flex-height
           :loading="loading"
           :pagination="pagination"
-          :scroll-x="1280"
+          :scroll-x="scrollX"
           remote
           :row-key="row => row.id"
           class="min-h-300px flex-1"
