@@ -29,7 +29,7 @@ onMounted(() => {
 <template>
   <NCard :title="$t('page.home.notice')" :bordered="false" size="small" segmented class="card-wrapper">
     <NList>
-      <NListItem v-for="(item, index) in noticeList" :key="item.id">
+      <NListItem v-for="item in noticeList" :key="item.id">
         <NThing>
           <template #header>
             <span class="detail-link">{{ item.name }}</span>
@@ -38,7 +38,7 @@ onMounted(() => {
             </NTag>
           </template>
           {{ dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
-          <TinymcePreview :class="index < noticeList.length - 1 ? '' : 'min-h-55vh'" :content="item.content" />
+          <TinymcePreview :content="item.content" />
         </NThing>
       </NListItem>
     </NList>
