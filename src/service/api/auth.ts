@@ -48,15 +48,24 @@ export function fetchLogin(data: Api.Auth.LoginDto) {
 }
 
 /**
- * Login
+ * CodeLogin
  *
- * @param username User name
- * @param password Password
+ * @param email email
+ * @param code code
  */
-export function fetchSuperLogin(data: Api.Auth.LoginDto) {
+export function fetchCodeLogin(data: Api.Auth.CodeLoginDto) {
   return request<Api.Auth.LoginToken>({
-    url: '/auth/super/login',
+    url: '/auth/codeLogin',
     method: 'post',
+    data
+  });
+}
+
+/** reset password */
+export function fetchUpdatePasswordByCode(data: Api.Auth.ResetPassword) {
+  return request<Api.Auth.ResetPassword>({
+    url: '/auth/account/updatePasswordByCode',
+    method: 'put',
     data
   });
 }
