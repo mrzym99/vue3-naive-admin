@@ -268,7 +268,8 @@ const local: App.I18n.Schema = {
         validateSuccess: '验证成功',
         registerSuccess: '注册成功，快去登录吧',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{username} ！'
+        welcomeBack: '欢迎回来，{username} ！',
+        updatePasswordSuccess: '修改密码成功，快去登录吧'
       },
       pwdLogin: {
         title: '密码登录',

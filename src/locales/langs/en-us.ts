@@ -268,7 +268,8 @@ const local: App.I18n.Schema = {
         validateSuccess: 'Verification passed',
         registerSuccess: 'Registration successful，Starting to log in',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {username} !'
+        welcomeBack: 'Welcome back, {username} !',
+        updatePasswordSuccess: 'Password changed successfully, please login quickly'
       },
       pwdLogin: {
         title: 'Password Login',

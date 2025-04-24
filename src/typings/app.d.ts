@@ -447,6 +447,7 @@ declare namespace App {
             registerSuccess: string;
             loginSuccess: string;
             welcomeBack: string;
+            updatePasswordSuccess: string;
           };
           pwdLogin: {
             title: string;
