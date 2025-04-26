@@ -26,7 +26,8 @@ export const iconifyIconList: string[] = [
   'ic:outline-reduce-capacity',
   'ic:outline-other-houses',
   'ic:outline-cached',
-  'ic:outline-notifications'
+  'ic:outline-notifications',
+  'fa-brands:alipay'
 ];
 
 export const localIconList: string[] = ['custom-icon', 'activity', 'at-sign', 'cast', 'chrome', 'copy', 'wind'];

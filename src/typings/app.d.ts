@@ -771,6 +771,19 @@ declare namespace App {
             importWarningTip: string;
             importDangerTip: string;
           };
+          pay: {
+            purchase: string;
+            confirmPurchase: string;
+            paySuccess: string;
+            payFail: string;
+            payEnvironmentTip: string;
+            username: string;
+            password: string;
+            payPassword: string;
+            goodDesc1: string;
+            goodDesc2: string;
+            goodDesc3: string;
+          };
         };
         userCenter: {
           details: string;

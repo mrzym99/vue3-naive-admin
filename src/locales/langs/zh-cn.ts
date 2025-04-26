@@ -212,6 +212,7 @@ const local: App.I18n.Schema = {
     tools_storage_oss: 'Oss存储',
     tools_mail: '发送邮件',
     tools_sql: '数据库管理',
+    tools_pay: '支付宝沙箱',
     exception: '异常页',
     exception_403: '403',
     exception_404: '404',
@@ -559,6 +560,19 @@ const local: App.I18n.Schema = {
         exportTip: '当你在服务器上不方便导出项目的SQL文件时，可以使用此方式导出SQL文件',
         importWarningTip: '当你在服务器上不方便导入SQL文件时，可以使用此方式导入SQL文件',
         importDangerTip: '导入表或结构你必须清楚你在做什么，此种方式比较暴力，更推荐使用 Migration'
+      },
+      pay: {
+        purchase: '购买',
+        confirmPurchase: '确认购买 {name} 吗?',
+        paySuccess: '订单支付成功',
+        payFail: '订单未支付',
+        payEnvironmentTip: '注意：这是支付宝沙箱环境，不是真实的付款环境，请用下面的账号密码进行付款。',
+        username: '账户',
+        password: '密码',
+        payPassword: '支付密码',
+        goodDesc1: '悉心设计，动心更称心。',
+        goodDesc2: '灵动自如 势动心魄。',
+        goodDesc3: '快意 驰骋。'
       }
     },
     userCenter: {

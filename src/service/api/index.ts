@@ -23,3 +23,4 @@ export * from './system/monitor/cache';
 export * from './tool/storage-local';
 export * from './tool/storage-oss';
 export * from './tool/mail';
+export * from './tool/pay';
