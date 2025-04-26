@@ -40,6 +40,11 @@ export default defineConfig(configEnv => {
     preview: {
       port: 9725
     },
+    optimizeDeps: {
+      include: [
+        '@admin-pkg/vite-plugin-tinymce-resource' // 排除tinymce插件
+      ]
+    },
     build: {
       minify: 'terser',
       reportCompressedSize: false,
