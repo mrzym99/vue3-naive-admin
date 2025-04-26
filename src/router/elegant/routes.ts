@@ -526,6 +526,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'tools_pay',
+        path: '/tools/pay',
+        component: 'view.tools_pay',
+        meta: {
+          title: 'tools_pay',
+          i18nKey: 'route.tools_pay'
+        }
+      },
+      {
         name: 'tools_sql',
         path: '/tools/sql',
         component: 'view.tools_sql',

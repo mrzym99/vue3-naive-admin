@@ -83,6 +83,7 @@ declare module "@elegant-router/types" {
     "system_user": "/system/user";
     "tools": "/tools";
     "tools_mail": "/tools/mail";
+    "tools_pay": "/tools/pay";
     "tools_sql": "/tools/sql";
     "tools_storage": "/tools/storage";
     "tools_storage_local": "/tools/storage/local";
@@ -206,6 +207,7 @@ declare module "@elegant-router/types" {
     | "system_schedule_task"
     | "system_user"
     | "tools_mail"
+    | "tools_pay"
     | "tools_sql"
     | "tools_storage_local"
     | "tools_storage_oss"

@@ -607,5 +607,14 @@ declare namespace Api {
       /** content */
       content: string;
     };
+
+    type PayOrder = {
+      /** subject */
+      orderId: number;
+      /** to */
+      price: number;
+      /** content */
+      desc: string;
+    };
   }
 }

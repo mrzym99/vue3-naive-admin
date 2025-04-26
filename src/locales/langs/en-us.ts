@@ -223,6 +223,7 @@ const local: App.I18n.Schema = {
     tools_storage_oss: 'Oss Storage',
     tools_mail: 'Send Email',
     tools_sql: 'Database Manage',
+    tools_pay: 'AlliPay Sandbox',
     exception: 'Exception',
     exception_403: '403',
     exception_404: '404',
@@ -596,6 +597,19 @@ const local: App.I18n.Schema = {
           'When it is inconvenient for you to import SQL files on the server, you can use this method to import SQL files',
         importDangerTip:
           'You must be clear about what you are doing when importing tables or structures. This method is more aggressive and it is recommended to use Migration'
+      },
+      pay: {
+        purchase: 'Purchase',
+        confirmPurchase: 'Are you sure to purchase {name} ?',
+        paySuccess: 'Order payment successful',
+        payFail: 'Order unpaid',
+        payEnvironmentTip: `Note: This is a sandbox environment of Alipay, not a real payment environment, but a simulation of a user's real payment process`,
+        username: 'Username',
+        password: 'Password',
+        payPassword: 'Pay Password',
+        goodDesc1: 'Carefully designed, more satisfying to the heart.',
+        goodDesc2: 'Be agile and move your heart with ease.',
+        goodDesc3: 'Fast and unrestrained.'
       }
     },
     userCenter: {
