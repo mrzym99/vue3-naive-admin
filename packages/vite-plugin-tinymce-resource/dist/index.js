@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { cp, readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
@@ -40,9 +41,9 @@ export default (options) => {
                 .forEach(async (dir) => {
                 const sourceDir = resolve(tinymceDir, dir);
                 const destinationDir = resolve(outDir, `./${baseUrl}`, dir);
-                // console.log(sourceDir);
-                // console.log(destinationDir);
                 try {
+                    if (await existsSync(destinationDir))
+                        return;
                     await cp(sourceDir, destinationDir, { recursive: true, force: true });
                 }
                 catch (error) {

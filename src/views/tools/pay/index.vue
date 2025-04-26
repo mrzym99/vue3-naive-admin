@@ -8,7 +8,6 @@ type Goods = {
   id: number;
   name: string;
   price: number;
-  formatePrice: string;
   img: string;
   desc: () => string;
 };
@@ -20,7 +19,6 @@ const goodList: Goods[] = [
     id: 1,
     name: 'iPhone 16 Pro Max',
     price: 9999,
-    formatePrice: '9,999',
     img: 'https://nest-image.mrzym.top/goods/iphone.png',
     desc: () => $t('page.tools.pay.goodDesc1')
   },
@@ -28,7 +26,6 @@ const goodList: Goods[] = [
     id: 2,
     name: 'BMW 425',
     price: 386900,
-    formatePrice: '386,900',
     img: 'https://nest-image.mrzym.top/goods/bmw425.png',
     desc: () => $t('page.tools.pay.goodDesc2')
   },
@@ -36,7 +33,6 @@ const goodList: Goods[] = [
     id: 3,
     name: '911 Carrera',
     price: 1554600,
-    formatePrice: '1,554,600',
     img: 'https://nest-image.mrzym.top/goods/911.png',
     desc: () => $t('page.tools.pay.goodDesc3')
   }
@@ -100,7 +96,7 @@ onBeforeUnmount(() => {
   <div class="min-h-500px flex-col-stretch gap-16px overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
       <NAlert class="mb-16px">
-        <NMarquee>{{ $t('page.tools.pay.payEnvironmentTip') }}</NMarquee>
+        <div>{{ $t('page.tools.pay.payEnvironmentTip') }}</div>
         <div>{{ $t('page.tools.pay.username') }}: blmhyl2624@sandbox.com</div>
         <div>
           <span>{{ $t('page.tools.pay.password') }}: 111111</span>
@@ -115,7 +111,12 @@ onBeforeUnmount(() => {
               <img class="aspect-[16/9] w-full" :src="item.img" alt="" />
               <div class="py-16px">
                 <h3 class="text-center text-xl font-bold leading-loose">{{ item.name }}</h3>
-                <div class="text-center text-xl leading-loose">{{ item.formatePrice }} RMB</div>
+                <div class="text-center">
+                  <NStatistic tabular-nums>
+                    <NNumberAnimation show-separator :from="0" :to="item.price" />
+                    <template #suffix>RMB</template>
+                  </NStatistic>
+                </div>
                 <div class="text-md text-center leading-loose">{{ item.desc() }}</div>
                 <NSpace class="mt-16px" justify="center">
                   <NButton round type="primary" @click="handlePay(item)">{{ $t('page.tools.pay.purchase') }}</NButton>
