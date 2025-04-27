@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchCodeLogin, fetchGetUserInfo, fetchGetUserPermissions, fetchLogin } from '@/service/api';
+import { fetchCodeLogin, fetchGetUserInfo, fetchGetUserPermissions, fetchLogin, fetchThirdLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
@@ -89,17 +89,36 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     endLoading();
   }
 
-  /**
-   * Login
-   *
-   * @param username User name
-   * @param password Password
-   * @param [redirect=true] Whether to redirect after login. Default is `true`
-   */
+  /** Code Login */
   async function codeLogin(loginDto: Api.Auth.CodeLoginDto, redirect = true) {
     startLoading();
 
     const { data: loginToken, error } = await fetchCodeLogin(loginDto);
+    if (!error) {
+      const pass = await loginByToken(loginToken);
+
+      if (pass) {
+        await redirectFromLogin(redirect);
+
+        window.$notification?.success({
+          title: $t('page.login.common.loginSuccess'),
+          content: $t('page.login.common.welcomeBack', { username: userInfo.nickName }),
+          duration: 4500
+        });
+        sseStore.initServerMsgListener();
+      }
+    } else {
+      resetStore();
+    }
+
+    endLoading();
+  }
+
+  /** Third Login */
+  async function thirdLogin(loginDto: Api.Auth.ThirdLoginDto, redirect = true) {
+    startLoading();
+
+    const { data: loginToken, error } = await fetchThirdLogin(loginDto);
     if (!error) {
       const pass = await loginByToken(loginToken);
 
@@ -175,6 +194,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     resetStore,
     login,
     codeLogin,
+    thirdLogin,
     initUserInfo
   };
 });

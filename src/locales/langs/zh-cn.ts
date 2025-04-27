@@ -301,6 +301,10 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: '绑定微信'
+      },
+      githubLogin: {
+        title: 'Github',
+        loading: '登录中......'
       }
     },
     about: {

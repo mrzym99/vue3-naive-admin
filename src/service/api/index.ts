@@ -1,4 +1,5 @@
 export * from './auth';
+export * from './third-login';
 export * from './route';
 export * from './account';
 export * from './upload';

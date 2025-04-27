@@ -75,11 +75,6 @@ const rules = reactive({
   ],
   email: [
     {
-      required: true,
-      message: `${$t('page.manage.user.email')}${getLocale.value === 'zh-CN' ? '必填' : ' is Required'}`,
-      trigger: 'blur'
-    },
-    {
       pattern: REG_EMAIL,
       message: $t('page.tools.mail.pleaseEnterCorrectEmail'),
       trigger: 'blur'
@@ -210,7 +205,6 @@ onMounted(async () => {
         <NFormItemGi span="24 m:12" :label="$t('page.manage.user.email')" path="email">
           <NInput
             v-model:value="model.email"
-            disabled
             clearable
             :placeholder="$t('common.pleaseEnter') + $t('page.manage.user.email')"
           />

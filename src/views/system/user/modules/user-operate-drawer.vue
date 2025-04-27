@@ -144,7 +144,6 @@ const userConfigForm = useConfigForm<Model>(() => ({
     key: 'email',
     label: $t('page.manage.user.email'),
     type: 'Input',
-    required: true,
     props: {
       placeholder: $t('common.pleaseEnter') + $t('page.manage.user.email')
     },

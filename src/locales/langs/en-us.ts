@@ -301,6 +301,10 @@ const local: App.I18n.Schema = {
       },
       bindWeChat: {
         title: 'Bind WeChat'
+      },
+      githubLogin: {
+        title: 'Github',
+        loading: 'Logging in......'
       }
     },
     about: {
