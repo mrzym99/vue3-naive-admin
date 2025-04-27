@@ -78,6 +78,28 @@ declare namespace Api {
       code: string;
     }
 
+    interface ThirdCodeDto {
+      type: string;
+      code: string;
+    }
+
+    interface ThirdLoginDto {
+      type: string;
+      token_type: string;
+      access_token: string;
+      password?: string;
+      from: string;
+      uniqueId: string;
+      avatar: string;
+      address: string;
+      nickName: string;
+    }
+
+    interface ThirdTokenModel {
+      token_type: string;
+      access_token: string;
+    }
+
     interface ResetPassword {
       email: string;
       password: string;

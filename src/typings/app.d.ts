@@ -479,6 +479,10 @@ declare namespace App {
           bindWeChat: {
             title: string;
           };
+          githubLogin: {
+            title: string;
+            loading: string;
+          };
         };
         about: {
           title: string;

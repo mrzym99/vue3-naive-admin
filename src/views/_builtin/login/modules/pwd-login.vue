@@ -5,7 +5,7 @@ import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
-import { fetchGetCaptchaImg, fetchParameterByKey } from '@/service/api';
+import { fetchGetCaptchaImg, fetchGetLoginRedirectUrl, fetchParameterByKey } from '@/service/api';
 
 defineOptions({
   name: 'PwdLogin'
@@ -114,6 +114,13 @@ async function getShowCaptcha() {
   }
 }
 
+const thirdLogin = async (type: string) => {
+  const { error, data } = await fetchGetLoginRedirectUrl(type);
+  if (!error) {
+    window.location.href = data;
+  }
+};
+
 onMounted(() => {
   getShowCaptcha();
 });
@@ -164,6 +171,9 @@ onMounted(() => {
         {{ $t('common.confirm') }}
       </NButton>
       <div class="flex-y-center justify-between gap-12px">
+        <NButton class="flex-1" block @click="thirdLogin('github')">
+          {{ $t(loginModuleRecord['github-login']) }}
+        </NButton>
         <NButton class="flex-1" block @click="toggleLoginModule('code-login')">
           {{ $t(loginModuleRecord['code-login']) }}
         </NButton>
