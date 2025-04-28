@@ -157,23 +157,18 @@ onMounted(async () => {
 <template>
   <NForm
     ref="formRef"
-    class="p-10px"
     :model="model"
     :rules="rules"
     v-bind="$attrs"
     label-placement="left"
     :label-width="computedLabelWidth"
     require-mark-placement="right"
+    size="small"
   >
     <NSpin :delay="0" :show="getDataLoading">
       <NGrid responsive="screen" item-responsive>
-        <NFormItemGi :span="24" :label="$t('page.manage.user.avatar')" path="avatar">
-          <div class="w-full flex justify-between">
-            <FileUpload v-model:value="model.avatar" :max="1" :cropper="true" list-type="image-card" />
-            <NButton type="primary" :loading="loading" @click="handleConfirm">
-              {{ $t('common.modify') }}
-            </NButton>
-          </div>
+        <NFormItemGi span="24 m:12" :label="$t('page.manage.user.avatar')" path="avatar">
+          <FileUpload v-model:value="model.avatar" :max="1" :cropper="true" list-type="image-card" />
         </NFormItemGi>
         <NFormItemGi span="24 m:12" :label="$t('page.manage.user.username')" path="username">
           <NInput
@@ -249,7 +244,7 @@ onMounted(async () => {
         </NFormItemGi>
       </NGrid>
       <NSpace justify="end">
-        <NButton type="primary" :loading="loading" @click="handleSubmit">
+        <NButton type="primary" :loading="loading" @click="handleConfirm">
           {{ $t('common.modify') }}
         </NButton>
       </NSpace>
