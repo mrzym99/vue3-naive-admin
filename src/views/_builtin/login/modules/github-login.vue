@@ -103,7 +103,6 @@ async function handleSubmit() {
 }
 
 onMounted(() => {
-  return;
   getCode();
   thirdLogin();
 });
