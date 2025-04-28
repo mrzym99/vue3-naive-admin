@@ -50,7 +50,7 @@
 ## 文档
 
 - [SoybeanAdmin 地址](https://docs.soybeanjs.cn)
-- [Vue3NaiveAdmin 地址 暂时没有 等我慢慢写]()
+- [Vue3NaiveAdmin](https://docs.mrzym.top)
 
 
 ## 合作事项
@@ -68,21 +68,50 @@
 
 ## 示例图片
 
-![](https://nest-image.mrzym.top/login.png)
-![](https://nest-image.mrzym.top/register.png)
-![](https://nest-image.mrzym.top/home.png)
-![](https://nest-image.mrzym.top/dark-home.png)
-![](https://nest-image.mrzym.top/config.png)
-![](https://nest-image.mrzym.top/user.png)
-![](https://nest-image.mrzym.top/menu.png)
-![](https://nest-image.mrzym.top/task.png)
-![](https://nest-image.mrzym.top/log.png)
-![](https://nest-image.mrzym.top/service.png)
+登录页
+![](https://nest-image.mrzym.top/images/login.png)
+验证码登录
+![](https://nest-image.mrzym.top/images/code-login.png)
+GitHub登录
+![](https://nest-image.mrzym.top/images/github-login.png)
+注册页
+![](https://nest-image.mrzym.top/images/register.png)
+![](https://nest-image.mrzym.top/images/home.png)
+![](https://nest-image.mrzym.top/images/dept.png)
+![](https://nest-image.mrzym.top/images/role.png)
+![](https://nest-image.mrzym.top/images/role-edit.png)
+![](https://nest-image.mrzym.top/images/menu.png)
+![](https://nest-image.mrzym.top/images/menu-edit.png)
+![](https://nest-image.mrzym.top/images/task.png)
+![](https://nest-image.mrzym.top/images/task-edit.png)
+![](https://nest-image.mrzym.top/images/log.png)
+![](https://nest-image.mrzym.top/images/service-monitor.png)
+![](https://nest-image.mrzym.top/images/redis.png)
+![](https://nest-image.mrzym.top/images/alipay.png)
+![](https://nest-image.mrzym.top/images/parameter.png)
+![](https://nest-image.mrzym.top/images/dict.png)
+![](https://nest-image.mrzym.top/images/notice.png)
+![](https://nest-image.mrzym.top/images/notice-edit.png)
+![](https://nest-image.mrzym.top/images/user.png)
+![](https://nest-image.mrzym.top/images/user-edit.png)
+![](https://nest-image.mrzym.top/images/user-center.png)
+
+黑夜模式
+![](https://nest-image.mrzym.top/images/dark-home.png)
+![](https://nest-image.mrzym.top/images/dark-menu.png)
+
+国际化
+![](https://nest-image.mrzym.top/images/en-menu.png)
 
 适配移动端
 
-![](https://nest-image.mrzym.top/home-mobile.png)
-![](https://nest-image.mrzym.top/menu-mobile.png)
+![](https://nest-image.mrzym.top/images/home-mobile.png)
+![](https://nest-image.mrzym.top/images/menu-mobile.png)
+![](https://nest-image.mrzym.top/images/user-center-mobile.png)
+
+项目文档
+
+![](https://nest-image.mrzym.top/images/document.png)
 
 
 ## 使用
@@ -155,22 +184,27 @@ docker-compose.yml 对应开发环境 dev，docker-compose.prod.yml对应生产�
 
 1、构建项目
 ```
-docker-compose build
+pnpm run docker:build:dev # 开发环境构建
+
+pnpm run docker:build:prod # 生产环境构建
 ```
 
 2、运行项目
 ```
-docker-compose up -d // (使用 -f [filename] 参数可以指定不同的 compose 文件 -d 表示后台运行，适用于服务器上构建后运行项目，退出终端容器不会停止运行)
+pnpm run docker:up:dev # 开发环境运行
+
+pnpm run docker:up:prod # 生产环境运行
 ```
 
 3、停止和移除
 ```
-docker-compose down 来停止和删除容器(删除容器数据请使用 -v 参数)。
+pnpm run docker:down # 停止和移除
+
+pnpm run docker:down:v # 停止和移除容器，并且移除数据卷 慎用
 ```
 [docker compose 命令大全](https://www.cnblogs.com/xyh9039/p/18540766)
 
 如果遇到构建失败的情况，可能是因为您的Docker 环境存在问题。可以切换自己的Docker源地址，这里推荐 [阿里云镜像加速](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
-
 
 
 ## 如何贡献
@@ -204,12 +238,12 @@ docker-compose down 来停止和删除容器(删除容器数据请使用 -v 参�
 
   <div>
     <p>QQ交流群</p>
-    <img src="https://nest-image.mrzym.top/qrcode.jpg"  height="300" width="200" />
+    <img src="https://nest-image.mrzym.top/images/qrcode.jpg"  height="300" width="200" />
   </div>
 
-<!-- ## Star 趋势
+## Star 趋势
 
-[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date) -->
+[![Star History Chart](https://api.star-history.com/svg?repos=mrzym99/vue3-naive-admin&type=Date)](https://star-history.com/#mrzym99/vue3-naive-admin&Date)
 
 ## 开源协议
 
