@@ -304,7 +304,7 @@ const local: App.I18n.Schema = {
       },
       githubLogin: {
         title: 'Github',
-        loading: 'Logging in......',
+        loading: 'Please wait while logging in',
         registerFirst: 'Please register first'
       }
     },

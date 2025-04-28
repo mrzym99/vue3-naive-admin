@@ -17,25 +17,27 @@
 }
 
 /* 定义更生动的游泳动画 */
-@keyframes swim {
-  0% {
-    transform: translateX(0) translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateX(10px) translateY(-5px) rotate(5deg);
-  }
+@keyframes fly {
   50% {
-    transform: translateX(0) translateY(0) rotate(0deg);
-  }
-  75% {
-    transform: translateX(-10px) translateY(-5px) rotate(-5deg);
-  }
-  100% {
-    transform: translateX(0) translateY(0) rotate(0deg);
+    transform: translateY(-10px) rotate(10deg);
   }
 }
 
 /* 应用动画到图片 */
-.swim {
-  animation: swim 3s infinite ease-in-out;
+.fly {
+  animation: fly 2s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.fade-in-out {
+  animation: fadeInOut 2s infinite ease-in-out;
 }

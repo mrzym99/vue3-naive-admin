@@ -103,6 +103,7 @@ async function handleSubmit() {
 }
 
 onMounted(() => {
+  return;
   getCode();
   thirdLogin();
 });
@@ -111,8 +112,8 @@ onMounted(() => {
 <template>
   <div>
     <div v-if="!needRegister" class="my-5 flex flex-col items-center justify-center">
-      <img class="swim size-108px" src="/favicon.svg" />
-      <div class="mt-5 text-lg text-primary">{{ $t('page.login.githubLogin.loading') }}</div>
+      <img class="fly size-48px" src="/favicon.svg" />
+      <div class="fade-in-out mt-2 text-lg text-primary">{{ $t('page.login.githubLogin.loading') }}</div>
     </div>
     <div v-else>
       <NSpace justify="space-between" align="center">
