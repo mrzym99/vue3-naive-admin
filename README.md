@@ -238,7 +238,7 @@ pnpm run docker:down:v # 停止和移除容器，并且移除数据卷 慎用
 
   <div>
     <p>QQ交流群</p>
-    <img src="https://nest-image.mrzym.top/images/qrcode.jpg"  height="300" width="200" />
+    <img src="https://nest-image.mrzym.top/qrcode.png"  height="300" width="200" />
   </div>
 
 ## Star 趋势

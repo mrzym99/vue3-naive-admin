@@ -237,7 +237,7 @@ Thank you to the following contributors. If you would like to contribute to this
 
   <div>
     <p>QQ Group</p>
-    <img src="https://nest-image.mrzym.top/images/qrcode.jpg" height="300" width="200" />
+    <img src="https://nest-image.mrzym.top/qrcode.png" height="300" width="200" />
   </div>
 
 ## Star Trend
