@@ -25,15 +25,6 @@ export function fetchUpdateUser(id: number, data: Partial<Api.SystemManage.User>
   });
 }
 
-// 这个不可以修改部门、角色 用于用户修改
-export function fetchUpdateUserProfile(id: number, data: Api.SystemManage.Profile) {
-  return request({
-    url: `/system/user/updateProfile/${id}`,
-    method: 'put',
-    data
-  });
-}
-
 export function fetchUpdatedUserStatus(data: Api.SystemManage.StatusDto) {
   return request({
     url: `/system/user/updateStatus`,

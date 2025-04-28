@@ -20,7 +20,7 @@ const infoChange = () => {
         </NCard>
       </NGridItem>
       <NGridItem>
-        <NCard class="relative h-full w-full overflow-hidden">
+        <NCard class="h-full w-full overflow-hidden">
           <NTabs v-model:value="tab" class="mb-5" type="line" animated>
             <NTab class="h-full" name="editInfo" :tab="$t('page.userCenter.editInfo')"></NTab>
             <NTab name="editPwn" :tab="$t('page.userCenter.editPwd')"></NTab>

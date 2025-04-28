@@ -168,7 +168,7 @@ defineExpose({
     label-placement="left"
     :column="appStore.isMobile ? 1 : 2"
     :bordered="true"
-    :content-style="{ padding: '16px' }"
+    :content-style="{ padding: '8px' }"
   >
     <NDescriptionsItem
       v-for="item in descriptionItems"
