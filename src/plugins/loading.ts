@@ -11,8 +11,8 @@ export function setupLoading() {
 
   const loading = `
     <div class="fixed-center flex-col bg-white" style="${primaryColor}">
-      <img class="size-72px swim" src="/favicon.svg" />
-      <h2 class="text-24px font-500 text-[rgb(var(--primary-color))]">${$t('system.title')}</h2>
+      <img class="size-72px fly" src="/favicon.svg" />
+      <h2 class="fade-in-out text-24px font-500 text-[rgb(var(--primary-color))]">${$t('system.title')}</h2>
     </div>`;
 
   const app = document.getElementById('app');
