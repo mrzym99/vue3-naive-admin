@@ -271,7 +271,8 @@ const local: App.I18n.Schema = {
       },
       githubLogin: {
         title: 'Github',
-        loading: '登录中......'
+        loading: '登录中......',
+        registerFirst: '请先注册'
       }
     },
     about: {

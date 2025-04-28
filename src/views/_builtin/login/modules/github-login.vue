@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { Icon } from '@iconify/vue';
 import { fetchCheckHasRegister, fetchGetTokenTypeAndToken } from '@/service/api';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
@@ -73,6 +74,8 @@ const thirdLogin = async () => {
     const { token_type, access_token } = data;
     model.token_type = token_type;
     model.access_token = access_token;
+  } else {
+    toggleLoginModule('pwd-login');
   }
   const { error: checkError, data: userData } = await fetchCheckHasRegister(model);
 
@@ -89,6 +92,8 @@ const thirdLogin = async () => {
       model.nickName = githubUserInfo.name;
       needRegister.value = true;
     }
+  } else {
+    toggleLoginModule('pwd-login');
   }
 };
 
@@ -109,43 +114,51 @@ onMounted(() => {
       <img class="swim size-108px" src="/favicon.svg" />
       <div class="mt-5 text-lg text-primary">{{ $t('page.login.githubLogin.loading') }}</div>
     </div>
-    <NForm
-      v-else
-      ref="formRef"
-      :model="model"
-      :rules="rules"
-      size="large"
-      :show-label="false"
-      @keyup.enter="handleSubmit"
-    >
-      <NFormItem path="username">
-        <NInput v-model:value="model.username" :placeholder="$t('page.login.common.usernamePlaceholder')" />
-      </NFormItem>
-      <NFormItem path="password">
-        <NInput
-          v-model:value="model.password"
-          type="password"
-          show-password-on="click"
-          :placeholder="$t('page.login.common.passwordPlaceholder')"
-        />
-      </NFormItem>
-      <NFormItem path="confirmPassword">
-        <NInput
-          v-model:value="model.confirmPassword"
-          type="password"
-          show-password-on="click"
-          :placeholder="$t('page.login.common.confirmPasswordPlaceholder')"
-        />
-      </NFormItem>
-      <NSpace vertical :size="18" class="w-full">
-        <NButton :loading="authStore.loginLoading" type="primary" size="large" round block @click="handleSubmit">
-          {{ $t('common.confirm') }}
-        </NButton>
-        <NButton size="large" round block @click="toggleLoginModule('pwd-login')">
-          {{ $t('page.login.common.back') }}
-        </NButton>
+    <div v-else>
+      <NSpace justify="space-between" align="center">
+        <Icon class="size-36px" icon="mdi:github" />
+        <h3 class="text-16px text-primary font-medium">
+          {{ $t('page.login.githubLogin.registerFirst') }}
+        </h3>
       </NSpace>
-    </NForm>
+      <NForm
+        ref="formRef"
+        class="mt-5"
+        :model="model"
+        :rules="rules"
+        size="large"
+        :show-label="false"
+        @keyup.enter="handleSubmit"
+      >
+        <NFormItem path="username">
+          <NInput v-model:value="model.username" :placeholder="$t('page.login.common.usernamePlaceholder')" />
+        </NFormItem>
+        <NFormItem path="password">
+          <NInput
+            v-model:value="model.password"
+            type="password"
+            show-password-on="click"
+            :placeholder="$t('page.login.common.passwordPlaceholder')"
+          />
+        </NFormItem>
+        <NFormItem path="confirmPassword">
+          <NInput
+            v-model:value="model.confirmPassword"
+            type="password"
+            show-password-on="click"
+            :placeholder="$t('page.login.common.confirmPasswordPlaceholder')"
+          />
+        </NFormItem>
+        <NSpace vertical :size="18" class="w-full">
+          <NButton :loading="authStore.loginLoading" type="primary" size="large" round block @click="handleSubmit">
+            {{ $t('common.confirm') }}
+          </NButton>
+          <NButton size="large" round block @click="toggleLoginModule('pwd-login')">
+            {{ $t('page.login.common.back') }}
+          </NButton>
+        </NSpace>
+      </NForm>
+    </div>
   </div>
 </template>
 

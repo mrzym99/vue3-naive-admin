@@ -271,7 +271,8 @@ const local: App.I18n.Schema = {
       },
       githubLogin: {
         title: 'Github',
-        loading: 'Logging in......'
+        loading: 'Logging in......',
+        registerFirst: 'Please register first'
       }
     },
     about: {

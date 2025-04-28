@@ -482,6 +482,7 @@ declare namespace App {
           githubLogin: {
             title: string;
             loading: string;
+            registerFirst: string;
           };
         };
         about: {
