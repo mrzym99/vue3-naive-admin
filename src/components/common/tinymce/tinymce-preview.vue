@@ -25,6 +25,9 @@ const iframeUrl = computed(() => {
               /* 引入 TinyMCE 默认样式 */
               @import '${baseUrl}/skins/ui/oxide/content.css';
               @import '${baseUrl}/skins/content/default/content.css';
+              body {
+                background: #fff;
+              }
             </style>
           </head>
           <body>
