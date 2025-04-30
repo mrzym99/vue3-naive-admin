@@ -149,7 +149,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     await config.onFetched?.(transformed);
 
     endLoading();
-    if (expandAll) toggleExpand();
+    if (expandAll) toggleExpand(true);
   }
 
   function formatSearchParams(params: Record<string, unknown>) {
