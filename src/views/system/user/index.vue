@@ -478,8 +478,6 @@ onMounted(async () => {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard :bordered="false" size="small" class="flex-1 card-wrapper">
-      {{ showModal ? '111' : '2222' }}
-
       <NSplit v-if="!appStore.isMobile" class="h-full" direction="horizontal" :default-size="0.2" :max="0.9" :min="0.1">
         <template #1>
           <DeptTree v-model:value="searchParams.deptIds" @change="change" />
