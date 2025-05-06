@@ -300,7 +300,7 @@ const menuConfigForm = useConfigForm<Model>(() => ({
       return isPermission() || model.value.extOpenMode === 1;
     },
     props: {
-      min: 1,
+      min: 0,
       max: 9999,
       placeholder: $t('common.pleaseEnter') + $t('page.manage.menu.fixedIndexInTab')
     }
